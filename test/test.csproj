@@ -38,6 +38,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolarUtilTest.cs" />
     <Compile Include="VSCodeGenAccessors.cs" />
+    <Compile Include="GanZhiTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

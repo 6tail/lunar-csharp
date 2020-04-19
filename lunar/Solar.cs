@@ -11,6 +11,11 @@ namespace com.nlf.calendar
     public class Solar
     {
         /// <summary>
+        /// 2000年儒略日数(2000-1-1 12:00:00 UTC)
+        /// </summary>
+        public const double J2000 = 2451545;
+
+        /// <summary>
         /// 年
         /// </summary>
         private int year;
@@ -36,6 +41,11 @@ namespace com.nlf.calendar
         private int minute;
 
         /// <summary>
+        /// 秒
+        /// </summary>
+        private int second;
+
+        /// <summary>
         /// 日历
         /// </summary>
         private DateTime calendar;
@@ -55,7 +65,7 @@ namespace com.nlf.calendar
         /// <param name="month">月，1到12</param>
         /// <param name="day">日，1到31</param>
         public Solar(int year, int month, int day)
-            : this(year, month, day, 0, 0)
+            : this(year, month, day, 0, 0, 0)
         {
         }
 
@@ -67,14 +77,15 @@ namespace com.nlf.calendar
         /// <param name="day">日，1到31</param>
         /// <param name="hour">小时，0到23</param>
         /// <param name="minute">分钟，0到59</param>
-        public Solar(int year, int month, int day, int hour, int minute)
+        /// <param name="second">秒钟，0到59</param>
+        public Solar(int year, int month, int day, int hour, int minute,int second)
         {
             this.year = year;
             this.month = month;
             this.day = day;
             this.hour = hour;
             this.minute = minute;
-            this.calendar = new DateTime(year, month, day, hour, minute, 0);
+            this.calendar = new DateTime(year, month, day, hour, minute, second);
         }
 
         /// <summary>
@@ -82,8 +93,68 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="date">日期</param>
         public Solar(DateTime date)
-            : this(date.Year, date.Month, date.Day, date.Hour, date.Minute)
+            : this(date.Year, date.Month, date.Day, date.Hour, date.Minute,date.Second)
         {
+        }
+
+        /// <summary>
+        /// 通过儒略日初始化
+        /// </summary>
+        /// <param name="julianDay">儒略日</param>
+        public Solar(double julianDay)
+        {
+            julianDay += 0.5;
+
+            // 日数的整数部份
+            double a = int2(julianDay);
+            // 日数的小数部分
+            double f = julianDay - a;
+            double D;
+
+            if (a > 2299161)
+            {
+                D = int2((a - 1867216.25) / 36524.25);
+                a += 1 + D - int2(D / 4);
+            }
+            // 向前移4年零2个月
+            a += 1524;
+            double y = int2((a - 122.1) / 365.25);
+            // 去除整年日数后余下日数
+            D = a - int2(365.25 * y);
+            double m = (int)int2(D / 30.6001);
+            // 去除整月日数后余下日数
+            double d = (int)int2(D - int2(m * 30.6001));
+            y -= 4716;
+            m--;
+            if (m > 12)
+            {
+                m -= 12;
+            }
+            if (m <= 2)
+            {
+                y++;
+            }
+
+            // 日的小数转为时分秒
+            f *= 24;
+            double h = (int)int2(f);
+
+            f -= h;
+            f *= 60;
+            double mi = int2(f);
+
+            f -= mi;
+            f *= 60;
+            double s = int2(f);
+
+            calendar = new DateTime((int)y, (int)m, (int)d, (int)h, (int)mi, (int)s);
+
+            year = calendar.Year;
+            month = calendar.Month;
+            day = calendar.Day;
+            hour = calendar.Hour;
+            minute = calendar.Minute;
+            second = calendar.Second;
         }
 
         /// <summary>
@@ -106,10 +177,11 @@ namespace com.nlf.calendar
         /// <param name="day">日，1到31</param>
         /// <param name="hour">小时，0到23</param>
         /// <param name="minute">分钟，0到59</param>
+        /// <param name="second">秒钟，0到59</param>
         /// <returns>阳历</returns>
-        public static Solar fromYmdHm(int year, int month, int day, int hour, int minute)
+        public static Solar fromYmdHms(int year, int month, int day, int hour, int minute,int second)
         {
-            return new Solar(year, month, day, hour, minute);
+            return new Solar(year, month, day, hour, minute,second);
         }
 
         /// <summary>
@@ -120,6 +192,16 @@ namespace com.nlf.calendar
         public static Solar fromDate(DateTime date)
         {
             return new Solar(date);
+        }
+
+        /// <summary>
+        /// 通过指定儒略日获取阳历
+        /// </summary>
+        /// <param name="julianDay">儒略日</param>
+        /// <returns>阳历</returns>
+        public static Solar fromJulianDay(double julianDay)
+        {
+            return new Solar(julianDay);
         }
 
         /// <summary>
@@ -281,6 +363,11 @@ namespace com.nlf.calendar
             return minute;
         }
 
+        public int getSecond()
+        {
+            return second;
+        }
+
         public DateTime getCalendar()
         {
             return calendar;
@@ -291,21 +378,64 @@ namespace com.nlf.calendar
             return new Lunar(calendar);
         }
 
+        private double int2(double v)
+        {
+            v = Math.Floor(v);
+            return v < 0 ? v + 1 : v;
+        }
+
+        /// <summary>
+        /// 获取儒略日
+        /// </summary>
+        /// <returns>儒略日</returns>
+        public double getJulianDay()
+        {
+            double y = this.year;
+            double m = this.month;
+            double n = 0;
+
+            if (m <= 2)
+            {
+                m += 12;
+                y--;
+            }
+
+            // 判断是否为UTC日1582*372+10*31+15
+            if (this.year * 372 + this.month * 31 + this.day >= 588829)
+            {
+                n = int2(y / 100);
+                // 加百年闰
+                n = 2 - n + int2(n / 4);
+            }
+
+            // 加上年引起的偏移日数
+            n += int2(365.2500001 * (y + 4716));
+            // 加上月引起的偏移日数及日偏移数
+            n += int2(30.6 * (m + 1)) + this.day;
+            n += ((this.second * 1D / 60 + this.minute) / 60 + this.hour) / 24 - 1524.5;
+            return n;
+        }
+
+
         public override string ToString()
         {
+            return toYmd();
+        }
+
+        public String toYmd()
+        {
             return year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
+        }
+
+        public String toYmdhms()
+        {
+            return toYmd() + " " + (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second;
         }
 
         public string toFullString()
         {
             StringBuilder s = new StringBuilder();
-            s.Append(ToString());
-            s.Append(" ");
-            s.Append(hour < 10 ? "0" : "");
-            s.Append(hour);
-            s.Append(":");
-            s.Append(minute < 10 ? "0" : "");
-            s.Append(minute);
+            s.Append(toYmdhms());
             if (isLeapYear())
             {
                 s.Append(" ");
@@ -328,7 +458,7 @@ namespace com.nlf.calendar
         /// <returns>阳历日期</returns>
         public Solar next(int days)
         {
-            DateTime c = new DateTime(year, month, day, hour, minute, 0);
+            DateTime c = new DateTime(year, month, day, hour, minute, second);
             c.AddDays(days);
             return new Solar(c);
         }

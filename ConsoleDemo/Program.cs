@@ -9,10 +9,11 @@ namespace ConsoleDemo
     {
         static void Main(string[] args)
         {
-            Solar solar = new Solar();
+            Solar solar = new Solar(2020,1,1);
             Console.WriteLine(solar);
             Console.WriteLine(solar.toFullString());
-            Lunar lunar = new Lunar();
+
+            Lunar lunar = solar.getLunar();
             Console.WriteLine(lunar);
             Console.WriteLine(lunar.toFullString());
 
