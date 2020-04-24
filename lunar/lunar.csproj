@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Holiday.cs" />
     <Compile Include="Lunar.cs" />
     <Compile Include="Solar.cs" />
     <Compile Include="SolarHalfYear.cs" />
@@ -40,6 +41,7 @@
     <Compile Include="SolarSeason.cs" />
     <Compile Include="SolarWeek.cs" />
     <Compile Include="SolarYear.cs" />
+    <Compile Include="util\HolidayUtil.cs" />
     <Compile Include="util\LunarUtil.cs" />
     <Compile Include="util\SolarUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

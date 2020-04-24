@@ -311,4 +311,116 @@ internal class com_nlf_calendar_SolarAccessor : BaseAccessor {
         return ret;
     }
 }
+[System.Diagnostics.DebuggerStepThrough()]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TestTools.UnitTestGeneration", "1.0.0.0")]
+internal class com_nlf_calendar_util_HolidayUtilAccessor : BaseAccessor {
+    
+    protected static Microsoft.VisualStudio.TestTools.UnitTesting.PrivateType m_privateType = new Microsoft.VisualStudio.TestTools.UnitTesting.PrivateType(typeof(global::com.nlf.calendar.util.HolidayUtil));
+    
+    internal com_nlf_calendar_util_HolidayUtilAccessor(global::com.nlf.calendar.util.HolidayUtil target) : 
+            base(target, m_privateType) {
+    }
+    
+    internal static int SIZE {
+        get {
+            int ret = ((int)(m_privateType.GetStaticField("SIZE")));
+            return ret;
+        }
+        set {
+            m_privateType.SetStaticField("SIZE", value);
+        }
+    }
+    
+    internal static char ZERO {
+        get {
+            char ret = ((char)(m_privateType.GetStaticField("ZERO")));
+            return ret;
+        }
+        set {
+            m_privateType.SetStaticField("ZERO", value);
+        }
+    }
+    
+    internal static string[] NAMES {
+        get {
+            string[] ret = ((string[])(m_privateType.GetStaticField("NAMES")));
+            return ret;
+        }
+        set {
+            m_privateType.SetStaticField("NAMES", value);
+        }
+    }
+    
+    internal static string DATA {
+        get {
+            string ret = ((string)(m_privateType.GetStaticField("DATA")));
+            return ret;
+        }
+        set {
+            m_privateType.SetStaticField("DATA", value);
+        }
+    }
+    
+    internal static global::com.nlf.calendar.util.HolidayUtil CreatePrivate() {
+        object[] args = new object[0];
+        Microsoft.VisualStudio.TestTools.UnitTesting.PrivateObject priv_obj = new Microsoft.VisualStudio.TestTools.UnitTesting.PrivateObject(typeof(global::com.nlf.calendar.util.HolidayUtil), new System.Type[0], args);
+        return ((global::com.nlf.calendar.util.HolidayUtil)(priv_obj.Target));
+    }
+    
+    internal static string padding(int n) {
+        object[] args = new object[] {
+                n};
+        string ret = ((string)(m_privateType.InvokeStatic("padding", new System.Type[] {
+                    typeof(int)}, args)));
+        return ret;
+    }
+    
+    internal static global::com.nlf.calendar.Holiday buildHolidayForward(string s) {
+        object[] args = new object[] {
+                s};
+        global::com.nlf.calendar.Holiday ret = ((global::com.nlf.calendar.Holiday)(m_privateType.InvokeStatic("buildHolidayForward", new System.Type[] {
+                    typeof(string)}, args)));
+        return ret;
+    }
+    
+    internal static global::com.nlf.calendar.Holiday buildHolidayBackward(string s) {
+        object[] args = new object[] {
+                s};
+        global::com.nlf.calendar.Holiday ret = ((global::com.nlf.calendar.Holiday)(m_privateType.InvokeStatic("buildHolidayBackward", new System.Type[] {
+                    typeof(string)}, args)));
+        return ret;
+    }
+    
+    internal static string findForward(string key) {
+        object[] args = new object[] {
+                key};
+        string ret = ((string)(m_privateType.InvokeStatic("findForward", new System.Type[] {
+                    typeof(string)}, args)));
+        return ret;
+    }
+    
+    internal static string findBackward(string key) {
+        object[] args = new object[] {
+                key};
+        string ret = ((string)(m_privateType.InvokeStatic("findBackward", new System.Type[] {
+                    typeof(string)}, args)));
+        return ret;
+    }
+    
+    internal static System.Collections.Generic.List<com.nlf.calendar.Holiday> findHolidaysForward(string key) {
+        object[] args = new object[] {
+                key};
+        System.Collections.Generic.List<com.nlf.calendar.Holiday> ret = ((System.Collections.Generic.List<com.nlf.calendar.Holiday>)(m_privateType.InvokeStatic("findHolidaysForward", new System.Type[] {
+                    typeof(string)}, args)));
+        return ret;
+    }
+    
+    internal static System.Collections.Generic.List<com.nlf.calendar.Holiday> findHolidaysBackward(string key) {
+        object[] args = new object[] {
+                key};
+        System.Collections.Generic.List<com.nlf.calendar.Holiday> ret = ((System.Collections.Generic.List<com.nlf.calendar.Holiday>)(m_privateType.InvokeStatic("findHolidaysBackward", new System.Type[] {
+                    typeof(string)}, args)));
+        return ret;
+    }
+}
 }

@@ -422,12 +422,12 @@ namespace com.nlf.calendar
             return toYmd();
         }
 
-        public String toYmd()
+        public string toYmd()
         {
             return year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
         }
 
-        public String toYmdhms()
+        public string toYmdhms()
         {
             return toYmd() + " " + (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second;
         }

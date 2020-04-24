@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using com.nlf.calendar;
+using com.nlf.calendar.util;
 
 namespace ConsoleDemo
 {
@@ -44,6 +45,12 @@ namespace ConsoleDemo
                 Console.Write(s + " ");
             }
             Console.WriteLine();
+
+            List<Holiday> holidays = HolidayUtil.getHolidays(2012);
+            foreach (Holiday holiday in holidays)
+            {
+                Console.WriteLine(holiday);
+            }
 
             Console.ReadLine();
         }

@@ -17,7 +17,7 @@ namespace com.nlf.calendar
         /** 1弧度对应的角秒 */
         private const double SECOND_PER_RAD = 180 * 3600 / Math.PI;
         /** 节气表，国标以冬至为首个节气 */
-        private static readonly String[] JIE_QI = { "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪" };
+        private static readonly string[] JIE_QI = { "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪" };
         /** 黄经周期项 */
         private static readonly double[] E10 = { 1.75347045673, 0.00000000000, 0.0000000000, 0.03341656456, 4.66925680417, 6283.0758499914, 0.00034894275, 4.62610241759, 12566.1516999828, 0.00003417571, 2.82886579606, 3.5231183490, 0.00003497056, 2.74411800971, 5753.3848848968, 0.00003135896, 3.62767041758, 77713.7714681205, 0.00002676218, 4.41808351397, 7860.4193924392, 0.00002342687, 6.13516237631, 3930.2096962196, 0.00001273166, 2.03709655772, 529.6909650946, 0.00001324292, 0.74246356352, 11506.7697697936, 0.00000901855, 2.04505443513, 26.2983197998, 0.00001199167, 1.10962944315, 1577.3435424478, 0.00000857223, 3.50849156957, 398.1490034082, 0.00000779786, 1.17882652114, 5223.6939198022, 0.00000990250, 5.23268129594, 5884.9268465832, 0.00000753141, 2.53339053818, 5507.5532386674, 0.00000505264, 4.58292563052, 18849.2275499742, 0.00000492379, 4.20506639861, 775.5226113240, 0.00000356655, 2.91954116867, 0.0673103028, 0.00000284125, 1.89869034186, 796.2980068164, 0.00000242810, 0.34481140906, 5486.7778431750, 0.00000317087, 5.84901952218, 11790.6290886588, 0.00000271039, 0.31488607649, 10977.0788046990, 0.00000206160, 4.80646606059, 2544.3144198834, 0.00000205385, 1.86947813692, 5573.1428014331, 0.00000202261, 2.45767795458, 6069.7767545534, 0.00000126184, 1.08302630210, 20.7753954924, 0.00000155516, 0.83306073807, 213.2990954380, 0.00000115132, 0.64544911683, 0.9803210682, 0.00000102851, 0.63599846727, 4694.0029547076, 0.00000101724, 4.26679821365, 7.1135470008, 0.00000099206, 6.20992940258, 2146.1654164752, 0.00000132212, 3.41118275555, 2942.4634232916, 0.00000097607, 0.68101272270, 155.4203994342, 0.00000085128, 1.29870743025, 6275.9623029906, 0.00000074651, 1.75508916159, 5088.6288397668, 0.00000101895, 0.97569221824, 15720.8387848784, 0.00000084711, 3.67080093025, 71430.6956181291, 0.00000073547, 4.67926565481, 801.8209311238, 0.00000073874, 3.50319443167, 3154.6870848956, 0.00000078756, 3.03698313141, 12036.4607348882, 0.00000079637, 1.80791330700, 17260.1546546904, 0.00000085803, 5.98322631256, 161000.6857376741, 0.00000056963, 2.78430398043, 6286.5989683404, 0.00000061148, 1.81839811024, 7084.8967811152, 0.00000069627, 0.83297596966, 9437.7629348870, 0.00000056116, 4.38694880779, 14143.4952424306, 0.00000062449, 3.97763880587, 8827.3902698748, 0.00000051145, 0.28306864501, 5856.4776591154, 0.00000055577, 3.47006009062, 6279.5527316424, 0.00000041036, 5.36817351402, 8429.2412664666, 0.00000051605, 1.33282746983, 1748.0164130670, 0.00000051992, 0.18914945834, 12139.5535091068, 0.00000049000, 0.48735065033, 1194.4470102246, 0.00000039200, 6.16832995016, 10447.3878396044, 0.00000035566, 1.77597314691, 6812.7668150860, 0.00000036770, 6.04133859347, 10213.2855462110, 0.00000036596, 2.56955238628, 1059.3819301892, 0.00000033291, 0.59309499459, 17789.8456197850, 0.00000035954, 1.70876111898, 2352.8661537718 };
         /** 黄经泊松1项 */
@@ -357,12 +357,12 @@ namespace com.nlf.calendar
 
             //序号：大雪到小寒之间-2，小寒到立春之间-1，立春之后0
             int index = -2;
-            foreach (String jie in LunarUtil.JIE)
+            foreach (string jie in LunarUtil.JIE)
             {
                 end = jieQi[jie];
-                String ymd = solar.toYmd();
-                String symd = null == start ? ymd : start.toYmd();
-                String eymd = end.toYmd();
+                string ymd = solar.toYmd();
+                string symd = null == start ? ymd : start.toYmd();
+                string eymd = end.toYmd();
                 if (ymd.CompareTo(symd) >= 0 && ymd.CompareTo(eymd) < 0)
                 {
                     break;
@@ -380,12 +380,12 @@ namespace com.nlf.calendar
 
             //序号：大雪到小寒之间-2，小寒到立春之间-1，立春之后0
             int indexExact = -2;
-            foreach (String jie in LunarUtil.JIE)
+            foreach (string jie in LunarUtil.JIE)
             {
                 end = jieQi[jie];
-                String time = solar.toYmdhms();
-                String stime = null == start ? time : start.toYmdhms();
-                String etime = end.toYmdhms();
+                string time = solar.toYmdhms();
+                string stime = null == start ? time : start.toYmdhms();
+                string etime = end.toYmdhms();
                 if (time.CompareTo(stime) >= 0 && time.CompareTo(etime) < 0)
                 {
                     break;
@@ -494,7 +494,7 @@ namespace com.nlf.calendar
         /// 获取年份的天干（以立春当天作为新年的开始）
         /// </summary>
         /// <returns>天干，如辛</returns>
-        public String getYearGanByLiChun()
+        public string getYearGanByLiChun()
         {
             return LunarUtil.GAN[yearGanIndexByLiChun + 1];
         }
@@ -503,7 +503,7 @@ namespace com.nlf.calendar
         /// 获取最精确的年份天干（以立春交接的时刻作为新年的开始）
         /// </summary>
         /// <returns>天干，如辛</returns>
-        public String getYearGanExact()
+        public string getYearGanExact()
         {
             return LunarUtil.GAN[yearGanIndexExact + 1];
         }
@@ -521,7 +521,7 @@ namespace com.nlf.calendar
         /// 获取精确的月天干（以节交接时刻起算）
         /// </summary>
         /// <returns>月天干，如己</returns>
-        public String getMonthGanExact()
+        public string getMonthGanExact()
         {
             return LunarUtil.GAN[monthGanIndexExact + 1];
         }
@@ -554,7 +554,7 @@ namespace com.nlf.calendar
         /// 获取年份的地支（以立春当天作为新年的开始）
         /// </summary>
         /// <returns>地支，如亥</returns>
-        public String getYearZhiByLiChun()
+        public string getYearZhiByLiChun()
         {
             return LunarUtil.ZHI[yearZhiIndexByLiChun + 1];
         }
@@ -563,7 +563,7 @@ namespace com.nlf.calendar
         /// 获取最精确的年份地支（以立春交接的时刻作为新年的开始）
         /// </summary>
         /// <returns>地支，如亥</returns>
-        public String getYearZhiExact()
+        public string getYearZhiExact()
         {
             return LunarUtil.ZHI[yearZhiIndexExact + 1];
         }
@@ -581,7 +581,7 @@ namespace com.nlf.calendar
         /// 获取精确的月地支（以节交接时刻起算）
         /// </summary>
         /// <returns>月地支，如卯</returns>
-        public String getMonthZhiExact()
+        public string getMonthZhiExact()
         {
             return LunarUtil.ZHI[monthZhiIndexExact + 1];
         }
@@ -608,7 +608,7 @@ namespace com.nlf.calendar
         /// 获取干支纪年（年柱）（以立春当天作为新年的开始）
         /// </summary>
         /// <returns>年份的干支（年柱），如辛亥</returns>
-        public String getYearInGanZhiByLiChun()
+        public string getYearInGanZhiByLiChun()
         {
             return getYearGanByLiChun() + getYearZhiByLiChun();
         }
@@ -617,7 +617,7 @@ namespace com.nlf.calendar
         /// 获取干支纪年（年柱）（以立春交接的时刻作为新年的开始）
         /// </summary>
         /// <returns>年份的干支（年柱），如辛亥</returns>
-        public String getYearInGanZhiExact()
+        public string getYearInGanZhiExact()
         {
             return getYearGanExact() + getYearZhiExact();
         }
@@ -635,7 +635,7 @@ namespace com.nlf.calendar
         /// 获取精确的干支纪月（月柱）（以节交接时刻起算），月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
         /// </summary>
         /// <returns>干支纪月（月柱），如己卯</returns>
-        public String getMonthInGanZhiExact()
+        public string getMonthInGanZhiExact()
         {
             return getMonthGanExact() + getMonthZhiExact();
         }
@@ -669,7 +669,7 @@ namespace com.nlf.calendar
         /// 获取年生肖（以立春当天起算）
         /// </summary>
         /// <returns>年生肖，如虎</returns>
-        public String getYearShengXiaoByLiChun()
+        public string getYearShengXiaoByLiChun()
         {
             return LunarUtil.SHENGXIAO[yearZhiIndexByLiChun + 1];
         }
@@ -678,7 +678,7 @@ namespace com.nlf.calendar
         /// 获取精确的年生肖（以立春交接时刻起算）
         /// </summary>
         /// <returns>年生肖，如虎</returns>
-        public String getYearShengXiaoExact()
+        public string getYearShengXiaoExact()
         {
             return LunarUtil.SHENGXIAO[yearZhiIndexExact + 1];
         }
@@ -1426,7 +1426,7 @@ namespace com.nlf.calendar
             return LunarUtil.POSITION_TAI_MONTH[month - 1];
         }
 
-        public Dictionary<String, Solar> getJieQiTable()
+        public Dictionary<string, Solar> getJieQiTable()
         {
             return jieQi;
         }
