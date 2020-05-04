@@ -130,6 +130,10 @@ namespace com.nlf.calendar
         {
             DateTime firstDay = new DateTime(year, month, 1);
             int firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
+            if (firstDayWeek == 0)
+            {
+                firstDayWeek = 7;
+            }
             return (int)Math.Ceiling((day + firstDayWeek - start) * 1D / SolarUtil.WEEK.Length);
         }
 
