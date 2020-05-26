@@ -10,7 +10,7 @@ namespace ConsoleDemo
     {
         static void Main(string[] args)
         {
-            Solar solar = new Solar(2020,1,1);
+            Solar solar = new Solar(2020,5,26,23,42,0);
             Console.WriteLine(solar);
             Console.WriteLine(solar.toFullString());
 

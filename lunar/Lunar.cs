@@ -88,6 +88,16 @@ namespace com.nlf.calendar
         private int dayZhiIndex;
 
         /// <summary>
+        /// 日对应的天干下标（最精确的，供八字用，晚子时算第二天），0-9
+        /// </summary>
+        private int dayGanIndexExact;
+
+        /// <summary>
+        /// 日对应的地支下标（最精确的，供八字用，晚子时算第二天），0-11
+        /// </summary>
+        private int dayZhiIndexExact;
+
+        /// <summary>
         /// 月对应的天干下标（以节交接当天起算），0-9
         /// </summary>
         private int monthGanIndex;
@@ -409,6 +419,29 @@ namespace com.nlf.calendar
             int addDays = (dayOffset + LunarUtil.BASE_DAY_GANZHI_INDEX) % 60;
             dayGanIndex = addDays % 10;
             dayZhiIndex = addDays % 12;
+
+
+            int dayGanExact = dayGanIndex;
+            int dayZhiExact = dayZhiIndex;
+
+            // 晚子时（夜子/子夜）应算作第二天
+            String hm = (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute;
+            if (hm.CompareTo("23:00") >= 0 && hm.CompareTo("23:59") <= 0)
+            {
+                dayGanExact++;
+                if (dayGanExact >= 10)
+                {
+                    dayGanExact -= 10;
+                }
+                dayZhiExact++;
+                if (dayZhiExact >= 12)
+                {
+                    dayZhiExact -= 12;
+                }
+            }
+
+            dayGanIndexExact = dayGanExact;
+            dayZhiIndexExact = dayZhiExact;
         }
 
         /// <summary>
@@ -417,7 +450,7 @@ namespace com.nlf.calendar
         private void computeTime()
         {
             timeZhiIndex = LunarUtil.getTimeZhiIndex((hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute);
-            timeGanIndex = timeZhiIndex % 10;
+            timeGanIndex = (dayGanIndexExact % 5 * 2 + timeZhiIndex) % 10;
         }
 
         /// <summary>
@@ -535,6 +568,15 @@ namespace com.nlf.calendar
             return LunarUtil.GAN[dayGanIndex + 1];
         }
 
+        /// <summary>
+        /// 获取日天干（晚子时算第二天）
+        /// </summary>
+        /// <returns>日天干，如甲</returns>
+        public string getDayGanExact()
+        {
+            return LunarUtil.GAN[dayGanIndexExact + 1];
+        }
+
         [Obsolete("This method is obsolete, use method getYearZhi instead")]
         public string getZhi()
         {
@@ -596,6 +638,15 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
+        /// 获取日地支（晚子时算第二天）
+        /// </summary>
+        /// <returns>日地支，如卯</returns>
+        public string getDayZhiExact()
+        {
+            return LunarUtil.ZHI[dayZhiIndexExact + 1];
+        }
+
+        /// <summary>
         /// 获取干支纪年（年柱）（以正月初一作为新年的开始）
         /// </summary>
         /// <returns>年份的干支（年柱），如辛亥</returns>
@@ -647,6 +698,15 @@ namespace com.nlf.calendar
         public string getDayInGanZhi()
         {
             return getDayGan() + getDayZhi();
+        }
+
+        /// <summary>
+        /// 获取干支纪日（日柱，晚子时算第二天）
+        /// </summary>
+        /// <returns>干支纪日（日柱），如己卯</returns>
+        public string getDayInGanZhiExact()
+        {
+            return getDayGanExact() + getDayZhiExact();
         }
 
         [Obsolete("This method is obsolete, use method getYearShengXiao instead")]
@@ -1280,11 +1340,10 @@ namespace com.nlf.calendar
         public List<string> getBaZi()
         {
             List<string> l = new List<string>(4);
-            string timeGan = LunarUtil.GAN[(dayGanIndex % 5 * 12 + timeZhiIndex) % 10 + 1];
             l.Add(getYearInGanZhiExact());
             l.Add(getMonthInGanZhiExact());
-            l.Add(getDayInGanZhi());
-            l.Add(timeGan + getTimeZhi());
+            l.Add(getDayInGanZhiExact());
+            l.Add(getTimeInGanZhi());
             return l;
         }
 
@@ -1424,6 +1483,42 @@ namespace com.nlf.calendar
                 return "";
             }
             return LunarUtil.POSITION_TAI_MONTH[month - 1];
+        }
+
+        /// <summary>
+        /// 获取每日宜
+        /// </summary>
+        /// <returns>宜</returns>
+        public List<String> getDayYi()
+        {
+            return LunarUtil.getDayYi(getMonthInGanZhiExact(), getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取每日忌，如果没有，返回["无"]
+        /// </summary>
+        /// <returns>忌</returns>
+        public List<String> getDayJi()
+        {
+            return LunarUtil.getDayJi(getMonthInGanZhiExact(), getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取日吉神（宜趋），如果没有，返回["无"]
+        /// </summary>
+        /// <returns>日吉神</returns>
+        public List<String> getDayJiShen()
+        {
+            return LunarUtil.getDayJiShen(getMonth(), getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取日凶煞（宜忌），如果没有，返回["无"]
+        /// </summary>
+        /// <returns>日凶煞</returns>
+        public List<String> getDayXiongSha()
+        {
+            return LunarUtil.getDayXiongSha(getMonth(), getDayInGanZhi());
         }
 
         public Dictionary<string, Solar> getJieQiTable()
