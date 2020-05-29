@@ -1235,40 +1235,91 @@ namespace com.nlf.calendar
             return LunarUtil.POSITION_DESC[getPositionCai()];
         }
 
-        /// <summary>
-        /// 获取冲
-        /// </summary>
-        /// <returns>冲，如申</returns>
+        [Obsolete("This method is obsolete, use method getDayChong instead")]
         public string getChong()
+        {
+            return getDayChong();
+        }
+
+        /// <summary>
+        /// 获取日冲
+        /// </summary>
+        /// <returns>日冲，如申</returns>
+        public string getDayChong()
         {
             return LunarUtil.CHONG[dayZhiIndex + 1];
         }
 
         /// <summary>
-        /// 获取无情之克的冲天干
+        /// 获取时冲
         /// </summary>
-        /// <returns>无情之克的冲天干，如甲</returns>
+        /// <returns>时冲，如申</returns>
+        public string getTimeChong()
+        {
+            return LunarUtil.CHONG[timeZhiIndex + 1];
+        }
+
+        [Obsolete("This method is obsolete, use method getDayChongGan instead")]
         public string getChongGan()
+        {
+            return getDayChongGan();
+        }
+
+        /// <summary>
+        /// 获取无情之克的日冲天干
+        /// </summary>
+        /// <returns>无情之克的日冲天干，如甲</returns>
+        public string getDayChongGan()
         {
             return LunarUtil.CHONG_GAN[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取有情之克的冲天干
+        /// 获取无情之克的时冲天干
         /// </summary>
-        /// <returns>有情之克的冲天干，如甲</returns>
+        /// <returns>无情之克的时冲天干，如甲</returns>
+        public string getTimeChongGan()
+        {
+            return LunarUtil.CHONG_GAN[timeGanIndex + 1];
+        }
+
+        [Obsolete("This method is obsolete, use method getDayChongGanTie instead")]
         public string getChongGanTie()
+        {
+            return getDayChongGanTie();
+        }
+
+        /// <summary>
+        /// 获取有情之克的日冲天干
+        /// </summary>
+        /// <returns>有情之克的日冲天干，如甲</returns>
+        public string getDayChongGanTie()
         {
             return LunarUtil.CHONG_GAN_TIE[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取冲生肖
+        /// 获取有情之克的时冲天干
         /// </summary>
-        /// <returns>冲生肖，如猴</returns>
+        /// <returns>有情之克的时冲天干，如甲</returns>
+        public string getTimeChongGanTie()
+        {
+            return LunarUtil.CHONG_GAN_TIE[timeGanIndex + 1];
+        }
+
+        [Obsolete("This method is obsolete, use method getDayChongShengXiao instead")]
         public string getChongShengXiao()
         {
-            string chong = getChong();
+            return getDayChongShengXiao();
+        }
+
+        /// <summary>
+        /// 获取日冲生肖
+        /// </summary>
+        /// <returns>日冲生肖，如猴</returns>
+        public string getDayChongShengXiao()
+        {
+            string chong = getDayChong();
             for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
             {
                 if (LunarUtil.ZHI[i].Equals(chong))
@@ -1280,21 +1331,68 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取冲描述
+        /// 获取时冲生肖
         /// </summary>
-        /// <returns>冲描述，如(壬申)猴</returns>
+        /// <returns>时冲生肖，如猴</returns>
+        public string getTimeChongShengXiao()
+        {
+            string chong = getTimeChong();
+            for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+            {
+                if (LunarUtil.ZHI[i].Equals(chong))
+                {
+                    return LunarUtil.SHENGXIAO[i];
+                }
+            }
+            return "";
+        }
+
+        [Obsolete("This method is obsolete, use method getDayChongDesc instead")]
         public string getChongDesc()
         {
-            return "(" + getChongGan() + getChong() + ")" + getChongShengXiao();
+            return getDayChongDesc();
         }
 
         /// <summary>
-        /// 获取煞
+        /// 获取日冲描述
         /// </summary>
-        /// <returns>煞，如北</returns>
+        /// <returns>日冲描述，如(壬申)猴</returns>
+        public string getDayChongDesc()
+        {
+            return "(" + getDayChongGan() + getDayChong() + ")" + getDayChongShengXiao();
+        }
+
+        /// <summary>
+        /// 获取时冲描述
+        /// </summary>
+        /// <returns>时冲描述，如(壬申)猴</returns>
+        public string getTimeChongDesc()
+        {
+            return "(" + getTimeChongGan() + getTimeChong() + ")" + getTimeChongShengXiao();
+        }
+
+        [Obsolete("This method is obsolete, use method getDaySha instead")]
         public string getSha()
         {
+            return getDaySha();
+        }
+
+        /// <summary>
+        /// 获取日煞
+        /// </summary>
+        /// <returns>日煞，如北</returns>
+        public string getDaySha()
+        {
             return LunarUtil.SHA[getDayZhi()];
+        }
+
+        /// <summary>
+        /// 获取时煞
+        /// </summary>
+        /// <returns>时煞，如北</returns>
+        public string getTimeSha()
+        {
+            return LunarUtil.SHA[getTimeZhi()];
         }
 
         /// <summary>
@@ -1486,7 +1584,7 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取每日宜
+        /// 获取每日宜，如果没有，返回["无"]
         /// </summary>
         /// <returns>宜</returns>
         public List<String> getDayYi()
@@ -1519,6 +1617,24 @@ namespace com.nlf.calendar
         public List<String> getDayXiongSha()
         {
             return LunarUtil.getDayXiongSha(getMonth(), getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取时辰宜，如果没有，返回["无"]
+        /// </summary>
+        /// <returns>宜</returns>
+        public List<String> getTimeYi()
+        {
+            return LunarUtil.getTimeYi(getDayInGanZhiExact(),getTimeInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取时辰忌，如果没有，返回["无"]
+        /// </summary>
+        /// <returns>忌</returns>
+        public List<String> getTimeJi()
+        {
+            return LunarUtil.getTimeJi(getDayInGanZhiExact(), getTimeInGanZhi());
         }
 
         public Dictionary<string, Solar> getJieQiTable()
