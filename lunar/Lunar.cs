@@ -1534,8 +1534,19 @@ namespace com.nlf.calendar
         public string getDayTianShen()
         {
             string monthZhi = getMonthZhi();
-            int offset = LunarUtil.MONTH_ZHI_TIAN_SHEN_OFFSET[monthZhi];
+            int offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[monthZhi];
             return LunarUtil.TIAN_SHEN[(dayZhiIndex + offset) % 12 + 1];
+        }
+
+        /// <summary>
+        /// 获取值时天神
+        /// </summary>
+        /// <returns>值时天神</returns>
+        public string getTimeTianShen()
+        {
+            string dayZhi = getDayZhiExact();
+            int offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[dayZhi];
+            return LunarUtil.TIAN_SHEN[(timeZhiIndex + offset) % 12 + 1];
         }
 
         /// <summary>
@@ -1548,12 +1559,30 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
+        /// 获取值时天神类型：黄道/黑道
+        /// </summary>
+        /// <returns>值时天神类型：黄道/黑道</returns>
+        public string getTimeTianShenType()
+        {
+            return LunarUtil.TIAN_SHEN_TYPE[getTimeTianShen()];
+        }
+
+        /// <summary>
         /// 获取值日天神吉凶
         /// </summary>
         /// <returns>吉/凶</returns>
         public string getDayTianShenLuck()
         {
             return LunarUtil.TIAN_SHEN_TYPE_LUCK[getDayTianShenType()];
+        }
+
+        /// <summary>
+        /// 获取值时天神吉凶
+        /// </summary>
+        /// <returns>吉/凶</returns>
+        public string getTimeTianShenLuck()
+        {
+            return LunarUtil.TIAN_SHEN_TYPE_LUCK[getTimeTianShenType()];
         }
 
         /// <summary>

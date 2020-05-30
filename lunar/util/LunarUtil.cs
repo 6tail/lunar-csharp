@@ -211,7 +211,7 @@ namespace com.nlf.calendar.util
         /// <summary>
         /// 月份地支对应天神偏移下标
         /// </summary>
-        public static readonly Dictionary<string, int> MONTH_ZHI_TIAN_SHEN_OFFSET = new Dictionary<string, int>();
+        public static readonly Dictionary<string, int> ZHI_TIAN_SHEN_OFFSET = new Dictionary<string, int>();
 
         /// <summary>
         /// 天神类型：黄道，黑道
@@ -313,18 +313,18 @@ namespace com.nlf.calendar.util
 
         static LunarUtil()
         {
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("子", 4);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("丑", 2);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("寅", 0);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("卯", 10);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("辰", 8);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("巳", 6);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("午", 4);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("未", 2);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("申", 0);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("酉", 10);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("戌", 8);
-            MONTH_ZHI_TIAN_SHEN_OFFSET.Add("亥", 6);
+            ZHI_TIAN_SHEN_OFFSET.Add("子", 4);
+            ZHI_TIAN_SHEN_OFFSET.Add("丑", 2);
+            ZHI_TIAN_SHEN_OFFSET.Add("寅", 0);
+            ZHI_TIAN_SHEN_OFFSET.Add("卯", 10);
+            ZHI_TIAN_SHEN_OFFSET.Add("辰", 8);
+            ZHI_TIAN_SHEN_OFFSET.Add("巳", 6);
+            ZHI_TIAN_SHEN_OFFSET.Add("午", 4);
+            ZHI_TIAN_SHEN_OFFSET.Add("未", 2);
+            ZHI_TIAN_SHEN_OFFSET.Add("申", 0);
+            ZHI_TIAN_SHEN_OFFSET.Add("酉", 10);
+            ZHI_TIAN_SHEN_OFFSET.Add("戌", 8);
+            ZHI_TIAN_SHEN_OFFSET.Add("亥", 6);
 
             TIAN_SHEN_TYPE.Add("青龙", "黄道");
             TIAN_SHEN_TYPE.Add("明堂", "黄道");
@@ -334,11 +334,11 @@ namespace com.nlf.calendar.util
             TIAN_SHEN_TYPE.Add("司命", "黄道");
 
             TIAN_SHEN_TYPE.Add("天刑", "黑道");
-            TIAN_SHEN_TYPE.Add("朱雀", "黄道");
-            TIAN_SHEN_TYPE.Add("白虎", "黄道");
-            TIAN_SHEN_TYPE.Add("天牢", "黄道");
-            TIAN_SHEN_TYPE.Add("玄武", "黄道");
-            TIAN_SHEN_TYPE.Add("勾陈", "黄道");
+            TIAN_SHEN_TYPE.Add("朱雀", "黑道");
+            TIAN_SHEN_TYPE.Add("白虎", "黑道");
+            TIAN_SHEN_TYPE.Add("天牢", "黑道");
+            TIAN_SHEN_TYPE.Add("玄武", "黑道");
+            TIAN_SHEN_TYPE.Add("勾陈", "黑道");
 
             TIAN_SHEN_TYPE_LUCK.Add("黄道", "吉");
             TIAN_SHEN_TYPE_LUCK.Add("黑道", "凶");
