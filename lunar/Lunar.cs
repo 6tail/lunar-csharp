@@ -1755,9 +1755,9 @@ namespace com.nlf.calendar
             s.Append("](");
             s.Append(getPositionCaiDesc());
             s.Append(") 冲[");
-            s.Append(getChongDesc());
+            s.Append(getDayChongDesc());
             s.Append("] 煞[");
-            s.Append(getSha());
+            s.Append(getDaySha());
             s.Append("]");
             return s.ToString();
         }
