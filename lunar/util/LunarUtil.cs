@@ -161,12 +161,12 @@ namespace com.nlf.calendar.util
         /// <summary>
         /// 数字
         /// </summary>
-        public static readonly string[] NUMBER = { "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" };
+        public static readonly string[] NUMBER = { "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 
         /// <summary>
         /// 月
         /// </summary>
-        public static readonly string[] MONTH = { "", "正", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖", "拾", "冬", "腊" };
+        public static readonly string[] MONTH = { "", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊" };
 
         /// <summary>
         /// 季节
