@@ -46,6 +46,7 @@
     <Compile Include="util\LunarUtil.cs" />
     <Compile Include="util\SolarUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NineStar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

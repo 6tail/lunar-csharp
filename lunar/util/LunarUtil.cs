@@ -30,6 +30,11 @@ namespace com.nlf.calendar.util
         public const int BASE_INDEX = 0;
 
         /// <summary>
+        /// 基准对应的值年九星偏移量
+        /// </summary>
+        public const int BASE_YEAR_JIU_XING_INDEX = 0;
+
+        /// <summary>
         /// 基准对应的年干支偏移量
         /// </summary>
         public const int BASE_YEAR_GANZHI_INDEX = -4;
@@ -192,6 +197,11 @@ namespace com.nlf.calendar.util
         /// 日
         /// </summary>
         public static readonly string[] DAY = { "", "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十" };
+
+        /// <summary>
+        /// 月相
+        /// </summary>
+        public static readonly string[] YUE_XIANG = { "", "朔", "既朔", "蛾眉新", "蛾眉新", "蛾眉", "夕月", "上弦", "上弦", "九夜", "宵", "宵", "宵", "渐盈凸", "小望", "望", "既望", "立待", "居待", "寝待", "更待", "渐亏凸", "下弦", "下弦", "有明", "有明", "蛾眉残", "蛾眉残", "残", "晓", "晦" };
 
         /// <summary>
         /// 地支相冲（子午相冲，丑未相冲，寅申相冲，辰戌相冲，卯酉相冲，巳亥相冲），由于地支对应十二生肖，也就对应了生肖相冲
@@ -628,6 +638,7 @@ namespace com.nlf.calendar.util
             POSITION_DESC.Add("坤", "西南");
             POSITION_DESC.Add("兑", "正西");
             POSITION_DESC.Add("乾", "西北");
+            POSITION_DESC.Add("中", "中宫");
 
             GONG.Add("角", "东");
             GONG.Add("井", "南");
@@ -1370,7 +1381,7 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ganZhi">干支</param>
         /// <returns>甲子序号</returns>
-        private static int getJiaZiIndex(string ganZhi)
+        public static int getJiaZiIndex(string ganZhi)
         {
             for (int i = 0, j = LunarUtil.JIA_ZI.Length; i < j; i++)
             {

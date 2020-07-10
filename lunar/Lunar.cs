@@ -425,7 +425,7 @@ namespace com.nlf.calendar
             int dayZhiExact = dayZhiIndex;
 
             // 晚子时（夜子/子夜）应算作第二天
-            String hm = (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute;
+            string hm = (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute;
             if (hm.CompareTo("23:00") >= 0 && hm.CompareTo("23:59") <= 0)
             {
                 dayGanExact++;
@@ -1616,7 +1616,7 @@ namespace com.nlf.calendar
         /// 获取每日宜，如果没有，返回["无"]
         /// </summary>
         /// <returns>宜</returns>
-        public List<String> getDayYi()
+        public List<string> getDayYi()
         {
             return LunarUtil.getDayYi(getMonthInGanZhiExact(), getDayInGanZhi());
         }
@@ -1625,7 +1625,7 @@ namespace com.nlf.calendar
         /// 获取每日忌，如果没有，返回["无"]
         /// </summary>
         /// <returns>忌</returns>
-        public List<String> getDayJi()
+        public List<string> getDayJi()
         {
             return LunarUtil.getDayJi(getMonthInGanZhiExact(), getDayInGanZhi());
         }
@@ -1634,7 +1634,7 @@ namespace com.nlf.calendar
         /// 获取日吉神（宜趋），如果没有，返回["无"]
         /// </summary>
         /// <returns>日吉神</returns>
-        public List<String> getDayJiShen()
+        public List<string> getDayJiShen()
         {
             return LunarUtil.getDayJiShen(getMonth(), getDayInGanZhi());
         }
@@ -1643,7 +1643,7 @@ namespace com.nlf.calendar
         /// 获取日凶煞（宜忌），如果没有，返回["无"]
         /// </summary>
         /// <returns>日凶煞</returns>
-        public List<String> getDayXiongSha()
+        public List<string> getDayXiongSha()
         {
             return LunarUtil.getDayXiongSha(getMonth(), getDayInGanZhi());
         }
@@ -1652,7 +1652,7 @@ namespace com.nlf.calendar
         /// 获取时辰宜，如果没有，返回["无"]
         /// </summary>
         /// <returns>宜</returns>
-        public List<String> getTimeYi()
+        public List<string> getTimeYi()
         {
             return LunarUtil.getTimeYi(getDayInGanZhiExact(),getTimeInGanZhi());
         }
@@ -1661,9 +1661,145 @@ namespace com.nlf.calendar
         /// 获取时辰忌，如果没有，返回["无"]
         /// </summary>
         /// <returns>忌</returns>
-        public List<String> getTimeJi()
+        public List<string> getTimeJi()
         {
             return LunarUtil.getTimeJi(getDayInGanZhiExact(), getTimeInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取月相
+        /// </summary>
+        /// <returns>月相</returns>
+        public string getYueXiang()
+        {
+            return LunarUtil.YUE_XIANG[day];
+        }
+
+        /// <summary>
+        /// 获取值年九星（流年紫白星起例歌诀：年上吉星论甲子，逐年星逆中宫起；上中下作三元汇，一上四中七下兑。）
+        /// </summary>
+        /// <returns>值年九星</returns>
+        public NineStar getYearNineStar()
+        {
+            int index = LunarUtil.BASE_YEAR_JIU_XING_INDEX - (year - LunarUtil.BASE_YEAR) % 9;
+            if (index < 0)
+            {
+                index += 9;
+            }
+            return new NineStar(index);
+        }
+
+        /// <summary>
+        /// 获取值月九星（月紫白星歌诀：子午卯酉八白起，寅申巳亥二黑求，辰戌丑未五黄中。）
+        /// </summary>
+        /// <returns>值月九星</returns>
+        public NineStar getMonthNineStar()
+        {
+            int start = 2;
+            string yearZhi = getYearZhi();
+            if ("子午卯酉".Contains(yearZhi))
+            {
+                start = 8;
+            }
+            else if ("辰戌丑未".Contains(yearZhi))
+            {
+                start = 5;
+            }
+            // 寅月起，所以需要-2
+            int monthIndex = monthZhiIndex - 2;
+            int index = start - monthIndex - 1;
+            if (index < 0)
+            {
+                index += 9;
+            }
+            return new NineStar(index);
+        }
+
+        /// <summary>
+        /// 获取值日九星（日家紫白星歌诀：日家白法不难求，二十四气六宫周；冬至雨水及谷雨，阳顺一七四中游；夏至处暑霜降后，九三六星逆行求。）
+        /// </summary>
+        /// <returns>值日九星</returns>
+        public NineStar getDayNineStar()
+        {
+            //顺逆
+            string solarYmd = solar.toYmd();
+            string yuShui = jieQi["雨水"].toYmd();
+            string guYu = jieQi["谷雨"].toYmd();
+            string xiaZhi = jieQi["夏至"].toYmd();
+            string chuShu = jieQi["处暑"].toYmd();
+            string shuangJiang = jieQi["霜降"].toYmd();
+
+            int start = 6;
+            bool asc = false;
+            if (solarYmd.CompareTo(jieQi["冬至"].toYmd()) >= 0 && solarYmd.CompareTo(yuShui) < 0)
+            {
+                asc = true;
+                start = 1;
+            }
+            else if (solarYmd.CompareTo(yuShui) >= 0 && solarYmd.CompareTo(guYu) < 0)
+            {
+                asc = true;
+                start = 7;
+            }
+            else if (solarYmd.CompareTo(guYu) >= 0 && solarYmd.CompareTo(xiaZhi) < 0)
+            {
+                asc = true;
+                start = 4;
+            }
+            else if (solarYmd.CompareTo(xiaZhi) >= 0 && solarYmd.CompareTo(chuShu) < 0)
+            {
+                start = 9;
+            }
+            else if (solarYmd.CompareTo(chuShu) >= 0 && solarYmd.CompareTo(shuangJiang) < 0)
+            {
+                start = 3;
+            }
+            int ganZhiIndex = LunarUtil.getJiaZiIndex(getDayInGanZhi()) % 9;
+            int index = asc ? start + ganZhiIndex - 1 : start - ganZhiIndex - 1;
+            if (index > 8)
+            {
+                index -= 9;
+            }
+            if (index < 0)
+            {
+                index += 9;
+            }
+            return new NineStar(index);
+        }
+
+        /// <summary>
+        /// 获取值时九星（时家紫白星歌诀：三元时白最为佳，冬至阳生顺莫差，孟日七宫仲一白，季日四绿发萌芽，每把时辰起甲子，本时星耀照光华，时星移入中宫去，顺飞八方逐细查。夏至阴生逆回首，孟归三碧季加六，仲在九宫时起甲，依然掌中逆轮跨。）
+        /// </summary>
+        /// <returns>值时九星</returns>
+        public NineStar getTimeNineStar()
+        {
+            //顺逆
+            string solarYmd = solar.toYmd();
+            bool asc = false;
+            if (solarYmd.CompareTo(jieQi["冬至"].toYmd()) >= 0 && solarYmd.CompareTo(jieQi["夏至"].toYmd()) < 0)
+            {
+                asc = true;
+            }
+            int start = asc ? 7 : 3;
+            string dayZhi = getDayZhi();
+            if ("子午卯酉".Contains(dayZhi))
+            {
+                start = asc ? 1 : 9;
+            }
+            else if ("辰戌丑未".Contains(dayZhi))
+            {
+                start = asc ? 4 : 6;
+            }
+            int index = asc ? start + timeZhiIndex - 1 : start - timeZhiIndex - 1;
+            if (index > 8)
+            {
+                index -= 9;
+            }
+            if (index < 0)
+            {
+                index += 9;
+            }
+            return new NineStar(index);
         }
 
         public Dictionary<string, Solar> getJieQiTable()
