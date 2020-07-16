@@ -103,58 +103,49 @@ namespace com.nlf.calendar
         /// <param name="julianDay">儒略日</param>
         public Solar(double julianDay)
         {
-            julianDay += 0.5;
+            int d = (int)(julianDay + 0.5);
+            double f = julianDay + 0.5 - d;
+            int c;
 
-            // 日数的整数部份
-            double a = int2(julianDay);
-            // 日数的小数部分
-            double f = julianDay - a;
-            double D;
-
-            if (a > 2299161)
+            if (d >= 2299161)
             {
-                D = int2((a - 1867216.25) / 36524.25);
-                a += 1 + D - int2(D / 4);
+                c = (int)((d - 1867216.25) / 36524.25);
+                d += 1 + c - (int)(c * 1D / 4);
             }
-            // 向前移4年零2个月
-            a += 1524;
-            double y = int2((a - 122.1) / 365.25);
-            // 去除整年日数后余下日数
-            D = a - int2(365.25 * y);
-            double m = (int)int2(D / 30.6001);
-            // 去除整月日数后余下日数
-            double d = (int)int2(D - int2(m * 30.6001));
-            y -= 4716;
-            m--;
-            if (m > 12)
+            d += 1524;
+            int year = (int)((d - 122.1) / 365.25);
+            d -= (int)(365.25 * year);
+            int month = (int)(d * 1D / 30.601);
+            d -= (int)(30.601 * month);
+            int day = d;
+            if (month > 13)
             {
-                m -= 12;
+                month -= 13;
+                year -= 4715;
             }
-            if (m <= 2)
+            else
             {
-                y++;
+                month -= 1;
+                year -= 4716;
             }
-
-            // 日的小数转为时分秒
             f *= 24;
-            double h = (int)int2(f);
+            int hour = (int)f;
 
-            f -= h;
+            f -= hour;
             f *= 60;
-            double mi = int2(f);
+            int minute = (int)f;
 
-            f -= mi;
+            f -= minute;
             f *= 60;
-            double s = int2(f);
+            int second = (int)Math.Round(f);
 
-            calendar = new DateTime((int)y, (int)m, (int)d, (int)h, (int)mi, (int)s);
-
-            year = calendar.Year;
-            month = calendar.Month;
-            day = calendar.Day;
-            hour = calendar.Hour;
-            minute = calendar.Minute;
-            second = calendar.Second;
+            calendar = new DateTime(year, month, day, hour, minute, second);
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.hour = hour;
+            this.minute = minute;
+            this.second = second;
         }
 
         /// <summary>
@@ -378,42 +369,32 @@ namespace com.nlf.calendar
             return new Lunar(calendar);
         }
 
-        private double int2(double v)
-        {
-            v = Math.Floor(v);
-            return v < 0 ? v + 1 : v;
-        }
-
         /// <summary>
         /// 获取儒略日
         /// </summary>
         /// <returns>儒略日</returns>
         public double getJulianDay()
         {
-            double y = this.year;
-            double m = this.month;
-            double n = 0;
-
+            int y = this.year;
+            int m = this.month;
+            double d = this.day + ((this.second * 1D / 60 + this.minute) / 60 + this.hour) / 24;
+            int n = 0;
+            bool g = false;
+            if (y * 372 + m * 31 + (int)d >= 588829)
+            {
+                g = true;
+            }
             if (m <= 2)
             {
                 m += 12;
                 y--;
             }
-
-            // 判断是否为UTC日1582*372+10*31+15
-            if (this.year * 372 + this.month * 31 + this.day >= 588829)
+            if (g)
             {
-                n = int2(y / 100);
-                // 加百年闰
-                n = 2 - n + int2(n / 4);
+                n = (int)(y * 1D / 100);
+                n = 2 - n + (int)(n * 1D / 4);
             }
-
-            // 加上年引起的偏移日数
-            n += int2(365.2500001 * (y + 4716));
-            // 加上月引起的偏移日数及日偏移数
-            n += int2(30.6 * (m + 1)) + this.day;
-            n += ((this.second * 1D / 60 + this.minute) / 60 + this.hour) / 24 - 1524.5;
-            return n;
+            return (int)(365.25 * (y + 4716)) + (int)(30.6001 * (m + 1)) + d + n - 1524.5;
         }
 
 
