@@ -353,8 +353,9 @@ namespace com.nlf.calendar
 
         private double dtCalc(double y)
         {
-            double y0 = DT_AT[DT_AT.Length - 2];
-            double t0 = DT_AT[DT_AT.Length - 1];
+            int size = DT_AT.Length;
+            double y0 = DT_AT[size - 2];
+            double t0 = DT_AT[size - 1];
             if (y >= y0)
             {
                 double jsd = 31;
@@ -367,7 +368,7 @@ namespace com.nlf.calendar
                 return v - dv * (y0 + 100 - y) / 100;
             }
             int i;
-            for (i = 0; i < DT_AT.Length; i += 5)
+            for (i = 0; i < size; i += 5)
             {
                 if (y < DT_AT[i + 5])
                 {
@@ -427,10 +428,11 @@ namespace com.nlf.calendar
 
         private double calcJieQi(double jd)
         {
+            int size = QI_KB.Length;
             double d = 0;
             int pc = 7;
             jd += 2451545;
-            double f1 = QI_KB[0] - pc, f2 = QI_KB[QI_KB.Length - 1] - pc, f3 = 2436935;
+            double f1 = QI_KB[0] - pc, f2 = QI_KB[size - 1] - pc, f3 = 2436935;
             if (jd < f1 || jd >= f3)
             {
                 d = Math.Floor(qiHigh(Math.Floor((jd + pc - 2451259) * 24D / 365.2422) * Math.PI / 12) + 0.5);
@@ -438,7 +440,7 @@ namespace com.nlf.calendar
             else if (jd >= f1 && jd < f2)
             {
                 int i = 0;
-                for (; i < QI_KB.Length; i += 2)
+                for (; i < size; i += 2)
                 {
                     if (jd + pc < QI_KB[i + 2])
                     {
@@ -456,7 +458,7 @@ namespace com.nlf.calendar
             else if (jd >= f2 && jd < f3)
             {
                 d = Math.Floor(qiLow(Math.Floor((jd + pc - 2451259) * 24D / 365.2422) * Math.PI / 12) + 0.5);
-                String n = QB.Substring((int)((jd - f2) / 365.2422 * 24), 1);
+                string n = QB.Substring((int)((jd - f2) / 365.2422 * 24), 1);
                 if ("1".Equals(n))
                 {
                     d += 1;
@@ -1225,94 +1227,244 @@ namespace com.nlf.calendar
             return LunarUtil.PENGZU_ZHI[dayZhiIndex + 1];
         }
 
+        [Obsolete("This method is obsolete, use method getDayPositionXi instead")]
+        public string getPositionXi()
+        {
+            return getDayPositionXi();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionXiDesc instead")]
+        public string getPositionXiDesc()
+        {
+            return getDayPositionXiDesc();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionYangGui instead")]
+        public string getPositionYangGui()
+        {
+            return getDayPositionYangGui();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionYangGuiDesc instead")]
+        public string getPositionYangGuiDesc()
+        {
+            return getDayPositionYangGuiDesc();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionYinGui instead")]
+        public string getPositionYinGui()
+        {
+            return getDayPositionYinGui();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionYinGuiDesc instead")]
+        public string getPositionYinGuiDesc()
+        {
+            return getDayPositionYinGuiDesc();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionFu instead")]
+        public string getPositionFu()
+        {
+            return getDayPositionFu();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionFuDesc instead")]
+        public string getPositionFuDesc()
+        {
+            return getDayPositionFuDesc();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionCai instead")]
+        public string getPositionCai()
+        {
+            return getDayPositionCai();
+        }
+
+        [Obsolete("This method is obsolete, use method getDayPositionCaiDesc instead")]
+        public string getPositionCaiDesc()
+        {
+            return getDayPositionCaiDesc();
+        }
+
         /// <summary>
-        /// 获取喜神方位
+        /// 获取日喜神方位
         /// </summary>
         /// <returns>喜神方位，如艮</returns>
-        public string getPositionXi()
+        public string getDayPositionXi()
         {
             return LunarUtil.POSITION_XI[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取喜神方位描述
+        /// 获取日喜神方位描述
         /// </summary>
         /// <returns>喜神方位描述，如东北</returns>
-        public string getPositionXiDesc()
+        public string getDayPositionXiDesc()
         {
-            return LunarUtil.POSITION_DESC[getPositionXi()];
+            return LunarUtil.POSITION_DESC[getDayPositionXi()];
         }
 
         /// <summary>
-        /// 获取阳贵神方位
+        /// 获取日阳贵神方位
         /// </summary>
         /// <returns>阳贵神方位，如艮</returns>
-        public string getPositionYangGui()
+        public string getDayPositionYangGui()
         {
             return LunarUtil.POSITION_YANG_GUI[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取阳贵神方位描述
+        /// 获取日阳贵神方位描述
         /// </summary>
         /// <returns>阳贵神方位描述，如东北</returns>
-        public string getPositionYangGuiDesc()
+        public string getDayPositionYangGuiDesc()
         {
-            return LunarUtil.POSITION_DESC[getPositionYangGui()];
+            return LunarUtil.POSITION_DESC[getDayPositionYangGui()];
         }
 
         /// <summary>
-        /// 获取阴贵神方位
+        /// 获取日阴贵神方位
         /// </summary>
         /// <returns>阴贵神方位，如艮</returns>
-        public string getPositionYinGui()
+        public string getDayPositionYinGui()
         {
             return LunarUtil.POSITION_YIN_GUI[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取阴贵神方位描述
+        /// 获取日阴贵神方位描述
         /// </summary>
         /// <returns>阴贵神方位描述，如东北</returns>
-        public string getPositionYinGuiDesc()
+        public string getDayPositionYinGuiDesc()
         {
-            return LunarUtil.POSITION_DESC[getPositionYinGui()];
+            return LunarUtil.POSITION_DESC[getDayPositionYinGui()];
         }
 
         /// <summary>
-        /// 获取福神方位
+        /// 获取日福神方位
         /// </summary>
         /// <returns>福神方位，如艮</returns>
-        public string getPositionFu()
+        public string getDayPositionFu()
         {
             return LunarUtil.POSITION_FU[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取福神方位描述
+        /// 获取日福神方位描述
         /// </summary>
         /// <returns>福神方位描述，如东北</returns>
-        public string getPositionFuDesc()
+        public string getDayPositionFuDesc()
         {
-            return LunarUtil.POSITION_DESC[getPositionFu()];
+            return LunarUtil.POSITION_DESC[getDayPositionFu()];
         }
 
         /// <summary>
-        /// 获取财神方位
+        /// 获取日财神方位
         /// </summary>
         /// <returns>财神方位，如艮</returns>
-        public string getPositionCai()
+        public string getDayPositionCai()
         {
             return LunarUtil.POSITION_CAI[dayGanIndex + 1];
         }
 
         /// <summary>
-        /// 获取财神方位描述
+        /// 获取日财神方位描述
         /// </summary>
         /// <returns>财神方位描述，如东北</returns>
-        public string getPositionCaiDesc()
+        public string getDayPositionCaiDesc()
         {
-            return LunarUtil.POSITION_DESC[getPositionCai()];
+            return LunarUtil.POSITION_DESC[getDayPositionCai()];
+        }
+
+        /// <summary>
+        /// 获取时辰喜神方位
+        /// </summary>
+        /// <returns>喜神方位，如艮</returns>
+        public string getTimePositionXi()
+        {
+            return LunarUtil.POSITION_XI[timeGanIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取时辰喜神方位描述
+        /// </summary>
+        /// <returns>喜神方位描述，如东北</returns>
+        public string getTimePositionXiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getTimePositionXi()];
+        }
+
+        /// <summary>
+        /// 获取时辰阳贵神方位
+        /// </summary>
+        /// <returns>阳贵神方位，如艮</returns>
+        public string getTimePositionYangGui()
+        {
+            return LunarUtil.POSITION_YANG_GUI[timeGanIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取时辰阳贵神方位描述
+        /// </summary>
+        /// <returns>阳贵神方位描述，如东北</returns>
+        public string getTimePositionYangGuiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getTimePositionYangGui()];
+        }
+
+        /// <summary>
+        /// 获取时辰阴贵神方位
+        /// </summary>
+        /// <returns>阴贵神方位，如艮</returns>
+        public string getTimePositionYinGui()
+        {
+            return LunarUtil.POSITION_YIN_GUI[timeGanIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取时辰阴贵神方位描述
+        /// </summary>
+        /// <returns>阴贵神方位描述，如东北</returns>
+        public string getTimePositionYinGuiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getTimePositionYinGui()];
+        }
+
+        /// <summary>
+        /// 获取时辰福神方位
+        /// </summary>
+        /// <returns>福神方位，如艮</returns>
+        public string getTimePositionFu()
+        {
+            return LunarUtil.POSITION_FU[timeGanIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取时辰福神方位描述
+        /// </summary>
+        /// <returns>福神方位描述，如东北</returns>
+        public string getTimePositionFuDesc()
+        {
+            return LunarUtil.POSITION_DESC[getTimePositionFu()];
+        }
+
+        /// <summary>
+        /// 获取时辰财神方位
+        /// </summary>
+        /// <returns>财神方位，如艮</returns>
+        public string getTimePositionCai()
+        {
+            return LunarUtil.POSITION_CAI[timeGanIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取时辰财神方位描述
+        /// </summary>
+        /// <returns>财神方位描述，如东北</returns>
+        public string getTimePositionCaiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getTimePositionCai()];
         }
 
         [Obsolete("This method is obsolete, use method getDayChong instead")]
@@ -1951,25 +2103,25 @@ namespace com.nlf.calendar
             s.Append(" ");
             s.Append(getPengZuZhi());
             s.Append("] 喜神方位[");
-            s.Append(getPositionXi());
+            s.Append(getDayPositionXi());
             s.Append("](");
-            s.Append(getPositionXiDesc());
+            s.Append(getDayPositionXiDesc());
             s.Append(") 阳贵神方位[");
-            s.Append(getPositionYangGui());
+            s.Append(getDayPositionYangGui());
             s.Append("](");
-            s.Append(getPositionYangGuiDesc());
+            s.Append(getDayPositionYangGuiDesc());
             s.Append(") 阴贵神方位[");
-            s.Append(getPositionYinGui());
+            s.Append(getDayPositionYinGui());
             s.Append("](");
-            s.Append(getPositionYinGuiDesc());
+            s.Append(getDayPositionYinGuiDesc());
             s.Append(") 福神方位[");
-            s.Append(getPositionFu());
+            s.Append(getDayPositionFu());
             s.Append("](");
-            s.Append(getPositionFuDesc());
+            s.Append(getDayPositionFuDesc());
             s.Append(") 财神方位[");
-            s.Append(getPositionCai());
+            s.Append(getDayPositionCai());
             s.Append("](");
-            s.Append(getPositionCaiDesc());
+            s.Append(getDayPositionCaiDesc());
             s.Append(") 冲[");
             s.Append(getDayChongDesc());
             s.Append("] 煞[");
