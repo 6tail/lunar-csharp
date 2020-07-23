@@ -258,7 +258,7 @@ namespace com.nlf.calendar
         private Solar toSolar()
         {
             DateTime c = new DateTime(SolarUtil.BASE_YEAR, SolarUtil.BASE_MONTH - 1, SolarUtil.BASE_DAY, hour, minute, second);
-            c.AddDays(dayOffset);
+            c = c.AddDays(dayOffset);
             return new Solar(c);
         }
 

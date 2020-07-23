@@ -113,7 +113,7 @@ namespace com.nlf.calendar
                 return new SolarSeason(year, month);
             }
             DateTime c = new DateTime(year, month, 1);
-            c.AddMonths(MONTH_COUNT * seasons);
+            c = c.AddMonths(MONTH_COUNT * seasons);
             return new SolarSeason(c);
         }
 

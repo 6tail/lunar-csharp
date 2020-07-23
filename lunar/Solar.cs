@@ -85,6 +85,7 @@ namespace com.nlf.calendar
             this.day = day;
             this.hour = hour;
             this.minute = minute;
+            this.second = second;
             this.calendar = new DateTime(year, month, day, hour, minute, second);
         }
 
@@ -138,6 +139,11 @@ namespace com.nlf.calendar
             f -= minute;
             f *= 60;
             int second = (int)Math.Round(f);
+
+            if (second == 60)
+            {
+                second = 59;
+            }
 
             calendar = new DateTime(year, month, day, hour, minute, second);
             this.year = year;
@@ -193,6 +199,98 @@ namespace com.nlf.calendar
         public static Solar fromJulianDay(double julianDay)
         {
             return new Solar(julianDay);
+        }
+
+        /// <summary>
+        /// 通过八字获取阳历列表
+        /// </summary>
+        /// <param name="yearGanZhi">年柱</param>
+        /// <param name="monthGanZhi">月柱</param>
+        /// <param name="dayGanZhi">日柱</param>
+        /// <param name="timeGanZhi">时柱</param>
+        /// <returns>符合的阳历列表</returns>
+        public static List<Solar> fromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi)
+        {
+            List<Solar> l = new List<Solar>();
+            Solar today = new Solar();
+            Lunar lunar = today.getLunar();
+            int offsetYear = LunarUtil.getJiaZiIndex(lunar.getYearInGanZhiExact()) - LunarUtil.getJiaZiIndex(yearGanZhi);
+            if (offsetYear < 0)
+            {
+                offsetYear = offsetYear + 60;
+            }
+            int startYear = today.getYear() - offsetYear;
+            int hour = 0;
+            string timeZhi = timeGanZhi.Substring(1);
+            for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+            {
+                if (LunarUtil.ZHI[i].Equals(timeZhi))
+                {
+                    hour = (i - 1) * 2;
+                }
+            }
+            while (startYear >= SolarUtil.BASE_YEAR - 1)
+            {
+                int year = startYear - 1;
+                int counter = 0;
+                int month = 12;
+                int day;
+                bool found = false;
+                while (counter < 15)
+                {
+                    if (year >= SolarUtil.BASE_YEAR)
+                    {
+                        day = 1;
+                        if (year == SolarUtil.BASE_YEAR && month == SolarUtil.BASE_MONTH)
+                        {
+                            day = SolarUtil.BASE_DAY;
+                        }
+                        Solar solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
+                        lunar = solar.getLunar();
+                        if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    month++;
+                    if (month > 12)
+                    {
+                        month = 1;
+                        year++;
+                    }
+                    counter++;
+                }
+                if (found)
+                {
+                    counter = 0;
+                    month--;
+                    if (month < 1)
+                    {
+                        month = 12;
+                        year--;
+                    }
+                    day = 1;
+                    if (year == SolarUtil.BASE_YEAR && month == SolarUtil.BASE_MONTH)
+                    {
+                        day = SolarUtil.BASE_DAY;
+                    }
+                    Solar solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
+                    while (counter < 61)
+                    {
+                        lunar = solar.getLunar();
+                        if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi) && lunar.getDayInGanZhiExact().Equals(dayGanZhi) && lunar.getTimeInGanZhi().Equals(timeGanZhi))
+                        {
+                            l.Add(solar);
+                            break;
+                        }
+                        solar = solar.next(1);
+                        counter++;
+                    }
+                }
+                startYear -= 60;
+            }
+            return l;
         }
 
         /// <summary>
@@ -440,7 +538,7 @@ namespace com.nlf.calendar
         public Solar next(int days)
         {
             DateTime c = new DateTime(year, month, day, hour, minute, second);
-            c.AddDays(days);
+            c = c.AddDays(days);
             return new Solar(c);
         }
     }

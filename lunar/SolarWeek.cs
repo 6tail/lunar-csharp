@@ -158,7 +158,7 @@ namespace com.nlf.calendar
                 bool plus = n > 0;
                 while (0 != n)
                 {
-                    c.AddDays(plus ? 7 : -7);
+                    c = c.AddDays(plus ? 7 : -7);
                     week = new SolarWeek(c, start);
                     int weekMonth = week.getMonth();
                     if (m != weekMonth)
@@ -203,7 +203,7 @@ namespace com.nlf.calendar
             else
             {
                 DateTime c = new DateTime(year, month, day);
-                c.AddDays(weeks * 7);
+                c = c.AddDays(weeks * 7);
                 return new SolarWeek(c, start);
             }
         }
@@ -221,7 +221,7 @@ namespace com.nlf.calendar
             {
                 prev += 7;
             }
-            c.AddDays(-prev);
+            c = c.AddDays(-prev);
             return new Solar(c);
         }
 

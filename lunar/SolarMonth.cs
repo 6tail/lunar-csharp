@@ -110,7 +110,7 @@ namespace com.nlf.calendar
         public SolarMonth next(int months)
         {
             DateTime c = new DateTime(year, month, 1);
-            c.AddMonths(months);
+            c = c.AddMonths(months);
             return new SolarMonth(c);
         }
 

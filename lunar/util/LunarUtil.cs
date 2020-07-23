@@ -1217,13 +1217,15 @@ namespace com.nlf.calendar.util
         /// <returns>距离天数</returns>
         public static int computeAddDays(int year, int month, int day)
         {
+            if (BASE_YEAR == year && BASE_MONTH == month)
+            {
+                return day - BASE_DAY;
+            }
             int y = BASE_YEAR;
             int m = BASE_MONTH;
             int diff = getDaysOfMonth(y, m) - BASE_DAY;
-            m = nextMonth(y, m);
-            while (true)
+            while (y != year || m != month)
             {
-                diff += getDaysOfMonth(y, m);
                 m = nextMonth(y, m);
                 if (m == 1)
                 {
@@ -1232,7 +1234,10 @@ namespace com.nlf.calendar.util
                 if (y == year && m == month)
                 {
                     diff += day;
-                    break;
+                }
+                else
+                {
+                    diff += getDaysOfMonth(y, m);
                 }
             }
             return diff;

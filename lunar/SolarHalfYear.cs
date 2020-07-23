@@ -113,7 +113,7 @@ namespace com.nlf.calendar
                 return new SolarHalfYear(year, month);
             }
             DateTime c = new DateTime(year, month, 1);
-            c.AddMonths(MONTH_COUNT * halfYears);
+            c = c.AddMonths(MONTH_COUNT * halfYears);
             return new SolarHalfYear(c);
         }
 

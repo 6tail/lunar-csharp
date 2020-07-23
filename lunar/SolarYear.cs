@@ -98,7 +98,7 @@ namespace com.nlf.calendar
         public SolarYear next(int years)
         {
             DateTime c = new DateTime(year, 1, 1);
-            c.AddYears(years);
+            c = c.AddYears(years);
             return new SolarYear(c);
         }
 
