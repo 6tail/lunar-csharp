@@ -1745,6 +1745,60 @@ namespace com.nlf.calendar
             return l;
         }
 
+        private List<string> getBaZiShiShenZhi(string zhi)
+        {
+            List<string> baZi = getBaZi();
+            string dayGan = baZi[2].Substring(0, 1);
+            List<string> hideGan = LunarUtil.ZHI_HIDE_GAN[zhi];
+            List<string> l = new List<string>(hideGan.Count);
+            foreach (string gan in hideGan)
+            {
+                l.Add(LunarUtil.SHI_SHEN_ZHI[dayGan + zhi + gan]);
+            }
+            return l;
+        }
+
+        /// <summary>
+        /// 获取八字年支十神
+        /// </summary>
+        /// <returns>八字年支十神</returns>
+        public List<string> getBaZiShiShenYearZhi()
+        {
+            List<string> baZi = getBaZi();
+            return getBaZiShiShenZhi(baZi[0].Substring(1));
+        }
+
+        /// <summary>
+        /// 获取八字月支十神
+        /// </summary>
+        /// <returns>八字月支十神</returns>
+        public List<string> getBaZiShiShenMonthZhi()
+        {
+            List<string> baZi = getBaZi();
+            return getBaZiShiShenZhi(baZi[1].Substring(1));
+        }
+
+        /// <summary>
+        /// 获取八字日支十神
+        /// </summary>
+        /// <returns>八字日支十神</returns>
+        public List<string> getBaZiShiShenDayZhi()
+        {
+            List<string> baZi = getBaZi();
+            return getBaZiShiShenZhi(baZi[2].Substring(1));
+        }
+
+        /// <summary>
+        /// 获取八字时支十神
+        /// </summary>
+        /// <returns>八字时支十神</returns>
+        public List<string> getBaZiShiShenTimeZhi()
+        {
+            List<string> baZi = getBaZi();
+            return getBaZiShiShenZhi(baZi[3].Substring(1));
+        }
+
+
         /// <summary>
         /// 获取十二执星：建、除、满、平、定、执、破、危、成、收、开、闭。当月支与日支相同即为建，依次类推
         /// </summary>

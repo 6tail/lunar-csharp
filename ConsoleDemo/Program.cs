@@ -47,6 +47,34 @@ namespace ConsoleDemo
             }
             Console.WriteLine();
 
+            // 八字年支十神
+            foreach (string s in lunar.getBaZiShiShenYearZhi())
+            {
+                Console.Write(s + " ");
+            }
+            Console.WriteLine();
+
+            // 八字月支十神
+            foreach (string s in lunar.getBaZiShiShenMonthZhi())
+            {
+                Console.Write(s + " ");
+            }
+            Console.WriteLine();
+
+            // 八字日支十神
+            foreach (string s in lunar.getBaZiShiShenDayZhi())
+            {
+                Console.Write(s + " ");
+            }
+            Console.WriteLine();
+
+            // 八字时支十神
+            foreach (string s in lunar.getBaZiShiShenTimeZhi())
+            {
+                Console.Write(s + " ");
+            }
+            Console.WriteLine();
+
             // 八字五行
             foreach (string s in lunar.getBaZiWuXing())
             {
