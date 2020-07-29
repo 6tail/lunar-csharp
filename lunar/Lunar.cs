@@ -152,6 +152,11 @@ namespace com.nlf.calendar
         private Dictionary<string, Solar> jieQi = new Dictionary<string, Solar>();
 
         /// <summary>
+        /// 八字
+        /// </summary>
+        private EightChar eightChar = null;
+
+        /// <summary>
         /// 默认使用当前日期初始化
         /// </summary>
         public Lunar()
@@ -1663,141 +1668,89 @@ namespace com.nlf.calendar
             return LunarUtil.NAYIN[getTimeInGanZhi()];
         }
 
-        /// <summary>
-        /// 获取八字，男性也称乾造，女性也称坤造（以立春交接时刻作为新年的开始）
-        /// </summary>
-        /// <returns>八字（男性也称乾造，女性也称坤造）</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZi()
         {
+            EightChar baZi = getEightChar();
             List<string> l = new List<string>(4);
-            l.Add(getYearInGanZhiExact());
-            l.Add(getMonthInGanZhiExact());
-            l.Add(getDayInGanZhiExact());
-            l.Add(getTimeInGanZhi());
+            l.Add(baZi.getYear());
+            l.Add(baZi.getMonth());
+            l.Add(baZi.getDay());
+            l.Add(baZi.getTime());
             return l;
         }
 
-        /// <summary>
-        /// 获取八字五行
-        /// </summary>
-        /// <returns>八字五行</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiWuXing()
         {
-            List<string> baZi = getBaZi();
-            List<string> l = new List<string>(baZi.Count);
-            foreach (string ganZhi in baZi)
-            {
-                string gan = ganZhi.Substring(0, 1);
-                string zhi = ganZhi.Substring(1);
-                l.Add(LunarUtil.WU_XING_GAN[gan] + LunarUtil.WU_XING_ZHI[zhi]);
-            }
+            EightChar baZi = getEightChar();
+            List<string> l = new List<string>(4);
+            l.Add(baZi.getYearWuXing());
+            l.Add(baZi.getMonthWuXing());
+            l.Add(baZi.getDayWuXing());
+            l.Add(baZi.getTimeWuXing());
             return l;
         }
 
-        /// <summary>
-        /// 获取八字纳音
-        /// </summary>
-        /// <returns>八字纳音</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiNaYin()
         {
-            List<string> baZi = getBaZi();
-            List<string> l = new List<string>(baZi.Count);
-            foreach (string ganZhi in baZi)
-            {
-                l.Add(LunarUtil.NAYIN[ganZhi]);
-            }
+            EightChar baZi = getEightChar();
+            List<string> l = new List<string>(4);
+            l.Add(baZi.getYearNaYin());
+            l.Add(baZi.getMonthNaYin());
+            l.Add(baZi.getDayNaYin());
+            l.Add(baZi.getTimeNaYin());
             return l;
         }
 
-        /// <summary>
-        /// 获取八字天干十神，日柱十神为日主，其余三柱根据天干十神表查询
-        /// </summary>
-        /// <returns>八字天干十神</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiShiShenGan()
         {
-            List<string> baZi = getBaZi();
-            string yearGan = baZi[0].Substring(0, 1);
-            string monthGan = baZi[1].Substring(0, 1);
-            string dayGan = baZi[2].Substring(0, 1);
-            string timeGan = baZi[3].Substring(0, 1);
-            List<string> l = new List<string>(baZi.Count);
-            l.Add(LunarUtil.SHI_SHEN_GAN[dayGan + yearGan]);
-            l.Add(LunarUtil.SHI_SHEN_GAN[dayGan + monthGan]);
-            l.Add("日主");
-            l.Add(LunarUtil.SHI_SHEN_GAN[dayGan + timeGan]);
+            EightChar baZi = getEightChar();
+            List<string> l = new List<string>(4);
+            l.Add(baZi.getYearNaYin());
+            l.Add(baZi.getMonthNaYin());
+            l.Add(baZi.getDayNaYin());
+            l.Add(baZi.getTimeNaYin());
             return l;
         }
 
-        /// <summary>
-        /// 获取八字地支十神，根据地支十神表查询
-        /// </summary>
-        /// <returns>八字地支十神</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiShiShenZhi()
         {
-            List<string> baZi = getBaZi();
-            string dayGan = baZi[2].Substring(0, 1);
-            List<string> l = new List<string>(baZi.Count);
-            foreach (string ganZhi in baZi)
-            {
-                string zhi = ganZhi.Substring(1);
-                l.Add(LunarUtil.SHI_SHEN_ZHI[dayGan + zhi + LunarUtil.ZHI_HIDE_GAN[zhi][0]]);
-            }
+            EightChar baZi = getEightChar();
+            List<string> l = new List<string>(4);
+            l.Add(baZi.getYearShiShenZhi()[0]);
+            l.Add(baZi.getMonthShiShenZhi()[0]);
+            l.Add(baZi.getDayShiShenZhi()[0]);
+            l.Add(baZi.getTimeShiShenZhi()[0]);
             return l;
         }
 
-        private List<string> getBaZiShiShenZhi(string zhi)
-        {
-            List<string> baZi = getBaZi();
-            string dayGan = baZi[2].Substring(0, 1);
-            List<string> hideGan = LunarUtil.ZHI_HIDE_GAN[zhi];
-            List<string> l = new List<string>(hideGan.Count);
-            foreach (string gan in hideGan)
-            {
-                l.Add(LunarUtil.SHI_SHEN_ZHI[dayGan + zhi + gan]);
-            }
-            return l;
-        }
-
-        /// <summary>
-        /// 获取八字年支十神
-        /// </summary>
-        /// <returns>八字年支十神</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiShiShenYearZhi()
         {
-            List<string> baZi = getBaZi();
-            return getBaZiShiShenZhi(baZi[0].Substring(1));
+            return eightChar.getYearShiShenZhi();
         }
 
-        /// <summary>
-        /// 获取八字月支十神
-        /// </summary>
-        /// <returns>八字月支十神</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiShiShenMonthZhi()
         {
-            List<string> baZi = getBaZi();
-            return getBaZiShiShenZhi(baZi[1].Substring(1));
+            return eightChar.getMonthShiShenZhi();
         }
 
-        /// <summary>
-        /// 获取八字日支十神
-        /// </summary>
-        /// <returns>八字日支十神</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiShiShenDayZhi()
         {
-            List<string> baZi = getBaZi();
-            return getBaZiShiShenZhi(baZi[2].Substring(1));
+            return eightChar.getDayShiShenZhi();
         }
 
-        /// <summary>
-        /// 获取八字时支十神
-        /// </summary>
-        /// <returns>八字时支十神</returns>
+        [Obsolete("This method is obsolete, use method getEightChar instead")]
         public List<string> getBaZiShiShenTimeZhi()
         {
-            List<string> baZi = getBaZi();
-            return getBaZiShiShenZhi(baZi[3].Substring(1));
+            return eightChar.getTimeShiShenZhi();
         }
-
 
         /// <summary>
         /// 获取十二执星：建、除、满、平、定、执、破、危、成、收、开、闭。当月支与日支相同即为建，依次类推
@@ -2243,9 +2196,58 @@ namespace com.nlf.calendar
             return second;
         }
 
+        public int getTimeGanIndex()
+        {
+            return timeGanIndex;
+        }
+
+        public int getTimeZhiIndex()
+        {
+            return timeZhiIndex;
+        }
+
+        public int getDayGanIndexExact()
+        {
+            return dayGanIndexExact;
+        }
+
+        public int getDayZhiIndexExact()
+        {
+            return dayZhiIndexExact;
+        }
+
+        public int getMonthGanIndexExact()
+        {
+            return monthGanIndexExact;
+        }
+
+        public int getMonthZhiIndexExact()
+        {
+            return monthZhiIndexExact;
+        }
+
+        public int getYearGanIndexExact()
+        {
+            return yearGanIndexExact;
+        }
+
+        public int getYearZhiIndexExact()
+        {
+            return yearZhiIndexExact;
+        }
+
         public Solar getSolar()
         {
             return solar;
+        }
+
+        public EightChar getEightChar()
+        {
+            if (null == eightChar)
+            {
+                eightChar = new EightChar(this);
+            }
+            return eightChar;
         }
     }
 }
