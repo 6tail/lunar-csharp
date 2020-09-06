@@ -41,6 +41,7 @@
     <Compile Include="VSCodeGenAccessors.cs" />
     <Compile Include="GanZhiTest.cs" />
     <Compile Include="JulianDayTest.cs" />
+    <Compile Include="BaZiTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

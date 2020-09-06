@@ -506,7 +506,13 @@ namespace com.nlf.calendar
             return year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
         }
 
+        [Obsolete("This method is obsolete, use method toYmdHms instead")]
         public string toYmdhms()
+        {
+            return toYmdHms();
+        }
+
+        public string toYmdHms()
         {
             return toYmd() + " " + (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second;
         }
@@ -514,7 +520,7 @@ namespace com.nlf.calendar
         public string toFullString()
         {
             StringBuilder s = new StringBuilder();
-            s.Append(toYmdhms());
+            s.Append(toYmdHms());
             if (isLeapYear())
             {
                 s.Append(" ");

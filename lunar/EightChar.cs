@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using com.nlf.calendar.util;
+using com.nlf.calendar.eightchar;
 
 namespace com.nlf.calendar
 {
@@ -355,6 +356,21 @@ namespace com.nlf.calendar
         public string getShenGongNaYin()
         {
             return LunarUtil.NAYIN[getShenGong()];
+        }
+
+        public Lunar getLunar()
+        {
+            return lunar;
+        }
+
+        /// <summary>
+        /// 获取运
+        /// </summary>
+        /// <param name="gender">性别：1男，0女</param>
+        /// <returns>运</returns>
+        public Yun getYun(int gender)
+        {
+            return new Yun(this, gender);
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using com.nlf.calendar;
 using com.nlf.calendar.util;
+using com.nlf.calendar.eightchar;
 
 namespace ConsoleDemo
 {
@@ -72,6 +73,18 @@ namespace ConsoleDemo
 
             // 八字身宫
             Console.WriteLine(baZi.getShenGong());
+
+            Console.WriteLine();
+            solar = new Solar(1988, 3, 20, 18, 0, 0);
+            lunar = solar.getLunar();
+            EightChar bazi = lunar.getEightChar();
+
+            // 男运
+            Yun yun = bazi.getYun(1);
+            Console.WriteLine("阳历" + solar.toYmdHms() + "出生");
+            Console.WriteLine("出生" + yun.getStartYear() + "年" + yun.getStartMonth() + "个月" + yun.getStartDay() + "天后起运");
+            Console.WriteLine("阳历" + yun.getStartSolar().toYmd() + "后起运");
+            Console.WriteLine();
 
             // 节假日
             List<Holiday> holidays = HolidayUtil.getHolidays(2012);

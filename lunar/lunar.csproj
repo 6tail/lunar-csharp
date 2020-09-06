@@ -35,7 +35,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="eightchar\DaYun.cs" />
+    <Compile Include="eightchar\LiuNian.cs" />
+    <Compile Include="eightchar\LiuYue.cs" />
+    <Compile Include="eightchar\XiaoYun.cs" />
+    <Compile Include="eightchar\Yun.cs" />
     <Compile Include="Holiday.cs" />
+    <Compile Include="JieQi.cs" />
     <Compile Include="Lunar.cs" />
     <Compile Include="Solar.cs" />
     <Compile Include="SolarHalfYear.cs" />

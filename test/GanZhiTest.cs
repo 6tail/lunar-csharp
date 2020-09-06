@@ -7,7 +7,7 @@ using com.nlf.calendar;
 namespace test
 {
     /// <summary>
-    /// SolarUtil测试
+    /// 干支测试
     /// </summary>
     [TestClass]
     public class GanZhiTest

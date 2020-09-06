@@ -66,7 +66,7 @@ namespace test
             string expected = "2020-07-15 00:00:00";
             string actual;
 
-            actual = Solar.fromJulianDay(2459045.5).toYmdhms();
+            actual = Solar.fromJulianDay(2459045.5).toYmdHms();
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
         }
