@@ -10,9 +10,34 @@ namespace com.nlf.calendar
     /// </summary>
     public class Lunar
     {
-        /** 1弧度对应的角秒 */
+        /// <summary>
+        /// 节气表头部追加农历上年末的节气名(节令：大雪)，以示区分
+        /// </summary>
+        public static readonly string JIE_QI_PREPEND = "DA_XUE";
+
+        /// <summary>
+        /// 节气表尾部追加农历下年初的节气名(气令：冬至)，以示区分
+        /// </summary>
+        public static readonly string JIE_QI_APPEND = "DONG_ZHI";
+
+        /// <summary>
+        /// 农历年初节气名(气令：冬至)
+        /// </summary>
+        public static readonly string JIE_QI_FIRST = "冬至";
+
+        /// <summary>
+        /// 农历年末节气名(节令：大雪)
+        /// </summary>
+        public static readonly string JIE_QI_LAST = "大雪";
+
+        /// <summary>
+        /// 1弧度对应的角秒
+        /// </summary>
         private const double SECOND_PER_RAD = 180 * 3600 / Math.PI;
-        /** 节气表，国标以冬至为首个节气 */
+
+        /// <summary>
+        /// 节气表，国标以冬至为首个节气
+        /// </summary>
         private static readonly string[] JIE_QI = { "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪" };
         private static readonly double[] NUT_B = { 2.1824, -33.75705, 36e-6, -1720, 920, 3.5069, 1256.66393, 11e-6, -132, 57, 1.3375, 16799.4182, -51e-6, -23, 10, 4.3649, -67.5141, 72e-6, 21, -9, 0.04, -628.302, 0, -14, 0, 2.36, 8328.691, 0, 7, 0, 3.46, 1884.966, 0, -5, 2, 5.44, 16833.175, 0, -4, 2, 3.69, 25128.110, 0, -3, 0, 3.55, 628.362, 0, 2, 0 };
         private static readonly double[] DT_AT = { -4000, 108371.7, -13036.80, 392.000, 0.0000, -500, 17201.0, -627.82, 16.170, -0.3413, -150, 12200.6, -346.41, 5.403, -0.1593, 150, 9113.8, -328.13, -1.647, 0.0377, 500, 5707.5, -391.41, 0.915, 0.3145, 900, 2203.4, -283.45, 13.034, -0.1778, 1300, 490.1, -57.35, 2.085, -0.0072, 1600, 120.0, -9.81, -1.532, 0.1403, 1700, 10.2, -0.91, 0.510, -0.0370, 1800, 13.4, -0.72, 0.202, -0.0193, 1830, 7.8, -1.81, 0.416, -0.0247, 1860, 8.3, -0.13, -0.406, 0.0292, 1880, -5.4, 0.32, -0.183, 0.0173, 1900, -2.3, 2.06, 0.169, -0.0135, 1920, 21.2, 1.69, -0.304, 0.0167, 1940, 24.2, 1.22, -0.064, 0.0031, 1960, 33.2, 0.51, 0.231, -0.0109, 1980, 51.0, 1.29, -0.026, 0.0032, 2000, 63.87, 0.1, 0, 0, 2005, 64.7, 0.4, 0, 0, 2015, 69 };
@@ -509,16 +534,21 @@ namespace com.nlf.calendar
             {
                 w -= 365.2422;
             }
+
+            //追加上一农历年末的大雪
+            double q = calcJieQi(w-15.2184);
+            jieQi.Add(JIE_QI_PREPEND, Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
+
             int size = JIE_QI.Length;
-            double q;
             for (int i = 0; i < size; i++)
             {
                 q = calcJieQi(w + 15.2184 * i);
                 jieQi.Add(JIE_QI[(i + size) % size], Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
             }
-            //追加下一农历年的冬至
+
+            //追加下一农历年初的冬至
             q = calcJieQi(w + 15.2184 * size);
-            jieQi.Add("DONG_ZHI", Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
+            jieQi.Add(JIE_QI_APPEND, Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
         }
 
         /// <summary>
@@ -1069,13 +1099,19 @@ namespace com.nlf.calendar
         /// <returns>节</returns>
         public string getJie()
         {
+            Solar d;
             foreach (string jie in LunarUtil.JIE)
             {
-                Solar d = jieQi[jie];
+                d = jieQi[jie];
                 if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
                 {
                     return jie;
                 }
+            }
+            d = jieQi[JIE_QI_PREPEND];
+            if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
+            {
+                return JIE_QI_LAST;
             }
             return "";
         }
@@ -1095,10 +1131,10 @@ namespace com.nlf.calendar
                     return qi;
                 }
             }
-            d = jieQi["DONG_ZHI"];
+            d = jieQi[JIE_QI_APPEND];
             if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
             {
-                return "冬至";
+                return JIE_QI_FIRST;
             }
             return "";
         }
@@ -2108,9 +2144,13 @@ namespace com.nlf.calendar
             foreach (KeyValuePair<string, Solar> entry in jieQi)
             {
                 string jq = entry.Key;
-                if ("DONG_ZHI".Equals(jq))
+                if (JIE_QI_APPEND.Equals(jq))
                 {
-                    jq = "冬至";
+                    jq = JIE_QI_FIRST;
+                }
+                if (JIE_QI_PREPEND.Equals(jq))
+                {
+                    jq = JIE_QI_LAST;
                 }
                 if (filter)
                 {
