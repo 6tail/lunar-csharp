@@ -1,3 +1,4 @@
+using com.nlf.calendar.util;
 namespace com.nlf.calendar
 {
     /// <summary>
@@ -15,13 +16,23 @@ namespace com.nlf.calendar
         /// </summary>
         private Solar solar;
 
+        /// <summary>
+        /// 是否节令
+        /// </summary>
+        private bool jie;
+
+        /// <summary>
+        /// 是否气令
+        /// </summary>
+        private bool qi;
+
         public JieQi()
         {
         }
 
         public JieQi(string name, Solar solar)
         {
-            this.name = name;
+            setName(name);
             this.solar = solar;
 
         }
@@ -42,7 +53,22 @@ namespace com.nlf.calendar
         public void setName(string name)
         {
             this.name = name;
-
+            foreach (string key in LunarUtil.JIE)
+            {
+                if (key.Equals(name))
+                {
+                    this.jie = true;
+                    return;
+                }
+            }
+            foreach (string key in LunarUtil.QI)
+            {
+                if (key.Equals(name))
+                {
+                    this.qi = true;
+                    return;
+                }
+            }
         }
 
         /// <summary>
@@ -62,6 +88,29 @@ namespace com.nlf.calendar
         {
             this.solar = solar;
 
+        }
+
+        /// <summary>
+        /// 是否节令
+        /// </summary>
+        /// <returns>true/false</returns>
+        public bool isJie()
+        {
+            return jie;
+        }
+
+        /// <summary>
+        /// 是否气令
+        /// </summary>
+        /// <returns>true/false</returns>
+        public bool isQi()
+        {
+            return qi;
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
 
     }

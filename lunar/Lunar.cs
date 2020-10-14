@@ -2101,6 +2101,24 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
+        /// 获取下一气令（顺推的第一个气令）
+        /// </summary>
+        /// <returns>节气</returns>
+        public JieQi getNextQi()
+        {
+            return getNearJieQi(true, LunarUtil.QI);
+        }
+
+        /// <summary>
+        /// 获取上一气令（逆推的第一个气令）
+        /// </summary>
+        /// <returns>节气</returns>
+        public JieQi getPrevQi()
+        {
+            return getNearJieQi(false, LunarUtil.QI);
+        }
+
+        /// <summary>
         /// 获取下一节气（顺推的第一个节气）
         /// </summary>
         /// <returns>节气</returns>
@@ -2194,6 +2212,58 @@ namespace com.nlf.calendar
             return new JieQi(name, near);
         }
 
+        /// <summary>
+        /// 获取节气名称，如果无节气，返回空字符串
+        /// </summary>
+        /// <returns>节气名称</returns>
+        public string getJieQi()
+        {
+            string name = "";
+            foreach (KeyValuePair<string, Solar> jq in jieQi)
+            {
+                Solar d = jq.Value;
+                if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
+                {
+                    name = jq.Key;
+                    break;
+                }
+
+            } if (JIE_QI_APPEND.Equals(name))
+            {
+                name = JIE_QI_FIRST;
+            } return name;
+        }
+
+        /// <summary>
+        /// 获取当天节气对象，如果无节气，返回null
+        /// </summary>
+        /// <returns>节气对象</returns>
+        public JieQi getCurrentJieQi()
+        {
+            string name = getJieQi();
+            return name.Length > 0 ? new JieQi(name, solar) : null;
+        }
+
+        /// <summary>
+        /// 获取当天节令对象，如果无节令，返回null
+        /// </summary>
+        /// <returns>节气对象</returns>
+        public JieQi getCurrentJie()
+        {
+            string name = getJie();
+            return name.Length > 0 ? new JieQi(name, solar) : null;
+        }
+
+        /// <summary>
+        /// 获取当天气令对象，如果无气令，返回null
+        /// </summary>
+        /// <returns>节气对象</returns>
+        public JieQi getCurrentQi()
+        {
+            string name = getQi();
+            return name.Length > 0 ? new JieQi(name, solar) : null;
+        }
+
         public string toFullString()
         {
             StringBuilder s = new StringBuilder();
@@ -2236,7 +2306,7 @@ namespace com.nlf.calendar
                 s.Append(f);
                 s.Append(")");
             }
-            string jq = getJie() + getQi();
+            string jq = getJieQi();
             if (jq.Length > 0)
             {
                 s.Append(" [");
