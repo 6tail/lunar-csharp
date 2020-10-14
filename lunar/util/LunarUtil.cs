@@ -1433,7 +1433,7 @@ namespace com.nlf.calendar.util
                 if (matched)
                 {
                     string ys = left.Substring(left.IndexOf(":") + 1);
-                    ys = ys.Substring(0, left.IndexOf(","));
+                    ys = ys.Substring(0, ys.IndexOf(","));
                     for (int i = 0, j = ys.Length; i < j; i += 2)
                     {
                         string m = ys.Substring(i, 2);
