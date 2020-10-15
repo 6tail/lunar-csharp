@@ -236,5 +236,34 @@ namespace test
                 Assert.AreEqual(ganZhi[i], liuYue.getGanZhi());
             }
         }
+
+        [TestMethod()]
+        public void testGanZhi()
+        {
+            Solar solar = new Solar(1988, 2, 15, 23, 30, 0);
+            Lunar lunar = solar.getLunar();
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("戊辰", eightChar.getYear(),"年柱");
+            Assert.AreEqual("甲寅", eightChar.getMonth(), "月柱");
+            Assert.AreEqual("辛丑", eightChar.getDay(), "日柱");
+            Assert.AreEqual("戊子", eightChar.getTime(), "时柱");
+
+            solar = new Solar(1988, 2, 15, 22, 30, 0);
+            lunar = solar.getLunar();
+            eightChar = lunar.getEightChar();
+            Assert.AreEqual("戊辰", eightChar.getYear(), "年柱");
+            Assert.AreEqual("甲寅", eightChar.getMonth(), "月柱");
+            Assert.AreEqual("庚子", eightChar.getDay(), "日柱");
+            Assert.AreEqual("丁亥", eightChar.getTime(), "时柱");
+
+            solar = new Solar(1988, 2, 2, 22, 30, 0);
+            lunar = solar.getLunar();
+            eightChar = lunar.getEightChar();
+            Assert.AreEqual("丁卯", eightChar.getYear(), "年柱");
+            Assert.AreEqual("癸丑", eightChar.getMonth(), "月柱");
+            Assert.AreEqual("丁亥", eightChar.getDay(), "日柱");
+            Assert.AreEqual("辛亥", eightChar.getTime(), "时柱");
+        }
     }
 }
