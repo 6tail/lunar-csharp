@@ -31,6 +31,26 @@ namespace com.nlf.calendar
         public static readonly string JIE_QI_LAST = "大雪";
 
         /// <summary>
+        /// 节气表尾部追加阳历下年初的第一个节气名(节令：小寒)，以示区分
+        /// </summary>
+        public static readonly string JIE_APPEND_SOLAR_FIRST = "XIAO_HAN";
+
+        /// <summary>
+        /// 节气表尾部追加阳历下年初的第二个节气名(气令：大寒)，以示区分
+        /// </summary>
+        public static readonly string QI_APPEND_SOLAR_SECOND = "DA_HAN";
+
+        /// <summary>
+        /// 阳历下年初的第一个节气名(节令：小寒)
+        /// </summary>
+        public static readonly string JIE_SOLAR_FIRST = "小寒";
+
+        /// <summary>
+        /// 阳历下年初的第二个节气名(气令：大寒)
+        /// </summary>
+        public static readonly string QI_SOLAR_SECOND = "大寒";
+
+        /// <summary>
         /// 1弧度对应的角秒
         /// </summary>
         private const double SECOND_PER_RAD = 180 * 3600 / Math.PI;
@@ -549,6 +569,16 @@ namespace com.nlf.calendar
             //追加下一农历年初的冬至
             q = calcJieQi(w + 15.2184 * size);
             jieQi.Add(JIE_QI_APPEND, Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
+
+            //追加下一阳历年初的小寒
+            size++;
+            q = calcJieQi(w + 15.2184 * size);
+            jieQi.Add(JIE_APPEND_SOLAR_FIRST, Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
+
+            //追加下一阳历年初的大寒
+            size++;
+            q = calcJieQi(w + 15.2184 * size);
+            jieQi.Add(QI_APPEND_SOLAR_SECOND, Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
         }
 
         /// <summary>
@@ -1146,6 +1176,11 @@ namespace com.nlf.calendar
             {
                 return JIE_QI_LAST;
             }
+            d = jieQi[JIE_APPEND_SOLAR_FIRST];
+            if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
+            {
+                return JIE_SOLAR_FIRST;
+            }
             return "";
         }
 
@@ -1168,6 +1203,11 @@ namespace com.nlf.calendar
             if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
             {
                 return JIE_QI_FIRST;
+            }
+            d = jieQi[QI_APPEND_SOLAR_SECOND];
+            if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
+            {
+                return QI_SOLAR_SECOND;
             }
             return "";
         }
@@ -2203,6 +2243,14 @@ namespace com.nlf.calendar
                 {
                     jq = JIE_QI_LAST;
                 }
+                if (JIE_APPEND_SOLAR_FIRST.Equals(jq))
+                {
+                    jq = JIE_SOLAR_FIRST;
+                }
+                if (QI_APPEND_SOLAR_SECOND.Equals(jq))
+                {
+                    jq = QI_SOLAR_SECOND;
+                }
                 if (filter)
                 {
                     if (!filters.Contains(jq))
@@ -2261,10 +2309,24 @@ namespace com.nlf.calendar
                     break;
                 }
 
-            } if (JIE_QI_APPEND.Equals(name))
+            }
+            if (JIE_QI_APPEND.Equals(name))
             {
                 name = JIE_QI_FIRST;
-            } return name;
+            }
+            else if (JIE_QI_PREPEND.Equals(name))
+            {
+                name = JIE_QI_LAST;
+            }
+            else if (JIE_APPEND_SOLAR_FIRST.Equals(name))
+            {
+                name = JIE_SOLAR_FIRST;
+            }
+            else if (QI_APPEND_SOLAR_SECOND.Equals(name))
+            {
+                name = QI_SOLAR_SECOND;
+            }
+            return name;
         }
 
         /// <summary>
