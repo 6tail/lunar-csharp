@@ -2055,8 +2055,12 @@ namespace com.nlf.calendar
             }
             // 寅月起，所以需要-2
             int monthIndex = monthZhiIndex - 2;
+            if (monthIndex < 0)
+            {
+                monthIndex += 12;
+            }
             int index = start - monthIndex - 1;
-            if (index < 0)
+            while (index < 0)
             {
                 index += 9;
             }
