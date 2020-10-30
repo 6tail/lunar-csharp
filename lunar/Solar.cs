@@ -543,8 +543,52 @@ namespace com.nlf.calendar
         /// <returns>阳历日期</returns>
         public Solar next(int days)
         {
+            return next(days, false);
+        }
+
+        /// <summary>
+        /// 获取往后推几天的阳历日期，如果要往前推，则天数用负数
+        /// </summary>
+        /// <param name="days">天数</param>
+        /// <param name="onlyWorkday">是否仅工作日</param>
+        /// <returns>阳历日期</returns>
+        public Solar next(int days, bool onlyWorkday)
+        {
             DateTime c = new DateTime(year, month, day, hour, minute, second);
-            c = c.AddDays(days);
+            if (0 != days)
+            {
+                if (!onlyWorkday)
+                {
+                    c = c.AddDays(days);
+                }
+                else
+                {
+                    int rest = Math.Abs(days);
+                    int add = days < 1 ? -1 : 1;
+                    while (rest > 0)
+                    {
+                        c = c.AddDays(add);
+                        bool work = true;
+                        Holiday holiday = HolidayUtil.getHoliday(c.Year, c.Month, c.Day);
+                        if (null == holiday)
+                        {
+                            string week = c.DayOfWeek.ToString("d");
+                            if ("0".Equals(week)||"6".Equals(week))
+                            {
+                                work = false;
+                            }
+                        }
+                        else
+                        {
+                            work = holiday.isWork();
+                        }
+                        if (work)
+                        {
+                            rest--;
+                        }
+                    }
+                }
+            }
             return new Solar(c);
         }
     }

@@ -42,6 +42,7 @@
     <Compile Include="GanZhiTest.cs" />
     <Compile Include="JulianDayTest.cs" />
     <Compile Include="BaZiTest.cs" />
+    <Compile Include="SolarTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />
