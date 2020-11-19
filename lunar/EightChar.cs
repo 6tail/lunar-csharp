@@ -373,5 +373,77 @@ namespace com.nlf.calendar
             return new Yun(this, gender);
         }
 
+        /// <summary>
+        /// 获取年柱所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getYearXun()
+        {
+            return lunar.getYearXunExact();
+        }
+
+        /// <summary>
+        /// 获取年柱旬空(空亡)
+        /// </summary>
+        /// <returns>旬空(空亡)</returns>
+        public string getYearXunKong()
+        {
+            return lunar.getYearXunKongExact();
+        }
+
+        /// <summary>
+        /// 获取月柱所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getMonthXun()
+        {
+            return lunar.getMonthXunExact();
+        }
+
+        /// <summary>
+        /// 获取月柱旬空(空亡)
+        /// </summary>
+        /// <returns>旬空(空亡)</returns>
+        public string getMonthXunKong()
+        {
+            return lunar.getMonthXunKongExact();
+        }
+
+        /// <summary>
+        /// 获取日柱所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getDayXun()
+        {
+            return lunar.getDayXunExact();
+        }
+
+        /// <summary>
+        /// 获取日柱旬空(空亡)
+        /// </summary>
+        /// <returns>旬空(空亡)</returns>
+        public string getDayXunKong()
+        {
+            return lunar.getDayXunKongExact();
+        }
+
+        /// <summary>
+        /// 获取时柱所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getTimeXun()
+        {
+            return lunar.getTimeXun();
+        }
+
+        /// <summary>
+        /// 获取时柱旬空(空亡)
+        /// </summary>
+        /// <returns>旬空(空亡)</returns>
+        public string getTimeXunKong()
+        {
+            return lunar.getTimeXunKong();
+        }
+
     }
 }

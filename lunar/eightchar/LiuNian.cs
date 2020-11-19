@@ -68,6 +68,28 @@ namespace com.nlf.calendar.eightchar
             return LunarUtil.JIA_ZI[offset];
         }
 
+        /// <summary>
+        /// 获取所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getXun()
+        {
+            return LunarUtil.getXun(getGanZhi());
+        }
+
+        /// <summary>
+        /// 获取旬空(空亡)
+        /// </summary>
+        /// <returns>旬空(空亡)</returns>
+        public string getXunKong()
+        {
+            return LunarUtil.getXunKong(getGanZhi());
+        }
+
+        /// <summary>
+        /// 获取流月
+        /// </summary>
+        /// <returns>流月</returns>
         public LiuYue[] getLiuYue()
         {
             int n = 12;

@@ -72,6 +72,24 @@ namespace com.nlf.calendar.eightchar
             return gan + zhi;
         }
 
+        /// <summary>
+        /// 获取所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getXun()
+        {
+            return LunarUtil.getXun(getGanZhi());
+        }
+
+        /// <summary>
+        /// 获取旬空(空亡)
+        /// </summary>
+        /// <returns>旬空(空亡)</returns>
+        public string getXunKong()
+        {
+            return LunarUtil.getXunKong(getGanZhi());
+        }
+
     }
 
 }

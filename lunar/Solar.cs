@@ -395,21 +395,12 @@ namespace com.nlf.calendar
             }
             catch { }
             //计算几月第几个星期几对应的节日
-            //第几周
-
-            DateTime firstDay = new DateTime(year, month, 1);
-            int firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
-            int weekInMonth = (int)Math.Ceiling((day + firstDayWeek) * 1D / SolarUtil.WEEK.Length);
+            int weeks = (int)Math.Ceiling(day / 7D);
             //星期几，0代表星期天
             int week = getWeek();
-            //星期天很奇葩，会多算一周，需要减掉
-            if (0 == week)
-            {
-                weekInMonth--;
-            }
             try
             {
-                l.Add(SolarUtil.WEEK_FESTIVAL[month + "-" + weekInMonth + "-" + week]);
+                l.Add(SolarUtil.WEEK_FESTIVAL[month + "-" + weeks + "-" + week]);
             }
             catch { }
             return l;

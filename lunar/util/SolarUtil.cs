@@ -125,6 +125,7 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("10-13", new List<string>(new string[] { "中国少年先锋队诞辰日" }));
             OTHER_FESTIVAL.Add("10-25", new List<string>(new string[] { "抗美援朝纪念日" }));
             OTHER_FESTIVAL.Add("11-12", new List<string>(new string[] { "孙中山诞辰纪念日" }));
+            OTHER_FESTIVAL.Add("11-17", new List<string>(new string[] { "国际大学生节" }));
             OTHER_FESTIVAL.Add("11-28", new List<string>(new string[] { "恩格斯诞辰纪念日" }));
             OTHER_FESTIVAL.Add("12-1", new List<string>(new string[] { "世界艾滋病日" }));
             OTHER_FESTIVAL.Add("12-12", new List<string>(new string[] { "西安事变纪念日" }));

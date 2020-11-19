@@ -2634,5 +2634,149 @@ namespace com.nlf.calendar
             }
             return eightChar;
         }
+
+        /// <summary>
+        /// 获取年所在旬（以正月初一作为新年的开始）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getYearXun()
+        {
+            return LunarUtil.getXun(getYearInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取年所在旬（以立春当天作为新年的开始）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getYearXunByLiChun()
+        {
+            return LunarUtil.getXun(getYearInGanZhiByLiChun());
+        }
+
+        /// <summary>
+        /// 获取年所在旬（以立春交接时刻作为新年的开始）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getYearXunExact()
+        {
+            return LunarUtil.getXun(getYearInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取值年空亡（以正月初一作为新年的开始）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getYearXunKong()
+        {
+            return LunarUtil.getXunKong(getYearInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取值年空亡（以立春当天作为新年的开始）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getYearXunKongByLiChun()
+        {
+            return LunarUtil.getXunKong(getYearInGanZhiByLiChun());
+        }
+
+        /// <summary>
+        /// 获取值年空亡（以立春交接时刻作为新年的开始）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getYearXunKongExact()
+        {
+            return LunarUtil.getXunKong(getYearInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取月所在旬（以节交接当天起算）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getMonthXun()
+        {
+            return LunarUtil.getXun(getMonthInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取月所在旬（以节交接时刻起算）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getMonthXunExact()
+        {
+            return LunarUtil.getXun(getMonthInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取值月空亡（以节交接当天起算）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getMonthXunKong()
+        {
+            return LunarUtil.getXunKong(getMonthInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取值月空亡（以节交接时刻起算）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getMonthXunKongExact()
+        {
+            return LunarUtil.getXunKong(getMonthInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取日所在旬（以节交接当天起算）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getDayXun()
+        {
+            return LunarUtil.getXun(getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取日所在旬（晚子时算第二天）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getDayXunExact()
+        {
+            return LunarUtil.getXun(getDayInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取值日空亡
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getDayXunKong()
+        {
+            return LunarUtil.getXunKong(getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取值日空亡（晚子时算第二天）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getDayXunKongExact()
+        {
+            return LunarUtil.getXunKong(getDayInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取时辰所在旬
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getTimeXun()
+        {
+            return LunarUtil.getXun(getTimeInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取值时空亡
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getTimeXunKong()
+        {
+            return LunarUtil.getXunKong(getTimeInGanZhi());
+        }
     }
 }
