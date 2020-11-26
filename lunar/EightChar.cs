@@ -24,11 +24,11 @@ namespace com.nlf.calendar
         static EightChar()
         {
             //阳
-            CHANG_SHENG_OFFSET.Add("甲", 11);
-            CHANG_SHENG_OFFSET.Add("丙", 2);
-            CHANG_SHENG_OFFSET.Add("戊", 2);
-            CHANG_SHENG_OFFSET.Add("庚", 5);
-            CHANG_SHENG_OFFSET.Add("壬", 8);
+            CHANG_SHENG_OFFSET.Add("甲", 1);
+            CHANG_SHENG_OFFSET.Add("丙", 10);
+            CHANG_SHENG_OFFSET.Add("戊", 10);
+            CHANG_SHENG_OFFSET.Add("庚", 7);
+            CHANG_SHENG_OFFSET.Add("壬", 4);
             //阴
             CHANG_SHENG_OFFSET.Add("乙", 6);
             CHANG_SHENG_OFFSET.Add("丁", 9);
