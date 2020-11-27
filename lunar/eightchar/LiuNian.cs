@@ -59,7 +59,7 @@ namespace com.nlf.calendar.eightchar
         /// <returns>干支</returns>
         public string getGanZhi()
         {
-            int offset = LunarUtil.getJiaZiIndex(lunar.getYearInGanZhiExact()) + this.index;
+            int offset = LunarUtil.getJiaZiIndex(lunar.getJieQiTable()["立春"].getLunar().getYearInGanZhiExact()) + this.index;
             if (daYun.getIndex() > 0)
             {
                 offset += daYun.getStartAge() - 1;
