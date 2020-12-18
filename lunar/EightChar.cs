@@ -37,7 +37,14 @@ namespace com.nlf.calendar
             CHANG_SHENG_OFFSET.Add("癸", 3);
         }
 
-        /** 阴历 */
+        /// <summary>
+        /// 流派，2晚子时日柱按当天，1晚子时日柱按明天
+        /// </summary>
+        private int sect = 2;
+
+        /// <summary>
+        /// 阴历
+        /// </summary>
         private Lunar lunar;
 
         public EightChar(Lunar lunar)
@@ -58,6 +65,16 @@ namespace com.nlf.calendar
         public override string ToString()
         {
             return toString();
+        }
+
+        public int getSect()
+        {
+            return sect;
+        }
+
+        public void setSect(int sect)
+        {
+            this.sect = (1 == sect) ? 1 : 2;
         }
 
         public string getYear()
@@ -82,7 +99,7 @@ namespace com.nlf.calendar
 
         public string getYearWuXing()
         {
-            return LunarUtil.WU_XING_GAN[lunar.getYearGanExact()] + LunarUtil.WU_XING_ZHI[lunar.getYearZhiExact()];
+            return LunarUtil.WU_XING_GAN[getYearGan()] + LunarUtil.WU_XING_ZHI[getYearZhi()];
         }
 
         public string getYearNaYin()
@@ -111,10 +128,20 @@ namespace com.nlf.calendar
             return getShiShenZhi(getYearZhi());
         }
 
+        public int getDayGanIndex()
+        {
+            return (2 == sect) ? lunar.getDayGanIndexExact2() : lunar.getDayGanIndexExact();
+        }
+
+        public int getDayZhiIndex()
+        {
+            return (2 == sect) ? lunar.getDayZhiIndexExact2() : lunar.getDayZhiIndexExact();
+        }
+
         private string getDiShi(int zhiIndex)
         {
             int offset = CHANG_SHENG_OFFSET[getDayGan()];
-            int index = offset + (lunar.getDayGanIndexExact() % 2 == 0 ? zhiIndex : -zhiIndex);
+            int index = offset + (getDayGanIndex() % 2 == 0 ? zhiIndex : -zhiIndex);
             if (index >= 12)
             {
                 index -= 12;
@@ -153,7 +180,7 @@ namespace com.nlf.calendar
 
         public string getMonthWuXing()
         {
-            return LunarUtil.WU_XING_GAN[lunar.getMonthGanExact()] + LunarUtil.WU_XING_ZHI[lunar.getMonthZhiExact()];
+            return LunarUtil.WU_XING_GAN[getMonthGan()] + LunarUtil.WU_XING_ZHI[getMonthZhi()];
         }
 
         public string getMonthNaYin()
@@ -178,17 +205,17 @@ namespace com.nlf.calendar
 
         public string getDay()
         {
-            return lunar.getDayInGanZhiExact();
+            return (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
         }
 
         public string getDayGan()
         {
-            return lunar.getDayGanExact();
+            return (2 == sect) ? lunar.getDayGanExact2() : lunar.getDayGanExact();
         }
 
         public string getDayZhi()
         {
-            return lunar.getDayZhiExact();
+            return (2 == sect) ? lunar.getDayZhiExact2() : lunar.getDayZhiExact();
         }
 
         public List<string> getDayHideGan()
@@ -198,7 +225,7 @@ namespace com.nlf.calendar
 
         public string getDayWuXing()
         {
-            return LunarUtil.WU_XING_GAN[lunar.getDayGanExact()] + LunarUtil.WU_XING_ZHI[lunar.getDayZhiExact()];
+            return LunarUtil.WU_XING_GAN[getDayGan()] + LunarUtil.WU_XING_ZHI[getDayZhi()];
         }
 
         public string getDayNaYin()
@@ -218,7 +245,7 @@ namespace com.nlf.calendar
 
         public string getDayDiShi()
         {
-            return getDiShi(lunar.getDayZhiIndexExact());
+            return getDiShi(getDayZhiIndex());
         }
 
         public string getTime()
@@ -415,7 +442,7 @@ namespace com.nlf.calendar
         /// <returns>旬</returns>
         public string getDayXun()
         {
-            return lunar.getDayXunExact();
+            return (2 == sect) ? lunar.getDayXunExact2() : lunar.getDayXunExact();
         }
 
         /// <summary>
@@ -424,7 +451,7 @@ namespace com.nlf.calendar
         /// <returns>旬空(空亡)</returns>
         public string getDayXunKong()
         {
-            return lunar.getDayXunKongExact();
+            return (2 == sect) ? lunar.getDayXunKongExact2() : lunar.getDayXunKongExact();
         }
 
         /// <summary>

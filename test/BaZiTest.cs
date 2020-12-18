@@ -246,6 +246,12 @@ namespace test
 
             Assert.AreEqual("戊辰", eightChar.getYear(),"年柱");
             Assert.AreEqual("甲寅", eightChar.getMonth(), "月柱");
+            Assert.AreEqual("庚子", eightChar.getDay(), "日柱");
+            Assert.AreEqual("戊子", eightChar.getTime(), "时柱");
+
+            eightChar.setSect(1);
+            Assert.AreEqual("戊辰", eightChar.getYear(), "年柱");
+            Assert.AreEqual("甲寅", eightChar.getMonth(), "月柱");
             Assert.AreEqual("辛丑", eightChar.getDay(), "日柱");
             Assert.AreEqual("戊子", eightChar.getTime(), "时柱");
 

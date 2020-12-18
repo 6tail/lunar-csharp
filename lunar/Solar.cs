@@ -202,7 +202,7 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 通过八字获取阳历列表
+        /// 通过八字获取阳历列表（流派2，晚子时日柱按当天）
         /// </summary>
         /// <param name="yearGanZhi">年柱</param>
         /// <param name="monthGanZhi">月柱</param>
@@ -211,6 +211,21 @@ namespace com.nlf.calendar
         /// <returns>符合的阳历列表</returns>
         public static List<Solar> fromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi)
         {
+            return fromBaZi(yearGanZhi, monthGanZhi, dayGanZhi, timeGanZhi, 2);
+        }
+
+        /// <summary>
+        /// 通过八字获取阳历列表
+        /// </summary>
+        /// <param name="yearGanZhi">年柱</param>
+        /// <param name="monthGanZhi">月柱</param>
+        /// <param name="dayGanZhi">日柱</param>
+        /// <param name="timeGanZhi">时柱</param>
+        /// <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
+        /// <returns>符合的阳历列表</returns>
+        public static List<Solar> fromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect)
+        {
+            sect = (1 == sect) ? 1 : 2;
             List<Solar> l = new List<Solar>();
             Solar today = new Solar();
             Lunar lunar = today.getLunar();
@@ -279,7 +294,8 @@ namespace com.nlf.calendar
                     while (counter < 61)
                     {
                         lunar = solar.getLunar();
-                        if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi) && lunar.getDayInGanZhiExact().Equals(dayGanZhi) && lunar.getTimeInGanZhi().Equals(timeGanZhi))
+                        string dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+                        if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.getTimeInGanZhi().Equals(timeGanZhi))
                         {
                             l.Add(solar);
                             break;

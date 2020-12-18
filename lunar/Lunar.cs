@@ -112,14 +112,24 @@ namespace com.nlf.calendar
         private int dayZhiIndex;
 
         /// <summary>
-        /// 日对应的天干下标（最精确的，供八字用，晚子时算第二天），0-9
+        /// 日对应的天干下标（八字流派1，晚子时日柱算明天），0-9
         /// </summary>
         private int dayGanIndexExact;
 
         /// <summary>
-        /// 日对应的地支下标（最精确的，供八字用，晚子时算第二天），0-11
+        /// 日对应的地支下标（八字流派1，晚子时日柱算明天），0-11
         /// </summary>
         private int dayZhiIndexExact;
+
+        /// <summary>
+        /// 日对应的天干下标（八字流派2，晚子时日柱算当天），0-9
+        /// </summary>
+        private int dayGanIndexExact2;
+
+        /// <summary>
+        /// 日对应的地支下标（八字流派2，晚子时日柱算当天），0-11
+        /// </summary>
+        private int dayZhiIndexExact2;
 
         /// <summary>
         /// 月对应的天干下标（以节交接当天起算），0-9
@@ -132,12 +142,12 @@ namespace com.nlf.calendar
         private int monthZhiIndex;
 
         /// <summary>
-        /// 月对应的天干下标（最精确的，供八字用，以节交接时刻起算），0-9
+        /// 月对应的天干下标（八字流派1，晚子时日柱算明天），0-9
         /// </summary>
         private int monthGanIndexExact;
 
         /// <summary>
-        /// 月对应的地支下标（最精确的，供八字用，以节交接时刻起算），0-11
+        /// 月对应的地支下标（八字流派1，晚子时日柱算明天），0-11
         /// </summary>
         private int monthZhiIndexExact;
 
@@ -741,7 +751,9 @@ namespace com.nlf.calendar
             int dayGanExact = dayGanIndex;
             int dayZhiExact = dayZhiIndex;
 
-            // 晚子时（夜子/子夜）应算作第二天
+            dayGanIndexExact2 = dayGanExact;
+            dayZhiIndexExact2 = dayZhiExact;
+
             string hm = (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute;
             if (hm.CompareTo("23:00") >= 0 && hm.CompareTo("23:59") <= 0)
             {
@@ -886,12 +898,21 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取日天干（晚子时算第二天）
+        /// 获取日天干（八字流派1，晚子时日柱算明天）
         /// </summary>
         /// <returns>日天干，如甲</returns>
         public string getDayGanExact()
         {
             return LunarUtil.GAN[dayGanIndexExact + 1];
+        }
+
+        /// <summary>
+        /// 获取日天干（八字流派2，晚子时日柱算当天）
+        /// </summary>
+        /// <returns>日天干，如甲</returns>
+        public string getDayGanExact2()
+        {
+            return LunarUtil.GAN[dayGanIndexExact2 + 1];
         }
 
         [Obsolete("This method is obsolete, use method getYearZhi instead")]
@@ -955,12 +976,21 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取日地支（晚子时算第二天）
+        /// 获取日地支（八字流派1，晚子时日柱算明天）
         /// </summary>
         /// <returns>日地支，如卯</returns>
         public string getDayZhiExact()
         {
             return LunarUtil.ZHI[dayZhiIndexExact + 1];
+        }
+
+        /// <summary>
+        /// 获取日地支（八字流派2，晚子时日柱算当天）
+        /// </summary>
+        /// <returns>日地支，如卯</returns>
+        public string getDayZhiExact2()
+        {
+            return LunarUtil.ZHI[dayZhiIndexExact2 + 1];
         }
 
         /// <summary>
@@ -1018,12 +1048,21 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取干支纪日（日柱，晚子时算第二天）
+        /// 获取干支纪日（日柱，八字流派1，晚子时日柱算明天）
         /// </summary>
         /// <returns>干支纪日（日柱），如己卯</returns>
         public string getDayInGanZhiExact()
         {
             return getDayGanExact() + getDayZhiExact();
+        }
+
+        /// <summary>
+        /// 获取干支纪日（日柱，八字流派2，晚子时日柱算当天）
+        /// </summary>
+        /// <returns>干支纪日（日柱），如己卯</returns>
+        public string getDayInGanZhiExact2()
+        {
+            return getDayGanExact2() + getDayZhiExact2();
         }
 
         [Obsolete("This method is obsolete, use method getYearShengXiao instead")]
@@ -2528,9 +2567,19 @@ namespace com.nlf.calendar
             return dayGanIndexExact;
         }
 
+        public int getDayGanIndexExact2()
+        {
+            return dayGanIndexExact2;
+        }
+
         public int getDayZhiIndexExact()
         {
             return dayZhiIndexExact;
+        }
+
+        public int getDayZhiIndexExact2()
+        {
+            return dayZhiIndexExact2;
         }
 
         public int getMonthGanIndexExact()
@@ -2735,12 +2784,21 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取日所在旬（晚子时算第二天）
+        /// 获取日所在旬（八字流派1，晚子时日柱算明天）
         /// </summary>
         /// <returns>旬</returns>
         public string getDayXunExact()
         {
             return LunarUtil.getXun(getDayInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取日所在旬（八字流派2，晚子时日柱算当天）
+        /// </summary>
+        /// <returns>旬</returns>
+        public string getDayXunExact2()
+        {
+            return LunarUtil.getXun(getDayInGanZhiExact2());
         }
 
         /// <summary>
@@ -2753,12 +2811,21 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取值日空亡（晚子时算第二天）
+        /// 获取值日空亡（八字流派1，晚子时日柱算明天）
         /// </summary>
         /// <returns>空亡(旬空)</returns>
         public string getDayXunKongExact()
         {
             return LunarUtil.getXunKong(getDayInGanZhiExact());
+        }
+
+        /// <summary>
+        /// 获取值日空亡（八字流派2，晚子时日柱算当天）
+        /// </summary>
+        /// <returns>空亡(旬空)</returns>
+        public string getDayXunKongExact2()
+        {
+            return LunarUtil.getXunKong(getDayInGanZhiExact2());
         }
 
         /// <summary>
