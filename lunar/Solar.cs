@@ -348,8 +348,8 @@ namespace com.nlf.calendar
         /// <returns>星座</returns>
         public string getXingZuo()
         {
-            int index = 11, m = month, d = day;
-            int y = m * 100 + d;
+            int index = 11;
+            int y = month * 100 + day;
             if (y >= 321 && y <= 419)
             {
                 index = 0;
@@ -358,11 +358,11 @@ namespace com.nlf.calendar
             {
                 index = 1;
             }
-            else if (y >= 521 && y <= 620)
+            else if (y >= 521 && y <= 621)
             {
                 index = 2;
             }
-            else if (y >= 621 && y <= 722)
+            else if (y >= 622 && y <= 722)
             {
                 index = 3;
             }
@@ -374,15 +374,15 @@ namespace com.nlf.calendar
             {
                 index = 5;
             }
-            else if (y >= 923 && y <= 1022)
+            else if (y >= 923 && y <= 1023)
             {
                 index = 6;
             }
-            else if (y >= 1023 && y <= 1121)
+            else if (y >= 1024 && y <= 1122)
             {
                 index = 7;
             }
-            else if (y >= 1122 && y <= 1221)
+            else if (y >= 1123 && y <= 1221)
             {
                 index = 8;
             }

@@ -566,7 +566,7 @@ namespace com.nlf.calendar
             }
 
             //追加上一农历年末的大雪
-            double q = calcJieQi(w-15.2184);
+            double q = calcJieQi(w - 15.2184);
             jieQi.Add(JIE_QI_PREPEND, Solar.fromJulianDay(qiAccurate2(q) + Solar.J2000));
 
             int size = JIE_QI.Length;
@@ -2562,6 +2562,46 @@ namespace com.nlf.calendar
             return timeZhiIndex;
         }
 
+        public int getDayGanIndex()
+        {
+            return dayGanIndex;
+        }
+
+        public int getDayZhiIndex()
+        {
+            return dayZhiIndex;
+        }
+
+        public int getMonthGanIndex()
+        {
+            return monthGanIndex;
+        }
+
+        public int getMonthZhiIndex()
+        {
+            return monthZhiIndex;
+        }
+
+        public int getYearGanIndex()
+        {
+            return yearGanIndex;
+        }
+
+        public int getYearZhiIndex()
+        {
+            return yearZhiIndex;
+        }
+
+        public int getYearGanIndexByLiChun()
+        {
+            return yearGanIndexByLiChun;
+        }
+
+        public int getYearZhiIndexByLiChun()
+        {
+            return yearZhiIndexByLiChun;
+        }
+
         public int getDayGanIndexExact()
         {
             return dayGanIndexExact;
@@ -2844,6 +2884,86 @@ namespace com.nlf.calendar
         public string getTimeXunKong()
         {
             return LunarUtil.getXunKong(getTimeInGanZhi());
+        }
+
+        /// <summary>
+        /// 获取数九
+        /// </summary>
+        /// <returns>数九，如果不是数九天，返回null</returns>
+        public ShuJiu getShuJiu()
+        {
+            DateTime currentCalendar = new DateTime(solar.getYear(), solar.getMonth(), solar.getDay(), 0, 0, 0, 0);
+            Solar start = jieQi[JIE_QI_APPEND];
+            DateTime startCalendar = new DateTime(start.getYear(), start.getMonth(), start.getDay(), 0, 0, 0, 0);
+            if (currentCalendar.CompareTo(startCalendar) < 0)
+            {
+                start = jieQi[JIE_QI_FIRST];
+                startCalendar = new DateTime(start.getYear(), start.getMonth(), start.getDay(), 0, 0, 0, 0);
+            }
+            DateTime endCalendar = startCalendar.AddDays(81);
+            if (currentCalendar.CompareTo(startCalendar) < 0 || currentCalendar.CompareTo(endCalendar) >= 0)
+            {
+                return null;
+            }
+            int days = currentCalendar.Subtract(startCalendar).Days;
+            return new ShuJiu(LunarUtil.NUMBER[days / 9 + 1] + "九", days % 9 + 1);
+        }
+
+        /// <summary>
+        /// 获取三伏
+        /// </summary>
+        /// <returns>三伏，如果不是伏天，返回null</returns>
+        public Fu getFu()
+        {
+            DateTime currentCalendar = new DateTime(solar.getYear(), solar.getMonth(), solar.getDay(), 0, 0, 0, 0);
+            Solar xiaZhi = jieQi["夏至"];
+            Solar liQiu = jieQi["立秋"];
+            DateTime startCalendar = new DateTime(xiaZhi.getYear(), xiaZhi.getMonth(), xiaZhi.getDay(), 0, 0, 0, 0);
+            int add = 6 - xiaZhi.getLunar().getDayGanIndex();
+            if (add < 0)
+            {
+                add += 10;
+            }
+            add += 20;
+            startCalendar = startCalendar.AddDays(add);
+            if (currentCalendar.CompareTo(startCalendar) < 0)
+            {
+                return null;
+            }
+            int days = currentCalendar.Subtract(startCalendar).Days;
+            if (days < 10)
+            {
+                return new Fu("初伏", days + 1);
+            }
+            startCalendar = startCalendar.AddDays(10);
+            days = currentCalendar.Subtract(startCalendar).Days;
+            if (days < 10)
+            {
+                return new Fu("中伏", days + 1);
+            }
+            startCalendar = startCalendar.AddDays(10);
+            DateTime liQiuCalendar = new DateTime(liQiu.getYear(), liQiu.getMonth(), liQiu.getDay(), 0, 0, 0, 0);
+            days = currentCalendar.Subtract(startCalendar).Days;
+            if (liQiuCalendar.CompareTo(startCalendar) <= 0)
+            {
+                if (days < 10)
+                {
+                    return new Fu("末伏", days + 1);
+                }
+            }
+            else
+            {
+                if (days < 10)
+                {
+                    return new Fu("中伏", days + 11);
+                }
+                startCalendar = startCalendar.AddDays(10);
+                days = currentCalendar.Subtract(startCalendar).Days;
+                if (days < 10)
+                {
+                    return new Fu("末伏", days + 1);
+                }
+            } return null;
         }
     }
 }

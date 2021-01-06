@@ -45,6 +45,9 @@
     <Compile Include="SolarTest.cs" />
     <Compile Include="FestivalTest.cs" />
     <Compile Include="XunTest.cs" />
+    <Compile Include="XingZuoTest.cs" />
+    <Compile Include="ShuJiuTest.cs" />
+    <Compile Include="FuTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

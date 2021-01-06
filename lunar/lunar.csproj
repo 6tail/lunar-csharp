@@ -40,9 +40,11 @@
     <Compile Include="eightchar\LiuYue.cs" />
     <Compile Include="eightchar\XiaoYun.cs" />
     <Compile Include="eightchar\Yun.cs" />
+    <Compile Include="Fu.cs" />
     <Compile Include="Holiday.cs" />
     <Compile Include="JieQi.cs" />
     <Compile Include="Lunar.cs" />
+    <Compile Include="ShuJiu.cs" />
     <Compile Include="Solar.cs" />
     <Compile Include="SolarHalfYear.cs" />
     <Compile Include="SolarMonth.cs" />
