@@ -2493,9 +2493,15 @@ namespace com.nlf.calendar
             return s.ToString();
         }
 
-        public override string ToString()
+        public string toString()
         {
             return getYearInChinese() + "年" + getMonthInChinese() + "月" + getDayInChinese();
+        }
+
+
+        public override string ToString()
+        {
+            return toString();
         }
 
         /// <summary>
@@ -2964,6 +2970,39 @@ namespace com.nlf.calendar
                     return new Fu("末伏", days + 1);
                 }
             } return null;
+        }
+
+        /// <summary>
+        /// 获取六曜
+        /// </summary>
+        /// <returns>六曜</returns>
+        public string getLiuYao()
+        {
+            return LunarUtil.LIU_YAO[(Math.Abs(month) + day - 2) % 6];
+        }
+
+        /// <summary>
+        /// 获取物候
+        /// </summary>
+        /// <returns>物候</returns>
+        public string getWuHou()
+        {
+            JieQi jieQi = getPrevJieQi();
+            string name = jieQi.getName();
+            int offset = 0;
+            for (int i = 0, j = JIE_QI.Length; i < j; i++)
+            {
+                if (name.Equals(JIE_QI[i]))
+                {
+                    offset = i;
+                    break;
+                }
+            }
+            DateTime currentCalendar = new DateTime(solar.getYear(), solar.getMonth(), solar.getDay(), 0, 0, 0, 0);
+            Solar startSolar = jieQi.getSolar();
+            DateTime startCalendar = new DateTime(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay(), 0, 0, 0, 0);
+            int days = currentCalendar.Subtract(startCalendar).Days;
+            return LunarUtil.WU_HOU[offset * 3 + days / 5];
         }
     }
 }

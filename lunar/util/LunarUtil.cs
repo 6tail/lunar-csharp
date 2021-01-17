@@ -75,6 +75,16 @@ namespace com.nlf.calendar.util
         public static readonly string[] XUN_KONG = { "戌亥", "申酉", "午未", "辰巳", "寅卯", "子丑" };
 
         /// <summary>
+        /// 六曜
+        /// </summary>
+        public static readonly string[] LIU_YAO = { "先胜", "友引", "先负", "佛灭", "大安", "赤口" };
+
+        /// <summary>
+        /// 物候
+        /// </summary>
+        public static readonly string[] WU_HOU = { "蚯蚓结", "麋角解", "水泉动", "雁北乡", "鹊始巢", "雉始雊", "鸡始乳", "征鸟厉疾", "水泽腹坚", "东风解冻", "蛰虫始振", "鱼陟负冰", "獭祭鱼", "候雁北", "草木萌动", "桃始华", "仓庚鸣", "鹰化为鸠", "玄鸟至", "雷乃发声", "始电", "桐始华", "田鼠化为鴽", "虹始见", "萍始生", "鸣鸠拂奇羽", "戴胜降于桑", "蝼蝈鸣", "蚯蚓出", "王瓜生", "苦菜秀", "靡草死", "麦秋至", "螳螂生", "鵙始鸣", "反舌无声", "鹿角解", "蜩始鸣", "半夏生", "温风至", "蟋蟀居壁", "鹰始挚", "腐草为萤", "土润溽暑", "大雨行时", "凉风至", "白露降", "寒蝉鸣", "鹰乃祭鸟", "天地始肃", "禾乃登", "鸿雁来", "玄鸟归", "群鸟养羞", "雷始收声", "蛰虫坯户", "水始涸", "鸿雁来宾", "雀入大水为蛤", "菊有黄花", "豺乃祭兽", "草木黄落", "蛰虫咸俯", "水始冰", "地始冻", "雉入大水为蜃", "虹藏不见", "天气上升地气下降", "闭塞而成冬", "鹖鴠不鸣", "虎始交", "荔挺出" };
+
+        /// <summary>
         /// 天干
         /// </summary>
         public static readonly string[] GAN = { "", "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" };
@@ -376,34 +386,40 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("1-1", new List<string>(new string[] { "弥勒佛圣诞" }));
             OTHER_FESTIVAL.Add("1-8", new List<string>(new string[] { "五殿阎罗天子诞" }));
             OTHER_FESTIVAL.Add("1-9", new List<string>(new string[] { "玉皇上帝诞" }));
+            OTHER_FESTIVAL.Add("1-13", new List<string>(new string[] { "杨公忌" }));
             OTHER_FESTIVAL.Add("2-1", new List<string>(new string[] { "一殿秦广王诞" }));
             OTHER_FESTIVAL.Add("2-2", new List<string>(new string[] { "福德土地正神诞" }));
             OTHER_FESTIVAL.Add("2-3", new List<string>(new string[] { "文昌帝君诞" }));
             OTHER_FESTIVAL.Add("2-6", new List<string>(new string[] { "东华帝君诞" }));
             OTHER_FESTIVAL.Add("2-8", new List<string>(new string[] { "释迦牟尼佛出家" }));
-            OTHER_FESTIVAL.Add("2-15", new List<string>(new string[] { "释迦牟尼佛般涅槃" }));
+            OTHER_FESTIVAL.Add("2-11", new List<string>(new string[] { "杨公忌" }));
+            OTHER_FESTIVAL.Add("2-15", new List<string>(new string[] { "释迦牟尼佛涅槃", "太上老君诞" }));
             OTHER_FESTIVAL.Add("2-17", new List<string>(new string[] { "东方杜将军诞" }));
-            OTHER_FESTIVAL.Add("2-18", new List<string>(new string[] { "至圣先师孔子讳辰" }));
+            OTHER_FESTIVAL.Add("2-18", new List<string>(new string[] { "四殿五官王诞", "至圣先师孔子讳辰" }));
             OTHER_FESTIVAL.Add("2-19", new List<string>(new string[] { "观音大士诞" }));
             OTHER_FESTIVAL.Add("2-21", new List<string>(new string[] { "普贤菩萨诞" }));
             OTHER_FESTIVAL.Add("3-1", new List<string>(new string[] { "二殿楚江王诞" }));
             OTHER_FESTIVAL.Add("3-3", new List<string>(new string[] { "玄天上帝诞" }));
             OTHER_FESTIVAL.Add("3-8", new List<string>(new string[] { "六殿卞城王诞" }));
-            OTHER_FESTIVAL.Add("3-15", new List<string>(new string[] { "昊天上帝诞" }));
+            OTHER_FESTIVAL.Add("3-9", new List<string>(new string[] { "杨公忌" }));
+            OTHER_FESTIVAL.Add("3-12", new List<string>(new string[] { "中央五道诞" }));
+            OTHER_FESTIVAL.Add("3-15", new List<string>(new string[] { "玄坛诞", "昊天上帝诞" }));
             OTHER_FESTIVAL.Add("3-16", new List<string>(new string[] { "准提菩萨诞" }));
-            OTHER_FESTIVAL.Add("3-19", new List<string>(new string[] { "中岳大帝诞" }));
+            OTHER_FESTIVAL.Add("3-18", new List<string>(new string[] { "中岳大帝诞", "后土娘娘诞" }));
             OTHER_FESTIVAL.Add("3-20", new List<string>(new string[] { "子孙娘娘诞" }));
             OTHER_FESTIVAL.Add("3-27", new List<string>(new string[] { "七殿泰山王诞" }));
             OTHER_FESTIVAL.Add("3-28", new List<string>(new string[] { "苍颉至圣先师诞" }));
             OTHER_FESTIVAL.Add("4-1", new List<string>(new string[] { "八殿都市王诞" }));
             OTHER_FESTIVAL.Add("4-4", new List<string>(new string[] { "文殊菩萨诞" }));
-            OTHER_FESTIVAL.Add("4-8", new List<string>(new string[] { "释迦牟尼佛诞" }));
+            OTHER_FESTIVAL.Add("4-7", new List<string>(new string[] { "杨公忌" }));
+            OTHER_FESTIVAL.Add("4-8", new List<string>(new string[] { "释迦牟尼佛诞", "九殿平等王诞" }));
             OTHER_FESTIVAL.Add("4-14", new List<string>(new string[] { "纯阳祖师诞" }));
             OTHER_FESTIVAL.Add("4-15", new List<string>(new string[] { "钟离祖师诞" }));
             OTHER_FESTIVAL.Add("4-17", new List<string>(new string[] { "十殿转轮王诞" }));
             OTHER_FESTIVAL.Add("4-18", new List<string>(new string[] { "紫徽大帝诞" }));
             OTHER_FESTIVAL.Add("4-20", new List<string>(new string[] { "眼光圣母诞" }));
             OTHER_FESTIVAL.Add("5-1", new List<string>(new string[] { "南极长生大帝诞" }));
+            OTHER_FESTIVAL.Add("5-5", new List<string>(new string[] { "杨公忌" }));
             OTHER_FESTIVAL.Add("5-8", new List<string>(new string[] { "南方五道诞" }));
             OTHER_FESTIVAL.Add("5-11", new List<string>(new string[] { "天下都城隍诞" }));
             OTHER_FESTIVAL.Add("5-12", new List<string>(new string[] { "炳灵公诞" }));
@@ -411,10 +427,16 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("5-16", new List<string>(new string[] { "天地元气造化万物之辰" }));
             OTHER_FESTIVAL.Add("5-18", new List<string>(new string[] { "张天师诞" }));
             OTHER_FESTIVAL.Add("5-22", new List<string>(new string[] { "孝娥神诞" }));
-            OTHER_FESTIVAL.Add("6-19", new List<string>(new string[] { "观世音菩萨成道日" }));
-            OTHER_FESTIVAL.Add("6-24", new List<string>(new string[] { "关帝诞" }));
+            OTHER_FESTIVAL.Add("6-3", new List<string>(new string[] { "杨公忌" }));
+            OTHER_FESTIVAL.Add("6-10", new List<string>(new string[] { "金粟如来诞" }));
+            OTHER_FESTIVAL.Add("6-13", new List<string>(new string[] { "井泉龙王诞" }));
+            OTHER_FESTIVAL.Add("6-19", new List<string>(new string[] { "观音大士涅槃" }));
+            OTHER_FESTIVAL.Add("6-23", new List<string>(new string[] { "南方火神诞" }));
+            OTHER_FESTIVAL.Add("6-24", new List<string>(new string[] { "雷祖诞", "关帝诞" }));
+            OTHER_FESTIVAL.Add("7-1", new List<string>(new string[] { "杨公忌" }));
             OTHER_FESTIVAL.Add("7-7", new List<string>(new string[] { "魁星诞" }));
-            OTHER_FESTIVAL.Add("7-13", new List<string>(new string[] { "长真谭真人诞", "大势至菩萨诞" }));
+            OTHER_FESTIVAL.Add("7-12", new List<string>(new string[] { "长真谭真人诞" }));
+            OTHER_FESTIVAL.Add("7-13", new List<string>(new string[] { "大势至菩萨诞" }));
             OTHER_FESTIVAL.Add("7-15", new List<string>(new string[] { "中元节" }));
             OTHER_FESTIVAL.Add("7-18", new List<string>(new string[] { "西王母诞" }));
             OTHER_FESTIVAL.Add("7-19", new List<string>(new string[] { "太岁诞" }));
@@ -430,31 +452,42 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("8-18", new List<string>(new string[] { "天人兴福之辰" }));
             OTHER_FESTIVAL.Add("8-23", new List<string>(new string[] { "汉恒候张显王诞" }));
             OTHER_FESTIVAL.Add("8-24", new List<string>(new string[] { "灶君夫人诞" }));
-            OTHER_FESTIVAL.Add("8-29", new List<string>(new string[] { "至圣先师孔子诞" }));
-            OTHER_FESTIVAL.Add("9-1", new List<string>(new string[] { "北斗九星降世" }));
-            OTHER_FESTIVAL.Add("9-3", new List<string>(new string[] { "五瘟神诞" }));
-            OTHER_FESTIVAL.Add("9-9", new List<string>(new string[] { "酆都大帝诞" }));
+            OTHER_FESTIVAL.Add("8-27", new List<string>(new string[] { "至圣先师孔子诞", "杨公忌" }));
+            OTHER_FESTIVAL.Add("9-1", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-2", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-3", new List<string>(new string[] { "北斗九星降", "五瘟神诞" }));
+            OTHER_FESTIVAL.Add("9-4", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-5", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-6", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-7", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-8", new List<string>(new string[] { "北斗九星降" }));
+            OTHER_FESTIVAL.Add("9-9", new List<string>(new string[] { "北斗九星降", "酆都大帝诞" }));
             OTHER_FESTIVAL.Add("9-13", new List<string>(new string[] { "孟婆尊神诞" }));
             OTHER_FESTIVAL.Add("9-17", new List<string>(new string[] { "金龙四大王诞" }));
             OTHER_FESTIVAL.Add("9-19", new List<string>(new string[] { "观世音菩萨出家" }));
+            OTHER_FESTIVAL.Add("9-25", new List<string>(new string[] { "杨公忌" }));
             OTHER_FESTIVAL.Add("9-30", new List<string>(new string[] { "药师琉璃光佛诞" }));
             OTHER_FESTIVAL.Add("10-1", new List<string>(new string[] { "寒衣节" }));
             OTHER_FESTIVAL.Add("10-3", new List<string>(new string[] { "三茅诞" }));
             OTHER_FESTIVAL.Add("10-5", new List<string>(new string[] { "达摩祖师诞" }));
             OTHER_FESTIVAL.Add("10-8", new List<string>(new string[] { "佛涅槃日" }));
             OTHER_FESTIVAL.Add("10-15", new List<string>(new string[] { "下元节" }));
+            OTHER_FESTIVAL.Add("10-23", new List<string>(new string[] { "杨公忌" }));
+            OTHER_FESTIVAL.Add("10-27", new List<string>(new string[] { "北极紫薇大帝降" }));
             OTHER_FESTIVAL.Add("11-4", new List<string>(new string[] { "至圣先师孔子诞" }));
             OTHER_FESTIVAL.Add("11-6", new List<string>(new string[] { "西岳大帝诞" }));
             OTHER_FESTIVAL.Add("11-11", new List<string>(new string[] { "太乙救苦天尊诞" }));
             OTHER_FESTIVAL.Add("11-17", new List<string>(new string[] { "阿弥陀佛诞" }));
             OTHER_FESTIVAL.Add("11-19", new List<string>(new string[] { "太阳日宫诞" }));
+            OTHER_FESTIVAL.Add("11-21", new List<string>(new string[] { "杨公忌" }));
             OTHER_FESTIVAL.Add("11-23", new List<string>(new string[] { "张仙诞" }));
+            OTHER_FESTIVAL.Add("11-25", new List<string>(new string[] { "掠刷大夫降" }));
             OTHER_FESTIVAL.Add("11-26", new List<string>(new string[] { "北方五道诞" }));
             OTHER_FESTIVAL.Add("12-8", new List<string>(new string[] { "释迦如来成佛之辰" }));
             OTHER_FESTIVAL.Add("12-16", new List<string>(new string[] { "南岳大帝诞" }));
+            OTHER_FESTIVAL.Add("12-19", new List<string>(new string[] { "杨公忌" }));
             OTHER_FESTIVAL.Add("12-21", new List<string>(new string[] { "天猷上帝诞" }));
-            OTHER_FESTIVAL.Add("12-23", new List<string>(new string[] { "小年" }));
-            OTHER_FESTIVAL.Add("12-24", new List<string>(new string[] { "子时灶君上天朝玉帝" }));
+            OTHER_FESTIVAL.Add("12-23", new List<string>(new string[] { "小年", "五岳神降" }));
             OTHER_FESTIVAL.Add("12-29", new List<string>(new string[] { "华严菩萨诞" }));
 
             XIU.Add("申1", "毕");

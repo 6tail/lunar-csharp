@@ -505,6 +505,11 @@ namespace com.nlf.calendar
 
         public override string ToString()
         {
+            return toString();
+        }
+
+        public string toString()
+        {
             return toYmd();
         }
 
