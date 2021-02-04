@@ -244,7 +244,7 @@ namespace com.nlf.calendar
             this.hour = hour;
             this.minute = minute;
             this.second = second;
-            dayOffset = LunarUtil.computeAddDays(year, month, day);
+            this.dayOffset = LunarUtil.computeAddDays(year, month, day);
             this.solar = toSolar();
             compute();
         }
@@ -317,7 +317,7 @@ namespace com.nlf.calendar
 
         private Solar toSolar()
         {
-            DateTime c = new DateTime(SolarUtil.BASE_YEAR, SolarUtil.BASE_MONTH - 1, SolarUtil.BASE_DAY, hour, minute, second);
+            DateTime c = new DateTime(SolarUtil.BASE_YEAR, SolarUtil.BASE_MONTH, SolarUtil.BASE_DAY, hour, minute, second);
             c = c.AddDays(dayOffset);
             return new Solar(c);
         }

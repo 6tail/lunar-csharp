@@ -70,7 +70,7 @@ namespace test
 
 
         /// <summary>
-        ///fix (string[], string) 的测试
+        /// next 的测试
         ///</summary>
         [TestMethod()]
         public void testNext()
@@ -95,6 +95,29 @@ namespace test
             // 仅工作日，周日调休按上班算
             Assert.AreEqual("2020-01-19", date.next(1, true).ToString(), "com.nlf.calendar.Solar.next 有错。");
 
+        }
+
+        /// <summary>
+        /// 
+        ///</summary>
+        [TestMethod()]
+        public void testConvert()
+        {
+            Solar solar = new Solar(2020, 1, 23);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("二〇一九年腊月廿九", lunar.ToString(), "com.nlf.calendar.Solar.getLunar 有错。");
+            Assert.AreEqual("2020-01-23", lunar.getSolar().ToString(), "com.nlf.calendar.Lunar.getSolar 有错。");
+        }
+
+        /// <summary>
+        /// 
+        ///</summary>
+        [TestMethod()]
+        public void testConvert1()
+        {
+            Lunar lunar = new Lunar(2019, 12, 29);
+            Assert.AreEqual("二〇一九年腊月廿九", lunar.ToString(), "com.nlf.calendar.Solar.getLunar 有错。");
+            Assert.AreEqual("2020-01-23", lunar.getSolar().ToString(), "com.nlf.calendar.Lunar.getSolar 有错。");
         }
 
     }
