@@ -5,25 +5,10 @@ using System.Text;
 namespace com.nlf.calendar.util
 {
     /// <summary>
-    /// 阳历工具，基准日期为1901年1月1日，对应农历1900年十一月十一
+    /// 阳历工具
     /// </summary>
     public class SolarUtil
     {
-        /// <summary>
-        /// 阳历基准年
-        /// </summary>
-        public const int BASE_YEAR = 1901;
-
-        /// <summary>
-        /// 阳历基准月
-        /// </summary>
-        public const int BASE_MONTH = 1;
-
-        /// <summary>
-        /// 阳历基准日
-        /// </summary>
-        public const int BASE_DAY = 1;
-
         /// <summary>
         /// 星期
         /// </summary>
@@ -97,7 +82,6 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("5-5", new List<string>(new string[] { "马克思诞辰纪念日" }));
             OTHER_FESTIVAL.Add("5-8", new List<string>(new string[] { "世界红十字日" }));
             OTHER_FESTIVAL.Add("5-11", new List<string>(new string[] { "世界肥胖日" }));
-            OTHER_FESTIVAL.Add("5-23", new List<string>(new string[] { "世界读书日" }));
             OTHER_FESTIVAL.Add("5-27", new List<string>(new string[] { "上海解放日" }));
             OTHER_FESTIVAL.Add("5-31", new List<string>(new string[] { "世界无烟日" }));
             OTHER_FESTIVAL.Add("6-5", new List<string>(new string[] { "世界环境日" }));
@@ -131,7 +115,6 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("12-12", new List<string>(new string[] { "西安事变纪念日" }));
             OTHER_FESTIVAL.Add("12-13", new List<string>(new string[] { "南京大屠杀纪念日" }));
             OTHER_FESTIVAL.Add("12-26", new List<string>(new string[] { "毛泽东诞辰纪念日" }));
-
         }
 
         /// <summary>
@@ -165,7 +148,7 @@ namespace com.nlf.calendar.util
         public static int getWeeksOfMonth(int year, int month, int start)
         {
             int days = getDaysOfMonth(year, month);
-            DateTime firstDay = new DateTime(year, month, 1);
+            DateTime firstDay = ExactDate.fromYmd(year, month, 1);
             int week = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
             return (int)Math.Ceiling((days + week - start) * 1D / WEEK.Length);
         }

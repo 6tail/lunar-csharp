@@ -238,6 +238,18 @@ namespace test
 
         }
 
+        [TestMethod()]
+        public void test5()
+        {
+            string ymd = "2016-10-04";
+
+            string expected = "2016-10-01";
+            string actual;
+
+            actual = com.nlf.calendar.util.HolidayUtil.getHoliday(ymd).getTarget();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 
 

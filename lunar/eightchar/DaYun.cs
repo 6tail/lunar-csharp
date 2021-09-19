@@ -138,10 +138,10 @@ namespace com.nlf.calendar.eightchar
         /// <summary>
         /// 获取流年
         /// </summary>
+        /// <param name="n">轮数</param>
         /// <returns>流年</returns>
-        public LiuNian[] getLiuNian()
+        public LiuNian[] getLiuNian(int n)
         {
-            int n = 10;
             if (index < 1)
             {
                 n = endYear - startYear + 1;
@@ -155,12 +155,21 @@ namespace com.nlf.calendar.eightchar
         }
 
         /// <summary>
+        /// 获取10轮流年
+        /// </summary>
+        /// <returns>流年</returns>
+        public LiuNian[] getLiuNian()
+        {
+            return getLiuNian(10);
+        }
+
+        /// <summary>
         /// 获取小运
         /// </summary>
+        /// <param name="n">轮数</param>
         /// <returns>小运</returns>
-        public XiaoYun[] getXiaoYun()
+        public XiaoYun[] getXiaoYun(int n)
         {
-            int n = 10;
             if (index < 1)
             {
                 n = endYear - startYear + 1;
@@ -171,6 +180,15 @@ namespace com.nlf.calendar.eightchar
                 l[i] = new XiaoYun(this, i, yun.isForward());
             }
             return l;
+        }
+
+        /// <summary>
+        /// 获取10轮小运
+        /// </summary>
+        /// <returns>小运</returns>
+        public XiaoYun[] getXiaoYun()
+        {
+            return getXiaoYun(10);
         }
 
     }

@@ -128,7 +128,7 @@ namespace com.nlf.calendar
         /// <returns>周序号，从1开始</returns>
         public int getIndex()
         {
-            DateTime firstDay = new DateTime(year, month, 1);
+            DateTime firstDay = ExactDate.fromYmd(year, month, 1);
             int firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
             if (firstDayWeek == 0)
             {
@@ -152,7 +152,7 @@ namespace com.nlf.calendar
             if (separateMonth)
             {
                 int n = weeks;
-                DateTime c = new DateTime(year, month, day);
+                DateTime c = ExactDate.fromYmd(year, month, day);
                 SolarWeek week = new SolarWeek(c, start);
                 int m = this.month;
                 bool plus = n > 0;
@@ -174,7 +174,7 @@ namespace com.nlf.calendar
                             }
                             else
                             {
-                                c = new DateTime(week.getYear(), week.getMonth(), 1);
+                                c = ExactDate.fromYmd(week.getYear(), week.getMonth(), 1);
                                 week = new SolarWeek(c, start);
                             }
                         }
@@ -190,7 +190,7 @@ namespace com.nlf.calendar
                             }
                             else
                             {
-                                c = new DateTime(week.getYear(), week.getMonth(), SolarUtil.getDaysOfMonth(week.getYear(), week.getMonth()));
+                                c = ExactDate.fromYmd(week.getYear(), week.getMonth(), SolarUtil.getDaysOfMonth(week.getYear(), week.getMonth()));
                                 week = new SolarWeek(c, start);
                             }
                         }
@@ -202,7 +202,7 @@ namespace com.nlf.calendar
             }
             else
             {
-                DateTime c = new DateTime(year, month, day);
+                DateTime c = ExactDate.fromYmd(year, month, day);
                 c = c.AddDays(weeks * 7);
                 return new SolarWeek(c, start);
             }
@@ -214,7 +214,7 @@ namespace com.nlf.calendar
         /// <returns>本周第一天的阳历日期</returns>
         public Solar getFirstDay()
         {
-            DateTime c = new DateTime(year, month, day);
+            DateTime c = ExactDate.fromYmd(year, month, day);
             int week = Convert.ToInt32(c.DayOfWeek.ToString("d"));
             int prev = week - start;
             if (prev < 0)

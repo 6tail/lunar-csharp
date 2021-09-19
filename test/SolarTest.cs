@@ -120,6 +120,40 @@ namespace test
             Assert.AreEqual("2020-01-23", lunar.getSolar().ToString(), "com.nlf.calendar.Lunar.getSolar 有错。");
         }
 
+        [TestMethod()]
+        public void testLeapYear()
+        {
+            Assert.AreEqual(false, SolarUtil.isLeapYear(1500));
+        }
+
+
+        [TestMethod()]
+        public void test1()
+        {
+            Solar solar = Solar.fromYmdHms(2020, 5, 24, 13, 0, 0);
+            Assert.AreEqual("二〇二〇年闰四月初二", solar.getLunar().ToString());
+        }
+
+        [TestMethod()]
+        public void test6()
+        {
+            Solar solar = Solar.fromYmd(11, 1, 1);
+            Assert.AreEqual("一〇年腊月初八", solar.getLunar().ToString());
+        }
+
+        [TestMethod()]
+        public void test7()
+        {
+            Solar solar = Solar.fromYmd(11, 3, 1);
+            Assert.AreEqual("一一年二月初八", solar.getLunar().ToString());
+        }
+
+        [TestMethod()]
+        public void test9()
+        {
+            Solar solar = Solar.fromYmd(26, 4, 13);
+            Assert.AreEqual("二六年三月初八", solar.getLunar().ToString());
+        }
     }
 
 

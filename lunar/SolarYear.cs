@@ -97,7 +97,7 @@ namespace com.nlf.calendar
         /// <returns>阳历年</returns>
         public SolarYear next(int years)
         {
-            DateTime c = new DateTime(year, 1, 1);
+            DateTime c = ExactDate.fromYmd(year, 1, 1);
             c = c.AddYears(years);
             return new SolarYear(c);
         }

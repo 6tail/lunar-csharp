@@ -50,6 +50,8 @@
     <Compile Include="FuTest.cs" />
     <Compile Include="LiuYaoTest.cs" />
     <Compile Include="WuHouTest.cs" />
+    <Compile Include="LunarTest.cs" />
+    <Compile Include="YunTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

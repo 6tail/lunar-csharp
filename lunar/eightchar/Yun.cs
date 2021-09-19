@@ -55,9 +55,12 @@ namespace com.nlf.calendar.eightchar
             Solar current = lunar.getSolar();
             Solar start = forward ? current : prev.getSolar();
             Solar end = forward ? next.getSolar() : current;
-            int hourDiff = LunarUtil.getTimeZhiIndex(end.toYmdHms().Substring(11, 5)) - LunarUtil.getTimeZhiIndex(start.toYmdHms().Substring(11, 5));
-            DateTime endCalendar = new DateTime(end.getYear(), end.getMonth(), end.getDay(), 0, 0, 0, 0);
-            DateTime startCalendar = new DateTime(start.getYear(), start.getMonth(), start.getDay(), 0, 0, 0, 0);
+            int endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().Substring(11, 5));
+            int startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().Substring(11, 5));
+            // 时辰差
+            int hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+            DateTime endCalendar = ExactDate.fromYmd(end.getYear(), end.getMonth(), end.getDay());
+            DateTime startCalendar = ExactDate.fromYmd(start.getYear(), start.getMonth(), start.getDay());
             int dayDiff = endCalendar.Subtract(startCalendar).Days;
             if (hourDiff < 0)
             {
@@ -131,7 +134,7 @@ namespace com.nlf.calendar.eightchar
         public Solar getStartSolar()
         {
             Solar birth = lunar.getSolar();
-            DateTime c = new DateTime(birth.getYear(), birth.getMonth(), birth.getDay(), 0, 0, 0);
+            DateTime c = ExactDate.fromYmd(birth.getYear(), birth.getMonth(), birth.getDay());
             c = c.AddYears(startYear);
             c = c.AddMonths(startMonth);
             c = c.AddDays(startDay);
@@ -141,16 +144,25 @@ namespace com.nlf.calendar.eightchar
         /// <summary>
         /// 获取大运
         /// </summary>
+        /// <param name="n">轮数</param>
         /// <returns>大运</returns>
-        public DaYun[] getDaYun()
+        public DaYun[] getDaYun(int n)
         {
-            int n = 10;
             DaYun[] l = new DaYun[n];
             for (int i = 0; i < n; i++)
             {
                 l[i] = new DaYun(this, i);
             }
             return l;
+        }
+
+        /// <summary>
+        /// 获取10轮大运
+        /// </summary>
+        /// <returns>大运</returns>
+        public DaYun[] getDaYun()
+        {
+            return getDaYun(10);
         }
 
     }

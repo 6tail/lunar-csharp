@@ -109,7 +109,7 @@ namespace com.nlf.calendar
         /// <returns>阳历月</returns>
         public SolarMonth next(int months)
         {
-            DateTime c = new DateTime(year, month, 1);
+            DateTime c = ExactDate.fromYmd(year, month, 1);
             c = c.AddMonths(months);
             return new SolarMonth(c);
         }

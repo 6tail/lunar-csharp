@@ -165,7 +165,7 @@ namespace test
                 LiuNian liuNian = l[i];
                 Assert.AreEqual(years[i], liuNian.getYear());
                 Assert.AreEqual(ages[i], liuNian.getAge());
-                Assert.AreEqual(ganZhi[i], liuNian.getGanZhi(),years[i] + "年");
+                Assert.AreEqual(ganZhi[i], liuNian.getGanZhi(), years[i] + "年");
             }
         }
 
@@ -202,7 +202,7 @@ namespace test
                 XiaoYun xiaoYun = l[i];
                 Assert.AreEqual(years[i], xiaoYun.getYear());
                 Assert.AreEqual(ages[i], xiaoYun.getAge());
-                Assert.AreEqual(ganZhi[i], xiaoYun.getGanZhi(),years[i] + "年");
+                Assert.AreEqual(ganZhi[i], xiaoYun.getGanZhi(), years[i] + "年");
             }
         }
 
@@ -244,7 +244,7 @@ namespace test
             Lunar lunar = solar.getLunar();
             EightChar eightChar = lunar.getEightChar();
 
-            Assert.AreEqual("戊辰", eightChar.getYear(),"年柱");
+            Assert.AreEqual("戊辰", eightChar.getYear(), "年柱");
             Assert.AreEqual("甲寅", eightChar.getMonth(), "月柱");
             Assert.AreEqual("庚子", eightChar.getDay(), "日柱");
             Assert.AreEqual("戊子", eightChar.getTime(), "时柱");
@@ -270,6 +270,29 @@ namespace test
             Assert.AreEqual("癸丑", eightChar.getMonth(), "月柱");
             Assert.AreEqual("丁亥", eightChar.getDay(), "日柱");
             Assert.AreEqual("辛亥", eightChar.getTime(), "时柱");
+        }
+
+        [TestMethod()]
+        public void testEightChar2Solar()
+        {
+            List<Solar> l = Solar.fromBaZi("辛丑", "丁酉", "丙寅", "戊戌");
+            string[] solars = { "2021-09-15 20:00:00 星期三 处女座", "1961-09-30 20:00:00 星期六 天秤座" };
+            for (int i = 0, j = solars.Length; i < j; i++)
+            {
+                Assert.AreEqual(solars[i], l[i].toFullString());
+            }
+        }
+
+        [TestMethod()]
+        public void test5()
+        {
+            Lunar lunar = Lunar.fromYmdHms(2019, 12, 12, 11, 22, 0);
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("己亥", eightChar.getYear(), "年柱");
+            Assert.AreEqual("丁丑", eightChar.getMonth(), "月柱");
+            Assert.AreEqual("戊申", eightChar.getDay(), "日柱");
+            Assert.AreEqual("戊午", eightChar.getTime(), "时柱");
         }
     }
 }

@@ -5,64 +5,14 @@ using System.Text;
 namespace com.nlf.calendar.util
 {
     /// <summary>
-    /// 农历工具，基准日期为1900年十一月十一，对应阳历1901年1月1日，最远仅支持到2099年
+    /// 农历工具
     /// </summary>
     public class LunarUtil
     {
         /// <summary>
-        /// 农历基准年
-        /// </summary>
-        public const int BASE_YEAR = 1900;
-
-        /// <summary>
-        /// 农历基准月
-        /// </summary>
-        public const int BASE_MONTH = 11;
-
-        /// <summary>
-        /// 农历基准日
-        /// </summary>
-        public const int BASE_DAY = 11;
-
-        /// <summary>
-        /// 农历与阳历年偏移量
-        /// </summary>
-        public const int BASE_INDEX = 0;
-
-        /// <summary>
-        /// 基准对应的值年九星偏移量
-        /// </summary>
-        public const int BASE_YEAR_JIU_XING_INDEX = 0;
-
-        /// <summary>
-        /// 基准对应的年干支偏移量
-        /// </summary>
-        public const int BASE_YEAR_GANZHI_INDEX = -4;
-
-        /// <summary>
-        /// 基准对应的日干支偏移量
-        /// </summary>
-        public const int BASE_DAY_GANZHI_INDEX = 15;
-
-        /// <summary>
         /// 月份地支偏移量，因正月起寅
         /// </summary>
         public const int BASE_MONTH_ZHI_INDEX = 2;
-
-        /// <summary>
-        /// 星期偏移量
-        /// </summary>
-        public const int BASE_WEEK_INDEX = 2;
-
-        /// <summary>
-        /// 闰年表
-        /// </summary>
-        public static readonly int[] LEAP_MONTH_YEAR = { 6, 14, 19, 25, 33, 36, 38, 41, 44, 52, 55, 79, 117, 136, 147, 150, 155, 158, 185, 193 };
-
-        /// <summary>
-        /// 闰月表
-        /// </summary>
-        public static readonly int[] LUNAR_MONTH = { 0x00, 0x04, 0xad, 0x08, 0x5a, 0x01, 0xd5, 0x54, 0xb4, 0x09, 0x64, 0x05, 0x59, 0x45, 0x95, 0x0a, 0xa6, 0x04, 0x55, 0x24, 0xad, 0x08, 0x5a, 0x62, 0xda, 0x04, 0xb4, 0x05, 0xb4, 0x55, 0x52, 0x0d, 0x94, 0x0a, 0x4a, 0x2a, 0x56, 0x02, 0x6d, 0x71, 0x6d, 0x01, 0xda, 0x02, 0xd2, 0x52, 0xa9, 0x05, 0x49, 0x0d, 0x2a, 0x45, 0x2b, 0x09, 0x56, 0x01, 0xb5, 0x20, 0x6d, 0x01, 0x59, 0x69, 0xd4, 0x0a, 0xa8, 0x05, 0xa9, 0x56, 0xa5, 0x04, 0x2b, 0x09, 0x9e, 0x38, 0xb6, 0x08, 0xec, 0x74, 0x6c, 0x05, 0xd4, 0x0a, 0xe4, 0x6a, 0x52, 0x05, 0x95, 0x0a, 0x5a, 0x42, 0x5b, 0x04, 0xb6, 0x04, 0xb4, 0x22, 0x6a, 0x05, 0x52, 0x75, 0xc9, 0x0a, 0x52, 0x05, 0x35, 0x55, 0x4d, 0x0a, 0x5a, 0x02, 0x5d, 0x31, 0xb5, 0x02, 0x6a, 0x8a, 0x68, 0x05, 0xa9, 0x0a, 0x8a, 0x6a, 0x2a, 0x05, 0x2d, 0x09, 0xaa, 0x48, 0x5a, 0x01, 0xb5, 0x09, 0xb0, 0x39, 0x64, 0x05, 0x25, 0x75, 0x95, 0x0a, 0x96, 0x04, 0x4d, 0x54, 0xad, 0x04, 0xda, 0x04, 0xd4, 0x44, 0xb4, 0x05, 0x54, 0x85, 0x52, 0x0d, 0x92, 0x0a, 0x56, 0x6a, 0x56, 0x02, 0x6d, 0x02, 0x6a, 0x41, 0xda, 0x02, 0xb2, 0xa1, 0xa9, 0x05, 0x49, 0x0d, 0x0a, 0x6d, 0x2a, 0x09, 0x56, 0x01, 0xad, 0x50, 0x6d, 0x01, 0xd9, 0x02, 0xd1, 0x3a, 0xa8, 0x05, 0x29, 0x85, 0xa5, 0x0c, 0x2a, 0x09, 0x96, 0x54, 0xb6, 0x08, 0x6c, 0x09, 0x64, 0x45, 0xd4, 0x0a, 0xa4, 0x05, 0x51, 0x25, 0x95, 0x0a, 0x2a, 0x72, 0x5b, 0x04, 0xb6, 0x04, 0xac, 0x52, 0x6a, 0x05, 0xd2, 0x0a, 0xa2, 0x4a, 0x4a, 0x05, 0x55, 0x94, 0x2d, 0x0a, 0x5a, 0x02, 0x75, 0x61, 0xb5, 0x02, 0x6a, 0x03, 0x61, 0x45, 0xa9, 0x0a, 0x4a, 0x05, 0x25, 0x25, 0x2d, 0x09, 0x9a, 0x68, 0xda, 0x08, 0xb4, 0x09, 0xa8, 0x59, 0x54, 0x03, 0xa5, 0x0a, 0x91, 0x3a, 0x96, 0x04, 0xad, 0xb0, 0xad, 0x04, 0xda, 0x04, 0xf4, 0x62, 0xb4, 0x05, 0x54, 0x0b, 0x44, 0x5d, 0x52, 0x0a, 0x95, 0x04, 0x55, 0x22, 0x6d, 0x02, 0x5a, 0x71, 0xda, 0x02, 0xaa, 0x05, 0xb2, 0x55, 0x49, 0x0b, 0x4a, 0x0a, 0x2d, 0x39, 0x36, 0x01, 0x6d, 0x80, 0x6d, 0x01, 0xd9, 0x02, 0xe9, 0x6a, 0xa8, 0x05, 0x29, 0x0b, 0x9a, 0x4c, 0xaa, 0x08, 0xb6, 0x08, 0xb4, 0x38, 0x6c, 0x09, 0x54, 0x75, 0xd4, 0x0a, 0xa4, 0x05, 0x45, 0x55, 0x95, 0x0a, 0x9a, 0x04, 0x55, 0x44, 0xb5, 0x04, 0x6a, 0x82, 0x6a, 0x05, 0xd2, 0x0a, 0x92, 0x6a, 0x4a, 0x05, 0x55, 0x0a, 0x2a, 0x4a, 0x5a, 0x02, 0xb5, 0x02, 0xb2, 0x31, 0x69, 0x03, 0x31, 0x73, 0xa9, 0x0a, 0x4a, 0x05, 0x2d, 0x55, 0x2d, 0x09, 0x5a, 0x01, 0xd5, 0x48, 0xb4, 0x09, 0x68, 0x89, 0x54, 0x0b, 0xa4, 0x0a, 0xa5, 0x6a, 0x95, 0x04, 0xad, 0x08, 0x6a, 0x44, 0xda, 0x04, 0x74, 0x05, 0xb0, 0x25, 0x54, 0x03 };
 
         /// <summary>
         /// 旬
@@ -202,16 +152,6 @@ namespace com.nlf.calendar.util
         /// 生效
         /// </summary>
         public static readonly string[] SHENGXIAO = { "", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
-
-        /// <summary>
-        /// 气
-        /// </summary>
-        public static readonly string[] QI = { "大寒", "雨水", "春分", "谷雨", "小满", "夏至", "大暑", "处暑", "秋分", "霜降", "小雪", "冬至" };
-
-        /// <summary>
-        /// 节
-        /// </summary>
-        public static readonly string[] JIE = { "小寒", "立春", "惊蛰", "清明", "立夏", "芒种", "小暑", "立秋", "白露", "寒露", "立冬", "大雪" };
 
         /// <summary>
         /// 日
@@ -381,7 +321,6 @@ namespace com.nlf.calendar.util
             FESTIVAL.Add("8-15", "中秋节");
             FESTIVAL.Add("9-9", "重阳节");
             FESTIVAL.Add("12-8", "腊八节");
-            FESTIVAL.Add("12-30", "除夕");
 
             OTHER_FESTIVAL.Add("1-1", new List<string>(new string[] { "弥勒佛圣诞" }));
             OTHER_FESTIVAL.Add("1-8", new List<string>(new string[] { "五殿阎罗天子诞" }));
@@ -1249,125 +1188,6 @@ namespace com.nlf.calendar.util
             ZHI_HIDE_GAN.Add("酉", new List<string>(new string[] { "辛" }));
             ZHI_HIDE_GAN.Add("戌", new List<string>(new string[] { "戊", "辛", "丁" }));
             ZHI_HIDE_GAN.Add("亥", new List<string>(new string[] { "壬", "甲" }));
-        }
-
-        /// <summary>
-        /// 计算指定日期距离基准日期的天数
-        /// </summary>
-        /// <param name="year">农历年</param>
-        /// <param name="month">农历月</param>
-        /// <param name="day">农历日</param>
-        /// <returns>距离天数</returns>
-        public static int computeAddDays(int year, int month, int day)
-        {
-            if (BASE_YEAR == year && BASE_MONTH == month)
-            {
-                return day - BASE_DAY;
-            }
-            int y = BASE_YEAR;
-            int m = BASE_MONTH;
-            int diff = getDaysOfMonth(y, m) - BASE_DAY;
-            while (y != year || m != month)
-            {
-                m = nextMonth(y, m);
-                if (m == 1)
-                {
-                    y++;
-                }
-                if (y == year && m == month)
-                {
-                    diff += day;
-                }
-                else
-                {
-                    diff += getDaysOfMonth(y, m);
-                }
-            }
-            return diff;
-        }
-
-        /// <summary>
-        /// 获取指定年份的闰月
-        /// </summary>
-        /// <param name="year">年份</param>
-        /// <returns>闰月数字，1代表闰1月，0代表无闰月</returns>
-        public static int getLeapMonth(int year)
-        {
-            int index = year - BASE_YEAR + BASE_INDEX;
-            int v = LUNAR_MONTH[2 * index + 1];
-            v = (v >> 4) & 0x0F;
-            return v;
-        }
-
-        /// <summary>
-        /// 获取指定年月的下一个月是第几月
-        /// </summary>
-        /// <param name="y">农历年</param>
-        /// <param name="m">农历月，闰月为负数</param>
-        /// <returns>1到12，闰月为负数</returns>
-        public static int nextMonth(int y, int m)
-        {
-            int n = Math.Abs(m) + 1;
-            if (m > 0)
-            {
-                if (m == getLeapMonth(y))
-                {
-                    n = -m;
-                }
-            }
-            return 13 != n ? n : 1;
-        }
-
-        /// <summary>
-        /// 获取某年某月有多少天
-        /// </summary>
-        /// <param name="year">农历年</param>
-        /// <param name="month">农历月，闰月为负数</param>
-        /// <returns>天数</returns>
-        public static int getDaysOfMonth(int year, int month)
-        {
-            int index = year - BASE_YEAR + BASE_INDEX;
-            int v, l, d = 30;
-            if (1 <= month && month <= 8)
-            {
-                v = LUNAR_MONTH[2 * index];
-                l = month - 1;
-                if (((v >> l) & 0x01) == 1)
-                {
-                    d = 29;
-                }
-            }
-            else if (9 <= month && month <= 12)
-            {
-                v = LUNAR_MONTH[2 * index + 1];
-                l = month - 9;
-                if (((v >> l) & 0x01) == 1)
-                {
-                    d = 29;
-                }
-            }
-            else
-            {
-                v = LUNAR_MONTH[2 * index + 1];
-                v = (v >> 4) & 0x0F;
-                if (v != Math.Abs(month))
-                {
-                    d = 0;
-                }
-                else
-                {
-                    d = 29;
-                    foreach (int i in LEAP_MONTH_YEAR)
-                    {
-                        if (i == index)
-                        {
-                            d = 30;
-                            break;
-                        }
-                    }
-                }
-            }
-            return d;
         }
 
         /// <summary>

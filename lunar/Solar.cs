@@ -78,15 +78,22 @@ namespace com.nlf.calendar
         /// <param name="hour">小时，0到23</param>
         /// <param name="minute">分钟，0到59</param>
         /// <param name="second">秒钟，0到59</param>
-        public Solar(int year, int month, int day, int hour, int minute,int second)
+        public Solar(int year, int month, int day, int hour, int minute, int second)
         {
+            if (year == 1582 && month == 10)
+            {
+                if (day >= 15)
+                {
+                    day -= 10;
+                }
+            }
             this.year = year;
             this.month = month;
             this.day = day;
             this.hour = hour;
             this.minute = minute;
             this.second = second;
-            this.calendar = new DateTime(year, month, day, hour, minute, second);
+            this.calendar = ExactDate.fromYmdHms(year, month, day, hour, minute, second);
         }
 
         /// <summary>
@@ -144,8 +151,7 @@ namespace com.nlf.calendar
             {
                 second = 59;
             }
-
-            calendar = new DateTime(year, month, day, hour, minute, second);
+            calendar = ExactDate.fromYmdHms(year, month, day, hour, minute, second);
             this.year = year;
             this.month = month;
             this.day = day;
@@ -202,7 +208,7 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 通过八字获取阳历列表（流派2，晚子时日柱按当天）
+        /// 通过八字获取阳历列表（流派2，晚子时日柱按当天，起始年为1900）
         /// </summary>
         /// <param name="yearGanZhi">年柱</param>
         /// <param name="monthGanZhi">月柱</param>
@@ -215,7 +221,7 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 通过八字获取阳历列表
+        /// 通过八字获取阳历列表（起始年为1900）
         /// </summary>
         /// <param name="yearGanZhi">年柱</param>
         /// <param name="monthGanZhi">月柱</param>
@@ -224,6 +230,21 @@ namespace com.nlf.calendar
         /// <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
         /// <returns>符合的阳历列表</returns>
         public static List<Solar> fromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect)
+        {
+            return fromBaZi(yearGanZhi, monthGanZhi, dayGanZhi, timeGanZhi, sect, 1900);
+        }
+
+        /// <summary>
+        /// 通过八字获取阳历列表
+        /// </summary>
+        /// <param name="yearGanZhi">年柱</param>
+        /// <param name="monthGanZhi">月柱</param>
+        /// <param name="dayGanZhi">日柱</param>
+        /// <param name="timeGanZhi">时柱</param>
+        /// <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
+        /// <param name="baseYear">起始年</param>
+        /// <returns>符合的阳历列表</returns>
+        public static List<Solar> fromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect, int baseYear)
         {
             sect = (1 == sect) ? 1 : 2;
             List<Solar> l = new List<Solar>();
@@ -236,7 +257,7 @@ namespace com.nlf.calendar
             }
             int startYear = today.getYear() - offsetYear;
             int hour = 0;
-            string timeZhi = timeGanZhi.Substring(1);
+            String timeZhi = timeGanZhi.Substring(1);
             for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
             {
                 if (LunarUtil.ZHI[i].Equals(timeZhi))
@@ -244,7 +265,7 @@ namespace com.nlf.calendar
                     hour = (i - 1) * 2;
                 }
             }
-            while (startYear >= SolarUtil.BASE_YEAR - 1)
+            while (startYear >= baseYear)
             {
                 int year = startYear - 1;
                 int counter = 0;
@@ -253,14 +274,10 @@ namespace com.nlf.calendar
                 bool found = false;
                 while (counter < 15)
                 {
-                    if (year >= SolarUtil.BASE_YEAR)
+                    if (year >= baseYear)
                     {
                         day = 1;
-                        if (year == SolarUtil.BASE_YEAR && month == SolarUtil.BASE_MONTH)
-                        {
-                            day = SolarUtil.BASE_DAY;
-                        }
-                        Solar solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
+                        Solar solar = new Solar(year, month, day, hour, 0, 0);
                         lunar = solar.getLunar();
                         if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi))
                         {
@@ -286,15 +303,11 @@ namespace com.nlf.calendar
                         year--;
                     }
                     day = 1;
-                    if (year == SolarUtil.BASE_YEAR && month == SolarUtil.BASE_MONTH)
-                    {
-                        day = SolarUtil.BASE_DAY;
-                    }
-                    Solar solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
+                    Solar solar = new Solar(year, month, day, hour, 0, 0);
                     while (counter < 61)
                     {
                         lunar = solar.getLunar();
-                        string dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+                        String dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
                         if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.getTimeInGanZhi().Equals(timeGanZhi))
                         {
                             l.Add(solar);
@@ -515,7 +528,20 @@ namespace com.nlf.calendar
 
         public string toYmd()
         {
-            return year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
+            int d = this.day;
+            if (this.year == 1582 && this.month == 10)
+            {
+                if (d >= 5)
+                {
+                    d += 10;
+                }
+            }
+            string y = this.year + "";
+            while (y.Length < 4)
+            {
+                y = "0" + y;
+            }
+            return y + "-" + (month < 10 ? "0" : "") + month + "-" + (d < 10 ? "0" : "") + d;
         }
 
         [Obsolete("This method is obsolete, use method toYmdHms instead")]
@@ -566,7 +592,7 @@ namespace com.nlf.calendar
         /// <returns>阳历日期</returns>
         public Solar next(int days, bool onlyWorkday)
         {
-            DateTime c = new DateTime(year, month, day, hour, minute, second);
+            DateTime c = ExactDate.fromYmdHms(year, month, day, hour, minute, second);
             if (0 != days)
             {
                 if (!onlyWorkday)

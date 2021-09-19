@@ -53,19 +53,18 @@ namespace com.nlf.calendar
         public void setName(string name)
         {
             this.name = name;
-            foreach (string key in LunarUtil.JIE)
+            for (int i = 0, j = Lunar.JIE_QI.Length; i < j; i++)
             {
-                if (key.Equals(name))
+                if (name.Equals(Lunar.JIE_QI[i]))
                 {
-                    this.jie = true;
-                    return;
-                }
-            }
-            foreach (string key in LunarUtil.QI)
-            {
-                if (key.Equals(name))
-                {
-                    this.qi = true;
+                    if (i % 2 == 0)
+                    {
+                        this.qi = true;
+                    }
+                    else
+                    {
+                        this.jie = true;
+                    }
                     return;
                 }
             }

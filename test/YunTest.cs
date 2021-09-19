@@ -5,13 +5,14 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using com.nlf.calendar;
+using com.nlf.calendar.eightchar;
 namespace test
 {
     /// <summary>
-    /// 物候测试
+    /// 运测试
     ///</summary>
     [TestClass()]
-    public class WuHouTest
+    public class YunTest
     {
 
 
@@ -69,75 +70,40 @@ namespace test
         [TestMethod()]
         public void test1()
         {
-            Solar solar = new Solar(2020, 4, 23);
+            Solar solar = Solar.fromYmdHms(1981, 1, 29, 23, 37, 0);
             Lunar lunar = solar.getLunar();
-            Assert.AreEqual("萍始生", lunar.getWuHou(), solar.toString());
+            EightChar eightChar = lunar.getEightChar();
+            Yun yun = eightChar.getYun(0);
+            Assert.AreEqual(8, yun.getStartYear(), "起运年数");
+            Assert.AreEqual(0, yun.getStartMonth(), "起运月数");
+            Assert.AreEqual(20, yun.getStartDay(), "起运天数");
+            Assert.AreEqual("1989-02-18", yun.getStartSolar().toYmd(), "起运阳历");
         }
 
         [TestMethod()]
         public void test2()
         {
-            Solar solar = new Solar(2021, 1, 15);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("雉始雊", lunar.getWuHou(), solar.toString());
+            Lunar lunar = Lunar.fromYmdHms(2019, 12, 12, 11, 22, 0);
+            EightChar eightChar = lunar.getEightChar();
+            Yun yun = eightChar.getYun(1);
+            Assert.AreEqual(0, yun.getStartYear(), "起运年数");
+            Assert.AreEqual(1, yun.getStartMonth(), "起运月数");
+            Assert.AreEqual(0, yun.getStartDay(), "起运天数");
+            Assert.AreEqual("2020-02-06", yun.getStartSolar().toYmd(), "起运阳历");
         }
 
         [TestMethod()]
         public void test3()
         {
-            Solar solar = new Solar(2017, 1, 5);
+            Solar solar = Solar.fromYmdHms(2020, 1, 6, 11, 22, 0);
             Lunar lunar = solar.getLunar();
-            Assert.AreEqual("雁北乡", lunar.getWuHou(), solar.toString());
+            EightChar eightChar = lunar.getEightChar();
+            Yun yun = eightChar.getYun(1);
+            Assert.AreEqual(0, yun.getStartYear(), "起运年数");
+            Assert.AreEqual(1, yun.getStartMonth(), "起运月数");
+            Assert.AreEqual(0, yun.getStartDay(), "起运天数");
+            Assert.AreEqual("2020-02-06", yun.getStartSolar().toYmd(), "起运阳历");
         }
-
-        [TestMethod()]
-        public void test4()
-        {
-            Solar solar = new Solar(2020, 4, 10);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("田鼠化为鴽", lunar.getWuHou(), solar.toString());
-        }
-
-        [TestMethod()]
-        public void test5()
-        {
-            Solar solar = new Solar(2020, 6, 11);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("鵙始鸣", lunar.getWuHou(), solar.toString());
-        }
-
-        [TestMethod()]
-        public void test6()
-        {
-            Solar solar = new Solar(2020, 6, 1);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("麦秋至", lunar.getWuHou(), solar.toString());
-        }
-
-        [TestMethod()]
-        public void test7()
-        {
-            Solar solar = new Solar(2020, 12, 8);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("鹖鴠不鸣", lunar.getWuHou(), solar.toString());
-        }
-
-        [TestMethod()]
-        public void test8()
-        {
-            Solar solar = new Solar(2020, 12, 11);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("鹖鴠不鸣", lunar.getWuHou(), solar.toString());
-        }
-
-        [TestMethod()]
-        public void test10()
-        {
-            Solar solar = new Solar(1982, 12, 22);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("蚯蚓结", lunar.getWuHou(), solar.toString());
-        }
-
 
     }
 
