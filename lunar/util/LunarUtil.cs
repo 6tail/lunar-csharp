@@ -136,7 +136,7 @@ namespace com.nlf.calendar.util
         /// <summary>
         /// 数字
         /// </summary>
-        public static readonly string[] NUMBER = { "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+        public static readonly string[] NUMBER = { "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二" };
 
         /// <summary>
         /// 月
@@ -187,6 +187,11 @@ namespace com.nlf.calendar.util
         /// 天神类型：黄道，黑道
         /// </summary>
         public static readonly Dictionary<string, string> TIAN_SHEN_TYPE = new Dictionary<string, string>();
+
+        /// <summary>
+        /// 禄（甲禄在寅，乙禄在卯，丙戊禄在巳、丁己禄在午、庚禄在申、辛禄在酉、壬禄在亥、癸禄在子）
+        /// </summary>
+        public static readonly Dictionary<string, string> LU = new Dictionary<string, string>();
 
         /// <summary>
         /// 天神类型吉凶
@@ -312,6 +317,26 @@ namespace com.nlf.calendar.util
 
             TIAN_SHEN_TYPE_LUCK.Add("黄道", "吉");
             TIAN_SHEN_TYPE_LUCK.Add("黑道", "凶");
+
+            LU.Add("甲", "寅");
+            LU.Add("乙", "卯");
+            LU.Add("丙", "巳");
+            LU.Add("丁", "午");
+            LU.Add("戊", "巳");
+            LU.Add("己", "午");
+            LU.Add("庚", "申");
+            LU.Add("辛", "酉");
+            LU.Add("壬", "亥");
+            LU.Add("癸", "子");
+
+            LU.Add("寅", "甲");
+            LU.Add("卯", "乙");
+            LU.Add("巳", "丙,戊");
+            LU.Add("午", "丁,己");
+            LU.Add("申", "庚");
+            LU.Add("酉", "辛");
+            LU.Add("亥", "壬");
+            LU.Add("子", "癸");
 
             FESTIVAL.Add("1-1", "春节");
             FESTIVAL.Add("1-15", "元宵节");

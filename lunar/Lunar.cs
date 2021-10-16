@@ -284,8 +284,8 @@ namespace com.nlf.calendar
             int zExact = yearZhiIndex;
 
             int solarYear = solar.getYear();
-            String solarYmd = solar.toYmd();
-            String solarYmdHms = solar.toYmdHms();
+            string solarYmd = solar.toYmd();
+            string solarYmdHms = solar.toYmdHms();
 
             //获取立春的阳历时刻
             Solar liChun = jieQi["立春"];
@@ -293,8 +293,8 @@ namespace com.nlf.calendar
             {
                 liChun = jieQi["LI_CHUN"];
             }
-            String liChunYmd = liChun.toYmd();
-            String liChunYmdHms = liChun.toYmdHms();
+            string liChunYmd = liChun.toYmd();
+            string liChunYmdHms = liChun.toYmdHms();
 
             //阳历和阴历年份相同代表正月初一及以后
             if (year == solarYear)
@@ -340,8 +340,8 @@ namespace com.nlf.calendar
         {
             Solar start = null;
             Solar end;
-            String ymd = solar.toYmd();
-            String time = solar.toYmdHms();
+            string ymd = solar.toYmd();
+            string time = solar.toYmdHms();
             int size = JIE_QI_IN_USE.Length;
 
             //序号：大雪以前-3，大雪到小寒之间-2，小寒到立春之间-1，立春之后0
@@ -349,7 +349,7 @@ namespace com.nlf.calendar
             for (int i = 0; i < size; i += 2)
             {
                 end = jieQi[JIE_QI_IN_USE[i]];
-                String symd = null == start ? ymd : start.toYmd();
+                string symd = null == start ? ymd : start.toYmd();
                 if (ymd.CompareTo(symd) >= 0 && ymd.CompareTo(end.toYmd()) < 0)
                 {
                     break;
@@ -368,7 +368,7 @@ namespace com.nlf.calendar
             for (int i = 0; i < size; i += 2)
             {
                 end = jieQi[JIE_QI_IN_USE[i]];
-                String stime = null == start ? time : start.toYmdHms();
+                string stime = null == start ? time : start.toYmdHms();
                 if (time.CompareTo(stime) >= 0 && time.CompareTo(end.toYmdHms()) < 0)
                 {
                     break;
@@ -401,7 +401,7 @@ namespace com.nlf.calendar
             dayZhiIndexExact2 = dayZhiExact;
 
             // 八字流派1，晚子时（夜子/子夜）日柱算明天
-            String hm = (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute;
+            string hm = (hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute;
             if (hm.CompareTo("23:00") >= 0 && hm.CompareTo("23:59") <= 0)
             {
                 dayGanExact++;
@@ -849,10 +849,10 @@ namespace com.nlf.calendar
         /// <returns>节</returns>
         public string getJie()
         {
-            String jie = "";
+            string jie = "";
             for (int i = 1, j = JIE_QI.Length; i < j; i += 2)
             {
-                String key = JIE_QI[i];
+                string key = JIE_QI[i];
                 Solar d = jieQi[key];
                 if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
                 {
@@ -869,10 +869,10 @@ namespace com.nlf.calendar
         /// <returns>气</returns>
         public string getQi()
         {
-            String qi = "";
+            string qi = "";
             for (int i = 0, j = JIE_QI.Length; i < j; i += 2)
             {
-                String key = JIE_QI[i];
+                string key = JIE_QI[i];
                 Solar d = jieQi[key];
                 if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
                 {
@@ -1840,7 +1840,7 @@ namespace com.nlf.calendar
         public JieQi getNextJie()
         {
             int l = JIE_QI_IN_USE.Length / 2;
-            String[] conditions = new String[l];
+            string[] conditions = new string[l];
             for (int i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2];
@@ -1855,7 +1855,7 @@ namespace com.nlf.calendar
         public JieQi getPrevJie()
         {
             int l = JIE_QI_IN_USE.Length / 2;
-            String[] conditions = new String[l];
+            string[] conditions = new string[l];
             for (int i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2];
@@ -1870,7 +1870,7 @@ namespace com.nlf.calendar
         public JieQi getNextQi()
         {
             int l = JIE_QI_IN_USE.Length / 2;
-            String[] conditions = new String[l];
+            string[] conditions = new string[l];
             for (int i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2 + 1];
@@ -1885,7 +1885,7 @@ namespace com.nlf.calendar
         public JieQi getPrevQi()
         {
             int l = JIE_QI_IN_USE.Length / 2;
-            String[] conditions = new String[l];
+            string[] conditions = new string[l];
             for (int i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2 + 1];
@@ -2606,6 +2606,51 @@ namespace com.nlf.calendar
             DateTime startCalendar = ExactDate.fromYmd(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay());
             int days = currentCalendar.Subtract(startCalendar).Days;
             return LunarUtil.WU_HOU[(offset * 3 + days / 5) % LunarUtil.WU_HOU.Length];
+        }
+
+        /// <summary>
+        /// 获取日禄
+        /// </summary>
+        /// <returns>日禄</returns>
+        public string getDayLu()
+        {
+            string gan = LunarUtil.LU[getDayGan()];
+            string zhi = null;
+            try
+            {
+                zhi = LunarUtil.LU[getDayZhi()];
+            }
+            catch { }
+            string lu = gan + "命互禄";
+            if (null != zhi)
+            {
+                lu += " " + zhi + "命进禄";
+            }
+            return lu;
+        }
+
+        /// <summary>
+        /// 获取时辰
+        /// </summary>
+        /// <returns>时辰</returns>
+        public LunarTime getTime()
+        {
+            return new LunarTime(year, month, day, hour, minute, second);
+        }
+
+        /// <summary>
+        /// 获取当天的时辰列表
+        /// </summary>
+        /// <returns>时辰列表</returns>
+        public List<LunarTime> getTimes()
+        {
+            List<LunarTime> l = new List<LunarTime>();
+            l.Add(new LunarTime(year, month, day, 0, 0, 0));
+            for (int i = 0; i < 12; i++)
+            {
+                l.Add(new LunarTime(year, month, day, (i + 1) * 2 - 1, 0, 0));
+            }
+            return l;
         }
     }
 }

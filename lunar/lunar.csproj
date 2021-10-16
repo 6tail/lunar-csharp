@@ -61,6 +61,7 @@
     <Compile Include="util\ShouXingUtil.cs" />
     <Compile Include="LunarYear.cs" />
     <Compile Include="LunarMonth.cs" />
+    <Compile Include="LunarTime.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

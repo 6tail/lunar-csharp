@@ -257,7 +257,7 @@ namespace com.nlf.calendar
             }
             int startYear = today.getYear() - offsetYear;
             int hour = 0;
-            String timeZhi = timeGanZhi.Substring(1);
+            string timeZhi = timeGanZhi.Substring(1);
             for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
             {
                 if (LunarUtil.ZHI[i].Equals(timeZhi))
@@ -307,7 +307,7 @@ namespace com.nlf.calendar
                     while (counter < 61)
                     {
                         lunar = solar.getLunar();
-                        String dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
+                        string dgz = (2 == sect) ? lunar.getDayInGanZhiExact2() : lunar.getDayInGanZhiExact();
                         if (lunar.getYearInGanZhiExact().Equals(yearGanZhi) && lunar.getMonthInGanZhiExact().Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.getTimeInGanZhi().Equals(timeGanZhi))
                         {
                             l.Add(solar);
