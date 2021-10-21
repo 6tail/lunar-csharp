@@ -70,5 +70,27 @@ namespace test
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
         }
+
+        [TestMethod()]
+        public void test7()
+        {
+            string expected = "2012-09-07 13:29:00";
+            string actual;
+
+            actual = Lunar.fromYmd(2012, 9, 1).getJieQiTable()["白露"].toYmdHms();
+
+            Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
+        }
+
+        [TestMethod()]
+        public void test8()
+        {
+            string expected = "2050-12-07 06:41:00";
+            string actual;
+
+            actual = Lunar.fromYmd(2050, 12, 1).getJieQiTable()["大雪"].toYmdHms();
+
+            Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
+        }
     }
 }

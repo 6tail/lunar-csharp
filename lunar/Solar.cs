@@ -147,9 +147,15 @@ namespace com.nlf.calendar
             f *= 60;
             int second = (int)Math.Round(f);
 
-            if (second == 60)
+            if (second > 59)
             {
-                second = 59;
+                second -= 60;
+                minute++;
+            }
+            if (minute > 59)
+            {
+                minute -= 60;
+                hour++;
             }
             calendar = ExactDate.fromYmdHms(year, month, day, hour, minute, second);
             this.year = year;
