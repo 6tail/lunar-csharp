@@ -2652,5 +2652,14 @@ namespace com.nlf.calendar
             }
             return l;
         }
+
+        /// <summary>
+        /// 获取佛历
+        /// </summary>
+        /// <returns>佛历</returns>
+        public Foto getFoto()
+        {
+            return Foto.fromLunar(this);
+        }
     }
 }

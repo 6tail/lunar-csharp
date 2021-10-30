@@ -53,6 +53,7 @@
     <Compile Include="LunarTest.cs" />
     <Compile Include="YunTest.cs" />
     <Compile Include="YearTest.cs" />
+    <Compile Include="FotoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />
