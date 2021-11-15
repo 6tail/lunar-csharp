@@ -147,21 +147,41 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取时辰福神方位
+        /// 获取时辰福神方位，流派2
         /// </summary>
         /// <returns>福神方位，如艮</returns>
         public string getPositionFu()
         {
-            return LunarUtil.POSITION_FU[ganIndex + 1];
+            return getPositionFu(2);
+        }
+
+        /// <summary>
+        /// 获取时辰福神方位
+        /// </summary>
+        /// <param name="sect">流派，可选1或2</param>
+        /// <returns>福神方位，如艮</returns>
+        public string getPositionFu(int sect)
+        {
+            return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取时辰福神方位描述，流派2
+        /// </summary>
+        /// <returns>福神方位描述，如东北</returns>
+        public string getPositionFuDesc()
+        {
+            return getPositionFuDesc(2);
         }
 
         /// <summary>
         /// 获取时辰福神方位描述
         /// </summary>
+        /// <param name="sect">流派，可选1或2</param>
         /// <returns>福神方位描述，如东北</returns>
-        public string getPositionFuDesc()
+        public string getPositionFuDesc(int sect)
         {
-            return LunarUtil.POSITION_DESC[getPositionFu()];
+            return LunarUtil.POSITION_DESC[getPositionFu(sect)];
         }
 
         /// <summary>

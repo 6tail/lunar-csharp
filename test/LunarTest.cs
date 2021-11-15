@@ -523,6 +523,46 @@ namespace test
             Assert.AreEqual("寅命互禄", lunar.getDayLu());
         }
 
+        [TestMethod()]
+        public void test48()
+        {
+            Solar solar = Solar.fromYmd(2021, 11, 13);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("碓磨厕 外东南", lunar.getDayPositionTai());
+        }
+
+        [TestMethod()]
+        public void test49()
+        {
+            Solar solar = Solar.fromYmd(2021, 11, 12);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("占门碓 外东南", lunar.getDayPositionTai());
+        }
+
+        [TestMethod()]
+        public void test50()
+        {
+            Solar solar = Solar.fromYmd(2021, 11, 13);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("西南", lunar.getDayPositionFuDesc());
+        }
+
+        [TestMethod()]
+        public void test51()
+        {
+            Solar solar = Solar.fromYmd(2021, 11, 12);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("正北", lunar.getDayPositionFuDesc());
+        }
+
+        [TestMethod()]
+        public void test52()
+        {
+            Solar solar = Solar.fromYmd(2011, 11, 12);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("厕灶厨 外西南", lunar.getDayPositionTai());
+        }
+
     }
 
 

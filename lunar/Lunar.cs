@@ -1135,7 +1135,17 @@ namespace com.nlf.calendar
         /// <returns>福神方位，如艮</returns>
         public string getDayPositionFu()
         {
-            return LunarUtil.POSITION_FU[dayGanIndex + 1];
+            return getDayPositionFu(2);
+        }
+
+        /// <summary>
+        /// 获取日福神方位
+        /// </summary>
+        /// <param name="sect">流派，可选1或2</param>
+        /// <returns>福神方位，如艮</returns>
+        public string getDayPositionFu(int sect)
+        {
+            return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[dayGanIndex + 1];
         }
 
         /// <summary>
@@ -1144,7 +1154,17 @@ namespace com.nlf.calendar
         /// <returns>福神方位描述，如东北</returns>
         public string getDayPositionFuDesc()
         {
-            return LunarUtil.POSITION_DESC[getDayPositionFu()];
+            return getDayPositionFuDesc(2);
+        }
+
+        /// <summary>
+        /// 获取日福神方位描述
+        /// </summary>
+        /// <param name="sect">流派，可选1或2</param>
+        /// <returns>福神方位描述，如东北</returns>
+        public string getDayPositionFuDesc(int sect)
+        {
+            return LunarUtil.POSITION_DESC[getDayPositionFu(sect)];
         }
 
         /// <summary>
@@ -1225,7 +1245,17 @@ namespace com.nlf.calendar
         /// <returns>福神方位，如艮</returns>
         public string getTimePositionFu()
         {
-            return LunarUtil.POSITION_FU[timeGanIndex + 1];
+            return getTimePositionFu(2);
+        }
+
+        /// <summary>
+        /// 获取时辰福神方位
+        /// </summary>
+        /// <param name="sect">流派，可选1或2</param>
+        /// <returns>福神方位，如艮</returns>
+        public string getTimePositionFu(int sect)
+        {
+            return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[timeGanIndex + 1];
         }
 
         /// <summary>
@@ -1234,7 +1264,17 @@ namespace com.nlf.calendar
         /// <returns>福神方位描述，如东北</returns>
         public string getTimePositionFuDesc()
         {
-            return LunarUtil.POSITION_DESC[getTimePositionFu()];
+            return getTimePositionFuDesc(2);
+        }
+
+        /// <summary>
+        /// 获取时辰福神方位描述
+        /// </summary>
+        /// <param name="sect">流派，可选1或2</param>
+        /// <returns>福神方位描述，如东北</returns>
+        public string getTimePositionFuDesc(int sect)
+        {
+            return LunarUtil.POSITION_DESC[getTimePositionFu(sect)];
         }
 
         /// <summary>
@@ -1613,12 +1653,7 @@ namespace com.nlf.calendar
         /// <returns>逐日胎神方位</returns>
         public string getDayPositionTai()
         {
-            int offset = dayGanIndex - dayZhiIndex;
-            if (offset < 0)
-            {
-                offset += 12;
-            }
-            return LunarUtil.POSITION_TAI_DAY[offset * 5 + dayGanIndex];
+            return LunarUtil.POSITION_TAI_DAY[LunarUtil.getJiaZiIndex(getDayInGanZhi())];
         }
 
         /// <summary>
