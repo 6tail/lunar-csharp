@@ -576,7 +576,7 @@ namespace com.nlf.calendar.util
             GONG.Add("鬼", "南");
             GONG.Add("娄", "西");
             GONG.Add("牛", "北");
-            GONG.Add("氐", "南");
+            GONG.Add("氐", "东");
             GONG.Add("柳", "南");
             GONG.Add("胃", "西");
             GONG.Add("女", "北");
