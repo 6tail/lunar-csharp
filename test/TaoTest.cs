@@ -8,7 +8,7 @@ namespace test
 {
 
     [TestClass()]
-    public class FotoTest
+    public class TaoTest
     {
 
 
@@ -67,8 +67,19 @@ namespace test
         [TestMethod()]
         public void test()
         {
-            Foto foto = Foto.fromLunar(Lunar.fromYmd(2021, 10, 14));
-            Assert.AreEqual("二五六五年十月十四 (三元降) (四天王巡行)", foto.toFullString());
+            Tao tao = Tao.fromLunar(Lunar.fromYmdHms(2021, 10, 17, 18, 0, 0));
+            Assert.AreEqual("四七一八年十月十七", tao.toString());
+            Assert.AreEqual("道歷四七一八年，天運辛丑年，己亥月，癸酉日。十月十七日，酉時。", tao.toFullString());
+        }
+
+        [TestMethod()]
+        public void test1()
+        {
+            Tao tao = Tao.fromYmd(4718, 10, 18);
+            Assert.AreEqual(2, tao.getFestivals().Count);
+
+            tao = Lunar.fromYmd(2021, 10, 18).getTao();
+            Assert.AreEqual(2, tao.getFestivals().Count);
         }
 
     }

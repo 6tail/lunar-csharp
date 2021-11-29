@@ -2696,5 +2696,14 @@ namespace com.nlf.calendar
         {
             return Foto.fromLunar(this);
         }
+
+        /// <summary>
+        /// 获取道历
+        /// </summary>
+        /// <returns>道历</returns>
+        public Tao getTao()
+        {
+            return Tao.fromLunar(this);
+        }
     }
 }

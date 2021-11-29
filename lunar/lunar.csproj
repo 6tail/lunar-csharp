@@ -65,6 +65,9 @@
     <Compile Include="Foto.cs" />
     <Compile Include="FotoFestival.cs" />
     <Compile Include="util\FotoUtil.cs" />
+    <Compile Include="util\TaoUtil.cs" />
+    <Compile Include="TaoFestival.cs" />
+    <Compile Include="Tao.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

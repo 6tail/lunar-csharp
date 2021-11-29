@@ -71,7 +71,7 @@ namespace com.nlf.calendar
             return remark;
         }
 
-        public string toString()
+        public string toFullString()
         {
             StringBuilder s = new StringBuilder();
             s.Append(name);
@@ -86,6 +86,11 @@ namespace com.nlf.calendar
                 s.Append(remark);
             }
             return s.ToString();
+        }
+
+        public string toString()
+        {
+           return name;
         }
 
         public override string ToString()

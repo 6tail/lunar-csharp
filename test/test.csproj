@@ -54,6 +54,7 @@
     <Compile Include="YunTest.cs" />
     <Compile Include="YearTest.cs" />
     <Compile Include="FotoTest.cs" />
+    <Compile Include="TaoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />
