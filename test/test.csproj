@@ -55,6 +55,7 @@
     <Compile Include="YearTest.cs" />
     <Compile Include="FotoTest.cs" />
     <Compile Include="TaoTest.cs" />
+    <Compile Include="JieQiTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AuthoringTests.txt" />

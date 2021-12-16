@@ -8,7 +8,7 @@ namespace test
 {
 
     [TestClass()]
-    public class FotoTest
+    public class JieQiTest
     {
 
 
@@ -67,19 +67,11 @@ namespace test
         [TestMethod()]
         public void test()
         {
-            Foto foto = Foto.fromLunar(Lunar.fromYmd(2021, 10, 14));
-            Assert.AreEqual("二五六五年十月十四 (三元降) (四天王巡行)", foto.toFullString());
-        }
-
-        [TestMethod()]
-        public void test1()
-        {
-            Foto foto = Foto.fromLunar(Lunar.fromYmd(2020, 4, 13));
-            Assert.AreEqual("氐", foto.getXiu());
-            Assert.AreEqual("土", foto.getZheng());
-            Assert.AreEqual("貉", foto.getAnimal());
-            Assert.AreEqual("东", foto.getGong());
-            Assert.AreEqual("青龙", foto.getShou());
+            Solar solar = Solar.fromYmd(2021, 12, 21);
+            Lunar luanr = solar.getLunar();
+            Assert.AreEqual("冬至", luanr.getJieQi());
+            Assert.AreEqual("", luanr.getJie());
+            Assert.AreEqual("冬至", luanr.getQi());
         }
 
     }

@@ -850,9 +850,9 @@ namespace com.nlf.calendar
         public string getJie()
         {
             string jie = "";
-            for (int i = 1, j = JIE_QI.Length; i < j; i += 2)
+            for (int i = 0, j = JIE_QI_IN_USE.Length; i < j; i += 2)
             {
-                string key = JIE_QI[i];
+                string key = JIE_QI_IN_USE[i];
                 Solar d = jieQi[key];
                 if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
                 {
@@ -870,9 +870,9 @@ namespace com.nlf.calendar
         public string getQi()
         {
             string qi = "";
-            for (int i = 0, j = JIE_QI.Length; i < j; i += 2)
+            for (int i = 1, j = JIE_QI_IN_USE.Length; i < j; i += 2)
             {
-                string key = JIE_QI[i];
+                string key = JIE_QI_IN_USE[i];
                 Solar d = jieQi[key];
                 if (d.getYear() == solar.getYear() && d.getMonth() == solar.getMonth() && d.getDay() == solar.getDay())
                 {

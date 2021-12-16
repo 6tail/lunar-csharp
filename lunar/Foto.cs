@@ -151,6 +151,69 @@ namespace com.nlf.calendar
             return false;
         }
 
+        /// <summary>
+        /// 获取星宿
+        /// </summary>
+        /// <returns>星宿</returns>
+        public string getXiu()
+        {
+            return FotoUtil.getXiu(getMonth(), getDay());
+        }
+
+        /// <summary>
+        /// 获取宿吉凶
+        /// </summary>
+        /// <returns>吉凶</returns>
+        public string getXiuLuck()
+        {
+            return LunarUtil.XIU_LUCK[getXiu()];
+        }
+
+        /// <summary>
+        /// 获取宿歌诀
+        /// </summary>
+        /// <returns>星宿歌诀</returns>
+        public string getXiuSong()
+        {
+            return LunarUtil.XIU_SONG[getXiu()];
+        }
+
+        /// <summary>
+        /// 获取政
+        /// </summary>
+        /// <returns>政</returns>
+        public string getZheng()
+        {
+            return LunarUtil.ZHENG[getXiu()];
+        }
+
+        /// <summary>
+        /// 获取动物
+        /// </summary>
+        /// <returns>动物</returns>
+        public string getAnimal()
+        {
+            return LunarUtil.ANIMAL[getXiu()];
+        }
+
+        /// <summary>
+        /// 获取宫
+        /// </summary>
+        /// <returns>宫</returns>
+        public string getGong()
+        {
+            return LunarUtil.GONG[getXiu()];
+        }
+
+        /// <summary>
+        /// 获取兽
+        /// </summary>
+        /// <returns>兽</returns>
+        public string getShou()
+        {
+            return LunarUtil.SHOU[getGong()];
+        }
+
         public string toString()
         {
             return getYearInChinese() + "年" + getMonthInChinese() + "月" + getDayInChinese();

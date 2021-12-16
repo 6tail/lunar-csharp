@@ -113,7 +113,7 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("11-28", new List<string>(new string[] { "恩格斯诞辰纪念日" }));
             OTHER_FESTIVAL.Add("12-1", new List<string>(new string[] { "世界艾滋病日" }));
             OTHER_FESTIVAL.Add("12-12", new List<string>(new string[] { "西安事变纪念日" }));
-            OTHER_FESTIVAL.Add("12-13", new List<string>(new string[] { "南京大屠杀纪念日" }));
+            OTHER_FESTIVAL.Add("12-13", new List<string>(new string[] { "国家公祭日" }));
             OTHER_FESTIVAL.Add("12-26", new List<string>(new string[] { "毛泽东诞辰纪念日" }));
         }
 
