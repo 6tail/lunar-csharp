@@ -138,7 +138,37 @@ namespace test
             Assert.AreEqual("蚯蚓结", lunar.getWuHou(), solar.toString());
         }
 
+        [TestMethod()]
+        public void test11()
+        {
+            Solar solar = new Solar(2021, 12, 21);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("冬至 初候", lunar.getHou(), solar.toString());
+        }
 
+        [TestMethod()]
+        public void test12()
+        {
+            Solar solar = new Solar(2021, 12, 26);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("冬至 二候", lunar.getHou(), solar.toString());
+        }
+
+        [TestMethod()]
+        public void test13()
+        {
+            Solar solar = new Solar(2021, 12, 31);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("冬至 三候", lunar.getHou(), solar.toString());
+        }
+
+        [TestMethod()]
+        public void test14()
+        {
+            Solar solar = new Solar(2022, 1, 5);
+            Lunar lunar = solar.getLunar();
+            Assert.AreEqual("小寒 初候", lunar.getHou(), solar.toString());
+        }
     }
 
 }

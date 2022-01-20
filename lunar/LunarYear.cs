@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using com.nlf.calendar.util;
+using System.Text.RegularExpressions;
 
 namespace com.nlf.calendar
 {
@@ -10,6 +11,16 @@ namespace com.nlf.calendar
     /// </summary>
     public class LunarYear
     {
+        /// <summary>
+        /// 元
+        /// </summary>
+        private static readonly string[] YUAN = { "下", "上", "中" };
+
+        /// <summary>
+        /// 运
+        /// </summary>
+        private static readonly string[] YUN = { "七", "八", "九", "一", "二", "三", "四", "五", "六" };
+
         /// <summary>
         /// 闰冬月年份
         /// </summary>
@@ -41,6 +52,16 @@ namespace com.nlf.calendar
         /// </summary>
         private int year;
 
+        /// <summary>
+        /// 天干下标
+        /// </summary>
+        private int ganIndex;
+
+        /// <summary>
+        /// 地支下标
+        /// </summary>
+        private int zhiIndex;
+
         private List<LunarMonth> months = new List<LunarMonth>();
 
         private List<double> jieQiJulianDays = new List<double>();
@@ -52,6 +73,19 @@ namespace com.nlf.calendar
         public LunarYear(int lunarYear)
         {
             this.year = lunarYear;
+            int offset = lunarYear - 4;
+            int yearGanIndex = offset % 10;
+            int yearZhiIndex = offset % 12;
+            if (yearGanIndex < 0)
+            {
+                yearGanIndex += 10;
+            }
+            if (yearZhiIndex < 0)
+            {
+                yearZhiIndex += 12;
+            }
+            this.ganIndex = yearGanIndex;
+            this.zhiIndex = yearZhiIndex;
             compute();
         }
 
@@ -192,6 +226,51 @@ namespace com.nlf.calendar
             return year;
         }
 
+        /// <summary>
+        /// 获取天干序号，从0开始
+        /// </summary>
+        /// <returns>序号</returns>
+        public int getGanIndex()
+        {
+            return ganIndex;
+        }
+
+        /// <summary>
+        /// 获取地支序号，从0开始
+        /// </summary>
+        /// <returns>序号</returns>
+        public int getZhiIndex()
+        {
+            return zhiIndex;
+        }
+
+        /// <summary>
+        /// 获取天干
+        /// </summary>
+        /// <returns>天干</returns>
+        public string getGan()
+        {
+            return LunarUtil.GAN[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取地支
+        /// </summary>
+        /// <returns>地支</returns>
+        public string getZhi()
+        {
+            return LunarUtil.ZHI[zhiIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取干支
+        /// </summary>
+        /// <returns>干支</returns>
+        public string getGanZhi()
+        {
+            return getGan() + getZhi();
+        }
+
         public List<LunarMonth> getMonths()
         {
             return months;
@@ -236,60 +315,313 @@ namespace com.nlf.calendar
             return year + "年";
         }
 
-        /// <summary>
-        /// 获取治水（正月第一个辰日是初几，就是几龙治水）
-        /// </summary>
-        /// <returns>治水，如：二龙治水</returns>
-        public string getZhiShui()
+        protected string getZaoByGan(int index, string name)
         {
-            int offset = 4 - Solar.fromJulianDay(getMonth(1).getFirstJulianDay()).getLunar().getDayZhiIndex();
-            if (offset < 0)
-            {
-                offset += 12;
-            }
-            return LunarUtil.NUMBER[offset + 1] + "龙治水";
-        }
-
-        /// <summary>
-        /// 获取分饼（正月第一个丙日是初几，就是几人分饼）
-        /// </summary>
-        /// <returns>分饼，如：六人分饼</returns>
-        public string getFenBing()
-        {
-            int offset = 2 - Solar.fromJulianDay(getMonth(1).getFirstJulianDay()).getLunar().getDayGanIndex();
+            int offset = index - Solar.fromJulianDay(getMonth(1).getFirstJulianDay()).getLunar().getDayGanIndex();
             if (offset < 0)
             {
                 offset += 10;
             }
-            return LunarUtil.NUMBER[offset + 1] + "人分饼";
+            return new Regex("几", RegexOptions.Singleline).Replace(name, LunarUtil.NUMBER[offset + 1], 1);
+        }
+
+        protected string getZaoByZhi(int index, string name)
+        {
+            int offset = index - Solar.fromJulianDay(getMonth(1).getFirstJulianDay()).getLunar().getDayZhiIndex();
+            if (offset < 0)
+            {
+                offset += 12;
+            }
+            return new Regex("几", RegexOptions.Singleline).Replace(name, LunarUtil.NUMBER[offset + 1], 1);
+        }
+
+        /// <summary>
+        /// 获取几鼠偷粮
+        /// </summary>
+        /// <returns>几鼠偷粮</returns>
+        public string getTouLiang()
+        {
+            return getZaoByZhi(0, "几鼠偷粮");
+        }
+
+        /// <summary>
+        /// 获取草子几分
+        /// </summary>
+        /// <returns>草子几分</returns>
+        public string getCaoZi()
+        {
+            return getZaoByZhi(0, "草子几分");
         }
 
         /// <summary>
         /// 获取耕田（正月第一个丑日是初几，就是几牛耕田）
         /// </summary>
-        /// <returns>耕田，如：六牛耕田</returns>
+        /// <returns>几牛耕田</returns>
         public string getGengTian()
         {
-            int offset = 1 - Solar.fromJulianDay(getMonth(1).getFirstJulianDay()).getLunar().getDayZhiIndex();
-            if (offset < 0)
-            {
-                offset += 12;
-            }
-            return LunarUtil.NUMBER[offset + 1] + "牛耕田";
+            return getZaoByZhi(1, "几牛耕田");
+        }
+
+        /// <summary>
+        /// 获取花收几分
+        /// </summary>
+        /// <returns>花收几分</returns>
+        public string getHuaShou()
+        {
+            return getZaoByZhi(3, "花收几分");
+        }
+
+        /// <summary>
+        /// 获取治水（正月第一个辰日是初几，就是几龙治水）
+        /// </summary>
+        /// <returns>几龙治水</returns>
+        public string getZhiShui()
+        {
+            return getZaoByZhi(4, "几龙治水");
+        }
+
+        /// <summary>
+        /// 获取几马驮谷
+        /// </summary>
+        /// <returns>几马驮谷</returns>
+        public string getTuoGu()
+        {
+            return getZaoByZhi(6, "几马驮谷");
+        }
+
+        /// <summary>
+        /// 获取几鸡抢米
+        /// </summary>
+        /// <returns>几鸡抢米</returns>
+        public string getQiangMi()
+        {
+            return getZaoByZhi(9, "几鸡抢米");
+        }
+
+        /// <summary>
+        /// 获取几姑看蚕
+        /// </summary>
+        /// <returns>几姑看蚕</returns>
+        public string getKanCan()
+        {
+            return getZaoByZhi(9, "几姑看蚕");
+        }
+
+        /// <summary>
+        /// 获取几屠共猪
+        /// </summary>
+        /// <returns>几屠共猪</returns>
+        public string getGongZhu()
+        {
+            return getZaoByZhi(11, "几屠共猪");
+        }
+
+        /// <summary>
+        /// 获取甲田几分
+        /// </summary>
+        /// <returns>甲田几分</returns>
+        public string getJiaTian()
+        {
+            return getZaoByGan(0, "甲田几分");
+        }
+
+        /// <summary>
+        /// 获取分饼（正月第一个丙日是初几，就是几人分饼）
+        /// </summary>
+        /// <returns>几人分饼</returns>
+        public string getFenBing()
+        {
+            return getZaoByGan(2, "几人分饼");
         }
 
         /// <summary>
         /// 获取得金（正月第一个辛日是初几，就是几日得金）
         /// </summary>
-        /// <returns>得金，如：一日得金</returns>
+        /// <returns>几日得金</returns>
         public string getDeJin()
         {
-            int offset = 7 - Solar.fromJulianDay(getMonth(1).getFirstJulianDay()).getLunar().getDayGanIndex();
-            if (offset < 0)
+            return getZaoByGan(7, "几日得金");
+        }
+
+        /// <summary>
+        /// 获取几人几丙
+        /// </summary>
+        /// <returns>几人几丙</returns>
+        public string getRenBing()
+        {
+            return getZaoByGan(2, getZaoByZhi(2, "几人几丙"));
+        }
+
+        /// <summary>
+        /// 获取几人几锄
+        /// </summary>
+        /// <returns>几人几锄</returns>
+        public string getRenChu()
+        {
+            return getZaoByGan(3, getZaoByZhi(2, "几人几锄"));
+        }
+
+        /// <summary>
+        /// 获取三元
+        /// </summary>
+        /// <returns>元</returns>
+        public string getYuan()
+        {
+            return YUAN[((year + 2696) / 60) % 3] + "元";
+        }
+
+        /// <summary>
+        /// 获取九运
+        /// </summary>
+        /// <returns>运</returns>
+        public string getYun()
+        {
+            return YUN[((year + 2696) / 20) % 9] + "运";
+        }
+
+        /// <summary>
+        /// 获取九星
+        /// </summary>
+        /// <returns>九星</returns>
+        public NineStar getNineStar()
+        {
+            int index = LunarUtil.getJiaZiIndex(getGanZhi()) + 1;
+            int yuan = ((this.year + 2696) / 60) % 3;
+            int offset = (62 + yuan * 3 - index) % 9;
+            if (0 == offset)
             {
-                offset += 10;
+                offset = 9;
             }
-            return LunarUtil.NUMBER[offset + 1] + "日得金";
+            return NineStar.fromIndex(offset - 1);
+        }
+
+        /// <summary>
+        /// 获取喜神方位
+        /// </summary>
+        /// <returns>方位，如艮</returns>
+        public string getPositionXi()
+        {
+            return LunarUtil.POSITION_XI[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取喜神方位描述
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionXiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getPositionXi()];
+        }
+
+        /// <summary>
+        /// 获取阳贵神方位
+        /// </summary>
+        /// <returns>方位，如艮</returns>
+        public string getPositionYangGui()
+        {
+            return LunarUtil.POSITION_YANG_GUI[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取阳贵神方位描述
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionYangGuiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getPositionYangGui()];
+        }
+
+        /**
+         * 获取阴贵神方位
+         *
+         * @return 阴贵神方位，如艮
+         */
+        public string getPositionYinGui()
+        {
+            return LunarUtil.POSITION_YIN_GUI[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取阴贵神方位描述
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionYinGuiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getPositionYinGui()];
+        }
+
+        /// <summary>
+        /// 获取福神方位（默认流派：2）
+        /// </summary>
+        /// <returns>方位，如艮</returns>
+        public string getPositionFu()
+        {
+            return getPositionFu(2);
+        }
+
+        /// <summary>
+        /// 获取福神方位
+        /// </summary>
+        /// <param name="sect">流派，1或2</param>
+        /// <returns>方位，如艮</returns>
+        public string getPositionFu(int sect)
+        {
+            return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取福神方位描述（默认流派：2）
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionFuDesc()
+        {
+            return getPositionFuDesc(2);
+        }
+
+        /// <summary>
+        /// 获取福神方位描述
+        /// </summary>
+        /// <param name="sect">流派，1或2</param>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionFuDesc(int sect)
+        {
+            return LunarUtil.POSITION_DESC[getPositionFu(sect)];
+        }
+
+        /// <summary>
+        /// 获取财神方位
+        /// </summary>
+        /// <returns>方位，如艮</returns>
+        public string getPositionCai()
+        {
+            return LunarUtil.POSITION_CAI[ganIndex + 1];
+        }
+
+        /// <summary>
+        /// 获取财神方位描述
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionCaiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getPositionCai()];
+        }
+
+        /// <summary>
+        /// 获取太岁方位
+        /// </summary>
+        /// <returns>方位，如艮</returns>
+        public string getPositionTaiSui()
+        {
+            return LunarUtil.POSITION_TAI_SUI_YEAR[zhiIndex];
+        }
+
+        /// <summary>
+        /// 获取太岁方位描述
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionTaiSuiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getPositionTaiSui()];
         }
     }
 }

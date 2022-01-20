@@ -101,6 +101,65 @@ namespace com.nlf.calendar
             return firstJulianDay;
         }
 
+        /// <summary>
+        /// 获取太岁方位
+        /// </summary>
+        /// <returns>太岁方位，如艮</returns>
+        public string getPositionTaiSui()
+        {
+            string p;
+            int m = Math.Abs(month);
+            switch (m)
+            {
+                case 1:
+                case 5:
+                case 9:
+                    p = "艮";
+                    break;
+                case 3:
+                case 7:
+                case 11:
+                    p = "坤";
+                    break;
+                case 4:
+                case 8:
+                case 12:
+                    p = "巽";
+                    break;
+                default:
+                    p = LunarUtil.POSITION_GAN[Solar.fromJulianDay(this.getFirstJulianDay()).getLunar().getMonthGanIndex()];
+                    break;
+            }
+            return p;
+        }
+
+        /// <summary>
+        /// 获取太岁方位描述
+        /// </summary>
+        /// <returns>方位描述，如东北</returns>
+        public string getPositionTaiSuiDesc()
+        {
+            return LunarUtil.POSITION_DESC[getPositionTaiSui()];
+        }
+
+        /// <summary>
+        /// 获取月九星
+        /// </summary>
+        /// <returns>九星</returns>
+        public NineStar getNineStar()
+        {
+            int index = LunarYear.fromYear(year).getZhiIndex() % 3;
+            int m = Math.Abs(month);
+            int monthZhiIndex = (13 + m) % 12;
+            int n = 27 - (index * 3);
+            if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX)
+            {
+                n -= 3;
+            }
+            int offset = (n - monthZhiIndex) % 9;
+            return NineStar.fromIndex(offset);
+        }
+
         public override string ToString()
         {
             return year + "年" + (isLeap() ? "闰" : "") + LunarUtil.MONTH[Math.Abs(month)] + "月(" + dayCount + "天)";

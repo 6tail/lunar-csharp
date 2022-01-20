@@ -13,7 +13,7 @@
     <PackageProjectUrl>http://6tail.cn/calendar/api.html</PackageProjectUrl>
     <RepositoryUrl>https://github.com/6tail/lunar-csharp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.2.13.0</Version>
+    <Version>1.2.14.0</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
     

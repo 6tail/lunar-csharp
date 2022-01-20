@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using com.nlf.calendar.util;
+using System;
 namespace com.nlf.calendar
 {
     /// <summary>
@@ -164,6 +165,73 @@ namespace com.nlf.calendar
         public bool isDayBaHui()
         {
             return TaoUtil.BA_HUI.ContainsKey(lunar.getDayInGanZhi());
+        }
+
+        /// <summary>
+        /// 是否明戊日
+        /// </summary>
+        /// <returns>true/false</returns>
+        public bool isDayMingWu()
+        {
+            return "戊".Equals(lunar.getDayGan());
+        }
+
+        /// <summary>
+        /// 是否暗戊日
+        /// </summary>
+        /// <returns>true/false</returns>
+        public bool isDayAnWu()
+        {
+            return lunar.getDayZhi().Equals(TaoUtil.AN_WU[Math.Abs(getMonth()) - 1]);
+        }
+
+        /// <summary>
+        /// 是否戊日
+        /// </summary>
+        /// <returns>true/false</returns>
+        public bool isDayWu()
+        {
+            return isDayMingWu() || isDayAnWu();
+        }
+
+        /// <summary>
+        /// 是否天赦日
+        /// </summary>
+        /// <returns>true/false</returns>
+        public bool isDayTianShe()
+        {
+            bool ret = false;
+            string mz = lunar.getMonthZhi();
+            string dgz = lunar.getDayInGanZhi();
+            if ("寅卯辰".Contains(mz))
+            {
+                if ("戊寅".Equals(dgz))
+                {
+                    ret = true;
+                }
+            }
+            else if ("巳午未".Contains(mz))
+            {
+                if ("甲午".Equals(dgz))
+                {
+                    ret = true;
+                }
+            }
+            else if ("申酉戌".Contains(mz))
+            {
+                if ("戊申".Equals(dgz))
+                {
+                    ret = true;
+                }
+            }
+            else if ("亥子丑".Contains(mz))
+            {
+                if ("甲子".Equals(dgz))
+                {
+                    ret = true;
+                }
+            }
+            return ret;
         }
 
         public string toString()

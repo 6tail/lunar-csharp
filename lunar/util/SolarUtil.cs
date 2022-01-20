@@ -128,6 +128,16 @@ namespace com.nlf.calendar.util
         }
 
         /// <summary>
+        /// 获取某年有多少天（平年365天，闰年366天）
+        /// </summary>
+        /// <param name="year">年</param>
+        /// <returns>天数</returns>
+        public static int getDaysOfYear(int year)
+        {
+            return isLeapYear(year) ? 366 : 365;
+        }
+
+        /// <summary>
         /// 获取某年某月有多少天
         /// </summary>
         /// <param name="year">年</param>
@@ -135,7 +145,33 @@ namespace com.nlf.calendar.util
         /// <returns>天数</returns>
         public static int getDaysOfMonth(int year, int month)
         {
+            if (1582 == year && 10 == month)
+            {
+                return 21;
+            }
             return DateTime.DaysInMonth(year, month);
+        }
+
+        /// <summary>
+        /// 获取某天为当年的第几天
+        /// </summary>
+        /// <param name="year">年</param>
+        /// <param name="month">月</param>
+        /// <param name="day">日</param>
+        /// <returns>第几天</returns>
+        public static int getDaysInYear(int year, int month, int day)
+        {
+            int days = 0;
+            for (int i = 1; i < month; i++)
+            {
+                days += getDaysOfMonth(year, i);
+            }
+            days += day;
+            if (1582 == year && 10 == month && day >= 15)
+            {
+                days -= 10;
+            }
+            return days;
         }
 
         /// <summary>

@@ -119,14 +119,14 @@ namespace test
         public void test23()
         {
             Lunar lunar = Lunar.fromYmd(2022, 1, 1);
-            Assert.AreEqual("五黄土玉衡", lunar.getYearNineStar().toString());
+            Assert.AreEqual("六白金开阳", lunar.getYearNineStar().toString());
         }
 
         [TestMethod()]
         public void test24()
         {
             Lunar lunar = Lunar.fromYmd(2033, 1, 1);
-            Assert.AreEqual("三碧木天玑", lunar.getYearNineStar().toString());
+            Assert.AreEqual("四绿木天权", lunar.getYearNineStar().toString());
         }
 
         [TestMethod()]

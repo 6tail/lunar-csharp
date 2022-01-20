@@ -261,7 +261,7 @@ namespace com.nlf.calendar
             {
                 offsetYear = offsetYear + 60;
             }
-            int startYear = today.getYear() - offsetYear;
+            int startYear = lunar.getYear() - offsetYear;
             int hour = 0;
             string timeZhi = timeGanZhi.Substring(1);
             for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)

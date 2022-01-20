@@ -26,6 +26,11 @@ namespace com.nlf.calendar.util
         public static readonly string[] WU_LA = { "1-1", "5-5", "7-7", "10-1", "12-8" };
 
         /// <summary>
+        /// 暗戊
+        /// </summary>
+        public static readonly string[] AN_WU = { "未", "戌", "辰", "寅", "午", "子", "酉", "申", "巳", "亥", "卯", "丑" };
+
+        /// <summary>
         /// 八会日
         /// </summary>
         public static readonly Dictionary<string, string> BA_HUI = new Dictionary<string, string>();

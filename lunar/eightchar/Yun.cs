@@ -59,9 +59,7 @@ namespace com.nlf.calendar.eightchar
             int startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().Substring(11, 5));
             // 时辰差
             int hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-            DateTime endCalendar = ExactDate.fromYmd(end.getYear(), end.getMonth(), end.getDay());
-            DateTime startCalendar = ExactDate.fromYmd(start.getYear(), start.getMonth(), start.getDay());
-            int dayDiff = endCalendar.Subtract(startCalendar).Days;
+            int dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
             if (hourDiff < 0)
             {
                 hourDiff += 12;

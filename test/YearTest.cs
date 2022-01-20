@@ -102,6 +102,96 @@ namespace test
             Assert.AreEqual("三日得金", year.getDeJin());
         }
 
+        [TestMethod()]
+        public void test6()
+        {
+            LunarYear year = new LunarYear(1864);
+            Assert.AreEqual("上元", year.getYuan());
+        }
+
+        [TestMethod()]
+        public void test7()
+        {
+            LunarYear year = new LunarYear(1923);
+            Assert.AreEqual("上元", year.getYuan());
+        }
+
+        [TestMethod()]
+        public void test8()
+        {
+            LunarYear year = new LunarYear(1924);
+            Assert.AreEqual("中元", year.getYuan());
+        }
+
+        [TestMethod()]
+        public void test9()
+        {
+            LunarYear year = new LunarYear(1983);
+            Assert.AreEqual("中元", year.getYuan());
+        }
+
+        [TestMethod()]
+        public void test10()
+        {
+            LunarYear year = new LunarYear(1984);
+            Assert.AreEqual("下元", year.getYuan());
+        }
+
+        [TestMethod()]
+        public void test11()
+        {
+            LunarYear year = new LunarYear(2043);
+            Assert.AreEqual("下元", year.getYuan());
+        }
+
+        [TestMethod()]
+        public void test12()
+        {
+            LunarYear year = new LunarYear(1864);
+            Assert.AreEqual("一运", year.getYun());
+        }
+
+        [TestMethod()]
+        public void test13()
+        {
+            LunarYear year = new LunarYear(1883);
+            Assert.AreEqual("一运", year.getYun());
+        }
+
+        [TestMethod()]
+        public void test14()
+        {
+            LunarYear year = new LunarYear(1884);
+            Assert.AreEqual("二运", year.getYun());
+        }
+
+        [TestMethod()]
+        public void test15()
+        {
+            LunarYear year = new LunarYear(1903);
+            Assert.AreEqual("二运", year.getYun());
+        }
+
+        [TestMethod()]
+        public void test16()
+        {
+            LunarYear year = new LunarYear(1904);
+            Assert.AreEqual("三运", year.getYun());
+        }
+
+        [TestMethod()]
+        public void test17()
+        {
+            LunarYear year = new LunarYear(1923);
+            Assert.AreEqual("三运", year.getYun());
+        }
+
+        [TestMethod()]
+        public void test18()
+        {
+            LunarYear year = new LunarYear(2004);
+            Assert.AreEqual("八运", year.getYun());
+        }
     }
 
 
