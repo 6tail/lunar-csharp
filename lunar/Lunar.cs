@@ -2307,7 +2307,7 @@ namespace com.nlf.calendar
             string today = wholeDay ? solar.toYmd() : solar.toYmdHms();
             foreach (KeyValuePair<string, Solar> entry in jieQi)
             {
-                string jq = entry.Key;
+                string jq = convertJieQi(entry.Key);
                 if (filter)
                 {
                     if (!filters.Contains(jq))
@@ -2365,7 +2365,7 @@ namespace com.nlf.calendar
             {
                 return null;
             }
-            return new JieQi(convertJieQi(name), near);
+            return new JieQi(name, near);
         }
 
         protected string convertJieQi(string name)

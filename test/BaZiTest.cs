@@ -294,5 +294,14 @@ namespace test
             Assert.AreEqual("戊申", eightChar.getDay(), "日柱");
             Assert.AreEqual("戊午", eightChar.getTime(), "时柱");
         }
+
+        [TestMethod()]
+        public void test6()
+        {
+            Lunar lunar = Lunar.fromYmd(1985, 12, 27);
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("1995-11-05", lunar.getEightChar().getYun(1).getStartSolar().toYmd());
+        }
     }
 }
