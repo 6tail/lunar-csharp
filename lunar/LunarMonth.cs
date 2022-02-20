@@ -164,5 +164,80 @@ namespace com.nlf.calendar
         {
             return year + "年" + (isLeap() ? "闰" : "") + LunarUtil.MONTH[Math.Abs(month)] + "月(" + dayCount + "天)";
         }
+
+        public LunarMonth next(int n)
+        {
+            if (0 == n)
+            {
+                return LunarMonth.fromYm(year, month);
+            }
+            else if (n > 0)
+            {
+                int rest = n;
+                int ny = year;
+                int iy = ny;
+                int im = month;
+                int index = 0;
+                List<LunarMonth> months = LunarYear.fromYear(ny).getMonths();
+                while (true)
+                {
+                    int size = months.Count;
+                    for (int i = 0; i < size; i++)
+                    {
+                        LunarMonth m = months[i];
+                        if (m.getYear() == iy && m.getMonth() == im)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                    int more = size - index - 1;
+                    if (rest < more)
+                    {
+                        break;
+                    }
+                    rest -= more;
+                    LunarMonth lastMonth = months[size - 1];
+                    iy = lastMonth.getYear();
+                    im = lastMonth.getMonth();
+                    ny++;
+                    months = LunarYear.fromYear(ny).getMonths();
+                }
+                return months[index + rest];
+            }
+            else
+            {
+                int rest = -n;
+                int ny = year;
+                int iy = ny;
+                int im = month;
+                int index = 0;
+                List<LunarMonth> months = LunarYear.fromYear(ny).getMonths();
+                while (true)
+                {
+                    int size = months.Count;
+                    for (int i = 0; i < size; i++)
+                    {
+                        LunarMonth m = months[i];
+                        if (m.getYear() == iy && m.getMonth() == im)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (rest <= index)
+                    {
+                        break;
+                    }
+                    rest -= index;
+                    LunarMonth firstMonth = months[0];
+                    iy = firstMonth.getYear();
+                    im = firstMonth.getMonth();
+                    ny--;
+                    months = LunarYear.fromYear(ny).getMonths();
+                }
+                return months[index - rest];
+            }
+        }
     }
 }

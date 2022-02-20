@@ -623,5 +623,15 @@ namespace com.nlf.calendar
         {
             return LunarUtil.POSITION_DESC[getPositionTaiSui()];
         }
+
+        /// <summary>
+        /// 获取往后推几年的阴历年，如果要往前推，则年数用负数
+        /// </summary>
+        /// <param name="n">年数</param>
+        /// <returns>阴历年</returns>
+        public LunarYear next(int n)
+        {
+            return LunarYear.fromYear(year + n);
+        }
     }
 }

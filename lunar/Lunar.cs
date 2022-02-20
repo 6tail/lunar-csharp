@@ -3020,10 +3020,15 @@ namespace com.nlf.calendar
         public string getHou()
         {
             JieQi jieQi = getPrevJieQi(true);
-            string name = jieQi.getName();
             Solar startSolar = jieQi.getSolar();
             int days = ExactDate.getDaysBetween(startSolar.getYear(), startSolar.getMonth(), startSolar.getDay(), solar.getYear(), solar.getMonth(), solar.getDay());
-            return name + " " + LunarUtil.HOU[(days / 5) % LunarUtil.HOU.Length];
+            int max = LunarUtil.HOU.Length - 1;
+            int offset = days / 5;
+            if (offset > max)
+            {
+                offset = max;
+            }
+            return jieQi.getName() + " " + LunarUtil.HOU[offset];
         }
 
         /// <summary>
