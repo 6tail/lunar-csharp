@@ -139,6 +139,22 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
+        /// 获取当前日期是在当年第几周
+        /// </summary>
+        /// <returns>周序号，从1开始</returns>
+        public int getIndexInYear()
+        {
+            DateTime firstDay = ExactDate.fromYmd(year, 1, 1);
+            int firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
+            int offset = firstDayWeek - start;
+            if (offset < 0)
+            {
+                offset += 7;
+            }
+            return (int)Math.Ceiling((SolarUtil.getDaysInYear(year, month, day) + offset) * 1D / 7);
+        }
+
+        /// <summary>
         /// 周推移
         /// </summary>
         /// <param name="weeks">推移的周数，负数为倒推</param>

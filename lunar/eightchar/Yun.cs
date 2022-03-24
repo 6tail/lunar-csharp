@@ -29,6 +29,11 @@ namespace com.nlf.calendar.eightchar
         private int startDay;
 
         /// <summary>
+        /// 起运小时
+        /// </summary>
+        private int startHour;
+
+        /// <summary>
         /// 是否顺推
         /// </summary>
         private bool forward;
@@ -36,43 +41,73 @@ namespace com.nlf.calendar.eightchar
         private Lunar lunar;
 
         public Yun(EightChar eightChar, int gender)
+            : this(eightChar, gender, 1)
+        {
+        }
+
+        public Yun(EightChar eightChar, int gender, int sect)
         {
             this.lunar = eightChar.getLunar();
             this.gender = gender;
             bool yang = 0 == lunar.getYearGanIndexExact() % 2;
             bool man = 1 == gender;
             forward = (yang && man) || (!yang && !man);
-            computeStart();
+            computeStart(sect);
         }
 
         /// <summary>
         /// 起运计算
         /// </summary>
-        private void computeStart()
+        private void computeStart(int sect)
         {
             JieQi prev = lunar.getPrevJie();
             JieQi next = lunar.getNextJie();
             Solar current = lunar.getSolar();
             Solar start = forward ? current : prev.getSolar();
             Solar end = forward ? next.getSolar() : current;
-            int endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().Substring(11, 5));
-            int startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().Substring(11, 5));
-            // 时辰差
-            int hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-            int dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
-            if (hourDiff < 0)
+
+            int year;
+            int month;
+            int day;
+            int hour = 0;
+
+            if (2 == sect)
             {
-                hourDiff += 12;
-                dayDiff--;
+                long minutes = (long)(new TimeSpan(end.getCalendar().Ticks - start.getCalendar().Ticks).TotalMinutes);
+                long y = minutes / 4320;
+                minutes -= y * 4320;
+                long m = minutes / 360;
+                minutes -= m * 360;
+                long d = minutes / 12;
+                minutes -= d * 12;
+                long h = minutes * 2;
+                year = (int)y;
+                month = (int)m;
+                day = (int)d;
+                hour = (int)h;
             }
-            int monthDiff = hourDiff * 10 / 30;
-            int month = dayDiff * 4 + monthDiff;
-            int day = hourDiff * 10 - monthDiff * 30;
-            int year = month / 12;
-            month = month - year * 12;
+            else
+            {
+                int endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().Substring(11, 5));
+                int startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().Substring(11, 5));
+                // 时辰差
+                int hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+                int dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
+                if (hourDiff < 0)
+                {
+                    hourDiff += 12;
+                    dayDiff--;
+                }
+                int monthDiff = hourDiff * 10 / 30;
+                month = dayDiff * 4 + monthDiff;
+                day = hourDiff * 10 - monthDiff * 30;
+                year = month / 12;
+                month = month - year * 12;
+            }          
             this.startYear = year;
             this.startMonth = month;
             this.startDay = day;
+            this.startHour = hour;
         }
 
         /// <summary>
@@ -112,6 +147,15 @@ namespace com.nlf.calendar.eightchar
         }
 
         /// <summary>
+        /// 获取起运小时数
+        /// </summary>
+        /// <returns>起运小时数</returns>
+        public int getStartHour()
+        {
+            return startHour;
+        }
+
+        /// <summary>
         /// 是否顺推
         /// </summary>
         /// <returns>true/false</returns>
@@ -132,10 +176,11 @@ namespace com.nlf.calendar.eightchar
         public Solar getStartSolar()
         {
             Solar birth = lunar.getSolar();
-            DateTime c = ExactDate.fromYmd(birth.getYear(), birth.getMonth(), birth.getDay());
+            DateTime c = ExactDate.fromYmdHms(birth.getYear(), birth.getMonth(), birth.getDay(), birth.getHour(), birth.getMinute(), birth.getSecond());
             c = c.AddYears(startYear);
             c = c.AddMonths(startMonth);
             c = c.AddDays(startDay);
+            c = c.AddHours(startHour);
             return Solar.fromDate(c);
         }
 
