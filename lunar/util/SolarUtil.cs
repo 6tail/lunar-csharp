@@ -43,9 +43,12 @@ namespace com.nlf.calendar.util
             FESTIVAL.Add("8-1", "建军节");
             FESTIVAL.Add("9-10", "教师节");
             FESTIVAL.Add("10-1", "国庆节");
+            FESTIVAL.Add("10-31", "万圣节前夜");
+            FESTIVAL.Add("11-1", "万圣节");
             FESTIVAL.Add("12-24", "平安夜");
             FESTIVAL.Add("12-25", "圣诞节");
 
+            WEEK_FESTIVAL.Add("3-0-1", "全国中小学生安全教育日");
             WEEK_FESTIVAL.Add("5-2-0", "母亲节");
             WEEK_FESTIVAL.Add("6-3-0", "父亲节");
             WEEK_FESTIVAL.Add("11-4-4", "感恩节");

@@ -990,6 +990,35 @@ namespace com.nlf.calendar
                 l.AddRange(LunarUtil.OTHER_FESTIVAL[month + "-" + day]);
             }
             catch { }
+
+            string solarYmd = solar.toYmd();
+            Solar jq = jieQi["清明"];
+            if (solarYmd.Equals(jq.next(-1).toYmd()))
+            {
+                l.Add("寒食节");
+            }
+
+            jq = jieQi["立春"];
+            int offset = 4 - jq.getLunar().getDayGanIndex();
+            if (offset < 0)
+            {
+                offset += 10;
+            }
+            if (solarYmd.Equals(jq.next(offset + 40).toYmd()))
+            {
+                l.Add("春社");
+            }
+
+            jq = jieQi["立秋"];
+            offset = 4 - jq.getLunar().getDayGanIndex();
+            if (offset < 0)
+            {
+                offset += 10;
+            }
+            if (solarYmd.Equals(jq.next(offset + 40).toYmd()))
+            {
+                l.Add("秋社");
+            }
             return l;
         }
 

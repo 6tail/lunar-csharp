@@ -154,6 +154,13 @@ namespace test
             Solar solar = Solar.fromYmd(26, 4, 13);
             Assert.AreEqual("二六年三月初八", solar.getLunar().ToString());
         }
+
+        [TestMethod()]
+        public void test10()
+        {
+            Solar solar = Solar.fromYmd(2022, 3, 28);
+            Assert.AreEqual("全国中小学生安全教育日", solar.getFestivals()[0]);
+        }
     }
 
 

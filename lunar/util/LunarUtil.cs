@@ -377,7 +377,7 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("1-25", new List<string>(new string[] { "填仓节" }));
             OTHER_FESTIVAL.Add("1-30", new List<string>(new string[] { "正月晦" }));
             OTHER_FESTIVAL.Add("2-1", new List<string>(new string[] { "中和节" }));
-            OTHER_FESTIVAL.Add("2-2", new List<string>(new string[] { "春社" }));
+            OTHER_FESTIVAL.Add("2-2", new List<string>(new string[] { "社日节" }));
             OTHER_FESTIVAL.Add("3-3", new List<string>(new string[] { "上巳节" }));
             OTHER_FESTIVAL.Add("5-20", new List<string>(new string[] { "分龙节" }));
             OTHER_FESTIVAL.Add("5-25", new List<string>(new string[] { "会龙节" }));
