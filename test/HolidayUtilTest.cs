@@ -84,7 +84,7 @@ namespace test
             string expected = "2020-05-01 劳动节 2020-05-01";
             string actual = null;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHoliday(year, month, day).ToString();
+            actual = HolidayUtil.getHoliday(year, month, day).ToString();
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHoliday 未返回所需的值。");
         }
@@ -100,7 +100,7 @@ namespace test
             string expected = "2011-05-02 劳动节 2011-05-01";
             string actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHoliday(ymd).ToString();
+            actual = HolidayUtil.getHoliday(ymd).ToString();
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHoliday 未返回所需的值。");
         }
@@ -116,7 +116,7 @@ namespace test
             int expected = 35;
             int actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHolidays(year).Count;
+            actual = HolidayUtil.getHolidays(year).Count;
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHolidays 未返回所需的值。");
         }
@@ -134,7 +134,7 @@ namespace test
             int expected = 1;
             int actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHolidays(year, month).Count;
+            actual = HolidayUtil.getHolidays(year, month).Count;
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHolidays 未返回所需的值。");
         }
@@ -150,7 +150,7 @@ namespace test
             int expected = 35;
             int actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHolidays(ymd).Count;
+            actual = HolidayUtil.getHolidays(ymd).Count;
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHolidays 未返回所需的值。");
         }
@@ -170,7 +170,7 @@ namespace test
             int expected = 4;
             int actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHolidaysByTarget(year, month, day).Count;
+            actual = HolidayUtil.getHolidaysByTarget(year, month, day).Count;
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHolidaysByTarget 未返回所需的值。");
         }
@@ -186,7 +186,7 @@ namespace test
             int expected = 4;
             int actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHolidaysByTarget(ymd).Count;
+            actual = HolidayUtil.getHolidaysByTarget(ymd).Count;
 
             Assert.AreEqual(expected, actual, "com.nlf.calendar.util.HolidayUtil.getHolidaysByTarget 未返回所需的值。");
         }
@@ -246,9 +246,20 @@ namespace test
             string expected = "2016-10-01";
             string actual;
 
-            actual = com.nlf.calendar.util.HolidayUtil.getHoliday(ymd).getTarget();
+            actual = HolidayUtil.getHoliday(ymd).getTarget();
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void test6()
+        {
+            string ymd = "2010-01-01";
+
+            Assert.AreEqual("元旦", HolidayUtil.getHoliday(ymd).getName());
+
+            HolidayUtil.fix("20100101~000000000000000000000000000");
+            Assert.IsNull(HolidayUtil.getHoliday(ymd));
         }
     }
 

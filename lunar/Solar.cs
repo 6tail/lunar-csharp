@@ -438,7 +438,7 @@ namespace com.nlf.calendar
                 l.Add(SolarUtil.WEEK_FESTIVAL[month + "-" + weeks + "-" + week]);
             }
             catch { }
-            if (day + 7 >= SolarUtil.getDaysOfMonth(year, month))
+            if (day + 7 > SolarUtil.getDaysOfMonth(year, month))
             {
                 try
                 {

@@ -208,7 +208,7 @@ namespace com.nlf.calendar
         /// <returns>时冲，如申</returns>
         public string getChong()
         {
-            return LunarUtil.CHONG[zhiIndex + 1];
+            return LunarUtil.CHONG[zhiIndex];
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace com.nlf.calendar
         /// <returns>无情之克的时冲天干，如甲</returns>
         public string getChongGan()
         {
-            return LunarUtil.CHONG_GAN[ganIndex + 1];
+            return LunarUtil.CHONG_GAN[ganIndex];
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace com.nlf.calendar
         /// <returns>有情之克的时冲天干，如甲</returns>
         public string getChongGanTie()
         {
-            return LunarUtil.CHONG_GAN_TIE[ganIndex + 1];
+            return LunarUtil.CHONG_GAN_TIE[ganIndex];
         }
 
         /// <summary>

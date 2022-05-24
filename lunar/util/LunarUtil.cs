@@ -186,17 +186,32 @@ namespace com.nlf.calendar.util
         /// <summary>
         /// 地支相冲（子午相冲，丑未相冲，寅申相冲，辰戌相冲，卯酉相冲，巳亥相冲），由于地支对应十二生肖，也就对应了生肖相冲
         /// </summary>
-        public static readonly string[] CHONG = { "", "午", "未", "申", "酉", "戌", "亥", "子", "丑", "寅", "卯", "辰", "巳" };
+        public static readonly string[] CHONG = { "午", "未", "申", "酉", "戌", "亥", "子", "丑", "寅", "卯", "辰", "巳" };
 
         /// <summary>
         /// 天干相冲之无情之克（阳克阳，阴克阴）
         /// </summary>
-        public static readonly string[] CHONG_GAN = { "", "戊", "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁" };
+        public static readonly string[] CHONG_GAN = { "戊", "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁" };
 
         /// <summary>
         /// 天干相冲之有情之克（阳克阴，阴克阳）
         /// </summary>
-        public static readonly string[] CHONG_GAN_TIE = { "", "己", "戊", "辛", "庚", "癸", "壬", "乙", "甲", "丁", "丙" };
+        public static readonly string[] CHONG_GAN_TIE = { "己", "戊", "辛", "庚", "癸", "壬", "乙", "甲", "丁", "丙" };
+
+        /// <summary>
+        /// 天干四冲
+        /// </summary>
+        public static readonly string[] CHONG_GAN_4 = { "庚", "辛", "壬", "癸", "", "", "甲", "乙", "丙", "丁" };
+
+        /// <summary>
+        /// 天干五合
+        /// </summary>
+        public static readonly string[] HE_GAN_5 = { "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁", "戊" };
+
+        /// <summary>
+        /// 地支六合
+        /// </summary>
+        public static readonly string[] HE_ZHI_6 = { "丑", "子", "亥", "戌", "酉", "申", "未", "午", "巳", "辰", "卯", "寅" };
 
         /// <summary>
         /// 月份地支对应天神偏移下标
@@ -240,16 +255,6 @@ namespace com.nlf.calendar.util
         /// 兽
         /// </summary>
         public static readonly Dictionary<string, string> SHOU = new Dictionary<string, string>();
-
-        /// <summary>
-        /// 天干四冲（无情之克中克得最严重的4个）
-        /// </summary>
-        public static readonly Dictionary<string, string> CHONG_GAN_BAD = new Dictionary<string, string>();
-
-        /// <summary>
-        /// 天干五合（有情之克中最有情的5个）
-        /// </summary>
-        public static readonly Dictionary<string, string> CHONG_GAN_TIE_GOOD = new Dictionary<string, string>();
 
         /// <summary>
         /// 煞
@@ -553,17 +558,6 @@ namespace com.nlf.calendar.util
             SHOU.Add("南", "朱雀");
             SHOU.Add("西", "白虎");
             SHOU.Add("北", "玄武");
-
-            CHONG_GAN_BAD.Add("庚", "甲");
-            CHONG_GAN_BAD.Add("辛", "乙");
-            CHONG_GAN_BAD.Add("壬", "丙");
-            CHONG_GAN_BAD.Add("癸", "丁");
-
-            CHONG_GAN_TIE_GOOD.Add("甲", "己");
-            CHONG_GAN_TIE_GOOD.Add("丙", "辛");
-            CHONG_GAN_TIE_GOOD.Add("戊", "癸");
-            CHONG_GAN_TIE_GOOD.Add("庚", "乙");
-            CHONG_GAN_TIE_GOOD.Add("壬", "丁");
 
             SHA.Add("子", "南");
             SHA.Add("丑", "东");

@@ -85,6 +85,7 @@ namespace com.nlf.calendar.util
             OTHER_FESTIVAL.Add("5-5", new List<string>(new string[] { "马克思诞辰纪念日" }));
             OTHER_FESTIVAL.Add("5-8", new List<string>(new string[] { "世界红十字日" }));
             OTHER_FESTIVAL.Add("5-11", new List<string>(new string[] { "世界肥胖日" }));
+            OTHER_FESTIVAL.Add("5-25", new List<string>(new string[] { "525心理健康节" }));
             OTHER_FESTIVAL.Add("5-27", new List<string>(new string[] { "上海解放日" }));
             OTHER_FESTIVAL.Add("5-31", new List<string>(new string[] { "世界无烟日" }));
             OTHER_FESTIVAL.Add("6-5", new List<string>(new string[] { "世界环境日" }));

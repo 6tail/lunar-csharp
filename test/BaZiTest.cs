@@ -303,5 +303,45 @@ namespace test
 
             Assert.AreEqual("1995-11-05", lunar.getEightChar().getYun(1).getStartSolar().toYmd());
         }
+
+        [TestMethod()]
+        public void testShenGong()
+        {
+            Solar solar = new Solar(1995, 12, 18, 10, 28, 0);
+            Lunar lunar = solar.getLunar();
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("壬午", eightChar.getShenGong());
+        }
+
+        [TestMethod()]
+        public void testShenGong1()
+        {
+            Solar solar = new Solar(1994, 12, 6, 2, 0, 0);
+            Lunar lunar = solar.getLunar();
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("丁丑", eightChar.getShenGong());
+        }
+
+        [TestMethod()]
+        public void testShenGong2()
+        {
+            Solar solar = new Solar(1990, 12, 11, 6, 0, 0);
+            Lunar lunar = solar.getLunar();
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("庚辰", eightChar.getShenGong());
+        }
+
+        [TestMethod()]
+        public void testShenGong3()
+        {
+            Solar solar = new Solar(1993, 5, 23, 4, 0, 0);
+            Lunar lunar = solar.getLunar();
+            EightChar eightChar = lunar.getEightChar();
+
+            Assert.AreEqual("庚申", eightChar.getShenGong());
+        }
     }
 }

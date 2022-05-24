@@ -1551,7 +1551,7 @@ namespace com.nlf.calendar
         /// <returns>日冲，如申</returns>
         public string getDayChong()
         {
-            return LunarUtil.CHONG[dayZhiIndex + 1];
+            return LunarUtil.CHONG[dayZhiIndex];
         }
 
         /// <summary>
@@ -1560,7 +1560,7 @@ namespace com.nlf.calendar
         /// <returns>时冲，如申</returns>
         public string getTimeChong()
         {
-            return LunarUtil.CHONG[timeZhiIndex + 1];
+            return LunarUtil.CHONG[timeZhiIndex];
         }
 
         [Obsolete("This method is obsolete, use method getDayChongGan instead")]
@@ -1575,7 +1575,7 @@ namespace com.nlf.calendar
         /// <returns>无情之克的日冲天干，如甲</returns>
         public string getDayChongGan()
         {
-            return LunarUtil.CHONG_GAN[dayGanIndex + 1];
+            return LunarUtil.CHONG_GAN[dayGanIndex];
         }
 
         /// <summary>
@@ -1584,7 +1584,7 @@ namespace com.nlf.calendar
         /// <returns>无情之克的时冲天干，如甲</returns>
         public string getTimeChongGan()
         {
-            return LunarUtil.CHONG_GAN[timeGanIndex + 1];
+            return LunarUtil.CHONG_GAN[timeGanIndex];
         }
 
         [Obsolete("This method is obsolete, use method getDayChongGanTie instead")]
@@ -1599,7 +1599,7 @@ namespace com.nlf.calendar
         /// <returns>有情之克的日冲天干，如甲</returns>
         public string getDayChongGanTie()
         {
-            return LunarUtil.CHONG_GAN_TIE[dayGanIndex + 1];
+            return LunarUtil.CHONG_GAN_TIE[dayGanIndex];
         }
 
         /// <summary>
@@ -1608,7 +1608,7 @@ namespace com.nlf.calendar
         /// <returns>有情之克的时冲天干，如甲</returns>
         public string getTimeChongGanTie()
         {
-            return LunarUtil.CHONG_GAN_TIE[timeGanIndex + 1];
+            return LunarUtil.CHONG_GAN_TIE[timeGanIndex];
         }
 
         [Obsolete("This method is obsolete, use method getDayChongShengXiao instead")]

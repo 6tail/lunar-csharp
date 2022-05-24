@@ -20,6 +20,11 @@ namespace com.nlf.calendar.util
         private const char ZERO = '0';
 
         /// <summary>
+        /// 删除标识
+        /// </summary>
+        private const string TAG_REMOVE = "~";
+
+        /// <summary>
         /// 节假日名称（元旦0，春节1，清明2，劳动3，端午4，中秋5，国庆6，国庆中秋7，抗战胜利日8）
         /// </summary>
         public static readonly string[] NAMES = { "元旦节", "春节", "清明节", "劳动节", "端午节", "中秋节", "国庆节", "国庆中秋", "抗战胜利日" };
@@ -240,10 +245,14 @@ namespace com.nlf.calendar.util
             {
                 string segment = data.Substring(0, SIZE);
                 string day = segment.Substring(0, 8);
+                bool remove = TAG_REMOVE.Equals(segment.Substring(8, 1));
                 Holiday holiday = getHoliday(day);
                 if (null == holiday)
                 {
-                    append.Append(segment);
+                    if (!remove)
+                    {
+                        append.Append(segment);
+                    }
                 }
                 else
                 {
@@ -259,7 +268,7 @@ namespace com.nlf.calendar.util
                     if (nameIndex > -1)
                     {
                         string old = day + (char)(nameIndex + ZERO) + (holiday.isWork() ? ZERO : '1') + holiday.getTarget().Replace("-", "");
-                        DATA_IN_USE = DATA_IN_USE.Replace(old, segment);
+                        DATA_IN_USE = DATA_IN_USE.Replace(old, remove ? "" : segment);
                     }
                 }
                 data = data.Substring(SIZE);

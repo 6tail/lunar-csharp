@@ -313,6 +313,18 @@ namespace com.nlf.calendar
             return LunarUtil.NAYIN[getTaiYuan()];
         }
 
+        public string getTaiXi()
+        {
+            int ganIndex = 2 == sect ? lunar.getDayGanIndexExact2() : lunar.getDayGanIndexExact();
+            int zhiIndex = 2 == sect ? lunar.getDayZhiIndexExact2() : lunar.getDayZhiIndexExact();
+            return LunarUtil.HE_GAN_5[ganIndex] + LunarUtil.HE_ZHI_6[zhiIndex];
+        }
+
+        public string getTaiXiNaYin()
+        {
+            return LunarUtil.NAYIN[getTaiXi()];
+        }
+
         public string getMingGong()
         {
             int monthZhiIndex = 0;
@@ -367,7 +379,11 @@ namespace com.nlf.calendar
                     timeZhiIndex = i;
                 }
             }
-            int zhiIndex = (2 + (monthZhiIndex + timeZhiIndex)) % 12;
+            int zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
+            if (zhiIndex > 12)
+            {
+                zhiIndex -= 12;
+            }
             int jiaZiIndex = LunarUtil.getJiaZiIndex(lunar.getMonthInGanZhiExact()) - (monthZhiIndex - zhiIndex);
             if (jiaZiIndex >= 60)
             {
