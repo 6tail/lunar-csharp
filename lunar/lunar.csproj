@@ -16,6 +16,7 @@
         <FileVersion>2.0.0</FileVersion>
         <PackageLicenseUrl></PackageLicenseUrl>
         <PackageIconUrl></PackageIconUrl>
+        <PackageId>lunar-csharp</PackageId>
     </PropertyGroup>
 
 </Project>
