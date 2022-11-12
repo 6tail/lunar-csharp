@@ -1,135 +1,80 @@
-﻿// 以下代码由 Microsoft Visual Studio 2005 生成。
-// 测试所有者应该检查每个测试的有效性。
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using com.nlf.calendar;
+using Lunar;
+using NUnit.Framework;
+
 namespace test
 {
     /// <summary>
-    /// 六曜测试
-    ///</summary>
-    [TestClass()]
+    /// 六曜
+    /// </summary>
     public class LiuYaoTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///获取或设置测试上下文，上下文提供
-        ///有关当前测试运行及其功能的信息。
-        ///</summary>
-        public TestContext TestContext
+        [SetUp]
+        public void Setup()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-        #region 附加测试属性
-        // 
-        //编写测试时，可使用以下附加属性:
-        //
-        //使用 ClassInitialize 在运行类中的第一个测试前先运行代码
-        //
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
-        //
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //使用 TestInitialize 在运行每个测试前先运行代码
-        //
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //使用 TestCleanup 在运行完每个测试后运行代码
-        //
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-        [TestMethod()]
-        public void test1()
-        {
-            Solar solar = new Solar(2020, 4, 23);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("佛灭", lunar.getLiuYao(),lunar.toString());
         }
 
-        [TestMethod()]
-        public void test2()
+        [Test]
+        public void Test1()
         {
-            Solar solar = new Solar(2021, 1, 15);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("友引", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2020, 4, 23);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("佛灭", lunar.LiuYao,lunar.ToString());
         }
 
-        [TestMethod()]
-        public void test3()
+        [Test]
+        public void Test2()
         {
-            Solar solar = new Solar(2017, 1, 5);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("先胜", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2021, 1, 15);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("友引", lunar.LiuYao, lunar.ToString());
         }
 
-        [TestMethod()]
-        public void test4()
+        [Test]
+        public void Test3()
         {
-            Solar solar = new Solar(2020, 4, 10);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("友引", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2017, 1, 5);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("先胜", lunar.LiuYao, lunar.ToString());
         }
 
-        [TestMethod()]
-        public void test5()
+        [Test]
+        public void Test4()
         {
-            Solar solar = new Solar(2020, 6, 11);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("大安", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2020, 4, 10);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("友引", lunar.LiuYao, lunar.ToString());
         }
 
-        [TestMethod()]
-        public void test6()
+        [Test]
+        public void Test5()
         {
-            Solar solar = new Solar(2020, 6, 1);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("先胜", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2020, 6, 11);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("大安", lunar.LiuYao, lunar.ToString());
         }
 
-        [TestMethod()]
-        public void test7()
+        [Test]
+        public void Test6()
         {
-            Solar solar = new Solar(2020, 12, 8);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("先负", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2020, 6, 1);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("先胜", lunar.LiuYao, lunar.ToString());
         }
 
-        [TestMethod()]
-        public void test8()
+        [Test]
+        public void Test7()
         {
-            Solar solar = new Solar(2020, 12, 11);
-            Lunar lunar = solar.getLunar();
-            Assert.AreEqual("赤口", lunar.getLiuYao(), lunar.toString());
+            var solar = new Solar(2020, 12, 8);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("先负", lunar.LiuYao, lunar.ToString());
         }
 
+        [Test]
+        public void Test8()
+        {
+            var solar = new Solar(2020, 12, 11);
+            var lunar = solar.Lunar;
+            Assert.AreEqual("赤口", lunar.LiuYao, lunar.ToString());
+        }
     }
-
 }

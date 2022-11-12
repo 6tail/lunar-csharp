@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Text;
-using com.nlf.calendar.util;
+using Lunar.Util;
+// ReSharper disable InconsistentNaming
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable IdentifierTypo
 
-namespace com.nlf.calendar
+namespace Lunar
 {
     /// <summary>
     /// 九星
@@ -84,208 +85,137 @@ namespace com.nlf.calendar
         /// <summary>
         /// 序号
         /// </summary>
-        protected int index;
+        public int Index { get; }
 
 
         public NineStar(int index)
         {
-            this.index = index;
+            Index = index;
         }
 
-        public static NineStar fromIndex(int index)
+        public static NineStar FromIndex(int index)
         {
             return new NineStar(index);
         }
 
         /// <summary>
-        /// 获取九数
+        /// 九数
         /// </summary>
-        /// <returns>九数</returns>
-        public string getNumber()
-        {
-            return NUMBER[index];
-        }
+        public string Number => NUMBER[Index];
 
         /// <summary>
-        /// 获取七色
+        /// 七色
         /// </summary>
-        /// <returns>七色</returns>
-        public string getColor()
-        {
-            return COLOR[index];
-        }
+        public string Color => COLOR[Index];
 
         /// <summary>
-        /// 获取五行
+        /// 五行
         /// </summary>
-        /// <returns>五行</returns>
-        public string getWuXing()
-        {
-            return WU_XING[index];
-        }
-
+        public string WuXing => WU_XING[Index];
 
         /// <summary>
-        /// 获取方位
+        /// 方位
         /// </summary>
-        /// <returns>方位</returns>
-        public string getPosition()
-        {
-            return POSITION[index];
-        }
+        public string Position => POSITION[Index];
 
         /// <summary>
-        /// 获取方位描述
+        /// 方位描述
         /// </summary>
-        /// <returns>方位描述</returns>
-        public string getPositionDesc()
-        {
-            return LunarUtil.POSITION_DESC[getPosition()];
-        }
+        public string PositionDesc => LunarUtil.POSITION_DESC[Position];
 
         /// <summary>
-        /// 获取玄空九星名称
+        /// 玄空九星名称
         /// </summary>
-        /// <returns>玄空九星名称</returns>
-        public string getNameInXuanKong()
-        {
-            return NAME_XUAN_KONG[index];
-        }
+        public string NameInXuanKong => NAME_XUAN_KONG[Index];
 
         /// <summary>
-        /// 获取北斗九星名称
+        /// 北斗九星名称
         /// </summary>
-        /// <returns>北斗九星名称</returns>
-        public string getNameInBeiDou()
-        {
-            return NAME_BEI_DOU[index];
-        }
+        public string NameInBeiDou => NAME_BEI_DOU[Index];
 
         /// <summary>
-        /// 获取奇门九星名称
+        /// 奇门九星名称
         /// </summary>
-        /// <returns>奇门九星名称</returns>
-        public string getNameInQiMen()
-        {
-            return NAME_QI_MEN[index];
-        }
+        public string NameInQiMen => NAME_QI_MEN[Index];
 
         /// <summary>
-        /// 获取太乙九神名称
+        /// 太乙九神名称
         /// </summary>
-        /// <returns>太乙九神名称</returns>
-        public string getNameInTaiYi()
-        {
-            return NAME_TAI_YI[index];
-        }
+        public string NameInTaiYi => NAME_TAI_YI[Index];
 
         /// <summary>
-        /// 获取奇门九星吉凶
+        /// 奇门九星吉凶
         /// </summary>
-        /// <returns>大吉/小吉/大凶/小凶</returns>
-        public string getLuckInQiMen()
-        {
-            return LUCK_QI_MEN[index];
-        }
+        public string LuckInQiMen => LUCK_QI_MEN[Index];
 
         /// <summary>
-        /// 获取玄空九星吉凶
+        /// 玄空九星吉凶
         /// </summary>
-        /// <returns>吉/凶</returns>
-        public string getLuckInXuanKong()
-        {
-            return LUCK_XUAN_KONG[index];
-        }
+        public string LuckInXuanKong => LUCK_XUAN_KONG[Index];
 
         /// <summary>
-        /// 获取奇门九星阴阳
+        /// 奇门九星阴阳
         /// </summary>
-        /// <returns>阴/阳</returns>
-        public string getYinYangInQiMen()
-        {
-            return YIN_YANG_QI_MEN[index];
-        }
+        public string YinYangInQiMen => YIN_YANG_QI_MEN[Index];
 
         /// <summary>
-        /// 获取太乙九神类型
+        /// 太乙九神类型
         /// </summary>
-        /// <returns>吉神/凶神/安神</returns>
-        public string getTypeInTaiYi()
-        {
-            return TYPE_TAI_YI[index];
-        }
+        public string TypeInTaiYi => TYPE_TAI_YI[Index];
 
         /// <summary>
-        /// 获取八门（奇门遁甲）
+        /// 八门（奇门遁甲）
         /// </summary>
-        /// <returns>八门</returns>
-        public string getBaMenInQiMen()
-        {
-            return BA_MEN_QI_MEN[index];
-        }
+        public string BaMenInQiMen => BA_MEN_QI_MEN[Index];
 
         /// <summary>
-        /// 获取太乙九神歌诀
+        /// 太乙九神歌诀
         /// </summary>
-        /// <returns>太乙九神歌诀</returns>
-        public string getSongInTaiYi()
-        {
-            return SONG_TAI_YI[index];
-        }
-
-        /// <summary>
-        /// 获取序号，0到8
-        /// </summary>
-        /// <returns>序号</returns>
-        public int getIndex()
-        {
-            return index;
-        }
+        public string SongInTaiYi => SONG_TAI_YI[Index];
 
         public override string ToString()
         {
-            return toString();
+            return Number + Color + WuXing + NameInBeiDou;
         }
 
-        public string toString()
+        public string FullString
         {
-            return getNumber()+getColor()+getWuXing()+getNameInBeiDou();
-        }
-
-        public string toFullString()
-        {
-            StringBuilder s = new StringBuilder();
-            s.Append(getNumber());
-            s.Append(getColor());
-            s.Append(getWuXing());
-            s.Append(" ");
-            s.Append(getPosition());
-            s.Append("(");
-            s.Append(getPositionDesc());
-            s.Append(") ");
-            s.Append(getNameInBeiDou());
-            s.Append(" 玄空[");
-            s.Append(getNameInXuanKong());
-            s.Append(" ");
-            s.Append(getLuckInXuanKong());
-            s.Append("] 奇门[");
-            s.Append(getNameInQiMen());
-            s.Append(" ");
-            s.Append(getLuckInQiMen());
-            if (getBaMenInQiMen().Length > 0)
+            get
             {
-                s.Append(" ");
-                s.Append(getBaMenInQiMen());
-                s.Append("门");
+                var s = new StringBuilder();
+                s.Append(Number);
+                s.Append(Color);
+                s.Append(WuXing);
+                s.Append(' ');
+                s.Append(Position);
+                s.Append('(');
+                s.Append(PositionDesc);
+                s.Append(") ");
+                s.Append(NameInBeiDou);
+                s.Append(" 玄空[");
+                s.Append(NameInXuanKong);
+                s.Append(' ');
+                s.Append(LuckInXuanKong);
+                s.Append("] 奇门[");
+                s.Append(NameInQiMen);
+                s.Append(' ');
+                s.Append(LuckInQiMen);
+                if (BaMenInQiMen.Length > 0)
+                {
+                    s.Append(' ');
+                    s.Append(BaMenInQiMen);
+                    s.Append('门');
+                }
+
+                s.Append(' ');
+                s.Append(YinYangInQiMen);
+                s.Append("] 太乙[");
+                s.Append(NameInTaiYi);
+                s.Append(' ');
+                s.Append(TypeInTaiYi);
+                s.Append(']');
+                return s.ToString();
             }
-            s.Append(" ");
-            s.Append(getYinYangInQiMen());
-            s.Append("] 太乙[");
-            s.Append(getNameInTaiYi());
-            s.Append(" ");
-            s.Append(getTypeInTaiYi());
-            s.Append("]");
-            return s.ToString();
         }
     }
 }

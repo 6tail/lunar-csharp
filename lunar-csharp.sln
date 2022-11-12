@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lunar", "lunar\lunar.csproj", "{AFAC8AF6-7F60-4199-AD22-91839EA31B82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{0E690E97-9ABA-47A6-9131-3CD6EFA49110}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo", "demo\demo.csproj", "{DEA9EEB2-4947-4249-ABA4-ED04016E0990}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFAC8AF6-7F60-4199-AD22-91839EA31B82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFAC8AF6-7F60-4199-AD22-91839EA31B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFAC8AF6-7F60-4199-AD22-91839EA31B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFAC8AF6-7F60-4199-AD22-91839EA31B82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E690E97-9ABA-47A6-9131-3CD6EFA49110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E690E97-9ABA-47A6-9131-3CD6EFA49110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E690E97-9ABA-47A6-9131-3CD6EFA49110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E690E97-9ABA-47A6-9131-3CD6EFA49110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEA9EEB2-4947-4249-ABA4-ED04016E0990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEA9EEB2-4947-4249-ABA4-ED04016E0990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEA9EEB2-4947-4249-ABA4-ED04016E0990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEA9EEB2-4947-4249-ABA4-ED04016E0990}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

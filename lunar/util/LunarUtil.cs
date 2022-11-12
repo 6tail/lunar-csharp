@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
 
-namespace com.nlf.calendar.util
+// ReSharper disable InconsistentNaming
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable IdentifierTypo
+
+namespace Lunar.Util
 {
     /// <summary>
     /// 农历工具
     /// </summary>
-    public class LunarUtil
+    public static class LunarUtil
     {
         /// <summary>
         /// 月份地支偏移量，因正月起寅
@@ -372,33 +376,33 @@ namespace com.nlf.calendar.util
             FESTIVAL.Add("9-9", "重阳节");
             FESTIVAL.Add("12-8", "腊八节");
 
-            OTHER_FESTIVAL.Add("1-4", new List<string>(new string[] { "接神日" }));
-            OTHER_FESTIVAL.Add("1-5", new List<string>(new string[] { "隔开日" }));
-            OTHER_FESTIVAL.Add("1-7", new List<string>(new string[] { "人日" }));
-            OTHER_FESTIVAL.Add("1-8", new List<string>(new string[] { "谷日", "顺星节" }));
-            OTHER_FESTIVAL.Add("1-9", new List<string>(new string[] { "天日" }));
-            OTHER_FESTIVAL.Add("1-10", new List<string>(new string[] { "地日" }));
-            OTHER_FESTIVAL.Add("1-20", new List<string>(new string[] { "天穿节" }));
-            OTHER_FESTIVAL.Add("1-25", new List<string>(new string[] { "填仓节" }));
-            OTHER_FESTIVAL.Add("1-30", new List<string>(new string[] { "正月晦" }));
-            OTHER_FESTIVAL.Add("2-1", new List<string>(new string[] { "中和节" }));
-            OTHER_FESTIVAL.Add("2-2", new List<string>(new string[] { "社日节" }));
-            OTHER_FESTIVAL.Add("3-3", new List<string>(new string[] { "上巳节" }));
-            OTHER_FESTIVAL.Add("5-20", new List<string>(new string[] { "分龙节" }));
-            OTHER_FESTIVAL.Add("5-25", new List<string>(new string[] { "会龙节" }));
-            OTHER_FESTIVAL.Add("6-6", new List<string>(new string[] { "天贶节" }));
-            OTHER_FESTIVAL.Add("6-24", new List<string>(new string[] { "观莲节" }));
-            OTHER_FESTIVAL.Add("6-25", new List<string>(new string[] { "五谷母节" }));
-            OTHER_FESTIVAL.Add("7-14", new List<string>(new string[] { "中元节" }));
-            OTHER_FESTIVAL.Add("7-22", new List<string>(new string[] { "财神节" }));
-            OTHER_FESTIVAL.Add("7-29", new List<string>(new string[] { "地藏节" }));
-            OTHER_FESTIVAL.Add("8-1", new List<string>(new string[] { "天灸日" }));
-            OTHER_FESTIVAL.Add("10-1", new List<string>(new string[] { "寒衣节" }));
-            OTHER_FESTIVAL.Add("10-10", new List<string>(new string[] { "十成节" }));
-            OTHER_FESTIVAL.Add("10-15", new List<string>(new string[] { "下元节" }));
-            OTHER_FESTIVAL.Add("12-7", new List<string>(new string[] { "驱傩日" }));
-            OTHER_FESTIVAL.Add("12-16", new List<string>(new string[] { "尾牙" }));
-            OTHER_FESTIVAL.Add("12-24", new List<string>(new string[] { "祭灶日" }));
+            OTHER_FESTIVAL.Add("1-4", new List<string>(new[] { "接神日" }));
+            OTHER_FESTIVAL.Add("1-5", new List<string>(new[] { "隔开日" }));
+            OTHER_FESTIVAL.Add("1-7", new List<string>(new[] { "人日" }));
+            OTHER_FESTIVAL.Add("1-8", new List<string>(new[] { "谷日", "顺星节" }));
+            OTHER_FESTIVAL.Add("1-9", new List<string>(new[] { "天日" }));
+            OTHER_FESTIVAL.Add("1-10", new List<string>(new[] { "地日" }));
+            OTHER_FESTIVAL.Add("1-20", new List<string>(new[] { "天穿节" }));
+            OTHER_FESTIVAL.Add("1-25", new List<string>(new[] { "填仓节" }));
+            OTHER_FESTIVAL.Add("1-30", new List<string>(new[] { "正月晦" }));
+            OTHER_FESTIVAL.Add("2-1", new List<string>(new[] { "中和节" }));
+            OTHER_FESTIVAL.Add("2-2", new List<string>(new[] { "社日节" }));
+            OTHER_FESTIVAL.Add("3-3", new List<string>(new[] { "上巳节" }));
+            OTHER_FESTIVAL.Add("5-20", new List<string>(new[] { "分龙节" }));
+            OTHER_FESTIVAL.Add("5-25", new List<string>(new[] { "会龙节" }));
+            OTHER_FESTIVAL.Add("6-6", new List<string>(new[] { "天贶节" }));
+            OTHER_FESTIVAL.Add("6-24", new List<string>(new[] { "观莲节" }));
+            OTHER_FESTIVAL.Add("6-25", new List<string>(new[] { "五谷母节" }));
+            OTHER_FESTIVAL.Add("7-14", new List<string>(new[] { "中元节" }));
+            OTHER_FESTIVAL.Add("7-22", new List<string>(new[] { "财神节" }));
+            OTHER_FESTIVAL.Add("7-29", new List<string>(new[] { "地藏节" }));
+            OTHER_FESTIVAL.Add("8-1", new List<string>(new[] { "天灸日" }));
+            OTHER_FESTIVAL.Add("10-1", new List<string>(new[] { "寒衣节" }));
+            OTHER_FESTIVAL.Add("10-10", new List<string>(new[] { "十成节" }));
+            OTHER_FESTIVAL.Add("10-15", new List<string>(new[] { "下元节" }));
+            OTHER_FESTIVAL.Add("12-7", new List<string>(new[] { "驱傩日" }));
+            OTHER_FESTIVAL.Add("12-16", new List<string>(new[] { "尾牙" }));
+            OTHER_FESTIVAL.Add("12-24", new List<string>(new[] { "祭灶日" }));
 
             XIU.Add("申1", "毕");
             XIU.Add("申2", "翼");
@@ -1136,18 +1140,18 @@ namespace com.nlf.calendar.util
             SHI_SHEN_ZHI.Add("癸亥壬", "劫财");
             SHI_SHEN_ZHI.Add("癸亥甲", "伤官");
 
-            ZHI_HIDE_GAN.Add("子", new List<string>(new string[] { "癸" }));
-            ZHI_HIDE_GAN.Add("丑", new List<string>(new string[] { "己", "癸", "辛" }));
-            ZHI_HIDE_GAN.Add("寅", new List<string>(new string[] { "甲", "丙", "戊" }));
-            ZHI_HIDE_GAN.Add("卯", new List<string>(new string[] { "乙" }));
-            ZHI_HIDE_GAN.Add("辰", new List<string>(new string[] { "戊", "乙", "癸" }));
-            ZHI_HIDE_GAN.Add("巳", new List<string>(new string[] { "丙", "庚", "戊" }));
-            ZHI_HIDE_GAN.Add("午", new List<string>(new string[] { "丁", "己" }));
-            ZHI_HIDE_GAN.Add("未", new List<string>(new string[] { "己", "丁", "乙" }));
-            ZHI_HIDE_GAN.Add("申", new List<string>(new string[] { "庚", "壬", "戊" }));
-            ZHI_HIDE_GAN.Add("酉", new List<string>(new string[] { "辛" }));
-            ZHI_HIDE_GAN.Add("戌", new List<string>(new string[] { "戊", "辛", "丁" }));
-            ZHI_HIDE_GAN.Add("亥", new List<string>(new string[] { "壬", "甲" }));
+            ZHI_HIDE_GAN.Add("子", new List<string>(new[] { "癸" }));
+            ZHI_HIDE_GAN.Add("丑", new List<string>(new[] { "己", "癸", "辛" }));
+            ZHI_HIDE_GAN.Add("寅", new List<string>(new[] { "甲", "丙", "戊" }));
+            ZHI_HIDE_GAN.Add("卯", new List<string>(new[] { "乙" }));
+            ZHI_HIDE_GAN.Add("辰", new List<string>(new[] { "戊", "乙", "癸" }));
+            ZHI_HIDE_GAN.Add("巳", new List<string>(new[] { "丙", "庚", "戊" }));
+            ZHI_HIDE_GAN.Add("午", new List<string>(new[] { "丁", "己" }));
+            ZHI_HIDE_GAN.Add("未", new List<string>(new[] { "己", "丁", "乙" }));
+            ZHI_HIDE_GAN.Add("申", new List<string>(new[] { "庚", "壬", "戊" }));
+            ZHI_HIDE_GAN.Add("酉", new List<string>(new[] { "辛" }));
+            ZHI_HIDE_GAN.Add("戌", new List<string>(new[] { "戊", "辛", "丁" }));
+            ZHI_HIDE_GAN.Add("亥", new List<string>(new[] { "壬", "甲" }));
         }
 
         /// <summary>
@@ -1155,7 +1159,7 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="hm">HH:mm时刻</param>
         /// <returns>地支序号，0到11</returns>
-        public static int getTimeZhiIndex(string hm)
+        public static int GetTimeZhiIndex(string hm)
         {
             if (null == hm)
             {
@@ -1165,10 +1169,10 @@ namespace com.nlf.calendar.util
             {
                 hm = hm.Substring(0, 5);
             }
-            int x = 1;
-            for (int i = 1; i < 22; i += 2)
+            var x = 1;
+            for (var i = 1; i < 22; i += 2)
             {
-                if (hm.CompareTo((i < 10 ? "0" : "") + i + ":00") >= 0 && hm.CompareTo((i + 1 < 10 ? "0" : "") + (i + 1) + ":59") <= 0)
+                if (string.Compare(hm, (i < 10 ? "0" : "") + i + ":00", StringComparison.Ordinal) >= 0 && string.Compare(hm, (i + 1 < 10 ? "0" : "") + (i + 1) + ":59", StringComparison.Ordinal) <= 0)
                 {
                     return x;
                 }
@@ -1182,9 +1186,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="hm">HH:mm时刻</param>
         /// <returns>时辰(地支)，如子</returns>
-        public static string convertTime(string hm)
+        public static string ConvertTime(string hm)
         {
-            return ZHI[getTimeZhiIndex(hm) + 1];
+            return ZHI[GetTimeZhiIndex(hm) + 1];
         }
 
         /// <summary>
@@ -1192,7 +1196,7 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="n">数字</param>
         /// <returns>十六进制</returns>
-        private static string hex(int n)
+        private static string Hex(int n)
         {
             return n.ToString("X").PadLeft(2, '0');
         }
@@ -1202,11 +1206,11 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ganZhi">干支</param>
         /// <returns>甲子序号</returns>
-        public static int getJiaZiIndex(string ganZhi)
+        public static int GetJiaZiIndex(string ganZhi)
         {
-            for (int i = 0, j = LunarUtil.JIA_ZI.Length; i < j; i++)
+            for (int i = 0, j = JIA_ZI.Length; i < j; i++)
             {
-                if (LunarUtil.JIA_ZI[i].Equals(ganZhi))
+                if (JIA_ZI[i].Equals(ganZhi))
                 {
                     return i;
                 }
@@ -1220,26 +1224,26 @@ namespace com.nlf.calendar.util
         /// <param name="monthGanZhi">月干支</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>宜</returns>
-        public static List<string> getDayYi(string monthGanZhi, string dayGanZhi)
+        public static List<string> GetDayYi(string monthGanZhi, string dayGanZhi)
         {
-            List<string> l = new List<string>();
-            string day = hex(getJiaZiIndex(dayGanZhi));
-            string month = hex(getJiaZiIndex(monthGanZhi));
-            string right = DAY_YI_JI;
-            int index = right.IndexOf(day + "=");
+            var l = new List<string>();
+            var day = Hex(GetJiaZiIndex(dayGanZhi));
+            var month = Hex(GetJiaZiIndex(monthGanZhi));
+            var right = DAY_YI_JI;
+            var index = right.IndexOf(day + "=", StringComparison.Ordinal);
             while (index > -1)
             {
-                right = right.Substring(index + 3);
-                string left = right;
+                right = right[(index + 3)..];
+                var left = right;
                 if (left.Contains("="))
                 {
-                    left = left.Substring(0, left.IndexOf("=") - 2);
+                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 2)];
                 }
-                bool matched = false;
-                string months = left.Substring(0, left.IndexOf(":"));
+                var matched = false;
+                var months = left.Substring(0, left.IndexOf(":", StringComparison.Ordinal));
                 for (int i = 0, j = months.Length; i < j; i += 2)
                 {
-                    string m = months.Substring(i, 2);
+                    var m = months.Substring(i, 2);
                     if (m.Equals(month))
                     {
                         matched = true;
@@ -1248,16 +1252,16 @@ namespace com.nlf.calendar.util
                 }
                 if (matched)
                 {
-                    string ys = left.Substring(left.IndexOf(":") + 1);
-                    ys = ys.Substring(0, ys.IndexOf(","));
+                    var ys = left.Substring(left.IndexOf(":", StringComparison.Ordinal) + 1);
+                    ys = ys[..ys.IndexOf(",", StringComparison.Ordinal)];
                     for (int i = 0, j = ys.Length; i < j; i += 2)
                     {
                         string m = ys.Substring(i, 2);
-                        l.Add(YI_JI[Int32.Parse(m, System.Globalization.NumberStyles.HexNumber)]);
+                        l.Add(YI_JI[Int32.Parse(m, NumberStyles.HexNumber)]);
                     }
                     break;
                 }
-                index = right.IndexOf(day + "=");
+                index = right.IndexOf(day + "=", StringComparison.Ordinal);
             }
             if (l.Count < 1)
             {
@@ -1272,26 +1276,26 @@ namespace com.nlf.calendar.util
         /// <param name="monthGanZhi">月干支</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>忌</returns>
-        public static List<string> getDayJi(string monthGanZhi, string dayGanZhi)
+        public static List<string> GetDayJi(string monthGanZhi, string dayGanZhi)
         {
-            List<string> l = new List<string>();
-            string day = hex(getJiaZiIndex(dayGanZhi));
-            string month = hex(getJiaZiIndex(monthGanZhi));
-            string right = DAY_YI_JI;
-            int index = right.IndexOf(day + "=");
+            var l = new List<string>();
+            var day = Hex(GetJiaZiIndex(dayGanZhi));
+            var month = Hex(GetJiaZiIndex(monthGanZhi));
+            var right = DAY_YI_JI;
+            var index = right.IndexOf(day + "=", StringComparison.Ordinal);
             while (index > -1)
             {
-                right = right.Substring(index + 3);
-                string left = right;
+                right = right[(index + 3)..];
+                var left = right;
                 if (left.Contains("="))
                 {
-                    left = left.Substring(0, left.IndexOf("=") - 2);
+                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 2)];
                 }
-                bool matched = false;
-                string months = left.Substring(0, left.IndexOf(":"));
+                var matched = false;
+                var months = left[..left.IndexOf(":", StringComparison.Ordinal)];
                 for (int i = 0, j = months.Length; i < j; i += 2)
                 {
-                    string m = months.Substring(i, 2);
+                    var m = months.Substring(i, 2);
                     if (m.Equals(month))
                     {
                         matched = true;
@@ -1300,15 +1304,15 @@ namespace com.nlf.calendar.util
                 }
                 if (matched)
                 {
-                    string js = left.Substring(left.IndexOf(",") + 1);
+                    var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                     for (int i = 0, j = js.Length; i < j; i += 2)
                     {
                         string m = js.Substring(i, 2);
-                        l.Add(YI_JI[Int32.Parse(m, System.Globalization.NumberStyles.HexNumber)]);
+                        l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
                     }
                     break;
                 }
-                index = right.IndexOf(day + "=");
+                index = right.IndexOf(day + "=", StringComparison.Ordinal);
             }
             if (l.Count < 1)
             {
@@ -1324,24 +1328,24 @@ namespace com.nlf.calendar.util
         /// <param name="lunarMonth">月</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>日吉神</returns>
-        public static List<string> getDayJiShen(int lunarMonth, string dayGanZhi)
+        public static List<string> GetDayJiShen(int lunarMonth, string dayGanZhi)
         {
-            List<string> l = new List<string>();
-            string day = hex(getJiaZiIndex(dayGanZhi));
-            string month = Math.Abs(lunarMonth).ToString("X");
-            int index = DAY_SHEN_SHA.IndexOf(month + day + "=");
+            var l = new List<string>();
+            var day = Hex(GetJiaZiIndex(dayGanZhi));
+            var month = Math.Abs(lunarMonth).ToString("X");
+            var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                string left = DAY_SHEN_SHA.Substring(index + 4);
+                var left = DAY_SHEN_SHA[(index + 4)..];
                 if (left.Contains("="))
                 {
-                    left = left.Substring(0, left.IndexOf("=") - 3);
+                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 3)];
                 }
-                string js = left.Substring(0, left.IndexOf(","));
+                var js = left[..left.IndexOf(",", StringComparison.Ordinal)];
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
                     string m = js.Substring(i, 2);
-                    l.Add(SHEN_SHA[Int32.Parse(m, System.Globalization.NumberStyles.HexNumber)]);
+                    l.Add(SHEN_SHA[int.Parse(m, NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count < 1)
@@ -1358,24 +1362,24 @@ namespace com.nlf.calendar.util
         /// <param name="lunarMonth">月</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>日凶煞</returns>
-        public static List<string> getDayXiongSha(int lunarMonth, string dayGanZhi)
+        public static List<string> GetDayXiongSha(int lunarMonth, string dayGanZhi)
         {
-            List<string> l = new List<string>();
-            string day = hex(getJiaZiIndex(dayGanZhi));
-            string month = Math.Abs(lunarMonth).ToString("X");
-            int index = DAY_SHEN_SHA.IndexOf(month + day + "=");
+            var l = new List<string>();
+            var day = Hex(GetJiaZiIndex(dayGanZhi));
+            var month = Math.Abs(lunarMonth).ToString("X");
+            var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                string left = DAY_SHEN_SHA.Substring(index + 4);
+                var left = DAY_SHEN_SHA[(index + 4)..];
                 if (left.Contains("="))
                 {
-                    left = left.Substring(0, left.IndexOf("=") - 3);
+                    left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 3);
                 }
-                string xs = left.Substring(left.IndexOf(",") + 1);
+                var xs = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                 for (int i = 0, j = xs.Length; i < j; i += 2)
                 {
-                    string m = xs.Substring(i, 2);
-                    l.Add(SHEN_SHA[Int32.Parse(m, System.Globalization.NumberStyles.HexNumber)]);
+                    var m = xs.Substring(i, 2);
+                    l.Add(SHEN_SHA[int.Parse(m, NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count < 1)
@@ -1391,24 +1395,24 @@ namespace com.nlf.calendar.util
         /// <param name="dayGanZhi">日干支</param>
         /// <param name="timeGanZhi">时干支</param>
         /// <returns>宜</returns>
-        public static List<string> getTimeYi(string dayGanZhi, string timeGanZhi)
+        public static List<string> GetTimeYi(string dayGanZhi, string timeGanZhi)
         {
-            List<string> l = new List<string>();
-            string day = hex(getJiaZiIndex(dayGanZhi));
-            string time = hex(getJiaZiIndex(timeGanZhi));
-            int index = TIME_YI_JI.IndexOf(day + time + "=");
+            var l = new List<string>();
+            var day = Hex(GetJiaZiIndex(dayGanZhi));
+            var time = Hex(GetJiaZiIndex(timeGanZhi));
+            var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                string left = TIME_YI_JI.Substring(index + 5);
+                var left = TIME_YI_JI[(index + 5)..];
                 if (left.Contains("="))
                 {
-                    left = left.Substring(0, left.IndexOf("=") - 4);
+                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 4)];
                 }
-                string ys = left.Substring(0, left.IndexOf(","));
+                var ys = left[..left.IndexOf(",", StringComparison.Ordinal)];
                 for (int i = 0, j = ys.Length; i < j; i += 2)
                 {
-                    string m = ys.Substring(i, 2);
-                    l.Add(YI_JI[Int32.Parse(m, System.Globalization.NumberStyles.HexNumber)]);
+                    var m = ys.Substring(i, 2);
+                    l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count < 1)
@@ -1424,24 +1428,24 @@ namespace com.nlf.calendar.util
         /// <param name="dayGanZhi">日干支</param>
         /// <param name="timeGanZhi">时干支</param>
         /// <returns>忌</returns>
-        public static List<string> getTimeJi(string dayGanZhi, string timeGanZhi)
+        public static List<string> GetTimeJi(string dayGanZhi, string timeGanZhi)
         {
-            List<string> l = new List<string>();
-            string day = hex(getJiaZiIndex(dayGanZhi));
-            string time = hex(getJiaZiIndex(timeGanZhi));
-            int index = TIME_YI_JI.IndexOf(day + time + "=");
+            var l = new List<string>();
+            var day = Hex(GetJiaZiIndex(dayGanZhi));
+            var time = Hex(GetJiaZiIndex(timeGanZhi));
+            var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                string left = TIME_YI_JI.Substring(index + 5);
+                var left = TIME_YI_JI.Substring(index + 5);
                 if (left.Contains("="))
                 {
-                    left = left.Substring(0, left.IndexOf("=") - 4);
+                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 4)];
                 }
-                string js = left.Substring(left.IndexOf(",") + 1);
+                var js = left[(left.IndexOf(",", StringComparison.Ordinal) + 1)..];
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
-                    string m = js.Substring(i, 2);
-                    l.Add(YI_JI[Int32.Parse(m, System.Globalization.NumberStyles.HexNumber)]);
+                    var m = js.Substring(i, 2);
+                    l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count<1)
@@ -1456,12 +1460,12 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ganZhi">干支</param>
         /// <returns>旬下标，0-5</returns>
-        protected static int getXunIndex(string ganZhi)
+        public static int GetXunIndex(string ganZhi)
         {
-            string gan = ganZhi.Substring(0, 1);
-            string zhi = ganZhi.Substring(1);
-            int ganIndex = 0;
-            int zhiIndex = 0;
+            var gan = ganZhi[..1];
+            var zhi = ganZhi[1..];
+            var ganIndex = 0;
+            var zhiIndex = 0;
             for (int i = 0, j = GAN.Length; i < j; i++)
             {
                 if (GAN[i].Equals(gan))
@@ -1478,7 +1482,7 @@ namespace com.nlf.calendar.util
                     break;
                 }
             }
-            int diff = ganIndex - zhiIndex;
+            var diff = ganIndex - zhiIndex;
             if (diff < 0)
             {
                 diff += 12;
@@ -1491,9 +1495,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ganZhi">干支</param>
         /// <returns>旬</returns>
-        public static string getXun(string ganZhi)
+        public static string GetXun(string ganZhi)
         {
-            return XUN[getXunIndex(ganZhi)];
+            return XUN[GetXunIndex(ganZhi)];
         }
 
         /// <summary>
@@ -1501,9 +1505,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ganZhi">干支</param>
         /// <returns>旬空(空亡)</returns>
-        public static string getXunKong(string ganZhi)
+        public static string GetXunKong(string ganZhi)
         {
-            return XUN_KONG[getXunIndex(ganZhi)];
+            return XUN_KONG[GetXunIndex(ganZhi)];
         }
     }
 }

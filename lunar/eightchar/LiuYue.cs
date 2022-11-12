@@ -1,6 +1,8 @@
-using com.nlf.calendar.util;
+using Lunar.Util;
+// ReSharper disable IdentifierTypo
+// ReSharper disable MemberCanBePrivate.Global
 
-namespace com.nlf.calendar.eightchar
+namespace Lunar.EightChar
 {
     /// <summary>
     /// 流月
@@ -10,32 +12,31 @@ namespace com.nlf.calendar.eightchar
         /// <summary>
         /// 序数，0-9
         /// </summary>
-        private int index;
+        public int Index { get; }
 
-        private LiuNian liuNian;
+        /// <summary>
+        /// 流年
+        /// </summary>
+        public LiuNian LiuNian { get; }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="liuNian">流年</param>
+        /// <param name="index">序数，0-9</param>
         public LiuYue(LiuNian liuNian, int index)
         {
-            this.liuNian = liuNian;
-            this.index = index;
-        }
-
-        public int getIndex()
-        {
-            return index;
+            LiuNian = liuNian;
+            Index = index;
         }
 
         /// <summary>
-        /// 获取中文的月
+        /// 中文月，如正
         /// </summary>
-        /// <returns>中文月，如正</returns>
-        public string getMonthInChinese()
-        {
-            return LunarUtil.MONTH[index + 1];
-        }
+        public string MonthInChinese => LunarUtil.MONTH[Index + 1];
 
         /// <summary>
-        /// 获取干支
+        /// 干支
         /// <p>
         /// 《五虎遁》
         /// 甲己之年丙作首，
@@ -46,49 +47,46 @@ namespace com.nlf.calendar.eightchar
         /// 甲寅之上好追求。
         /// </p>
         /// </summary>
-        /// <returns>干支</returns>
-        public string getGanZhi()
+        public string GanZhi
         {
-            int offset = 0;
-            string yearGan = liuNian.getGanZhi().Substring(0, 1);
-            if ("甲".Equals(yearGan) || "己".Equals(yearGan))
+            get
             {
-                offset = 2;
+                var offset = 0;
+                var yearGan = LiuNian.GanZhi[..1];
+                switch (yearGan)
+                {
+                    case "甲":
+                    case "己":
+                        offset = 2;
+                        break;
+                    case "乙":
+                    case "庚":
+                        offset = 4;
+                        break;
+                    case "丙":
+                    case "辛":
+                        offset = 6;
+                        break;
+                    case "丁":
+                    case "壬":
+                        offset = 8;
+                        break;
+                }
+                var gan = LunarUtil.GAN[(Index + offset) % 10 + 1];
+                var zhi = LunarUtil.ZHI[(Index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
+                return gan + zhi;
             }
-            else if ("乙".Equals(yearGan) || "庚".Equals(yearGan))
-            {
-                offset = 4;
-            }
-            else if ("丙".Equals(yearGan) || "辛".Equals(yearGan))
-            {
-                offset = 6;
-            }
-            else if ("丁".Equals(yearGan) || "壬".Equals(yearGan))
-            {
-                offset = 8;
-            }
-            string gan = LunarUtil.GAN[(index + offset) % 10 + 1];
-            string zhi = LunarUtil.ZHI[(index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
-            return gan + zhi;
         }
 
         /// <summary>
-        /// 获取所在旬
+        /// 旬
         /// </summary>
-        /// <returns>旬</returns>
-        public string getXun()
-        {
-            return LunarUtil.getXun(getGanZhi());
-        }
+        public string Xun => LunarUtil.GetXun(GanZhi);
 
         /// <summary>
-        /// 获取旬空(空亡)
+        /// 旬空(空亡)
         /// </summary>
-        /// <returns>旬空(空亡)</returns>
-        public string getXunKong()
-        {
-            return LunarUtil.getXunKong(getGanZhi());
-        }
+        public string XunKong => LunarUtil.GetXunKong(GanZhi);
 
     }
 

@@ -1,8 +1,13 @@
 using System.Collections.Generic;
 using System.Text;
-using com.nlf.calendar.util;
+using Lunar.Util;
 using System;
-namespace com.nlf.calendar
+using System.Linq;
+// ReSharper disable InconsistentNaming
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable IdentifierTypo
+
+namespace Lunar
 {
     /// <summary>
     /// 道历
@@ -14,239 +19,212 @@ namespace com.nlf.calendar
         /// <summary>
         /// 阴历
         /// </summary>
-        private Lunar lunar;
+        private Lunar Lunar { get; }
 
         public Tao(Lunar lunar)
         {
-            this.lunar = lunar;
+            Lunar = lunar;
         }
 
-        public static Tao fromLunar(Lunar lunar)
+        public static Tao FromLunar(Lunar lunar)
         {
             return new Tao(lunar);
         }
 
-        public static Tao fromYmdHms(int year, int month, int day, int hour, int minute, int second)
+        public static Tao FromYmdHms(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
-            return Tao.fromLunar(Lunar.fromYmdHms(year + BIRTH_YEAR, month, day, hour, minute, second));
+            return FromLunar(Lunar.FromYmdHms(year + BIRTH_YEAR, month, day, hour, minute, second));
         }
 
-        public static Tao fromYmd(int year, int month, int day)
-        {
-            return fromYmdHms(year, month, day, 0, 0, 0);
-        }
+        /// <summary>
+        /// 年
+        /// </summary>
+        public int Year => Lunar.Year - BIRTH_YEAR;
 
-        public Lunar getLunar()
-        {
-            return lunar;
-        }
+        /// <summary>
+        /// 月
+        /// </summary>
+        public int Month => Lunar.Month;
 
-        public int getYear()
-        {
-            return lunar.getYear() - BIRTH_YEAR;
-        }
+        /// <summary>
+        /// 日
+        /// </summary>
+        public int Day => Lunar.Day;
 
-        public int getMonth()
+        /// <summary>
+        /// 中文年
+        /// </summary>
+        public string YearInChinese
         {
-            return lunar.getMonth();
-        }
-
-        public int getDay()
-        {
-            return lunar.getDay();
-        }
-
-        public string getYearInChinese()
-        {
-            char[] y = (getYear() + "").ToCharArray();
-            StringBuilder s = new StringBuilder();
-            for (int i = 0, j = y.Length; i < j; i++)
+            get
             {
-                s.Append(LunarUtil.NUMBER[y[i] - '0']);
-            }
-            return s.ToString();
-        }
-
-        public string getMonthInChinese()
-        {
-            return lunar.getMonthInChinese();
-        }
-
-        public string getDayInChinese()
-        {
-            return lunar.getDayInChinese();
-        }
-
-        public List<TaoFestival> getFestivals()
-        {
-            List<TaoFestival> l = new List<TaoFestival>();
-            try
-            {
-                l.AddRange(TaoUtil.FESTIVAL[getMonth() + "-" + getDay()]);
-            }
-            catch { }
-            string jq = lunar.getJieQi();
-            if ("冬至".Equals(jq))
-            {
-                l.Add(new TaoFestival("元始天尊圣诞"));
-            }
-            else if ("夏至".Equals(jq))
-            {
-                l.Add(new TaoFestival("灵宝天尊圣诞"));
-            }
-            // 八节日
-            try
-            {
-                l.Add(new TaoFestival(TaoUtil.BA_JIE[jq]));
-            }
-            catch { }
-            // 八会日
-            try
-            {
-                l.Add(new TaoFestival(TaoUtil.BA_HUI[lunar.getDayInGanZhi()]));
-            }
-            catch { }
-            return l;
-        }
-
-        private bool isDayIn(string[] days)
-        {
-            string md = getMonth() + "-" + getDay();
-            foreach (string d in days)
-            {
-                if (md.Equals(d))
+                var y = (Year + "").ToCharArray();
+                var s = new StringBuilder();
+                for (int i = 0, j = y.Length; i < j; i++)
                 {
-                    return true;
+                    s.Append(LunarUtil.NUMBER[y[i] - '0']);
                 }
+
+                return s.ToString();
             }
-            return false;
+        }
+
+        /// <summary>
+        /// 中文月
+        /// </summary>
+        public string MonthInChinese => Lunar.MonthInChinese;
+
+        /// <summary>
+        /// 中文日
+        /// </summary>
+        public string DayInChinese => Lunar.DayInChinese;
+
+        /// <summary>
+        /// 节日
+        /// </summary>
+        public List<TaoFestival> Festivals
+        {
+            get
+            {
+                var l = new List<TaoFestival>();
+                try
+                {
+                    l.AddRange(TaoUtil.FESTIVAL[Month + "-" + Day]);
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                var jq = Lunar.JieQi;
+                switch (jq)
+                {
+                    case "冬至":
+                        l.Add(new TaoFestival("元始天尊圣诞"));
+                        break;
+                    case "夏至":
+                        l.Add(new TaoFestival("灵宝天尊圣诞"));
+                        break;
+                }
+
+                // 八节日
+                try
+                {
+                    l.Add(new TaoFestival(TaoUtil.BA_JIE[jq]));
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                // 八会日
+                try
+                {
+                    l.Add(new TaoFestival(TaoUtil.BA_HUI[Lunar.DayInGanZhi]));
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                return l;
+            }
+        }
+
+        private bool IsDayIn(string[] days)
+        {
+            var md = Month + "-" + Day;
+            return days.Any(d => md.Equals(d));
         }
 
         /// <summary>
         /// 是否三会日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDaySanHui()
-        {
-            return isDayIn(TaoUtil.SAN_HUI);
-        }
+        public bool DaySanHui => IsDayIn(TaoUtil.SAN_HUI);
 
         /// <summary>
         /// 是否三元日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDaySanYuan()
-        {
-            return isDayIn(TaoUtil.SAN_YUAN);
-        }
+        public bool DaySanYuan => IsDayIn(TaoUtil.SAN_YUAN);
 
         /// <summary>
         /// 是否五腊日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayWuLa()
-        {
-            return isDayIn(TaoUtil.WU_LA);
-        }
+        public bool DayWuLa => IsDayIn(TaoUtil.WU_LA);
 
         /// <summary>
         /// 是否八节日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayBaJie()
-        {
-            return TaoUtil.BA_JIE.ContainsKey(lunar.getJieQi());
-        }
+        public bool DayBaJie => TaoUtil.BA_JIE.ContainsKey(Lunar.JieQi);
 
         /// <summary>
         /// 是否八会日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayBaHui()
-        {
-            return TaoUtil.BA_HUI.ContainsKey(lunar.getDayInGanZhi());
-        }
+        public bool DayBaHui => TaoUtil.BA_HUI.ContainsKey(Lunar.DayInGanZhi);
 
         /// <summary>
         /// 是否明戊日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayMingWu()
-        {
-            return "戊".Equals(lunar.getDayGan());
-        }
+        public bool DayMingWu => "戊".Equals(Lunar.DayGan);
 
         /// <summary>
         /// 是否暗戊日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayAnWu()
-        {
-            return lunar.getDayZhi().Equals(TaoUtil.AN_WU[Math.Abs(getMonth()) - 1]);
-        }
+        public bool DayAnWu => Lunar.DayZhi.Equals(TaoUtil.AN_WU[Math.Abs(Month) - 1]);
 
         /// <summary>
         /// 是否戊日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayWu()
-        {
-            return isDayMingWu() || isDayAnWu();
-        }
+        public bool DayWu => DayMingWu || DayAnWu;
 
         /// <summary>
         /// 是否天赦日
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isDayTianShe()
+        public bool DayTianShe
         {
-            bool ret = false;
-            string mz = lunar.getMonthZhi();
-            string dgz = lunar.getDayInGanZhi();
-            if ("寅卯辰".Contains(mz))
+            get
             {
-                if ("戊寅".Equals(dgz))
+                var ret = false;
+                var mz = Lunar.MonthZhi;
+                var dgz = Lunar.DayInGanZhi;
+                if ("寅卯辰".Contains(mz))
                 {
-                    ret = true;
+                    if ("戊寅".Equals(dgz))
+                    {
+                        ret = true;
+                    }
                 }
-            }
-            else if ("巳午未".Contains(mz))
-            {
-                if ("甲午".Equals(dgz))
+                else if ("巳午未".Contains(mz))
                 {
-                    ret = true;
+                    if ("甲午".Equals(dgz))
+                    {
+                        ret = true;
+                    }
                 }
-            }
-            else if ("申酉戌".Contains(mz))
-            {
-                if ("戊申".Equals(dgz))
+                else if ("申酉戌".Contains(mz))
                 {
-                    ret = true;
+                    if ("戊申".Equals(dgz))
+                    {
+                        ret = true;
+                    }
                 }
-            }
-            else if ("亥子丑".Contains(mz))
-            {
-                if ("甲子".Equals(dgz))
+                else if ("亥子丑".Contains(mz))
                 {
-                    ret = true;
+                    if ("甲子".Equals(dgz))
+                    {
+                        ret = true;
+                    }
                 }
+
+                return ret;
             }
-            return ret;
         }
 
-        public string toString()
-        {
-            return getYearInChinese() + "年" + getMonthInChinese() + "月" + getDayInChinese();
-        }
-
-        public string toFullString()
-        {
-            return "道歷" + getYearInChinese() + "年，天運" + lunar.getYearInGanZhi() + "年，" + lunar.getMonthInGanZhi() + "月，" + lunar.getDayInGanZhi() + "日。" + getMonthInChinese() + "月" + getDayInChinese() + "日，" + lunar.getTimeZhi() + "時。";
-        }
+        public string FullString => "道歷" + YearInChinese + "年，天運" + Lunar.YearInGanZhi + "年，" + Lunar.MonthInGanZhi + "月，" + Lunar.DayInGanZhi + "日。" + MonthInChinese + "月" + DayInChinese + "日，" + Lunar.TimeZhi + "時。";
 
         public override string ToString()
         {
-            return toString();
+            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
         }
     }
 

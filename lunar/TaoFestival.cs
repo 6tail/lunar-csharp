@@ -1,6 +1,5 @@
-using System.Collections.Generic;
 using System.Text;
-namespace com.nlf.calendar
+namespace Lunar
 {
     /// <summary>
     /// 道历节日
@@ -11,55 +10,36 @@ namespace com.nlf.calendar
         /// <summary>
         /// 名称
         /// </summary>
-        private string name;
+        private string Name { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
-        private string remark;
+        private string Remark { get; set; }
 
-        public TaoFestival(string name, string remark)
+        public TaoFestival(string name, string remark = null)
         {
-            this.name = name;
-            this.remark = null == remark ? "" : remark;
-        }
-
-        public TaoFestival(string name)
-            : this(name, null)
-        {
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public string getRemark()
-        {
-            return remark;
-        }
-
-        public string toString()
-        {
-            return name;
+            Name = name;
+            Remark = remark ?? "";
         }
 
         public override string ToString()
         {
-            return toString();
+            return Name;
         }
 
-        public string toFullString()
+        public string FullString
         {
-            StringBuilder s = new StringBuilder();
-            s.Append(name);
-            if (null != remark && remark.Length > 0)
+            get
             {
-                s.Append("[");
-                s.Append(remark);
-                s.Append("]");
+                var s = new StringBuilder();
+                s.Append(Name);
+                if (Remark is not {Length: > 0}) return s.ToString();
+                s.Append('[');
+                s.Append(Remark);
+                s.Append(']');
+                return s.ToString();
             }
-            return s.ToString();
         }
     }
 

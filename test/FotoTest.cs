@@ -1,88 +1,35 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using com.nlf.calendar;
-using com.nlf.calendar.util;
+using Lunar;
+using NUnit.Framework;
+// ReSharper disable IdentifierTypo
+
 namespace test
 {
-
-    [TestClass()]
+    /// <summary>
+    /// 佛历
+    /// </summary>
     public class FotoTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///获取或设置测试上下文，上下文提供
-        ///有关当前测试运行及其功能的信息。
-        ///</summary>
-        public TestContext TestContext
+        [SetUp]
+        public void Setup()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-        #region 附加测试属性
-        // 
-        //编写测试时，可使用以下附加属性:
-        //
-        //使用 ClassInitialize 在运行类中的第一个测试前先运行代码
-        //
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
-        //
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //使用 TestInitialize 在运行每个测试前先运行代码
-        //
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //使用 TestCleanup 在运行完每个测试后运行代码
-        //
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-
-        [TestMethod()]
-        public void test()
-        {
-            Foto foto = Foto.fromLunar(Lunar.fromYmd(2021, 10, 14));
-            Assert.AreEqual("二五六五年十月十四 (三元降) (四天王巡行)", foto.toFullString());
         }
 
-        [TestMethod()]
-        public void test1()
+        [Test]
+        public void Test1()
         {
-            Foto foto = Foto.fromLunar(Lunar.fromYmd(2020, 4, 13));
-            Assert.AreEqual("氐", foto.getXiu());
-            Assert.AreEqual("土", foto.getZheng());
-            Assert.AreEqual("貉", foto.getAnimal());
-            Assert.AreEqual("东", foto.getGong());
-            Assert.AreEqual("青龙", foto.getShou());
+            var foto = Foto.FromLunar(Lunar.Lunar.FromYmdHms(2021, 10, 14));
+            Assert.AreEqual("二五六五年十月十四 (三元降) (四天王巡行)", foto.FullString);
         }
 
+        [Test]
+        public void Test2()
+        {
+            var foto = Foto.FromLunar(Lunar.Lunar.FromYmdHms(2020, 4, 13));
+            Assert.AreEqual("氐", foto.Xiu);
+            Assert.AreEqual("土", foto.Zheng);
+            Assert.AreEqual("貉", foto.Animal);
+            Assert.AreEqual("东", foto.Gong);
+            Assert.AreEqual("青龙", foto.Shou);
+        }
     }
-
-
 }

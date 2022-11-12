@@ -1,208 +1,153 @@
-﻿// 以下代码由 Microsoft Visual Studio 2005 生成。
-// 测试所有者应该检查每个测试的有效性。
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using com.nlf.calendar;
+using Lunar;
+using NUnit.Framework;
+
 namespace test
 {
     /// <summary>
-    /// 三伏测试
-    ///</summary>
-    [TestClass()]
+    /// 三伏
+    /// </summary>
     public class FuTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///获取或设置测试上下文，上下文提供
-        ///有关当前测试运行及其功能的信息。
-        ///</summary>
-        public TestContext TestContext
+        [SetUp]
+        public void Setup()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-        #region 附加测试属性
-        // 
-        //编写测试时，可使用以下附加属性:
-        //
-        //使用 ClassInitialize 在运行类中的第一个测试前先运行代码
-        //
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
-        //
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //使用 TestInitialize 在运行每个测试前先运行代码
-        //
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //使用 TestCleanup 在运行完每个测试后运行代码
-        //
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-        [TestMethod()]
-        public void test1()
-        {
-            Solar solar = new Solar(2011, 7, 14);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("初伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("初伏第1天", fu.toFullString(), solar.toYmd());
         }
 
-        [TestMethod()]
-        public void test2()
+        [Test]
+        public void Test1()
         {
-            Solar solar = new Solar(2011, 7, 23);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("初伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("初伏第10天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2011, 7, 14);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("初伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("初伏第1天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test3()
+        [Test]
+        public void Test2()
         {
-            Solar solar = new Solar(2011, 7, 24);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("中伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("中伏第1天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2011, 7, 23);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("初伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("初伏第10天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test4()
+        [Test]
+        public void Test3()
         {
-            Solar solar = new Solar(2011, 8, 12);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("中伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("中伏第20天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2011, 7, 24);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("中伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("中伏第1天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test5()
+        [Test]
+        public void Test4()
         {
-            Solar solar = new Solar(2011, 8, 13);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("末伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("末伏第1天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2011, 8, 12);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("中伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("中伏第20天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test6()
+        [Test]
+        public void Test5()
         {
-            Solar solar = new Solar(2011, 8, 22);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("末伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("末伏第10天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2011, 8, 13);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("末伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("末伏第1天", fu.FullString, solar.Ymd);
         }
-        [TestMethod()]
-        public void test7()
+
+        [Test]
+        public void Test6()
         {
-            Solar solar = new Solar(2011, 7, 13);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
+            var solar = new Solar(2011, 8, 22);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("末伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("末伏第10天", fu.FullString, solar.Ymd);
+        }
+        [Test]
+        public void Test7()
+        {
+            var solar = new Solar(2011, 7, 13);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
             Assert.IsNull(fu);
         }
 
-        [TestMethod()]
-        public void test8()
+        [Test]
+        public void Test8()
         {
-            Solar solar = new Solar(2011, 8, 23);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
+            var solar = new Solar(2011, 8, 23);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
             Assert.IsNull(fu);
         }
 
-        [TestMethod()]
-        public void test9()
+        [Test]
+        public void Test9()
         {
-            Solar solar = new Solar(2012, 7, 18);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("初伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("初伏第1天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2012, 7, 18);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("初伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("初伏第1天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test10()
+        [Test]
+        public void Test10()
         {
-            Solar solar = new Solar(2012, 8, 5);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("中伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("中伏第9天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2012, 8, 5);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("中伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("中伏第9天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test11()
+        [Test]
+        public void Test11()
         {
-            Solar solar = new Solar(2012, 8, 8);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("末伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("末伏第2天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2012, 8, 8);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("末伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("末伏第2天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test12()
+        [Test]
+        public void Test12()
         {
-            Solar solar = new Solar(2020, 7, 17);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("初伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("初伏第2天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2020, 7, 17);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("初伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("初伏第2天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test13()
+        [Test]
+        public void Test13()
         {
-            Solar solar = new Solar(2020, 7, 26);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("中伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("中伏第1天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2020, 7, 26);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("中伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("中伏第1天", fu.FullString, solar.Ymd);
         }
 
-        [TestMethod()]
-        public void test14()
+        [Test]
+        public void Test14()
         {
-            Solar solar = new Solar(2020, 8, 24);
-            Lunar lunar = solar.getLunar();
-            Fu fu = lunar.getFu();
-            Assert.AreEqual("末伏", fu.toString(), solar.toYmd());
-            Assert.AreEqual("末伏第10天", fu.toFullString(), solar.toYmd());
+            var solar = new Solar(2020, 8, 24);
+            var lunar = solar.Lunar;
+            var fu = lunar.Fu;
+            Assert.AreEqual("末伏", fu.ToString(), solar.Ymd);
+            Assert.AreEqual("末伏第10天", fu.FullString, solar.Ymd);
         }
-
     }
-
 }

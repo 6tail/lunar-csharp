@@ -1,7 +1,9 @@
-using com.nlf.calendar.util;
+using Lunar.Util;
 using System;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace com.nlf.calendar.eightchar
+namespace Lunar.EightChar
 {
     /// <summary>
     /// 运
@@ -11,76 +13,65 @@ namespace com.nlf.calendar.eightchar
         /// <summary>
         /// 性别(1男，0女)
         /// </summary>
-        private int gender;
+        public int Gender { get; }
 
         /// <summary>
         /// 起运年数
         /// </summary>
-        private int startYear;
+        public int StartYear { get; }
 
         /// <summary>
         /// 起运月数
         /// </summary>
-        private int startMonth;
+        public int StartMonth { get; }
 
         /// <summary>
         /// 起运天数
         /// </summary>
-        private int startDay;
+        public int StartDay { get; }
 
         /// <summary>
         /// 起运小时
         /// </summary>
-        private int startHour;
+        public int StartHour { get; }
 
         /// <summary>
         /// 是否顺推
         /// </summary>
-        private bool forward;
+        public bool Forward { get; }
 
-        private Lunar lunar;
+        public Lunar Lunar { get; }
 
-        public Yun(EightChar eightChar, int gender)
-            : this(eightChar, gender, 1)
+        public Yun(EightChar eightChar, int gender, int sect = 1)
         {
-        }
-
-        public Yun(EightChar eightChar, int gender, int sect)
-        {
-            this.lunar = eightChar.getLunar();
-            this.gender = gender;
-            bool yang = 0 == lunar.getYearGanIndexExact() % 2;
-            bool man = 1 == gender;
-            forward = (yang && man) || (!yang && !man);
-            computeStart(sect);
-        }
-
-        /// <summary>
-        /// 起运计算
-        /// </summary>
-        private void computeStart(int sect)
-        {
-            JieQi prev = lunar.getPrevJie();
-            JieQi next = lunar.getNextJie();
-            Solar current = lunar.getSolar();
-            Solar start = forward ? current : prev.getSolar();
-            Solar end = forward ? next.getSolar() : current;
+            Lunar = eightChar.Lunar;
+            Gender = gender;
+            var yang = 0 == Lunar.YearGanIndexExact % 2;
+            var man = 1 == gender;
+            Forward = (yang && man) || (!yang && !man);
+            
+            // 起运计算
+            var prev = Lunar.GetPrevJie();
+            var next = Lunar.GetNextJie();
+            var current = Lunar.Solar;
+            var start = Forward ? current : prev.Solar;
+            var end = Forward ? next.Solar : current;
 
             int year;
             int month;
             int day;
-            int hour = 0;
+            var hour = 0;
 
             if (2 == sect)
             {
-                long minutes = (long)(new TimeSpan(end.getCalendar().Ticks - start.getCalendar().Ticks).TotalMinutes);
-                long y = minutes / 4320;
+                var minutes = (long)(new TimeSpan(end.Calendar.Ticks - start.Calendar.Ticks).TotalMinutes);
+                var y = minutes / 4320;
                 minutes -= y * 4320;
-                long m = minutes / 360;
+                var m = minutes / 360;
                 minutes -= m * 360;
-                long d = minutes / 12;
+                var d = minutes / 12;
                 minutes -= d * 12;
-                long h = minutes * 2;
+                var h = minutes * 2;
                 year = (int)y;
                 month = (int)m;
                 day = (int)d;
@@ -88,100 +79,44 @@ namespace com.nlf.calendar.eightchar
             }
             else
             {
-                int endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().Substring(11, 5));
-                int startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().Substring(11, 5));
+                var endTimeZhiIndex = (end.Hour == 23) ? 11 : LunarUtil.GetTimeZhiIndex(end.YmdHms.Substring(11, 5));
+                var startTimeZhiIndex = (start.Hour == 23) ? 11 : LunarUtil.GetTimeZhiIndex(start.YmdHms.Substring(11, 5));
                 // 时辰差
-                int hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-                int dayDiff = ExactDate.getDaysBetween(start.getYear(), start.getMonth(), start.getDay(), end.getYear(), end.getMonth(), end.getDay());
+                var hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+                var dayDiff = ExactDate.GetDaysBetween(start.Year, start.Month, start.Day, end.Year, end.Month, end.Day);
                 if (hourDiff < 0)
                 {
                     hourDiff += 12;
                     dayDiff--;
                 }
-                int monthDiff = hourDiff * 10 / 30;
+                var monthDiff = hourDiff * 10 / 30;
                 month = dayDiff * 4 + monthDiff;
                 day = hourDiff * 10 - monthDiff * 30;
                 year = month / 12;
                 month = month - year * 12;
             }          
-            this.startYear = year;
-            this.startMonth = month;
-            this.startDay = day;
-            this.startHour = hour;
-        }
-
-        /// <summary>
-        /// 获取性别
-        /// </summary>
-        /// <returns>性别(1男 ， 0女)</returns>
-        public int getGender()
-        {
-            return gender;
-        }
-
-        /// <summary>
-        /// 获取起运年数
-        /// </summary>
-        /// <returns>起运年数</returns>
-        public int getStartYear()
-        {
-            return startYear;
-        }
-
-        /// <summary>
-        /// 获取起运月数
-        /// </summary>
-        /// <returns>起运月数</returns>
-        public int getStartMonth()
-        {
-            return startMonth;
-        }
-
-        /// <summary>
-        /// 获取起运天数
-        /// </summary>
-        /// <returns>起运天数</returns>
-        public int getStartDay()
-        {
-            return startDay;
-        }
-
-        /// <summary>
-        /// 获取起运小时数
-        /// </summary>
-        /// <returns>起运小时数</returns>
-        public int getStartHour()
-        {
-            return startHour;
-        }
-
-        /// <summary>
-        /// 是否顺推
-        /// </summary>
-        /// <returns>true/false</returns>
-        public bool isForward()
-        {
-            return forward;
-        }
-
-        public Lunar getLunar()
-        {
-            return lunar;
+            StartYear = year;
+            StartMonth = month;
+            StartDay = day;
+            StartHour = hour;
         }
 
         /// <summary>
         /// 获取起运的阳历日期
         /// </summary>
         /// <returns>阳历日期</returns>
-        public Solar getStartSolar()
+        public Solar StartSolar
         {
-            Solar birth = lunar.getSolar();
-            DateTime c = ExactDate.fromYmdHms(birth.getYear(), birth.getMonth(), birth.getDay(), birth.getHour(), birth.getMinute(), birth.getSecond());
-            c = c.AddYears(startYear);
-            c = c.AddMonths(startMonth);
-            c = c.AddDays(startDay);
-            c = c.AddHours(startHour);
-            return Solar.fromDate(c);
+            get
+            {
+                var birth = Lunar.Solar;
+                var c = ExactDate.FromYmdHms(birth.Year, birth.Month, birth.Day, birth.Hour, birth.Minute, birth.Second);
+                c = c.AddYears(StartYear);
+                c = c.AddMonths(StartMonth);
+                c = c.AddDays(StartDay);
+                c = c.AddHours(StartHour);
+                return Solar.FromDate(c);
+            }
         }
 
         /// <summary>
@@ -189,25 +124,15 @@ namespace com.nlf.calendar.eightchar
         /// </summary>
         /// <param name="n">轮数</param>
         /// <returns>大运</returns>
-        public DaYun[] getDaYun(int n)
+        public DaYun[] GetDaYun(int n = 10)
         {
-            DaYun[] l = new DaYun[n];
-            for (int i = 0; i < n; i++)
+            var l = new DaYun[n];
+            for (var i = 0; i < n; i++)
             {
                 l[i] = new DaYun(this, i);
             }
             return l;
         }
-
-        /// <summary>
-        /// 获取10轮大运
-        /// </summary>
-        /// <returns>大运</returns>
-        public DaYun[] getDaYun()
-        {
-            return getDaYun(10);
-        }
-
     }
 
 }

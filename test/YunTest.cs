@@ -1,143 +1,87 @@
-﻿// 以下代码由 Microsoft Visual Studio 2005 生成。
-// 测试所有者应该检查每个测试的有效性。
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using com.nlf.calendar;
-using com.nlf.calendar.eightchar;
+using Lunar;
+using NUnit.Framework;
+
 namespace test
 {
     /// <summary>
-    /// 运测试
-    ///</summary>
-    [TestClass()]
+    /// 运
+    /// </summary>
     public class YunTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///获取或设置测试上下文，上下文提供
-        ///有关当前测试运行及其功能的信息。
-        ///</summary>
-        public TestContext TestContext
+        [SetUp]
+        public void Setup()
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-        #region 附加测试属性
-        // 
-        //编写测试时，可使用以下附加属性:
-        //
-        //使用 ClassInitialize 在运行类中的第一个测试前先运行代码
-        //
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //使用 ClassCleanup 在运行完类中的所有测试后再运行代码
-        //
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //使用 TestInitialize 在运行每个测试前先运行代码
-        //
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //使用 TestCleanup 在运行完每个测试后运行代码
-        //
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
-        [TestMethod()]
-        public void test1()
-        {
-            Solar solar = Solar.fromYmdHms(1981, 1, 29, 23, 37, 0);
-            Lunar lunar = solar.getLunar();
-            EightChar eightChar = lunar.getEightChar();
-            Yun yun = eightChar.getYun(0);
-            Assert.AreEqual(8, yun.getStartYear(), "起运年数");
-            Assert.AreEqual(0, yun.getStartMonth(), "起运月数");
-            Assert.AreEqual(20, yun.getStartDay(), "起运天数");
-            Assert.AreEqual("1989-02-18", yun.getStartSolar().toYmd(), "起运阳历");
         }
 
-        [TestMethod()]
-        public void test2()
+        [Test]
+        public void Test1()
         {
-            Lunar lunar = Lunar.fromYmdHms(2019, 12, 12, 11, 22, 0);
-            EightChar eightChar = lunar.getEightChar();
-            Yun yun = eightChar.getYun(1);
-            Assert.AreEqual(0, yun.getStartYear(), "起运年数");
-            Assert.AreEqual(1, yun.getStartMonth(), "起运月数");
-            Assert.AreEqual(0, yun.getStartDay(), "起运天数");
-            Assert.AreEqual("2020-02-06", yun.getStartSolar().toYmd(), "起运阳历");
+            var solar = Solar.FromYmdHms(1981, 1, 29, 23, 37);
+            var lunar = solar.Lunar;
+            var eightChar = lunar.EightChar;
+            var yun = eightChar.GetYun(0);
+            Assert.AreEqual(8, yun.StartYear, "起运年数");
+            Assert.AreEqual(0, yun.StartMonth, "起运月数");
+            Assert.AreEqual(20, yun.StartDay, "起运天数");
+            Assert.AreEqual("1989-02-18", yun.StartSolar.Ymd, "起运阳历");
         }
-
-        [TestMethod()]
-        public void test3()
+        
+        [Test]
+        public void Test2()
         {
-            Solar solar = Solar.fromYmdHms(2020, 1, 6, 11, 22, 0);
-            Lunar lunar = solar.getLunar();
-            EightChar eightChar = lunar.getEightChar();
-            Yun yun = eightChar.getYun(1);
-            Assert.AreEqual(0, yun.getStartYear(), "起运年数");
-            Assert.AreEqual(1, yun.getStartMonth(), "起运月数");
-            Assert.AreEqual(0, yun.getStartDay(), "起运天数");
-            Assert.AreEqual("2020-02-06", yun.getStartSolar().toYmd(), "起运阳历");
+            var lunar = Lunar.Lunar.FromYmdHms(2019, 12, 12, 11, 22);
+            var eightChar = lunar.EightChar;
+            var yun = eightChar.GetYun(1);
+            Assert.AreEqual(0, yun.StartYear, "起运年数");
+            Assert.AreEqual(1, yun.StartMonth, "起运月数");
+            Assert.AreEqual(0, yun.StartDay, "起运天数");
+            Assert.AreEqual("2020-02-06", yun.StartSolar.Ymd, "起运阳历");
         }
-
-        [TestMethod()]
-        public void test4()
+        
+        [Test]
+        public void Test3()
         {
-            Solar solar = Solar.fromYmdHms(2022, 3, 9, 20, 51, 0);
-            Lunar lunar = solar.getLunar();
-            EightChar eightChar = lunar.getEightChar();
-            Yun yun = eightChar.getYun(1);
-            Assert.AreEqual("2030-12-19", yun.getStartSolar().toYmd(), "起运阳历");
+            var solar = Solar.FromYmdHms(2020, 1, 6, 11, 22);
+            var lunar = solar.Lunar;
+            var eightChar = lunar.EightChar;
+            var yun = eightChar.GetYun(1);
+            Assert.AreEqual(0, yun.StartYear, "起运年数");
+            Assert.AreEqual(1, yun.StartMonth, "起运月数");
+            Assert.AreEqual(0, yun.StartDay, "起运天数");
+            Assert.AreEqual("2020-02-06", yun.StartSolar.Ymd, "起运阳历");
         }
-
-        [TestMethod()]
-        public void test5()
+        
+        [Test]
+        public void Test4()
         {
-            Solar solar = Solar.fromYmdHms(2022, 3, 9, 20, 51, 0);
-            Lunar lunar = solar.getLunar();
-            EightChar eightChar = lunar.getEightChar();
-            Yun yun = eightChar.getYun(1, 2);
-            Assert.AreEqual(8, yun.getStartYear(), "起运年数");
-            Assert.AreEqual(9, yun.getStartMonth(), "起运月数");
-            Assert.AreEqual(2, yun.getStartDay(), "起运天数");
-            Assert.AreEqual("2030-12-12", yun.getStartSolar().toYmd(), "起运阳历");
+            var solar = Solar.FromYmdHms(2022, 3, 9, 20, 51);
+            var lunar = solar.Lunar;
+            var eightChar = lunar.EightChar;
+            var yun = eightChar.GetYun(1);
+            Assert.AreEqual("2030-12-19", yun.StartSolar.Ymd, "起运阳历");
         }
-
-        [TestMethod()]
-        public void test6()
+        
+        [Test]
+        public void Test5()
         {
-            Solar solar = Solar.fromYmdHms(2018, 6, 11, 9, 30, 0);
-            Lunar lunar = solar.getLunar();
-            EightChar eightChar = lunar.getEightChar();
-            Yun yun = eightChar.getYun(0, 2);
-            Assert.AreEqual("2020-03-21", yun.getStartSolar().toYmd(), "起运阳历");
+            var solar = Solar.FromYmdHms(2022, 3, 9, 20, 51);
+            var lunar = solar.Lunar;
+            var eightChar = lunar.EightChar;
+            var yun = eightChar.GetYun(1, 2);
+            Assert.AreEqual(8, yun.StartYear, "起运年数");
+            Assert.AreEqual(9, yun.StartMonth, "起运月数");
+            Assert.AreEqual(2, yun.StartDay, "起运天数");
+            Assert.AreEqual("2030-12-12", yun.StartSolar.Ymd, "起运阳历");
         }
-
+        
+        [Test]
+        public void Test6()
+        {
+            var solar = Solar.FromYmdHms(2018, 6, 11, 9, 30);
+            var lunar = solar.Lunar;
+            var eightChar = lunar.EightChar;
+            var yun = eightChar.GetYun(0, 2);
+            Assert.AreEqual("2020-03-21", yun.StartSolar.Ymd, "起运阳历");
+        }
     }
-
 }

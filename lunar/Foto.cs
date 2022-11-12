@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using com.nlf.calendar.util;
-namespace com.nlf.calendar
+using Lunar.Util;
+
+namespace Lunar
 {
     /// <summary>
     /// 佛历
@@ -13,228 +15,193 @@ namespace com.nlf.calendar
         /// <summary>
         /// 阴历
         /// </summary>
-        private Lunar lunar;
+        public Lunar Lunar { get; }
 
         public Foto(Lunar lunar)
         {
-            this.lunar = lunar;
+            Lunar = lunar;
         }
 
-        public static Foto fromLunar(Lunar lunar)
+        public static Foto FromLunar(Lunar lunar)
         {
             return new Foto(lunar);
         }
 
-        public static Foto fromYmdHms(int lunarYear, int lunarMonth, int lunarDay, int hour, int minute, int second)
+        public static Foto FromYmdHms(int lunarYear, int lunarMonth, int lunarDay, int hour = 0, int minute = 0, int second = 0)
         {
-            return Foto.fromLunar(Lunar.fromYmdHms(lunarYear + DEAD_YEAR - 1, lunarMonth, lunarDay, hour, minute, second));
+            return FromLunar(Lunar.FromYmdHms(lunarYear + DEAD_YEAR - 1, lunarMonth, lunarDay, hour, minute, second));
         }
 
-        public static Foto fromYmd(int lunarYear, int lunarMonth, int lunarDay)
+        public int Year
         {
-            return fromYmdHms(lunarYear, lunarMonth, lunarDay, 0, 0, 0);
-        }
-
-        public Lunar getLunar()
-        {
-            return lunar;
-        }
-
-        public int getYear()
-        {
-            int sy = lunar.getSolar().getYear();
-            int y = sy - DEAD_YEAR;
-            if (sy == lunar.getYear())
+            get
             {
-                y++;
-            }
-            return y;
-        }
-
-        public int getMonth()
-        {
-            return lunar.getMonth();
-        }
-
-        public int getDay()
-        {
-            return lunar.getDay();
-        }
-
-        public string getYearInChinese()
-        {
-            char[] y = (getYear() + "").ToCharArray();
-            StringBuilder s = new StringBuilder();
-            for (int i = 0, j = y.Length; i < j; i++)
-            {
-                s.Append(LunarUtil.NUMBER[y[i] - '0']);
-            }
-            return s.ToString();
-        }
-
-        public string getMonthInChinese()
-        {
-            return lunar.getMonthInChinese();
-        }
-
-        public string getDayInChinese()
-        {
-            return lunar.getDayInChinese();
-        }
-
-        public List<FotoFestival> getFestivals()
-        {
-            List<FotoFestival> l = new List<FotoFestival>();
-            try
-            {
-                l.AddRange(FotoUtil.FESTIVAL[getMonth() + "-" + getDay()]);
-             }
-            catch { }
-            return l;
-        }
-
-        public bool isMonthZhai()
-        {
-            int m = getMonth();
-            return 1 == m || 5 == m || 9 == m;
-        }
-
-        public bool isDayYangGong()
-        {
-            foreach (FotoFestival f in getFestivals())
-            {
-                if ("杨公忌".Equals(f.getName()))
+                var sy = Lunar.Solar.Year;
+                var y = sy - DEAD_YEAR;
+                if (sy == Lunar.Year)
                 {
-                    return true;
+                    y++;
+                }
+                return y;
+            }
+        }
+
+        public int Month => Lunar.Month;
+
+        public int Day => Lunar.Day;
+
+        public string YearInChinese
+        {
+            get
+            {
+                var y = (Year + "").ToCharArray();
+                var s = new StringBuilder();
+                for (int i = 0, j = y.Length; i < j; i++)
+                {
+                    s.Append(LunarUtil.NUMBER[y[i] - '0']);
+                }
+                return s.ToString();
+            }
+        }
+
+        public string MonthInChinese => Lunar.MonthInChinese;
+
+        public string DayInChinese => Lunar.DayInChinese;
+
+        public List<FotoFestival> Festivals
+        {
+            get
+            {
+                var l = new List<FotoFestival>();
+                try
+                {
+                    l.AddRange(FotoUtil.FESTIVAL[Month + "-" + Day]);
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                return l;
+            }
+        }
+
+        public bool MonthZhai => Month is 1 or 5 or 9;
+
+        /// <summary>
+        /// 杨公忌日
+        /// </summary>
+        public bool DayYangGong
+        {
+            get
+            {
+                return Festivals.Any(f => "杨公忌".Equals(f.Name));
+            }
+        }
+
+        /// <summary>
+        /// 朔望斋日
+        /// </summary>
+        public bool DayZhaiShuoWang => Day is 1 or 15;
+
+        /// <summary>
+        /// 六斋日
+        /// </summary>
+        public bool DayZhaiSix
+        {
+            get
+            {
+                switch (Day)
+                {
+                    case 8:
+                    case 14:
+                    case 15:
+                    case 23:
+                    case 29:
+                    case 30:
+                        return true;
+                    case 28:
+                    {
+                        var m = LunarMonth.FromYm(Lunar.Year, Month);
+                        return null != m && 30 != m.DayCount;
+                    }
+                    default:
+                        return false;
                 }
             }
-            return false;
         }
 
-        public bool isDayZhaiShuoWang()
-        {
-            int d = getDay();
-            return 1 == d || 15 == d;
-        }
+        /// <summary>
+        /// 十斋日
+        /// </summary>
+        public bool DayZhaiTen => Day is 1 or 8 or 14 or 15 or 18 or 23 or 24 or 28 or 29 or 30;
 
-        public bool isDayZhaiSix()
+        /// <summary>
+        /// 观音斋日
+        /// </summary>
+        public bool DayZhaiGuanYin
         {
-            int d = getDay();
-            if (8 == d || 14 == d || 15 == d || 23 == d || 29 == d || 30 == d)
+            get
             {
-                return true;
+                var k = Month + "-" + Day;
+                return FotoUtil.DAY_ZHAI_GUAN_YIN.Any(d => k.Equals(d));
             }
-            else if (28 == d)
-            {
-                LunarMonth m = LunarMonth.fromYm(lunar.getYear(), getMonth());
-                return null != m && 30 != m.getDayCount();
-            }
-            return false;
         }
 
-        public bool isDayZhaiTen()
-        {
-            int d = getDay();
-            return 1 == d || 8 == d || 14 == d || 15 == d || 18 == d || 23 == d || 24 == d || 28 == d || 29 == d || 30 == d;
-        }
+        /// <summary>
+        /// 宿
+        /// </summary>
+        public string Xiu => FotoUtil.GetXiu(Month, Day);
 
-        public bool isDayZhaiGuanYin()
+        /// <summary>
+        /// 宿吉凶
+        /// </summary>
+        public string XiuLuck => LunarUtil.XIU_LUCK[Xiu];
+
+        /// <summary>
+        /// 宿歌诀
+        /// </summary>
+        public string XiuSong => LunarUtil.XIU_SONG[Xiu];
+
+        /// <summary>
+        /// 政
+        /// </summary>
+        public string Zheng => LunarUtil.ZHENG[Xiu];
+
+        /// <summary>
+        /// 动物
+        /// </summary>
+        public string Animal => LunarUtil.ANIMAL[Xiu];
+
+        /// <summary>
+        /// 宫
+        /// </summary>
+        public string Gong => LunarUtil.GONG[Xiu];
+
+        /// <summary>
+        /// 兽
+        /// </summary>
+        public string Shou => LunarUtil.SHOU[Gong];
+
+        public string FullString
         {
-            string k = getMonth() + "-" + getDay();
-            foreach (string d in FotoUtil.DAY_ZHAI_GUAN_YIN)
+            get
             {
-                if (k.Equals(d))
+                var s = new StringBuilder();
+                s.Append(ToString());
+                foreach (var f in Festivals)
                 {
-                    return true;
+                    s.Append(" (");
+                    s.Append(f);
+                    s.Append(')');
                 }
+                return s.ToString();
             }
-            return false;
-        }
-
-        /// <summary>
-        /// 获取星宿
-        /// </summary>
-        /// <returns>星宿</returns>
-        public string getXiu()
-        {
-            return FotoUtil.getXiu(getMonth(), getDay());
-        }
-
-        /// <summary>
-        /// 获取宿吉凶
-        /// </summary>
-        /// <returns>吉凶</returns>
-        public string getXiuLuck()
-        {
-            return LunarUtil.XIU_LUCK[getXiu()];
-        }
-
-        /// <summary>
-        /// 获取宿歌诀
-        /// </summary>
-        /// <returns>星宿歌诀</returns>
-        public string getXiuSong()
-        {
-            return LunarUtil.XIU_SONG[getXiu()];
-        }
-
-        /// <summary>
-        /// 获取政
-        /// </summary>
-        /// <returns>政</returns>
-        public string getZheng()
-        {
-            return LunarUtil.ZHENG[getXiu()];
-        }
-
-        /// <summary>
-        /// 获取动物
-        /// </summary>
-        /// <returns>动物</returns>
-        public string getAnimal()
-        {
-            return LunarUtil.ANIMAL[getXiu()];
-        }
-
-        /// <summary>
-        /// 获取宫
-        /// </summary>
-        /// <returns>宫</returns>
-        public string getGong()
-        {
-            return LunarUtil.GONG[getXiu()];
-        }
-
-        /// <summary>
-        /// 获取兽
-        /// </summary>
-        /// <returns>兽</returns>
-        public string getShou()
-        {
-            return LunarUtil.SHOU[getGong()];
-        }
-
-        public string toString()
-        {
-            return getYearInChinese() + "年" + getMonthInChinese() + "月" + getDayInChinese();
-        }
-
-        public string toFullString()
-        {
-            StringBuilder s = new StringBuilder();
-            s.Append(toString());
-            foreach (FotoFestival f in getFestivals())
-            {
-                s.Append(" (");
-                s.Append(f);
-                s.Append(")");
-            }
-            return s.ToString();
         }
 
         public override string ToString()
         {
-            return toString();
+            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
         }
     }
 

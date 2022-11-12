@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using com.nlf.calendar.util;
+using Lunar.Util;
+// ReSharper disable MemberCanBePrivate.Global
 
-namespace com.nlf.calendar
+namespace Lunar
 {
     /// <summary>
     /// 农历月
@@ -13,22 +12,22 @@ namespace com.nlf.calendar
         /// <summary>
         /// 农历年
         /// </summary>
-        private int year;
+        public int Year { get; }
 
         /// <summary>
         /// 农历月：1-12，闰月为负数，如闰2月为-2
         /// </summary>
-        private int month;
+        public int Month { get; }
 
         /// <summary>
         /// 天数，大月30天，小月29天
         /// </summary>
-        private int dayCount;
+        public int DayCount { get; }
 
         /// <summary>
         /// 初一的儒略日
         /// </summary>
-        private double firstJulianDay;
+        public double FirstJulianDay { get; }
 
         /// <summary>
         /// 初始化
@@ -39,10 +38,10 @@ namespace com.nlf.calendar
         /// <param name="firstJulianDay">初一的儒略日</param>
         public LunarMonth(int lunarYear, int lunarMonth, int dayCount, double firstJulianDay)
         {
-            this.year = lunarYear;
-            this.month = lunarMonth;
-            this.dayCount = dayCount;
-            this.firstJulianDay = firstJulianDay;
+            Year = lunarYear;
+            Month = lunarMonth;
+            DayCount = dayCount;
+            FirstJulianDay = firstJulianDay;
         }
 
         /// <summary>
@@ -51,192 +50,149 @@ namespace com.nlf.calendar
         /// <param name="lunarYear">农历年</param>
         /// <param name="lunarMonth">农历月：1-12，闰月为负数，如闰2月为-2</param>
         /// <returns>农历月</returns>
-        public static LunarMonth fromYm(int lunarYear, int lunarMonth)
+        public static LunarMonth FromYm(int lunarYear, int lunarMonth)
         {
-            return LunarYear.fromYear(lunarYear).getMonth(lunarMonth);
-        }
-
-        /// <summary>
-        /// 获取农历年
-        /// </summary>
-        /// <returns>农历年</returns>
-        public int getYear()
-        {
-            return year;
-        }
-
-        /// <summary>
-        /// 获取农历月
-        /// </summary>
-        /// <returns>农历月：1-12，闰月为负数，如闰2月为-2</returns>
-        public int getMonth()
-        {
-            return month;
+            return LunarYear.FromYear(lunarYear).GetMonth(lunarMonth);
         }
 
         /// <summary>
         /// 是否闰月
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isLeap()
-        {
-            return month < 0;
-        }
+        public bool Leap => Month < 0;
 
         /// <summary>
-        /// 获取天数
+        /// 太岁方位，如艮
         /// </summary>
-        /// <returns>天数</returns>
-        public int getDayCount()
+        public string PositionTaiSui
         {
-            return dayCount;
-        }
-
-        /// <summary>
-        /// 获取初一的儒略日
-        /// </summary>
-        /// <returns>初一的儒略日</returns>
-        public double getFirstJulianDay()
-        {
-            return firstJulianDay;
-        }
-
-        /// <summary>
-        /// 获取太岁方位
-        /// </summary>
-        /// <returns>太岁方位，如艮</returns>
-        public string getPositionTaiSui()
-        {
-            string p;
-            int m = Math.Abs(month);
-            switch (m)
+            get
             {
-                case 1:
-                case 5:
-                case 9:
-                    p = "艮";
-                    break;
-                case 3:
-                case 7:
-                case 11:
-                    p = "坤";
-                    break;
-                case 4:
-                case 8:
-                case 12:
-                    p = "巽";
-                    break;
-                default:
-                    p = LunarUtil.POSITION_GAN[Solar.fromJulianDay(this.getFirstJulianDay()).getLunar().getMonthGanIndex()];
-                    break;
+                string p;
+                var m = Math.Abs(Month);
+                switch (m)
+                {
+                    case 1:
+                    case 5:
+                    case 9:
+                        p = "艮";
+                        break;
+                    case 3:
+                    case 7:
+                    case 11:
+                        p = "坤";
+                        break;
+                    case 4:
+                    case 8:
+                    case 12:
+                        p = "巽";
+                        break;
+                    default:
+                        p = LunarUtil.POSITION_GAN[Solar.FromJulianDay(FirstJulianDay).Lunar.MonthGanIndex];
+                        break;
+                }
+                return p;
             }
-            return p;
         }
 
         /// <summary>
-        /// 获取太岁方位描述
+        /// 太岁方位描述，如东北
         /// </summary>
-        /// <returns>方位描述，如东北</returns>
-        public string getPositionTaiSuiDesc()
-        {
-            return LunarUtil.POSITION_DESC[getPositionTaiSui()];
-        }
+        public string PositionTaiSuiDesc => LunarUtil.POSITION_DESC[PositionTaiSui];
 
         /// <summary>
-        /// 获取月九星
+        /// 九星
         /// </summary>
-        /// <returns>九星</returns>
-        public NineStar getNineStar()
+        public NineStar NineStar
         {
-            int index = LunarYear.fromYear(year).getZhiIndex() % 3;
-            int m = Math.Abs(month);
-            int monthZhiIndex = (13 + m) % 12;
-            int n = 27 - (index * 3);
-            if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX)
+            get
             {
-                n -= 3;
+                var index = LunarYear.FromYear(Year).ZhiIndex % 3;
+                var m = Math.Abs(Month);
+                var monthZhiIndex = (13 + m) % 12;
+                var n = 27 - (index * 3);
+                if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX)
+                {
+                    n -= 3;
+                }
+                var offset = (n - monthZhiIndex) % 9;
+                return NineStar.FromIndex(offset);
             }
-            int offset = (n - monthZhiIndex) % 9;
-            return NineStar.fromIndex(offset);
         }
 
         public override string ToString()
         {
-            return year + "年" + (isLeap() ? "闰" : "") + LunarUtil.MONTH[Math.Abs(month)] + "月(" + dayCount + "天)";
+            return Year + "年" + (Leap ? "闰" : "") + LunarUtil.MONTH[Math.Abs(Month)] + "月(" + DayCount + "天)";
         }
 
-        public LunarMonth next(int n)
+        public LunarMonth Next(int n)
         {
-            if (0 == n)
+            switch (n)
             {
-                return LunarMonth.fromYm(year, month);
-            }
-            else if (n > 0)
-            {
-                int rest = n;
-                int ny = year;
-                int iy = ny;
-                int im = month;
-                int index = 0;
-                List<LunarMonth> months = LunarYear.fromYear(ny).getMonths();
-                while (true)
+                case 0:
+                    return FromYm(Year, Month);
+                case > 0:
                 {
-                    int size = months.Count;
-                    for (int i = 0; i < size; i++)
+                    var rest = n;
+                    var ny = Year;
+                    var iy = ny;
+                    var im = Month;
+                    var index = 0;
+                    var months = LunarYear.FromYear(ny).Months;
+                    while (true)
                     {
-                        LunarMonth m = months[i];
-                        if (m.getYear() == iy && m.getMonth() == im)
+                        var size = months.Count;
+                        for (var i = 0; i < size; i++)
                         {
+                            var m = months[i];
+                            if (m.Year != iy || m.Month != im) continue;
                             index = i;
                             break;
                         }
-                    }
-                    int more = size - index - 1;
-                    if (rest < more)
-                    {
-                        break;
-                    }
-                    rest -= more;
-                    LunarMonth lastMonth = months[size - 1];
-                    iy = lastMonth.getYear();
-                    im = lastMonth.getMonth();
-                    ny++;
-                    months = LunarYear.fromYear(ny).getMonths();
-                }
-                return months[index + rest];
-            }
-            else
-            {
-                int rest = -n;
-                int ny = year;
-                int iy = ny;
-                int im = month;
-                int index = 0;
-                List<LunarMonth> months = LunarYear.fromYear(ny).getMonths();
-                while (true)
-                {
-                    int size = months.Count;
-                    for (int i = 0; i < size; i++)
-                    {
-                        LunarMonth m = months[i];
-                        if (m.getYear() == iy && m.getMonth() == im)
+                        var more = size - index - 1;
+                        if (rest < more)
                         {
+                            break;
+                        }
+                        rest -= more;
+                        var lastMonth = months[size - 1];
+                        iy = lastMonth.Year;
+                        im = lastMonth.Month;
+                        ny++;
+                        months = LunarYear.FromYear(ny).Months;
+                    }
+                    return months[index + rest];
+                }
+                default:
+                {
+                    var rest = -n;
+                    var ny = Year;
+                    var iy = ny;
+                    var im = Month;
+                    var index = 0;
+                    var months = LunarYear.FromYear(ny).Months;
+                    while (true)
+                    {
+                        var size = months.Count;
+                        for (var i = 0; i < size; i++)
+                        {
+                            var m = months[i];
+                            if (m.Year != iy || m.Month != im) continue;
                             index = i;
                             break;
                         }
+                        if (rest <= index)
+                        {
+                            break;
+                        }
+                        rest -= index;
+                        var firstMonth = months[0];
+                        iy = firstMonth.Year;
+                        im = firstMonth.Month;
+                        ny--;
+                        months = LunarYear.FromYear(ny).Months;
                     }
-                    if (rest <= index)
-                    {
-                        break;
-                    }
-                    rest -= index;
-                    LunarMonth firstMonth = months[0];
-                    iy = firstMonth.getYear();
-                    im = firstMonth.getMonth();
-                    ny--;
-                    months = LunarYear.fromYear(ny).getMonths();
+                    return months[index - rest];
                 }
-                return months[index - rest];
             }
         }
     }

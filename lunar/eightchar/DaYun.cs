@@ -1,6 +1,8 @@
-using com.nlf.calendar.util;
+using Lunar.Util;
+// ReSharper disable IdentifierTypo
+// ReSharper disable MemberCanBePrivate.Global
 
-namespace com.nlf.calendar.eightchar
+namespace Lunar.EightChar
 {
     /// <summary>
     /// 大运
@@ -10,144 +12,109 @@ namespace com.nlf.calendar.eightchar
         /// <summary>
         /// 开始年(含)
         /// </summary>
-        private int startYear;
+        public int StartYear { get; }
 
         /// <summary>
         /// 结束年(含)
         /// </summary>
-        private int endYear;
+        public int EndYear { get; }
 
         /// <summary>
         /// 开始年龄(含)
         /// </summary>
-        private int startAge;
+        public int StartAge { get; }
 
         /// <summary>
         /// 结束年龄(含)
         /// </summary>
-        private int endAge;
+        public int EndAge { get; }
 
         /// <summary>
         /// 序数，0-9
         /// </summary>
-        private int index;
+        public int Index { get; }
 
         /// <summary>
         /// 运
         /// </summary>
-        private Yun yun;
+        public Yun Yun { get; }
 
-        private Lunar lunar;
+        public Lunar Lunar { get; }
 
         public DaYun(Yun yun, int index)
         {
-            this.yun = yun;
-            this.lunar = yun.getLunar();
-            this.index = index;
-            int birthYear = yun.getLunar().getSolar().getYear();
-            int year = yun.getStartSolar().getYear();
+            Yun = yun;
+            Lunar = yun.Lunar;
+            Index = index;
+            var birthYear = Lunar.Solar.Year;
+            var year = yun.StartSolar.Year;
             if (index < 1)
             {
-                this.startYear = birthYear;
-                this.startAge = 1;
-                this.endYear = year - 1;
-                this.endAge = year - birthYear;
+                StartYear = birthYear;
+                StartAge = 1;
+                EndYear = year - 1;
+                EndAge = year - birthYear;
             }
             else
             {
-                int add = (index - 1) * 10;
-                this.startYear = year + add;
-                this.startAge = this.startYear - birthYear + 1;
-                this.endYear = this.startYear + 9;
-                this.endAge = this.startAge + 9;
+                var add = (index - 1) * 10;
+                StartYear = year + add;
+                StartAge = StartYear - birthYear + 1;
+                EndYear = StartYear + 9;
+                EndAge = StartAge + 9;
             }
-        }
-
-        public int getStartYear()
-        {
-            return startYear;
-        }
-
-        public int getEndYear()
-        {
-            return endYear;
-        }
-
-        public int getStartAge()
-        {
-            return startAge;
-        }
-
-        public int getEndAge()
-        {
-            return endAge;
-        }
-
-        public int getIndex()
-        {
-            return index;
-        }
-
-        public Lunar getLunar()
-        {
-            return lunar;
         }
 
         /// <summary>
         /// 获取干支
         /// </summary>
         /// <returns>干支</returns>
-        public string getGanZhi()
+        public string GanZhi
         {
-            if (index < 1)
+            get
             {
-                return "";
+                if (Index < 1)
+                {
+                    return "";
+                }
+                var offset = LunarUtil.GetJiaZiIndex(Lunar.MonthInGanZhiExact);
+                offset += Yun.Forward ? Index : -Index;
+                var size = LunarUtil.JIA_ZI.Length;
+                if (offset >= size)
+                {
+                    offset -= size;
+                }
+                if (offset < 0)
+                {
+                    offset += size;
+                }
+                return LunarUtil.JIA_ZI[offset];
             }
-            int offset = LunarUtil.getJiaZiIndex(lunar.getMonthInGanZhiExact());
-            offset += yun.isForward() ? index : -index;
-            int size = LunarUtil.JIA_ZI.Length;
-            if (offset >= size)
-            {
-                offset -= size;
-            }
-            if (offset < 0)
-            {
-                offset += size;
-            }
-            return LunarUtil.JIA_ZI[offset];
         }
 
         /// <summary>
-        /// 获取所在旬
+        /// 旬
         /// </summary>
-        /// <returns>旬</returns>
-        public string getXun()
-        {
-            return LunarUtil.getXun(getGanZhi());
-        }
-
+        public string Xun => LunarUtil.GetXun(GanZhi);
+        
         /// <summary>
-        /// 获取旬空(空亡)
+        /// 旬空(空亡)
         /// </summary>
-        /// <returns>旬空(空亡)</returns>
-        public string getXunKong()
-        {
-            return LunarUtil.getXunKong(getGanZhi());
-        }
+        public string XunKong => LunarUtil.GetXunKong(GanZhi);
 
         /// <summary>
         /// 获取流年
         /// </summary>
         /// <param name="n">轮数</param>
         /// <returns>流年</returns>
-        public LiuNian[] getLiuNian(int n)
+        public LiuNian[] GetLiuNian(int n = 10)
         {
-            if (index < 1)
+            if (Index < 1)
             {
-                n = endYear - startYear + 1;
+                n = EndYear - StartYear + 1;
             }
-            LiuNian[] l = new LiuNian[n];
-            for (int i = 0; i < n; ++i)
+            var l = new LiuNian[n];
+            for (var i = 0; i < n; ++i)
             {
                 l[i] = new LiuNian(this, i);
             }
@@ -155,40 +122,22 @@ namespace com.nlf.calendar.eightchar
         }
 
         /// <summary>
-        /// 获取10轮流年
-        /// </summary>
-        /// <returns>流年</returns>
-        public LiuNian[] getLiuNian()
-        {
-            return getLiuNian(10);
-        }
-
-        /// <summary>
         /// 获取小运
         /// </summary>
         /// <param name="n">轮数</param>
         /// <returns>小运</returns>
-        public XiaoYun[] getXiaoYun(int n)
+        public XiaoYun[] GetXiaoYun(int n = 10)
         {
-            if (index < 1)
+            if (Index < 1)
             {
-                n = endYear - startYear + 1;
+                n = EndYear - StartYear + 1;
             }
-            XiaoYun[] l = new XiaoYun[n];
-            for (int i = 0; i < n; ++i)
+            var l = new XiaoYun[n];
+            for (var i = 0; i < n; ++i)
             {
-                l[i] = new XiaoYun(this, i, yun.isForward());
+                l[i] = new XiaoYun(this, i, Yun.Forward);
             }
             return l;
-        }
-
-        /// <summary>
-        /// 获取10轮小运
-        /// </summary>
-        /// <returns>小运</returns>
-        public XiaoYun[] getXiaoYun()
-        {
-            return getXiaoYun(10);
         }
 
     }

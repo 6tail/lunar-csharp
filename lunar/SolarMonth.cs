@@ -1,27 +1,29 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using com.nlf.calendar.util;
+using Lunar.Util;
+// ReSharper disable MemberCanBePrivate.Global
 
-namespace com.nlf.calendar
+namespace Lunar
 {
+    /// <summary>
+    /// 阳历月
+    /// </summary>
     public class SolarMonth
     {
         /// <summary>
         /// 年
         /// </summary>
-        private int year;
+        public int Year { get; }
 
         /// <summary>
         /// 月
         /// </summary>
-        private int month;
+        public int Month { get; }
 
         /// <summary>
         /// 默认日期
         /// </summary>
-        public SolarMonth()
-            : this(DateTime.Now)
+        public SolarMonth(): this(DateTime.Now)
         {
         }
 
@@ -29,10 +31,8 @@ namespace com.nlf.calendar
         /// 通过日期初始化
         /// </summary>
         /// <param name="date">日期</param>
-        public SolarMonth(DateTime date)
+        public SolarMonth(DateTime date): this(date.Year, date.Month)
         {
-            year = date.Year;
-            month = date.Month;
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace com.nlf.calendar
         /// <param name="month">月</param>
         public SolarMonth(int year, int month)
         {
-            this.year = year;
-            this.month = month;
+            Year = year;
+            Month = month;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="date">日期</param>
         /// <returns>阳历月</returns>
-        public static SolarMonth fromDate(DateTime date)
+        public static SolarMonth FromDate(DateTime date)
         {
             return new SolarMonth(date);
         }
@@ -62,44 +62,28 @@ namespace com.nlf.calendar
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>阳历月</returns>
-        public static SolarMonth fromYm(int year, int month)
+        public static SolarMonth FromYm(int year, int month)
         {
             return new SolarMonth(year, month);
         }
 
         /// <summary>
-        /// 获取年
+        /// 本月的阳历日期列表
         /// </summary>
-        /// <returns>年</returns>
-        public int getYear()
+        public List<Solar> Days
         {
-            return year;
-        }
-
-        /// <summary>
-        /// 获取月
-        /// </summary>
-        /// <returns>月</returns>
-        public int getMonth()
-        {
-            return month;
-        }
-
-        /// <summary>
-        /// 获取本月的阳历日期列表
-        /// </summary>
-        /// <returns>阳历日期列表</returns>
-        public List<Solar> getDays()
-        {
-            List<Solar> l = new List<Solar>(31);
-            Solar d = new Solar(year, month, 1);
-            l.Add(d);
-            int days = SolarUtil.getDaysOfMonth(year, month);
-            for (int i = 1; i < days; i++)
+            get
             {
-                l.Add(d.next(i));
+                var l = new List<Solar>(31);
+                var d = new Solar(Year, Month, 1);
+                l.Add(d);
+                var days = SolarUtil.GetDaysOfMonth(Year, Month);
+                for (var i = 1; i < days; i++)
+                {
+                    l.Add(d.Next(i));
+                }
+                return l;
             }
-            return l;
         }
 
         /// <summary>
@@ -107,21 +91,18 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="months">月数</param>
         /// <returns>阳历月</returns>
-        public SolarMonth next(int months)
+        public SolarMonth Next(int months)
         {
-            DateTime c = ExactDate.fromYmd(year, month, 1);
+            var c = ExactDate.FromYmdHms(Year, Month, 1);
             c = c.AddMonths(months);
             return new SolarMonth(c);
         }
 
         public override string ToString()
         {
-            return year + "-" + month;
+            return Year + "-" + Month;
         }
 
-        public string toFullString()
-        {
-            return year + "年" + month + "月";
-        }
+        public string FullString => Year + "年" + Month + "月";
     }
 }

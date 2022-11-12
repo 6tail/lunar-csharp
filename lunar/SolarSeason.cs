@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable InconsistentNaming
 
-namespace com.nlf.calendar
+namespace Lunar
 {
     /// <summary>
     /// 阳历季度
@@ -12,12 +13,12 @@ namespace com.nlf.calendar
         /// <summary>
         /// 年
         /// </summary>
-        private int year;
+        public int Year { get; }
 
         /// <summary>
         /// 月
         /// </summary>
-        private int month;
+        public int Month { get; }
 
         /// <summary>
         /// 一个季度的月数
@@ -27,8 +28,7 @@ namespace com.nlf.calendar
         /// <summary>
         /// 默认当前日期
         /// </summary>
-        public SolarSeason()
-            : this(DateTime.Now)
+        public SolarSeason(): this(DateTime.Now)
         {
         }
 
@@ -36,10 +36,8 @@ namespace com.nlf.calendar
         /// 通过日期初始化
         /// </summary>
         /// <param name="date">日期</param>
-        public SolarSeason(DateTime date)
+        public SolarSeason(DateTime date): this(date.Year, date.Month)
         {
-            year = date.Year;
-            month = date.Month;
         }
 
         /// <summary>
@@ -49,8 +47,8 @@ namespace com.nlf.calendar
         /// <param name="month">月</param>
         public SolarSeason(int year, int month)
         {
-            this.year = year;
-            this.month = month;
+            Year = year;
+            Month = month;
         }
 
         /// <summary>
@@ -58,7 +56,7 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="date">日期</param>
         /// <returns>阳历季度</returns>
-        public static SolarSeason fromDate(DateTime date)
+        public static SolarSeason FromDate(DateTime date)
         {
             return new SolarSeason(date);
         }
@@ -69,77 +67,54 @@ namespace com.nlf.calendar
         /// <param name="year">年</param>
         /// <param name="month">月</param>
         /// <returns>阳历季度</returns>
-        public static SolarSeason fromYm(int year, int month)
+        public static SolarSeason FromYm(int year, int month)
         {
             return new SolarSeason(year, month);
         }
 
         /// <summary>
-        /// 获取年
+        /// 当月是第几季度，从1开始
         /// </summary>
-        /// <returns>年</returns>
-        public int getYear()
-        {
-            return year;
-        }
+        public int Index => (int)Math.Ceiling(Month * 1D / MONTH_COUNT);
 
         /// <summary>
-        /// 获取月
-        /// </summary>
-        /// <returns>月</returns>
-        public int getMonth()
-        {
-            return month;
-        }
-
-        /// <summary>
-        /// 获取当月是第几季度
-        /// </summary>
-        /// <returns>季度序号，从1开始</returns>
-        public int getIndex()
-        {
-            return (int)Math.Ceiling(month * 1D / MONTH_COUNT);
-        }
-
-        /// <summary>
-        /// 季度推移
+        /// 推移
         /// </summary>
         /// <param name="seasons">推移的季度数，负数为倒推</param>
         /// <returns>推移后的季度</returns>
-        public SolarSeason next(int seasons)
+        public SolarSeason Next(int seasons)
         {
             if (0 == seasons)
             {
-                return new SolarSeason(year, month);
+                return new SolarSeason(Year, Month);
             }
-            DateTime c = ExactDate.fromYmd(year, month, 1);
+            var c = ExactDate.FromYmdHms(Year, Month, 1);
             c = c.AddMonths(MONTH_COUNT * seasons);
             return new SolarSeason(c);
         }
 
         /// <summary>
-        /// 获取本季度的月份
+        /// 本季度的月份列表
         /// </summary>
-        /// <returns>本季度的月份列表</returns>
-        public List<SolarMonth> getMonths()
+        public List<SolarMonth> Months
         {
-            List<SolarMonth> l = new List<SolarMonth>();
-            int index = getIndex() - 1;
-            for (int i = 0; i < MONTH_COUNT; i++)
+            get
             {
-                l.Add(new SolarMonth(year, MONTH_COUNT * index + i + 1));
+                var l = new List<SolarMonth>();
+                var index = Index - 1;
+                for (var i = 0; i < MONTH_COUNT; i++)
+                {
+                    l.Add(new SolarMonth(Year, MONTH_COUNT * index + i + 1));
+                }
+                return l;
             }
-            return l;
         }
 
         public override string ToString()
         {
-            return year + "." + getIndex();
+            return Year + "." + Index;
         }
 
-        public string toFullString()
-        {
-            return year + "年" + getIndex() + "季度";
-        }
+        public string FullString => Year + "年" + Index + "季度";
     }
 }

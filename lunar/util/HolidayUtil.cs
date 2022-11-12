@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+// ReSharper disable InconsistentNaming
+// ReSharper disable CommentTypo
 
-namespace com.nlf.calendar.util
+namespace Lunar.Util
 {
     /// <summary>
     /// 法定节假日工具（自2001年12月29日起）
     /// </summary>
-    public class HolidayUtil
+    public static class HolidayUtil
     {
         /// <summary>
         /// 数据段长度
@@ -44,43 +46,41 @@ namespace com.nlf.calendar.util
         /// </summary>
         private static string DATA_IN_USE = DATA;
 
-        private HolidayUtil() { }
-
-        private static string padding(int n)
+        private static string Padding(int n)
         {
             return (n < 10 ? "0" : "") + n;
         }
 
-        private static Holiday buildHolidayForward(string s)
+        private static Holiday BuildHolidayForward(string s)
         {
-            char[] chars = s.Substring(8, 2).ToCharArray();
-            string day = s.Substring(0, 8);
-            string name = NAMES_IN_USE[chars[0] - ZERO];
-            bool work = chars[1] == ZERO;
-            string target = s.Substring(10, 8);
+            var chars = s.Substring(8, 2).ToCharArray();
+            var day = s[..8];
+            var name = NAMES_IN_USE[chars[0] - ZERO];
+            var work = chars[1] == ZERO;
+            var target = s.Substring(10, 8);
             return new Holiday(day, name, work, target);
         }
 
-        private static Holiday buildHolidayBackward(string s)
+        private static Holiday BuildHolidayBackward(string s)
         {
-            int size = s.Length;
-            char[] chars = s.Substring(size - 10, 2).ToCharArray();
-            string day = s.Substring(size - 18, 8);
-            string name = NAMES_IN_USE[chars[0] - ZERO];
-            bool work = chars[1] == ZERO;
-            string target = s.Substring(size - 8);
+            var size = s.Length;
+            var chars = s.Substring(size - 10, 2).ToCharArray();
+            var day = s.Substring(size - 18, 8);
+            var name = NAMES_IN_USE[chars[0] - ZERO];
+            var work = chars[1] == ZERO;
+            var target = s[(size - 8)..];
             return new Holiday(day, name, work, target);
         }
 
-        private static string findForward(string key)
+        private static string FindForward(string key)
         {
-            int start = DATA_IN_USE.IndexOf(key);
+            var start = DATA_IN_USE.IndexOf(key, StringComparison.Ordinal);
             if (start < 0)
             {
                 return null;
             }
-            string right = DATA_IN_USE.Substring(start);
-            int n = right.Length % SIZE;
+            var right = DATA_IN_USE[start..];
+            var n = right.Length % SIZE;
             if (n > 0)
             {
                 right = right.Substring(n);
@@ -92,19 +92,19 @@ namespace com.nlf.calendar.util
             return right;
         }
 
-        private static string findBackward(string key)
+        private static string FindBackward(string key)
         {
-            int start = DATA_IN_USE.LastIndexOf(key);
+            var start = DATA_IN_USE.LastIndexOf(key, StringComparison.Ordinal);
             if (start < 0)
             {
                 return null;
             }
-            string left = DATA_IN_USE.Substring(0, start + key.Length);
-            int size = left.Length;
-            int n = size % SIZE;
+            var left = DATA_IN_USE[..(start + key.Length)];
+            var size = left.Length;
+            var n = size % SIZE;
             if (n > 0)
             {
-                left = left.Substring(0, size - n);
+                left = left[..(size - n)];
             }
             size = left.Length;
             while ((!left.EndsWith(key)) && size >= SIZE)
@@ -115,34 +115,34 @@ namespace com.nlf.calendar.util
             return left;
         }
 
-        private static List<Holiday> findHolidaysForward(string key)
+        private static List<Holiday> FindHolidaysForward(string key)
         {
-            List<Holiday> l = new List<Holiday>();
-            string s = findForward(key);
+            var l = new List<Holiday>();
+            var s = FindForward(key);
             if (null == s)
             {
                 return l;
             }
             while (s.StartsWith(key))
             {
-                l.Add(buildHolidayForward(s));
-                s = s.Substring(SIZE);
+                l.Add(BuildHolidayForward(s));
+                s = s[SIZE..];
             }
             return l;
         }
 
-        private static List<Holiday> findHolidaysBackward(string key)
+        private static List<Holiday> FindHolidaysBackward(string key)
         {
-            List<Holiday> l = new List<Holiday>();
-            string s = findBackward(key);
+            var l = new List<Holiday>();
+            var s = FindBackward(key);
             if (null == s)
             {
                 return l;
             }
             while (s.EndsWith(key))
             {
-                l.Add(buildHolidayBackward(s));
-                s = s.Substring(0, s.Length - SIZE);
+                l.Add(BuildHolidayBackward(s));
+                s = s[..^SIZE];
             }
             l.Reverse();
             return l;
@@ -155,9 +155,9 @@ namespace com.nlf.calendar.util
         /// <param name="month">月，1-12</param>
         /// <param name="day">日，1-31</param>
         /// <returns>节假日</returns>
-        public static Holiday getHoliday(int year, int month, int day)
+        public static Holiday GetHoliday(int year, int month, int day)
         {
-            List<Holiday> l = findHolidaysForward(year + padding(month) + padding(day));
+            var l = FindHolidaysForward(year + Padding(month) + Padding(day));
             return l.Count < 1 ? null : l[0];
         }
 
@@ -166,9 +166,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ymd">年月日</param>
         /// <returns>节假日</returns>
-        public static Holiday getHoliday(string ymd)
+        public static Holiday GetHoliday(string ymd)
         {
-            List<Holiday> l = findHolidaysForward(ymd.Replace("-", ""));
+            var l = FindHolidaysForward(ymd.Replace("-", ""));
             return l.Count < 1 ? null : l[0];
         }
 
@@ -178,9 +178,9 @@ namespace com.nlf.calendar.util
         /// <param name="year">年</param>
         /// <param name="month">月，1-12</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> getHolidays(int year, int month)
+        public static List<Holiday> GetHolidays(int year, int month)
         {
-            return findHolidaysForward(year + padding(month));
+            return FindHolidaysForward(year + Padding(month));
         }
 
         /// <summary>
@@ -188,9 +188,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="year">年</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> getHolidays(int year)
+        public static List<Holiday> GetHolidays(int year)
         {
-            return findHolidaysForward(year + "");
+            return FindHolidaysForward(year + "");
         }
 
         /// <summary>
@@ -198,9 +198,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ymd">年、年月、年月日</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> getHolidays(string ymd)
+        public static List<Holiday> GetHolidays(string ymd)
         {
-            return findHolidaysForward(ymd.Replace("-", ""));
+            return FindHolidaysForward(ymd.Replace("-", ""));
         }
 
         /// <summary>
@@ -208,9 +208,9 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="ymd">年月日</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> getHolidaysByTarget(string ymd)
+        public static List<Holiday> GetHolidaysByTarget(string ymd)
         {
-            return findHolidaysBackward(ymd.Replace("-", ""));
+            return FindHolidaysBackward(ymd.Replace("-", ""));
         }
 
         /// <summary>
@@ -220,9 +220,9 @@ namespace com.nlf.calendar.util
         /// <param name="month">月</param>
         /// <param name="day">日</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> getHolidaysByTarget(int year, int month, int day)
+        public static List<Holiday> GetHolidaysByTarget(int year, int month, int day)
         {
-            return findHolidaysBackward(year + padding(month) + padding(day));
+            return FindHolidaysBackward(year + Padding(month) + Padding(day));
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace com.nlf.calendar.util
         /// </summary>
         /// <param name="names">用于替换默认的节假日名称列表，传null即可使用默认名称</param>
         /// <param name="data">需要修正或追加的节假日数据，每18位表示1天依次排列，格式：当天年月日YYYYMMDD(8位)+节假日名称下标(1位)+调休标识(1位)+节假日当天YYYYMMDD(8位)。例：202005023120200501代表2020-05-02为劳动节放假，对应节假日为2020-05-01</param>
-        public static void fix(string[] names, string data)
+        public static void Fix(string[] names, string data)
         {
             if (null != names)
             {
@@ -240,13 +240,13 @@ namespace com.nlf.calendar.util
             {
                 return;
             }
-            StringBuilder append = new StringBuilder();
+            var append = new StringBuilder();
             while (data.Length >= SIZE)
             {
-                string segment = data.Substring(0, SIZE);
-                string day = segment.Substring(0, 8);
-                bool remove = TAG_REMOVE.Equals(segment.Substring(8, 1));
-                Holiday holiday = getHoliday(day);
+                var segment = data[..SIZE];
+                var day = segment[..8];
+                var remove = TAG_REMOVE.Equals(segment.Substring(8, 1));
+                Holiday holiday = GetHoliday(day);
                 if (null == holiday)
                 {
                     if (!remove)
@@ -259,7 +259,7 @@ namespace com.nlf.calendar.util
                     int nameIndex = -1;
                     for (int i = 0, j = NAMES_IN_USE.Length; i < j; ++i)
                     {
-                        if (NAMES_IN_USE[i].Equals(holiday.getName()))
+                        if (NAMES_IN_USE[i].Equals(holiday.Name))
                         {
                             nameIndex = i;
                             break;
@@ -267,7 +267,7 @@ namespace com.nlf.calendar.util
                     }
                     if (nameIndex > -1)
                     {
-                        string old = day + (char)(nameIndex + ZERO) + (holiday.isWork() ? ZERO : '1') + holiday.getTarget().Replace("-", "");
+                        var old = day + (char)(nameIndex + ZERO) + (holiday.Work ? ZERO : '1') + holiday.Target.Replace("-", "");
                         DATA_IN_USE = DATA_IN_USE.Replace(old, remove ? "" : segment);
                     }
                 }
@@ -282,10 +282,9 @@ namespace com.nlf.calendar.util
         /// 使用默认的节假日名称来修正或追加节假日数据。节假日名称下标从0开始，最大为8(元旦节0，春节1，清明节2，劳动节3，端午节4，中秋节5，国庆节6，国庆中秋7，抗战胜利日8)；调休标识0为上班，否则放假
         /// </summary>
         /// <param name="data">需要修正或追加的节假日数据，每18位表示1天依次排列，格式：当天年月日YYYYMMDD(8位)+节假日名称下标(1位)+调休标识(1位)+节假日当天YYYYMMDD(8位)。例：202005023120200501代表2020-05-02为劳动节放假，对应节假日为2020-05-01</param>
-        public static void fix(string data)
+        public static void Fix(string data)
         {
-            fix(null, data);
-
+            Fix(null, data);
         }
     }
 }

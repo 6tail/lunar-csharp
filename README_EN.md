@@ -2,31 +2,27 @@
 
 lunar is a calendar library for Solar and Chinese Lunar.
 
-> Support since .NET 2.0
+> Based on .net5.0, c#9.0 since v1.3.0
 
 [简体中文](https://github.com/6tail/lunar-csharp/blob/master/README.md)
 
 ## Example
 
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using com.nlf.calendar;
+    using Lunar;
 
-    namespace ConsoleDemo
+    namespace demo
     {
         class Program
         {
             static void Main(string[] args)
             {
-                Solar solar = new Solar(1986,5,29);
+                var solar = new Solar(1986, 5, 29);
                  
-                Lunar lunar = solar.getLunar();
+                var lunar = solar.Lunar;
                  
-                Console.WriteLine(lunar.toFullString());
-                Console.WriteLine(solar.toFullString());
-                 
-                Console.ReadLine();
+                Console.WriteLine(lunar.FullString);
+                Console.WriteLine(solar.FullString);
             }
         }
     }
@@ -38,4 +34,4 @@ Output:
 
 ## Documentation
 
-Please visit [http://6tail.cn/calendar/api.html](http://6tail.cn/calendar/api.html "http://6tail.cn/calendar/api.html")
+Please visit [https://6tail.cn/calendar/api.html](https://6tail.cn/calendar/api.html "https://6tail.cn/calendar/api.html")

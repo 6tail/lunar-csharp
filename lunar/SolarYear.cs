@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable InconsistentNaming
 
-namespace com.nlf.calendar
+namespace Lunar
 {
     /// <summary>
     /// 阳历年
@@ -12,7 +13,7 @@ namespace com.nlf.calendar
         /// <summary>
         /// 年
         /// </summary>
-        private int year;
+        public int Year { get; }
 
         /// <summary>
         /// 一年的月数
@@ -33,7 +34,7 @@ namespace com.nlf.calendar
         /// <param name="date"></param>
         public SolarYear(DateTime date)
         {
-            year = date.Year;
+            Year = date.Year;
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace com.nlf.calendar
         /// <param name="year">年</param>
         public SolarYear(int year)
         {
-            this.year = year;
+            Year = year;
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="date">日期</param>
         /// <returns>阳历年</returns>
-        public static SolarYear fromDate(DateTime date)
+        public static SolarYear FromDate(DateTime date)
         {
             return new SolarYear(date);
         }
@@ -60,34 +61,27 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="year">年</param>
         /// <returns>阳历年</returns>
-        public static SolarYear fromYear(int year)
+        public static SolarYear FromYear(int year)
         {
             return new SolarYear(year);
         }
 
         /// <summary>
-        /// 获取年
+        /// 本年的阳历月列表
         /// </summary>
-        /// <returns>年</returns>
-        public int getYear()
+        public List<SolarMonth> Months
         {
-            return year;
-        }
-
-        /// <summary>
-        /// 获取本年的阳历月列表
-        /// </summary>
-        /// <returns>阳历月列表</returns>
-        public List<SolarMonth> getMonths()
-        {
-            List<SolarMonth> l = new List<SolarMonth>(MONTH_COUNT);
-            SolarMonth m = new SolarMonth(year, 1);
-            l.Add(m);
-            for (int i = 1; i < MONTH_COUNT; i++)
+            get
             {
-                l.Add(m.next(i));
+                var l = new List<SolarMonth>(MONTH_COUNT);
+                var m = new SolarMonth(Year, 1);
+                l.Add(m);
+                for (var i = 1; i < MONTH_COUNT; i++)
+                {
+                    l.Add(m.Next(i));
+                }
+                return l;
             }
-            return l;
         }
 
         /// <summary>
@@ -95,21 +89,18 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="years">年数</param>
         /// <returns>阳历年</returns>
-        public SolarYear next(int years)
+        public SolarYear Next(int years)
         {
-            DateTime c = ExactDate.fromYmd(year, 1, 1);
+            var c = ExactDate.FromYmdHms(Year, 1, 1);
             c = c.AddYears(years);
             return new SolarYear(c);
         }
 
         public override string ToString()
         {
-            return year + "";
+            return Year + "";
         }
 
-        public string toFullString()
-        {
-            return year + "年";
-        }
+        public string FullString => Year + "年";
     }
 }

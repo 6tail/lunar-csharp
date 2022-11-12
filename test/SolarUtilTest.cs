@@ -1,132 +1,69 @@
-using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using com.nlf.calendar.util;
+using Lunar.Util;
+using NUnit.Framework;
 
 namespace test
 {
     /// <summary>
-    /// SolarUtil测试
+    /// 阳历工具
     /// </summary>
-    [TestClass]
     public class SolarUtilTest
     {
-        public SolarUtilTest()
+        [SetUp]
+        public void Setup()
         {
-            //
-            // TODO: 在此处添加构造函数逻辑
-            //
         }
 
-        #region 其他测试属性
-        //
-        // 您可以在编写测试时使用下列其他属性:
-        //
-        // 在运行类中的第一个测试之前使用 ClassInitialize 运行代码
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // 在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // 在运行每个测试之前使用 TestInitialize 运行代码 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // 在运行每个测试之后使用 TestCleanup 运行代码
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
-
-        /// <summary>
-        ///getDaysOfMonth (int, int) 的测试
-        ///</summary>
-        [TestMethod()]
-        public void getDaysOfMonthTest()
+        [Test]
+        public void GetDaysOfMonthTest()
         {
-            int year = 2020;
-
-            int month = 2;
-
-            int expected = 29;
-            int actual;
-
-            actual = com.nlf.calendar.util.SolarUtil.getDaysOfMonth(year, month);
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.getDaysOfMonth 未返回所需的值。");
+            var year = 2020;
+            var month = 2;
+            var expected = 29;
+            Assert.AreEqual(expected, SolarUtil.GetDaysOfMonth(year, month), "SolarUtil.GetDaysOfMonth 未返回所需的值。");
 
             year = 2019;
             month = 2;
             expected = 28;
-            actual = com.nlf.calendar.util.SolarUtil.getDaysOfMonth(year, month);
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.getDaysOfMonth 未返回所需的值。");
+            Assert.AreEqual(expected, SolarUtil.GetDaysOfMonth(year, month), "SolarUtil.GetDaysOfMonth 未返回所需的值。");
 
             year = 2020;
             month = 1;
             expected = 31;
-            actual = com.nlf.calendar.util.SolarUtil.getDaysOfMonth(year, month);
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.getDaysOfMonth 未返回所需的值。");
+            Assert.AreEqual(expected, SolarUtil.GetDaysOfMonth(year, month), "SolarUtil.GetDaysOfMonth 未返回所需的值。");
         }
 
-        /// <summary>
-        ///getWeeksOfMonth (int, int, int) 的测试
-        ///</summary>
-        [TestMethod()]
-        public void getWeeksOfMonthTest()
+        [Test]
+        public void GetWeeksOfMonthTest()
         {
-            int year = 2019;
-
-            int month = 6;
-
-            int start = 0;
-
-            int expected = 6;
-            int actual;
-
-            actual = com.nlf.calendar.util.SolarUtil.getWeeksOfMonth(year, month, start);
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.getWeeksOfMonth 未返回所需的值。");
+            var year = 2019;
+            var month = 6;
+            var start = 0;
+            var expected = 6;
+            Assert.AreEqual(expected, SolarUtil.GetWeeksOfMonth(year, month, start), "SolarUtil.GetWeeksOfMonth 未返回所需的值。");
 
 
             year = 2020;
             month = 4;
             start = 0;
             expected = 5;
-            actual = com.nlf.calendar.util.SolarUtil.getWeeksOfMonth(year, month, start);
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.getWeeksOfMonth 未返回所需的值。");
+            Assert.AreEqual(expected, SolarUtil.GetWeeksOfMonth(year, month, start), "SolarUtil.GetWeeksOfMonth 未返回所需的值。");
 
             year = 2019;
             month = 6;
             start = 1;
             expected = 5;
-            actual = com.nlf.calendar.util.SolarUtil.getWeeksOfMonth(year, month, start);
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.getWeeksOfMonth 未返回所需的值。");
+            Assert.AreEqual(expected, SolarUtil.GetWeeksOfMonth(year, month, start), "SolarUtil.GetWeeksOfMonth 未返回所需的值。");
         }
 
         /// <summary>
         ///isLeapYear (int) 的测试
         ///</summary>
-        [TestMethod()]
-        public void isLeapYearTest()
+        [Test]
+        public void IsLeapYearTest()
         {
-            int year = 2020;
-
-            bool expected = true;
-            bool actual;
-
-            actual = com.nlf.calendar.util.SolarUtil.isLeapYear(year);
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.isLeapYear 未返回所需的值。");
-
-
-            year = 2019;
-            expected = false;
-            actual = com.nlf.calendar.util.SolarUtil.isLeapYear(year);
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.util.SolarUtil.isLeapYear 未返回所需的值。");
+            Assert.AreEqual(true, SolarUtil.IsLeapYear(2020), "SolarUtil.IsLeapYear 未返回所需的值。");
+            Assert.AreEqual(false, SolarUtil.IsLeapYear(2019), "SolarUtil.IsLeapYear 未返回所需的值。");
+            Assert.AreEqual(false, SolarUtil.IsLeapYear(1500), "SolarUtil.IsLeapYear 未返回所需的值。");
         }
     }
 }

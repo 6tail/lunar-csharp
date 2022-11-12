@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using com.nlf.calendar.util;
+using System.Linq;
+using Lunar.Util;
+// ReSharper disable MemberCanBePrivate.Global
 
-namespace com.nlf.calendar
+namespace Lunar
 {
     /// <summary>
     /// 阳历周
@@ -13,28 +14,28 @@ namespace com.nlf.calendar
         /// <summary>
         /// 年
         /// </summary>
-        private int year;
+        public int Year { get; }
         
         /// <summary>
         /// 月
         /// </summary>
-        private int month;
+        public int Month { get; }
         
         /// <summary>
         /// 日
         /// </summary>
-        private int day;
+        public int Day { get; }
         
         /// <summary>
         /// 星期几作为一周的开始，1234560分别代表星期一至星期天
         /// </summary>
-        private int start;
+        public int Start { get; }
         
         /// <summary>
         /// 默认当月
         /// </summary>
         /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
-        public SolarWeek(int start):this(DateTime.Now,start)
+        public SolarWeek(int start): this(DateTime.Now, start)
         {
         }
 
@@ -43,7 +44,7 @@ namespace com.nlf.calendar
         /// </summary>
         /// <param name="date">日期</param>
         /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
-        public SolarWeek(DateTime date, int start):this(date.Year,date.Month,date.Day,start)
+        public SolarWeek(DateTime date, int start):this(date.Year, date.Month, date.Day, start)
         {
         }
 
@@ -56,10 +57,10 @@ namespace com.nlf.calendar
         /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
         public SolarWeek(int year, int month, int day, int start)
         {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-            this.start = start;
+            Year = year;
+            Month = month;
+            Day = day;
+            Start = start;
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace com.nlf.calendar
         /// <param name="date">日期</param>
         /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
         /// <returns>阳历周</returns>
-        public static SolarWeek fromDate(DateTime date, int start)
+        public static SolarWeek FromDate(DateTime date, int start)
         {
             return new SolarWeek(date, start);
         }
@@ -81,77 +82,45 @@ namespace com.nlf.calendar
         /// <param name="day">日，1到31</param>
         /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
         /// <returns>阳历周</returns>
-        public static SolarWeek fromYmd(int year, int month, int day, int start)
+        public static SolarWeek FromYmd(int year, int month, int day, int start)
         {
             return new SolarWeek(year, month, day, start);
         }
 
         /// <summary>
-        /// 获取年
+        /// 当前日期是在当月第几周，从1开始
         /// </summary>
-        /// <returns>年</returns>
-        public int getYear()
+        public int Index
         {
-            return year;
-        }
-
-        /// <summary>
-        /// 获取月
-        /// </summary>
-        /// <returns>1到12</returns>
-        public int getMonth()
-        {
-            return month;
-        }
-
-        /// <summary>
-        /// 获取日期
-        /// </summary>
-        /// <returns>1到31之间的数字</returns>
-        public int getDay()
-        {
-            return day;
-        }
-
-        /// <summary>
-        /// 获取星期几作为一周的开始，1234560分别代表星期一至星期天
-        /// </summary>
-        /// <returns>1234560分别代表星期一至星期天</returns>
-        public int getStart()
-        {
-            return start;
-        }
-
-        /// <summary>
-        /// 获取当前日期是在当月第几周
-        /// </summary>
-        /// <returns>周序号，从1开始</returns>
-        public int getIndex()
-        {
-            DateTime firstDay = ExactDate.fromYmd(year, month, 1);
-            int firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
-            int offset = firstDayWeek - start;
-            if (offset < 0)
+            get
             {
-                offset += 7;
+                var firstDay = ExactDate.FromYmdHms(Year, Month, 1);
+                var firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
+                var offset = firstDayWeek - Start;
+                if (offset < 0)
+                {
+                    offset += 7;
+                }
+                return (int)Math.Ceiling((Day + offset) * 1D / 7);
             }
-            return (int)Math.Ceiling((day + offset) * 1D / 7);
         }
 
         /// <summary>
-        /// 获取当前日期是在当年第几周
+        /// 当前日期是在当年第几周，从1开始
         /// </summary>
-        /// <returns>周序号，从1开始</returns>
-        public int getIndexInYear()
+        public int IndexInYear
         {
-            DateTime firstDay = ExactDate.fromYmd(year, 1, 1);
-            int firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
-            int offset = firstDayWeek - start;
-            if (offset < 0)
+            get
             {
-                offset += 7;
+                var firstDay = ExactDate.FromYmdHms(Year, 1, 1);
+                var firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
+                var offset = firstDayWeek - Start;
+                if (offset < 0)
+                {
+                    offset += 7;
+                }
+                return (int) Math.Ceiling((SolarUtil.GetDaysInYear(Year, Month, Day) + offset) * 1D / 7);
             }
-            return (int)Math.Ceiling((SolarUtil.getDaysInYear(year, month, day) + offset) * 1D / 7);
         }
 
         /// <summary>
@@ -160,55 +129,55 @@ namespace com.nlf.calendar
         /// <param name="weeks">推移的周数，负数为倒推</param>
         /// <param name="separateMonth">是否按月单独计算</param>
         /// <returns>推移后的阳历周</returns>
-        public SolarWeek next(int weeks, bool separateMonth)
+        public SolarWeek Next(int weeks, bool separateMonth)
         {
             if (0 == weeks)
             {
-                return new SolarWeek(year, month, day, start);
+                return new SolarWeek(Year, Month, Day, Start);
             }
             if (separateMonth)
             {
-                int n = weeks;
-                DateTime c = ExactDate.fromYmd(year, month, day);
-                SolarWeek week = new SolarWeek(c, start);
-                int m = this.month;
-                bool plus = n > 0;
+                var n = weeks;
+                var c = ExactDate.FromYmdHms(Year, Month, Day);
+                var week = new SolarWeek(c, Start);
+                var m = Month;
+                var plus = n > 0;
                 while (0 != n)
                 {
                     c = c.AddDays(plus ? 7 : -7);
-                    week = new SolarWeek(c, start);
-                    int weekMonth = week.getMonth();
+                    week = new SolarWeek(c, Start);
+                    var weekMonth = week.Month;
                     if (m != weekMonth)
                     {
-                        int index = week.getIndex();
+                        var index = week.Index;
                         if (plus)
                         {
                             if (1 == index)
                             {
-                                Solar firstDay = week.getFirstDay();
-                                week = new SolarWeek(firstDay.getYear(), firstDay.getMonth(), firstDay.getDay(), start);
-                                weekMonth = week.getMonth();
+                                var firstDay = week.FirstDay;
+                                week = new SolarWeek(firstDay.Year, firstDay.Month, firstDay.Day, Start);
+                                weekMonth = week.Month;
                             }
                             else
                             {
-                                c = ExactDate.fromYmd(week.getYear(), week.getMonth(), 1);
-                                week = new SolarWeek(c, start);
+                                c = ExactDate.FromYmdHms(week.Year, week.Month, 1);
+                                week = new SolarWeek(c, Start);
                             }
                         }
                         else
                         {
-                            int size = SolarUtil.getWeeksOfMonth(week.getYear(), week.getMonth(), start);
+                            var size = SolarUtil.GetWeeksOfMonth(week.Year, week.Month, Start);
                             if (size == index)
                             {
-                                Solar firstDay = week.getFirstDay();
-                                Solar lastDay = firstDay.next(6);
-                                week = new SolarWeek(lastDay.getYear(), lastDay.getMonth(), lastDay.getDay(), start);
-                                weekMonth = week.getMonth();
+                                var firstDay = week.FirstDay;
+                                var lastDay = firstDay.Next(6);
+                                week = new SolarWeek(lastDay.Year, lastDay.Month, lastDay.Day, Start);
+                                weekMonth = week.Month;
                             }
                             else
                             {
-                                c = ExactDate.fromYmd(week.getYear(), week.getMonth(), SolarUtil.getDaysOfMonth(week.getYear(), week.getMonth()));
-                                week = new SolarWeek(c, start);
+                                c = ExactDate.FromYmdHms(week.Year, week.Month, SolarUtil.GetDaysOfMonth(week.Year, week.Month));
+                                week = new SolarWeek(c, Start);
                             }
                         }
                         m = weekMonth;
@@ -219,89 +188,75 @@ namespace com.nlf.calendar
             }
             else
             {
-                DateTime c = ExactDate.fromYmd(year, month, day);
+                var c = ExactDate.FromYmdHms(Year, Month, Day);
                 c = c.AddDays(weeks * 7);
-                return new SolarWeek(c, start);
+                return new SolarWeek(c, Start);
             }
         }
 
         /// <summary>
-        /// 获取本周第一天的阳历日期（可能跨月）
+        /// 本周第一天的阳历日期（可能跨月）
         /// </summary>
-        /// <returns>本周第一天的阳历日期</returns>
-        public Solar getFirstDay()
+        public Solar FirstDay
         {
-            DateTime c = ExactDate.fromYmd(year, month, day);
-            int week = Convert.ToInt32(c.DayOfWeek.ToString("d"));
-            int prev = week - start;
-            if (prev < 0)
+            get
             {
-                prev += 7;
-            }
-            c = c.AddDays(-prev);
-            return new Solar(c);
-        }
-
-        /// <summary>
-        /// 获取本周第一天的阳历日期（仅限当月）
-        /// </summary>
-        /// <returns>本周第一天的阳历日期</returns>
-        public Solar getFirstDayInMonth()
-        {
-            List<Solar> days = getDays();
-            foreach (Solar day in days)
-            {
-                if (month == day.getMonth())
+                var c = ExactDate.FromYmdHms(Year, Month, Day);
+                var week = Convert.ToInt32(c.DayOfWeek.ToString("d"));
+                var prev = week - Start;
+                if (prev < 0)
                 {
-                    return day;
+                    prev += 7;
                 }
+                c = c.AddDays(-prev);
+                return new Solar(c);
             }
-            return null;
         }
 
         /// <summary>
-        /// 获取本周的阳历日期列表（可能跨月）
+        /// 本周第一天的阳历日期（仅限当月）
         /// </summary>
-        /// <returns>本周的阳历日期列表</returns>
-        public List<Solar> getDays()
+        public Solar FirstDayInMonth
         {
-            Solar firstDay = getFirstDay();
-            List<Solar> l = new List<Solar>();
-            l.Add(firstDay);
-            for (int i = 1; i < 7; i++)
+            get
             {
-                l.Add(firstDay.next(i));
+                return Days.FirstOrDefault(day => Month == day.Month);
             }
-            return l;
         }
 
         /// <summary>
-        /// 获取本周的阳历日期列表（仅限当月）
+        /// 本周的阳历日期列表（可能跨月）
         /// </summary>
-        /// <returns>本周的阳历日期列表（仅限当月）</returns>
-        public List<Solar> getDaysInMonth()
+        public List<Solar> Days
         {
-            List<Solar> days = this.getDays();
-            List<Solar> l = new List<Solar>();
-            foreach (Solar day in days)
+            get
             {
-                if (month != day.getMonth())
+                var firstDay = FirstDay;
+                var l = new List<Solar> {firstDay};
+                for (var i = 1; i < 7; i++)
                 {
-                    continue;
+                    l.Add(firstDay.Next(i));
                 }
-                l.Add(day);
+                return l;
             }
-            return l;
+        }
+
+        /// <summary>
+        /// 本周的阳历日期列表（仅限当月）
+        /// </summary>
+        public List<Solar> DaysInMonth
+        {
+            get
+            {
+                return Days.Where(day => Month == day.Month).ToList();
+            }
         }
 
         public override string ToString()
         {
-            return year + "." + month + "." + getIndex();
+            return Year + "." + Month + "." + Index;
         }
 
-        public string toFullString()
-        {
-            return year + "年" + month + "月第" + getIndex() + "周";
-        }
+        public string FullString => Year + "年" + Month + "月第" + Index + "周";
     }
 }

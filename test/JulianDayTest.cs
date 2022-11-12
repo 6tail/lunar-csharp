@@ -1,96 +1,40 @@
-using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using com.nlf.calendar.util;
-using com.nlf.calendar;
+using Lunar;
+using NUnit.Framework;
 
 namespace test
 {
     /// <summary>
-    /// JulianDay测试
+    /// 儒略日
     /// </summary>
-    [TestClass]
     public class JulianDayTest
     {
-        public JulianDayTest()
+        [SetUp]
+        public void Setup()
         {
-            //
-            // TODO: 在此处添加构造函数逻辑
-            //
         }
 
-        #region 其他测试属性
-        //
-        // 您可以在编写测试时使用下列其他属性:
-        //
-        // 在运行类中的第一个测试之前使用 ClassInitialize 运行代码
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // 在类中的所有测试都已运行之后使用 ClassCleanup 运行代码
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // 在运行每个测试之前使用 TestInitialize 运行代码 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // 在运行每个测试之后使用 TestCleanup 运行代码
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
-
-        /// <summary>
-        ///getJulianDay () 的测试
-        ///</summary>
-        [TestMethod()]
-        public void testSolar2JD()
+        [Test]
+        public void Test1()
         {
-            double expected = 2459045.5;
-            double actual;
-
-            actual = Solar.fromYmd(2020, 7, 15).getJulianDay();
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.getJulianDay 未返回所需的值。");
+            Assert.AreEqual(2459045.5, Solar.FromYmdHms(2020, 7, 15).JulianDay);
         }
 
-        /// <summary>
-        ///fromJulianDay (julianDay) 的测试
-        ///</summary>
-        [TestMethod()]
-        public void testJD2Solar()
+        [Test]
+        public void Test2()
         {
-            string expected = "2020-07-15 00:00:00";
-            string actual;
-
-            actual = Solar.fromJulianDay(2459045.5).toYmdHms();
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
+            Assert.AreEqual("2020-07-15 00:00:00", Solar.FromJulianDay(2459045.5).YmdHms);
         }
 
-        [TestMethod()]
-        public void test7()
+        [Test]
+        public void Test7()
         {
-            string expected = "2012-09-07 13:29:00";
-            string actual;
-
-            actual = Lunar.fromYmd(2012, 9, 1).getJieQiTable()["白露"].toYmdHms();
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
+            Assert.AreEqual("2012-09-07 13:29:00", Lunar.Lunar.FromYmdHms(2012, 9, 1).JieQiTable["白露"].YmdHms);
         }
 
-        [TestMethod()]
-        public void test8()
+        [Test]
+        public void Test8()
         {
-            string expected = "2050-12-07 06:41:00";
-            string actual;
-
-            actual = Lunar.fromYmd(2050, 12, 1).getJieQiTable()["大雪"].toYmdHms();
-
-            Assert.AreEqual(expected, actual, "com.nlf.calendar.Solar.fromJulianDay 未返回所需的值。");
+            Assert.AreEqual("2050-12-07 06:41:00", Lunar.Lunar.FromYmdHms(2050, 12, 1).JieQiTable["DA_XUE"].YmdHms);
         }
     }
 }

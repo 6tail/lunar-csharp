@@ -1,69 +1,31 @@
-using com.nlf.calendar.util;
-namespace com.nlf.calendar
+﻿namespace Lunar
 {
     /// <summary>
     /// 节气
     /// </summary>
     public class JieQi
     {
+        private string _name;
+        
         /// <summary>
         /// 名称
         /// </summary>
-        private string name;
-
-        /// <summary>
-        /// 阳历日期
-        /// </summary>
-        private Solar solar;
-
-        /// <summary>
-        /// 是否节令
-        /// </summary>
-        private bool jie;
-
-        /// <summary>
-        /// 是否气令
-        /// </summary>
-        private bool qi;
-
-        public JieQi()
+        public string Name
         {
-        }
-
-        public JieQi(string name, Solar solar)
-        {
-            setName(name);
-            this.solar = solar;
-
-        }
-
-        /// <summary>
-        /// 获取名称
-        /// </summary>
-        /// <returns>名称</returns>
-        public string getName()
-        {
-            return name;
-        }
-
-        /// <summary>
-        /// 设置名称
-        /// </summary>
-        /// <param name="name">名称</param>
-        public void setName(string name)
-        {
-            this.name = name;
-            for (int i = 0, j = Lunar.JIE_QI.Length; i < j; i++)
+            get => _name;
+            set
             {
-                if (name.Equals(Lunar.JIE_QI[i]))
+                _name = value;
+                for (int i = 0, j = Lunar.JIE_QI.Length; i < j; i++)
                 {
+                    if (!value.Equals(Lunar.JIE_QI[i])) continue;
                     if (i % 2 == 0)
                     {
-                        this.qi = true;
+                        Qi = true;
                     }
                     else
                     {
-                        this.jie = true;
+                        Jie = true;
                     }
                     return;
                 }
@@ -71,47 +33,33 @@ namespace com.nlf.calendar
         }
 
         /// <summary>
-        /// 获取阳历日期
+        /// 阳历日期
         /// </summary>
-        /// <returns>阳历日期</returns>
-        public Solar getSolar()
-        {
-            return solar;
-        }
-
-        /// <summary>
-        /// 设置阳历日期
-        /// </summary>
-        /// <param name="solar">阳历日期</param>
-        public void setSolar(Solar solar)
-        {
-            this.solar = solar;
-
-        }
+        public Solar Solar { get; set; }
 
         /// <summary>
         /// 是否节令
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isJie()
-        {
-            return jie;
-        }
+        public bool Jie { get; set; }
 
         /// <summary>
         /// 是否气令
         /// </summary>
-        /// <returns>true/false</returns>
-        public bool isQi()
+        public bool Qi { get; set; }
+        
+        public JieQi()
         {
-            return qi;
+        }
+
+        public JieQi(string name, Solar solar)
+        {
+            Name = name;
+            Solar = solar;
         }
 
         public override string ToString()
         {
-            return name;
+            return Name;
         }
-
     }
-
 }

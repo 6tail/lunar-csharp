@@ -1,4 +1,5 @@
-namespace com.nlf.calendar
+// ReSharper disable MemberCanBePrivate.Global
+namespace Lunar
 {
     /// <summary>
     /// 数九
@@ -8,12 +9,12 @@ namespace com.nlf.calendar
         /// <summary>
         /// 名称，如一九、二九
         /// </summary>
-        private string name;
+        public string Name { get; }
 
         /// <summary>
         /// 当前数九第几天，1-9
         /// </summary>
-        private int index;
+        public int Index { get; }
 
         public ShuJiu()
         {
@@ -21,46 +22,15 @@ namespace com.nlf.calendar
 
         public ShuJiu(string name, int index)
         {
-            this.name = name;
-            this.index = index;
-
+            Name = name;
+            Index = index;
         }
 
-        public string getName()
-        {
-            return name;
-        }
-
-        public void setName(string name)
-        {
-            this.name = name;
-
-        }
-
-        public int getIndex()
-        {
-            return index;
-        }
-
-        public void setIndex(int index)
-        {
-            this.index = index;
-
-        }
-
-        public string toString()
-        {
-            return name;
-        }
-
-        public string toFullString()
-        {
-            return name + "第" + index + "天";
-        }
+        public string FullString => Name + "第" + Index + "天";
 
         public override string ToString()
         {
-            return toString();
+            return Name;
         }
     }
 

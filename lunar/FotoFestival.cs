@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using System.Text;
-namespace com.nlf.calendar
+// ReSharper disable IdentifierTypo
+namespace Lunar
 {
     /// <summary>
     /// 佛历因果犯忌
@@ -11,91 +11,53 @@ namespace com.nlf.calendar
         /// <summary>
         /// 是日何日，如：雷斋日
         /// </summary>
-        private string name;
+        public string Name { get; }
 
         /// <summary>
         /// 犯之因果，如：犯者夺纪
         /// </summary>
-        private string result;
+        public string Result { get; }
 
         /// <summary>
         /// 是否每月同
         /// </summary>
-        private bool everyMonth;
+        public bool EveryMonth { get; }
 
         /// <summary>
         /// 备注，如：宜先一日即戒
         /// </summary>
-        private string remark;
+        public string Remark { get; }
 
-        public FotoFestival(string name, string result, bool everyMonth, string remark)
+        public FotoFestival(string name, string result = null, bool everyMonth = false, string remark = null)
         {
-            this.name = name;
-            this.result = null == result ? "" : result;
-            this.everyMonth = everyMonth;
-            this.remark = null == remark ? "" : remark;
+            Name = name;
+            Result = result ?? "";
+            EveryMonth = everyMonth;
+            Remark = remark ?? "";
         }
 
-        public FotoFestival(string name)
-            : this(name, null)
+        public string FullString
         {
-        }
-
-        public FotoFestival(string name, string result)
-            : this(name, result, false)
-        {
-        }
-
-        public FotoFestival(string name, string result, bool everyMonth)
-            : this(name, result, everyMonth, null)
-        {
-        }
-
-        public string getName()
-        {
-            return name;
-        }
-
-        public string getResult()
-        {
-            return result;
-        }
-
-        public bool isEveryMonth()
-        {
-            return everyMonth;
-        }
-
-        public string getRemark()
-        {
-            return remark;
-        }
-
-        public string toFullString()
-        {
-            StringBuilder s = new StringBuilder();
-            s.Append(name);
-            if (null != result && result.Length > 0)
+            get
             {
-                s.Append(" ");
-                s.Append(result);
-            }
-            if (null != remark && remark.Length > 0)
-            {
-                s.Append(" ");
-                s.Append(remark);
-            }
-            return s.ToString();
-        }
+                var s = new StringBuilder();
+                s.Append(Name);
+                if (Result is {Length: > 0})
+                {
+                    s.Append(' ');
+                    s.Append(Result);
+                }
 
-        public string toString()
-        {
-           return name;
+                if (Remark is not {Length: > 0}) return s.ToString();
+                s.Append(' ');
+                s.Append(Remark);
+                return s.ToString();
+            }
         }
 
         public override string ToString()
         {
-            return toString();
+            return Name;
         }
     }
 

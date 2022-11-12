@@ -1,82 +1,78 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using com.nlf.calendar.util;
+using Lunar.Util;
 
-namespace com.nlf.calendar
+namespace Lunar
 {
-    class ExactDate
+    /// <summary>
+    /// æ—¥æœŸ
+    /// </summary>
+    public class ExactDate
     {
-        public static DateTime fromYmdHms(int year, int month, int day, int hour, int minute, int second)
+        public static DateTime FromYmdHms(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
             if (year < 1)
             {
-                throw new ArgumentOutOfRangeException("solar year must bigger than 0");
+                throw new ArgumentOutOfRangeException(nameof(year),"solar year must bigger than 0");
             }
             return new DateTime(year, month, day, hour, minute, second, 0, DateTimeKind.Utc);
         }
 
-        public static DateTime fromYmd(int year, int month, int day)
+        public static DateTime FromDate(DateTime date)
         {
-            return fromYmdHms(year, month, day, 0, 0, 0);
-        }
-
-        public static DateTime fromDate(DateTime date)
-        {
-            return fromYmdHms(date.Year, date.Month, date.Day, date.Hour, date.Minute,date.Second);
+            return FromYmdHms(date.Year, date.Month, date.Day, date.Hour, date.Minute,date.Second);
         }
 
         /// <summary>
-        /// »ñÈ¡Á½¸öÈÕÆÚÖ®¼äÏà²îµÄÌìÊı£¨Èç¹ûÈÕÆÚa±ÈÈÕÆÚbĞ¡£¬ÌìÊıÎªÕı£¬Èç¹ûÈÕÆÚa±ÈÈÕÆÚb´ó£¬ÌìÊıÎª¸º£©
+        /// è·å–ä¸¤ä¸ªæ—¥æœŸä¹‹é—´ç›¸å·®çš„å¤©æ•°ï¼ˆå¦‚æœæ—¥æœŸaæ¯”æ—¥æœŸbå°ï¼Œå¤©æ•°ä¸ºæ­£ï¼Œå¦‚æœæ—¥æœŸaæ¯”æ—¥æœŸbå¤§ï¼Œå¤©æ•°ä¸ºè´Ÿï¼‰
         /// </summary>
-        /// <param name="ay">Äêa</param>
-        /// <param name="am">ÔÂa</param>
-        /// <param name="ad">ÈÕa</param>
-        /// <param name="by">Äêb</param>
-        /// <param name="bm">ÔÂb</param>
-        /// <param name="bd">ÈÕb</param>
+        /// <param name="ay">å¹´a</param>
+        /// <param name="am">æœˆa</param>
+        /// <param name="ad">æ—¥a</param>
+        /// <param name="by">å¹´b</param>
+        /// <param name="bm">æœˆb</param>
+        /// <param name="bd">æ—¥b</param>
         /// <returns></returns>
-        public static int getDaysBetween(int ay, int am, int ad, int by, int bm, int bd)
+        public static int GetDaysBetween(int ay, int am, int ad, int by, int bm, int bd)
         {
             int n;
             int days;
             int i;
             if (ay == by)
             {
-                n = SolarUtil.getDaysInYear(by, bm, bd) - SolarUtil.getDaysInYear(ay, am, ad);
+                n = SolarUtil.GetDaysInYear(by, bm, bd) - SolarUtil.GetDaysInYear(ay, am, ad);
             }
             else if (ay > by)
             {
-                days = SolarUtil.getDaysOfYear(by) - SolarUtil.getDaysInYear(by, bm, bd);
+                days = SolarUtil.GetDaysOfYear(by) - SolarUtil.GetDaysInYear(by, bm, bd);
                 for (i = by + 1; i < ay; i++)
                 {
-                    days += SolarUtil.getDaysOfYear(i);
+                    days += SolarUtil.GetDaysOfYear(i);
                 }
-                days += SolarUtil.getDaysInYear(ay, am, ad);
+                days += SolarUtil.GetDaysInYear(ay, am, ad);
                 n = -days;
             }
             else
             {
-                days = SolarUtil.getDaysOfYear(ay) - SolarUtil.getDaysInYear(ay, am, ad);
+                days = SolarUtil.GetDaysOfYear(ay) - SolarUtil.GetDaysInYear(ay, am, ad);
                 for (i = ay + 1; i < by; i++)
                 {
-                    days += SolarUtil.getDaysOfYear(i);
+                    days += SolarUtil.GetDaysOfYear(i);
                 }
-                days += SolarUtil.getDaysInYear(by, bm, bd);
+                days += SolarUtil.GetDaysInYear(by, bm, bd);
                 n = days;
             }
             return n;
         }
 
         /// <summary>
-        /// »ñÈ¡Á½¸öÈÕÆÚÖ®¼äÏà²îµÄÌìÊı£¨Èç¹ûÈÕÆÚa±ÈÈÕÆÚbĞ¡£¬ÌìÊıÎªÕı£¬Èç¹ûÈÕÆÚa±ÈÈÕÆÚb´ó£¬ÌìÊıÎª¸º£©
+        /// è·å–ä¸¤ä¸ªæ—¥æœŸä¹‹é—´ç›¸å·®çš„å¤©æ•°ï¼ˆå¦‚æœæ—¥æœŸaæ¯”æ—¥æœŸbå°ï¼Œå¤©æ•°ä¸ºæ­£ï¼Œå¦‚æœæ—¥æœŸaæ¯”æ—¥æœŸbå¤§ï¼Œå¤©æ•°ä¸ºè´Ÿï¼‰
         /// </summary>
-        /// <param name="date0">ÈÕÆÚa</param>
-        /// <param name="date1">ÈÕÆÚb</param>
-        /// <returns>ÌìÊı</returns>
-        public static int getDaysBetween(DateTime date0, DateTime date1)
+        /// <param name="date0">æ—¥æœŸa</param>
+        /// <param name="date1">æ—¥æœŸb</param>
+        /// <returns>å¤©æ•°</returns>
+        public static int GetDaysBetween(DateTime date0, DateTime date1)
         {
-            return getDaysBetween(date0.Year, date0.Month, date0.Day, date1.Year, date1.Month, date1.Day);
+            return GetDaysBetween(date0.Year, date0.Month, date0.Day, date1.Year, date1.Month, date1.Day);
         }
     }
 }

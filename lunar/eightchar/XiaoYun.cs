@@ -1,6 +1,8 @@
-using com.nlf.calendar.util;
+using Lunar.Util;
+// ReSharper disable IdentifierTypo
+// ReSharper disable MemberCanBePrivate.Global
 
-namespace com.nlf.calendar.eightchar
+namespace Lunar.EightChar
 {
     /// <summary>
     /// 小运
@@ -10,95 +12,79 @@ namespace com.nlf.calendar.eightchar
         /// <summary>
         /// 序数，0-9
         /// </summary>
-        private int index;
+        public int Index { get; }
 
         /// <summary>
         /// 大运
         /// </summary>
-        private DaYun daYun;
+        public DaYun DaYun { get; }
 
         /// <summary>
         /// 年
         /// </summary>
-        private int year;
+        public int Year { get; }
 
         /// <summary>
         /// 年龄
         /// </summary>
-        private int age;
+        public int Age { get; }
 
         /// <summary>
         /// 是否顺推
         /// </summary>
-        private bool forward;
+        public bool Forward { get; }
 
-        private Lunar lunar;
+        public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="daYun">大运</param>
+        /// <param name="index">序数，0-9</param>
+        /// <param name="forward">是否顺推</param>
         public XiaoYun(DaYun daYun, int index, bool forward)
         {
-            this.daYun = daYun;
-            this.lunar = daYun.getLunar();
-            this.index = index;
-            this.year = daYun.getStartYear() + index;
-            this.age = daYun.getStartAge() + index;
-            this.forward = forward;
-        }
-
-        public int getIndex()
-        {
-            return index;
-        }
-
-        public int getYear()
-        {
-            return year;
-        }
-
-        public int getAge()
-        {
-            return age;
+            DaYun = daYun;
+            Lunar = daYun.Lunar;
+            Index = index;
+            Year = daYun.StartYear + index;
+            Age = daYun.StartAge + index;
+            Forward = forward;
         }
 
         /// <summary>
-        /// 获取干支
+        /// 干支
         /// </summary>
-        /// <returns>干支</returns>
-        public string getGanZhi()
+        public string GanZhi
         {
-            int offset = LunarUtil.getJiaZiIndex(lunar.getTimeInGanZhi());
-            int add = this.index + 1;
-            if (daYun.getIndex() > 0)
+            get
             {
-                add += daYun.getStartAge() - 1;
+                var offset = LunarUtil.GetJiaZiIndex(Lunar.TimeInGanZhi);
+                var add = Index + 1;
+                if (DaYun.Index > 0)
+                {
+                    add += DaYun.StartAge - 1;
+                }
+                offset += Forward ? add : -add;
+                var size = LunarUtil.JIA_ZI.Length;
+                while (offset < 0)
+                {
+                    offset += size;
+                }
+                offset %= size;
+                return LunarUtil.JIA_ZI[offset];
             }
-            offset += forward ? add : -add;
-            int size = LunarUtil.JIA_ZI.Length;
-            while (offset < 0)
-            {
-                offset += size;
-            }
-            offset %= size;
-            return LunarUtil.JIA_ZI[offset];
         }
 
         /// <summary>
-        /// 获取所在旬
+        /// 旬
         /// </summary>
-        /// <returns>旬</returns>
-        public string getXun()
-        {
-            return LunarUtil.getXun(getGanZhi());
-        }
+        public string Xun => LunarUtil.GetXun(GanZhi);
 
         /// <summary>
-        /// 获取旬空(空亡)
+        /// 旬空(空亡)
         /// </summary>
-        /// <returns>旬空(空亡)</returns>
-        public string getXunKong()
-        {
-            return LunarUtil.getXunKong(getGanZhi());
-        }
-
+        public string XunKong => LunarUtil.GetXunKong(GanZhi);
     }
 
 }
