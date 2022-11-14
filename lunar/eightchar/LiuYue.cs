@@ -52,7 +52,7 @@ namespace Lunar.EightChar
             get
             {
                 var offset = 0;
-                var yearGan = LiuNian.GanZhi[..1];
+                var yearGan = LiuNian.GanZhi.Substring(0, 1);
                 switch (yearGan)
                 {
                     case "甲":

@@ -1,6 +1,6 @@
 using Lunar;
 using Lunar.EightChar;
-using NUnit.Framework;
+using Xunit;
 // ReSharper disable IdentifierTypo
 
 namespace test
@@ -10,73 +10,69 @@ namespace test
     /// </summary>
     public class EightCharTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
+        
+        [Fact]
         public void TestQiYun()
         {
             var solar = new Solar(1983, 2, 15, 20);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
             var yun = eightChar.GetYun(0);
-            Assert.AreEqual(6, yun.StartYear);
-            Assert.AreEqual(2, yun.StartMonth);
-            Assert.AreEqual(20, yun.StartDay);
-            Assert.AreEqual("1989-05-05", yun.StartSolar.Ymd);
+            Assert.Equal(6, yun.StartYear);
+            Assert.Equal(2, yun.StartMonth);
+            Assert.Equal(20, yun.StartDay);
+            Assert.Equal("1989-05-05", yun.StartSolar.Ymd);
 
             solar = new Solar(2013, 7, 13, 16, 17);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
             yun = eightChar.GetYun(0);
-            Assert.AreEqual(8, yun.StartYear);
-            Assert.AreEqual(4, yun.StartMonth);
-            Assert.AreEqual(0, yun.StartDay);
-            Assert.AreEqual("2021-11-13", yun.StartSolar.Ymd);
+            Assert.Equal(8, yun.StartYear);
+            Assert.Equal(4, yun.StartMonth);
+            Assert.Equal(0, yun.StartDay);
+            Assert.Equal("2021-11-13", yun.StartSolar.Ymd);
 
             solar = new Solar(2020, 8, 18, 10);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
             yun = eightChar.GetYun(0);
-            Assert.AreEqual(3, yun.StartYear);
-            Assert.AreEqual(8, yun.StartMonth);
-            Assert.AreEqual(0, yun.StartDay);
-            Assert.AreEqual("2024-04-18", yun.StartSolar.Ymd);
+            Assert.Equal(3, yun.StartYear);
+            Assert.Equal(8, yun.StartMonth);
+            Assert.Equal(0, yun.StartDay);
+            Assert.Equal("2024-04-18", yun.StartSolar.Ymd);
 
             solar = new Solar(1972, 6, 15);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
             yun = eightChar.GetYun(1);
-            Assert.AreEqual(7, yun.StartYear);
-            Assert.AreEqual(5, yun.StartMonth);
-            Assert.AreEqual(10, yun.StartDay);
-            Assert.AreEqual("1979-11-25", yun.StartSolar.Ymd);
+            Assert.Equal(7, yun.StartYear);
+            Assert.Equal(5, yun.StartMonth);
+            Assert.Equal(10, yun.StartDay);
+            Assert.Equal("1979-11-25", yun.StartSolar.Ymd);
 
             solar = new Solar(1968, 11, 22);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
             yun = eightChar.GetYun(1);
-            Assert.AreEqual(5, yun.StartYear);
-            Assert.AreEqual(1, yun.StartMonth);
-            Assert.AreEqual(20, yun.StartDay);
-            Assert.AreEqual("1974-01-11", yun.StartSolar.Ymd);
+            Assert.Equal(5, yun.StartYear);
+            Assert.Equal(1, yun.StartMonth);
+            Assert.Equal(20, yun.StartDay);
+            Assert.Equal("1974-01-11", yun.StartSolar.Ymd);
 
             solar = new Solar(1968, 11, 23);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
             yun = eightChar.GetYun(1);
-            Assert.AreEqual(4, yun.StartYear);
-            Assert.AreEqual(9, yun.StartMonth);
-            Assert.AreEqual(20, yun.StartDay);
-            Assert.AreEqual("1973-09-12", yun.StartSolar.Ymd);
+            Assert.Equal(4, yun.StartYear);
+            Assert.Equal(9, yun.StartMonth);
+            Assert.Equal(20, yun.StartDay);
+            Assert.Equal("1973-09-12", yun.StartSolar.Ymd);
         }
 
         /// <summary>
         ///大运
         ///</summary>
-        [Test]
+        [Fact]
         public void TestDaYun()
         {
             int[] startYears = { 1983, 1989, 1999, 2009, 2019, 2029, 2039, 2049, 2059, 2069 };
@@ -92,18 +88,18 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 DaYun daYun = l[i];
-                Assert.AreEqual(startYears[i], daYun.StartYear);
-                Assert.AreEqual(endYears[i], daYun.EndYear);
-                Assert.AreEqual(startAges[i], daYun.StartAge);
-                Assert.AreEqual(endAges[i], daYun.EndAge);
-                Assert.AreEqual(yearGanZhi[i], daYun.GanZhi);
+                Assert.Equal(startYears[i], daYun.StartYear);
+                Assert.Equal(endYears[i], daYun.EndYear);
+                Assert.Equal(startAges[i], daYun.StartAge);
+                Assert.Equal(endAges[i], daYun.EndAge);
+                Assert.Equal(yearGanZhi[i], daYun.GanZhi);
             }
         }
 
         /// <summary>
         ///流年
         ///</summary>
-        [Test]
+        [Fact]
         public void TestLiuNian()
         {
             var solar = new Solar(1983, 2, 15, 20);
@@ -119,9 +115,9 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 LiuNian liuNian = l[i];
-                Assert.AreEqual(years[i], liuNian.Year);
-                Assert.AreEqual(ages[i], liuNian.Age);
-                Assert.AreEqual(ganZhi[i], liuNian.GanZhi);
+                Assert.Equal(years[i], liuNian.Year);
+                Assert.Equal(ages[i], liuNian.Age);
+                Assert.Equal(ganZhi[i], liuNian.GanZhi);
             }
 
             years = new[] { 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038 };
@@ -131,16 +127,16 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var liuNian = l[i];
-                Assert.AreEqual(years[i], liuNian.Year);
-                Assert.AreEqual(ages[i], liuNian.Age);
-                Assert.AreEqual(ganZhi[i], liuNian.GanZhi, years[i] + "年");
+                Assert.Equal(years[i], liuNian.Year);
+                Assert.Equal(ages[i], liuNian.Age);
+                Assert.Equal(ganZhi[i], liuNian.GanZhi);
             }
         }
 
         /// <summary>
         ///小运
         ///</summary>
-        [Test]
+        [Fact]
         public void TestXiaoYun()
         {
             var solar = new Solar(1983, 2, 15, 20);
@@ -156,9 +152,9 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var xiaoYun = l[i];
-                Assert.AreEqual(years[i], xiaoYun.Year);
-                Assert.AreEqual(ages[i], xiaoYun.Age);
-                Assert.AreEqual(ganZhi[i], xiaoYun.GanZhi);
+                Assert.Equal(years[i], xiaoYun.Year);
+                Assert.Equal(ages[i], xiaoYun.Age);
+                Assert.Equal(ganZhi[i], xiaoYun.GanZhi);
             }
 
             years = new[] { 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038 };
@@ -168,16 +164,16 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var xiaoYun = l[i];
-                Assert.AreEqual(years[i], xiaoYun.Year);
-                Assert.AreEqual(ages[i], xiaoYun.Age);
-                Assert.AreEqual(ganZhi[i], xiaoYun.GanZhi, years[i] + "年");
+                Assert.Equal(years[i], xiaoYun.Year);
+                Assert.Equal(ages[i], xiaoYun.Age);
+                Assert.Equal(ganZhi[i], xiaoYun.GanZhi);
             }
         }
 
         /// <summary>
         ///流月
         ///</summary>
-        [Test]
+        [Fact]
         public void TestLiuYue()
         {
             var solar = new Solar(1983, 2, 15, 20);
@@ -192,7 +188,7 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var liuYue = l[i];
-                Assert.AreEqual(ganZhi[i], liuYue.GanZhi);
+                Assert.Equal(ganZhi[i], liuYue.GanZhi);
             }
 
             ganZhi = new[] { "庚寅", "辛卯", "壬辰", "癸巳", "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑" };
@@ -201,138 +197,138 @@ namespace test
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var liuYue = l[i];
-                Assert.AreEqual(ganZhi[i], liuYue.GanZhi);
+                Assert.Equal(ganZhi[i], liuYue.GanZhi);
             }
         }
 
-        [Test]
+        [Fact]
         public void TestGanZhi()
         {
             var solar = new Solar(1988, 2, 15, 23, 30);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("戊辰", eightChar.Year, "年柱");
-            Assert.AreEqual("甲寅", eightChar.Month, "月柱");
-            Assert.AreEqual("庚子", eightChar.Day, "日柱");
-            Assert.AreEqual("戊子", eightChar.Time, "时柱");
+            Assert.Equal("戊辰", eightChar.Year);
+            Assert.Equal("甲寅", eightChar.Month);
+            Assert.Equal("庚子", eightChar.Day);
+            Assert.Equal("戊子", eightChar.Time);
 
             eightChar.Sect = 1;
-            Assert.AreEqual("戊辰", eightChar.Year, "年柱");
-            Assert.AreEqual("甲寅", eightChar.Month, "月柱");
-            Assert.AreEqual("辛丑", eightChar.Day, "日柱");
-            Assert.AreEqual("戊子", eightChar.Time, "时柱");
+            Assert.Equal("戊辰", eightChar.Year);
+            Assert.Equal("甲寅", eightChar.Month);
+            Assert.Equal("辛丑", eightChar.Day);
+            Assert.Equal("戊子", eightChar.Time);
 
             solar = new Solar(1988, 2, 15, 22, 30);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
-            Assert.AreEqual("戊辰", eightChar.Year, "年柱");
-            Assert.AreEqual("甲寅", eightChar.Month, "月柱");
-            Assert.AreEqual("庚子", eightChar.Day, "日柱");
-            Assert.AreEqual("丁亥", eightChar.Time, "时柱");
+            Assert.Equal("戊辰", eightChar.Year);
+            Assert.Equal("甲寅", eightChar.Month);
+            Assert.Equal("庚子", eightChar.Day);
+            Assert.Equal("丁亥", eightChar.Time);
 
             solar = new Solar(1988, 2, 2, 22, 30);
             lunar = solar.Lunar;
             eightChar = lunar.EightChar;
-            Assert.AreEqual("丁卯", eightChar.Year, "年柱");
-            Assert.AreEqual("癸丑", eightChar.Month, "月柱");
-            Assert.AreEqual("丁亥", eightChar.Day, "日柱");
-            Assert.AreEqual("辛亥", eightChar.Time, "时柱");
+            Assert.Equal("丁卯", eightChar.Year);
+            Assert.Equal("癸丑", eightChar.Month);
+            Assert.Equal("丁亥", eightChar.Day);
+            Assert.Equal("辛亥", eightChar.Time);
         }
 
-        [Test]
+        [Fact]
         public void TestEightChar2Solar()
         {
             var l = Solar.FromBaZi("辛丑", "丁酉", "丙寅", "戊戌");
             string[] solarList = { "2021-09-15 20:00:00 星期三 处女座", "1961-09-30 20:00:00 星期六 天秤座" };
             for (int i = 0, j = solarList.Length; i < j; i++)
             {
-                Assert.AreEqual(solarList[i], l[i].FullString);
+                Assert.Equal(solarList[i], l[i].FullString);
             }
         }
 
-        [Test]
+        [Fact]
         public void Test5()
         {
             var lunar = Lunar.Lunar.FromYmdHms(2019, 12, 12, 11, 22);
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("己亥", eightChar.Year, "年柱");
-            Assert.AreEqual("丁丑", eightChar.Month, "月柱");
-            Assert.AreEqual("戊申", eightChar.Day, "日柱");
-            Assert.AreEqual("戊午", eightChar.Time, "时柱");
+            Assert.Equal("己亥", eightChar.Year);
+            Assert.Equal("丁丑", eightChar.Month);
+            Assert.Equal("戊申", eightChar.Day);
+            Assert.Equal("戊午", eightChar.Time);
         }
 
-        [Test]
+        [Fact]
         public void Test6()
         {
             var lunar = Lunar.Lunar.FromYmdHms(1985, 12, 27);
             var eightChar = lunar.EightChar;
-            Assert.AreEqual("1995-11-05", eightChar.GetYun(1).StartSolar.Ymd);
+            Assert.Equal("1995-11-05", eightChar.GetYun(1).StartSolar.Ymd);
         }
 
-        [Test]
+        [Fact]
         public void TestShenGong()
         {
             var solar = new Solar(1995, 12, 18, 10, 28);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("壬午", eightChar.ShenGong);
+            Assert.Equal("壬午", eightChar.ShenGong);
         }
 
-        [Test]
+        [Fact]
         public void TestShenGong1()
         {
             var solar = new Solar(1994, 12, 6, 2);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("丁丑", eightChar.ShenGong);
+            Assert.Equal("丁丑", eightChar.ShenGong);
         }
 
-        [Test]
+        [Fact]
         public void TestShenGong2()
         {
             var solar = new Solar(1990, 12, 11, 6);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("庚辰", eightChar.ShenGong);
+            Assert.Equal("庚辰", eightChar.ShenGong);
         }
 
-        [Test]
+        [Fact]
         public void TestShenGong3()
         {
             var solar = new Solar(1993, 5, 23, 4);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("庚申", eightChar.ShenGong);
+            Assert.Equal("庚申", eightChar.ShenGong);
         }
         
-        [Test]
+        [Fact]
         public void Test10()
         {
             var lunar = Solar.FromYmdHms(1988, 2, 15, 23, 30).Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("戊辰", eightChar.Year, "年柱");
-            Assert.AreEqual("甲寅", eightChar.Month, "月柱");
-            Assert.AreEqual("庚子", eightChar.Day, "日柱");
-            Assert.AreEqual("戊子", eightChar.Time, "时柱");
+            Assert.Equal("戊辰", eightChar.Year);
+            Assert.Equal("甲寅", eightChar.Month);
+            Assert.Equal("庚子", eightChar.Day);
+            Assert.Equal("戊子", eightChar.Time);
         }
         
-        [Test]
+        [Fact]
         public void Test11()
         {
             var lunar = Lunar.Lunar.FromYmdHms(1987, 12, 28, 23, 30);
             var eightChar = lunar.EightChar;
 
-            Assert.AreEqual("戊辰", eightChar.Year, "年柱");
-            Assert.AreEqual("甲寅", eightChar.Month, "月柱");
-            Assert.AreEqual("庚子", eightChar.Day, "日柱");
-            Assert.AreEqual("戊子", eightChar.Time, "时柱");
+            Assert.Equal("戊辰", eightChar.Year);
+            Assert.Equal("甲寅", eightChar.Month);
+            Assert.Equal("庚子", eightChar.Day);
+            Assert.Equal("戊子", eightChar.Time);
         }
     }
 }

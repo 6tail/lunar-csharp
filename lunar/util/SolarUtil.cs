@@ -25,11 +25,11 @@ namespace Lunar.Util
         /// </summary>
         public static readonly string[] XING_ZUO = { "白羊", "金牛", "双子", "巨蟹", "狮子", "处女", "天秤", "天蝎", "射手", "摩羯", "水瓶", "双鱼" };
 
-        public static readonly Dictionary<string,string> FESTIVAL = new();
+        public static readonly Dictionary<string,string> FESTIVAL = new Dictionary<string,string>();
         
-        public static readonly Dictionary<string, string> WEEK_FESTIVAL = new();
+        public static readonly Dictionary<string, string> WEEK_FESTIVAL = new Dictionary<string, string>();
         
-        public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new();
+        public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
 
         static SolarUtil()
         {
@@ -56,7 +56,7 @@ namespace Lunar.Util
             WEEK_FESTIVAL.Add("6-3-0", "父亲节");
             WEEK_FESTIVAL.Add("11-4-4", "感恩节");
 
-            OTHER_FESTIVAL.Add("1-8", new List<string>(new[]{"周恩来逝世纪念日"}));
+            OTHER_FESTIVAL.Add("1-8", new List<string>(new[] { "周恩来逝世纪念日" }));
             OTHER_FESTIVAL.Add("1-10", new List<string>(new[] { "中国人民警察节", "中国公安110宣传日" }));
             OTHER_FESTIVAL.Add("1-21", new List<string>(new[] { "列宁逝世纪念日" }));
             OTHER_FESTIVAL.Add("1-26", new List<string>(new[] { "国际海关日" }));

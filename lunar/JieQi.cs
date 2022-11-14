@@ -1,4 +1,6 @@
-﻿namespace Lunar
+﻿// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+namespace Lunar
 {
     /// <summary>
     /// 节气

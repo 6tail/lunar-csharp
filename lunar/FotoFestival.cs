@@ -1,5 +1,8 @@
 using System.Text;
 // ReSharper disable IdentifierTypo
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable ClassNeverInstantiated.Global
 namespace Lunar
 {
     /// <summary>
@@ -42,15 +45,17 @@ namespace Lunar
             {
                 var s = new StringBuilder();
                 s.Append(Name);
-                if (Result is {Length: > 0})
+                if (!string.IsNullOrEmpty(Result))
                 {
                     s.Append(' ');
                     s.Append(Result);
                 }
 
-                if (Remark is not {Length: > 0}) return s.ToString();
-                s.Append(' ');
-                s.Append(Remark);
+                if (!string.IsNullOrEmpty(Remark))
+                {
+                    s.Append(' ');
+                    s.Append(Remark);
+                }
                 return s.ToString();
             }
         }

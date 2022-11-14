@@ -6,7 +6,7 @@ namespace Lunar
     /// <summary>
     /// 日期
     /// </summary>
-    public class ExactDate
+    public static class ExactDate
     {
         public static DateTime FromYmdHms(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {

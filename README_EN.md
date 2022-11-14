@@ -2,7 +2,7 @@
 
 lunar is a calendar library for Solar and Chinese Lunar.
 
-> Based on .net5.0, c#9.0 since v1.3.0
+> Based on netstandard2.0, C#7.1 since v1.4.0
 
 [简体中文](https://github.com/6tail/lunar-csharp/blob/master/README.md)
 

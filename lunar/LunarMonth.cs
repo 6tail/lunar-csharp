@@ -126,73 +126,78 @@ namespace Lunar
 
         public LunarMonth Next(int n)
         {
-            switch (n)
+            if (0 == n)
             {
-                case 0:
-                    return FromYm(Year, Month);
-                case > 0:
+                return FromYm(Year, Month);
+            }
+            if (n > 0)
+            {
+                var rest = n;
+                var ny = Year;
+                var iy = ny;
+                var im = Month;
+                var index = 0;
+                var months = LunarYear.FromYear(ny).Months;
+                while (true)
                 {
-                    var rest = n;
-                    var ny = Year;
-                    var iy = ny;
-                    var im = Month;
-                    var index = 0;
-                    var months = LunarYear.FromYear(ny).Months;
-                    while (true)
+                    var size = months.Count;
+                    for (var i = 0; i < size; i++)
                     {
-                        var size = months.Count;
-                        for (var i = 0; i < size; i++)
-                        {
-                            var m = months[i];
-                            if (m.Year != iy || m.Month != im) continue;
-                            index = i;
-                            break;
-                        }
-                        var more = size - index - 1;
-                        if (rest < more)
-                        {
-                            break;
-                        }
-                        rest -= more;
-                        var lastMonth = months[size - 1];
-                        iy = lastMonth.Year;
-                        im = lastMonth.Month;
-                        ny++;
-                        months = LunarYear.FromYear(ny).Months;
+                        var m = months[i];
+                        if (m.Year != iy || m.Month != im) continue;
+                        index = i;
+                        break;
                     }
-                    return months[index + rest];
+
+                    var more = size - index - 1;
+                    if (rest < more)
+                    {
+                        break;
+                    }
+
+                    rest -= more;
+                    var lastMonth = months[size - 1];
+                    iy = lastMonth.Year;
+                    im = lastMonth.Month;
+                    ny++;
+                    months = LunarYear.FromYear(ny).Months;
                 }
-                default:
+
+                return months[index + rest];
+            }
+            else
+            {
+                var rest = -n;
+                var ny = Year;
+                var iy = ny;
+                var im = Month;
+                var index = 0;
+                var months = LunarYear.FromYear(ny).Months;
+                while (true)
                 {
-                    var rest = -n;
-                    var ny = Year;
-                    var iy = ny;
-                    var im = Month;
-                    var index = 0;
-                    var months = LunarYear.FromYear(ny).Months;
-                    while (true)
+                    var size = months.Count;
+                    for (var i = 0; i < size; i++)
                     {
-                        var size = months.Count;
-                        for (var i = 0; i < size; i++)
-                        {
-                            var m = months[i];
-                            if (m.Year != iy || m.Month != im) continue;
-                            index = i;
-                            break;
-                        }
-                        if (rest <= index)
-                        {
-                            break;
-                        }
-                        rest -= index;
-                        var firstMonth = months[0];
-                        iy = firstMonth.Year;
-                        im = firstMonth.Month;
-                        ny--;
-                        months = LunarYear.FromYear(ny).Months;
+                        var m = months[i];
+                        if (m.Year != iy || m.Month != im) continue;
+                        index = i;
+                        break;
                     }
-                    return months[index - rest];
+
+                    if (rest <= index)
+                    {
+                        break;
+                    }
+
+                    rest -= index;
+                    var firstMonth = months[0];
+                    iy = firstMonth.Year;
+                    im = firstMonth.Month;
+                    ny--;
+                    months = LunarYear.FromYear(ny).Months;
                 }
+
+                return months[index - rest];
             }
         }
     }

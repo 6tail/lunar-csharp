@@ -1,5 +1,5 @@
 using Lunar;
-using NUnit.Framework;
+using Xunit;
 
 namespace test
 {
@@ -8,36 +8,32 @@ namespace test
     /// </summary>
     public class XunTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
+        
+        [Fact]
         public void TestXun()
         {
             var solar = new Solar(2020, 11, 19);
             var lunar = solar.Lunar;
-            Assert.AreEqual("甲午", lunar.YearXun);
+            Assert.Equal("甲午", lunar.YearXun);
         }
 
-        [Test]
+        [Fact]
         public void TestXunKong1()
         {
             var solar = new Solar(2020, 11, 19);
             var lunar = solar.Lunar;
-            Assert.AreEqual("辰巳", lunar.YearXunKong);
-            Assert.AreEqual("午未", lunar.MonthXunKong);
-            Assert.AreEqual("戌亥", lunar.DayXunKong);
+            Assert.Equal("辰巳", lunar.YearXunKong);
+            Assert.Equal("午未", lunar.MonthXunKong);
+            Assert.Equal("戌亥", lunar.DayXunKong);
         }
 
-        [Test]
+        [Fact]
         public void TestBaZiDayXunKong()
         {
             var solar = new Solar(1990, 12, 23, 8, 37);
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
-            Assert.AreEqual("子丑", eightChar.DayXunKong);
+            Assert.Equal("子丑", eightChar.DayXunKong);
         }
     }
 }

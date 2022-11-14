@@ -301,42 +301,28 @@ namespace Lunar
             {
                 var index = 11;
                 var y = Month * 100 + Day;
-                switch (y)
-                {
-                    case >= 321 and <= 419:
-                        index = 0;
-                        break;
-                    case >= 420 and <= 520:
-                        index = 1;
-                        break;
-                    case >= 521 and <= 621:
-                        index = 2;
-                        break;
-                    case >= 622 and <= 722:
-                        index = 3;
-                        break;
-                    case >= 723 and <= 822:
-                        index = 4;
-                        break;
-                    case >= 823 and <= 922:
-                        index = 5;
-                        break;
-                    case >= 923 and <= 1023:
-                        index = 6;
-                        break;
-                    case >= 1024 and <= 1122:
-                        index = 7;
-                        break;
-                    case >= 1123 and <= 1221:
-                        index = 8;
-                        break;
-                    case >= 1222:
-                    case <= 119:
-                        index = 9;
-                        break;
-                    case <= 218:
-                        index = 10;
-                        break;
+                if (y >= 321 && y <= 419) {
+                    index = 0;
+                } else if (y >= 420 && y <= 520) {
+                    index = 1;
+                } else if (y >= 521 && y <= 621) {
+                    index = 2;
+                } else if (y >= 622 && y <= 722) {
+                    index = 3;
+                } else if (y >= 723 && y <= 822) {
+                    index = 4;
+                } else if (y >= 823 && y <= 922) {
+                    index = 5;
+                } else if (y >= 923 && y <= 1023) {
+                    index = 6;
+                } else if (y >= 1024 && y <= 1122) {
+                    index = 7;
+                } else if (y >= 1123 && y <= 1221) {
+                    index = 8;
+                } else if (y >= 1222 || y <= 119) {
+                    index = 9;
+                } else if (y <= 218) {
+                    index = 10;
                 }
                 return SolarUtil.XING_ZUO[index];
             }

@@ -287,12 +287,13 @@ namespace Lunar
             get
             {
                 var hour = Lunar.Hour;
-                switch (hour)
+                if (hour < 1)
                 {
-                    case < 1:
-                        return "00:00";
-                    case > 22:
-                        return "23:00";
+                    return "00:00";
+                }
+                if (hour > 22)
+                {
+                    return "23:00";
                 }
                 if (hour % 2 == 0)
                 {
@@ -310,12 +311,13 @@ namespace Lunar
             get
             {
                 var hour = Lunar.Hour;
-                switch (hour)
+                if (hour < 1)
                 {
-                    case < 1:
-                        return "00:59";
-                    case > 22:
-                        return "23:59";
+                    return "00:59";
+                }
+                if (hour > 22)
+                {
+                    return "23:59";
                 }
                 if (hour % 2 != 0)
                 {

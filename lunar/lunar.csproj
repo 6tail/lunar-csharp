@@ -1,22 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.3.0</PackageVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>7.1</LangVersion>
+        <RootNamespace>Lunar</RootNamespace>
+        <PackageId>lunar-csharp</PackageId>
+        <PackageVersion>1.4.0</PackageVersion>
         <Title>日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。</Title>
         <Authors>6tail</Authors>
         <Description>日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。</Description>
-        <Copyright>版权所有 (c) 2022</Copyright>
-        <PackageProjectUrl>http://6tail.cn/calendar/api.html</PackageProjectUrl>
+        <Copyright>Copyright (c) 2022 6tail</Copyright>
+        <PackageProjectUrl>https://6tail.cn/calendar/api.html</PackageProjectUrl>
         <RepositoryUrl>https://github.com/6tail/lunar-csharp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>日历;公历;阳历;农历;阴历;老黄历;佛历;道历;法定假日</PackageTags>
-        <AssemblyVersion>2.0.0</AssemblyVersion>
-        <FileVersion>2.0.0</FileVersion>
-        <PackageLicenseUrl></PackageLicenseUrl>
-        <PackageIconUrl></PackageIconUrl>
-        <PackageId>lunar-csharp</PackageId>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyVersion>1.4.0</AssemblyVersion>
+        <FileVersion>1.4.0</FileVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugType>none</DebugType>
     </PropertyGroup>
 
 </Project>

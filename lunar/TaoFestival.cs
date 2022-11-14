@@ -34,10 +34,12 @@ namespace Lunar
             {
                 var s = new StringBuilder();
                 s.Append(Name);
-                if (Remark is not {Length: > 0}) return s.ToString();
-                s.Append('[');
-                s.Append(Remark);
-                s.Append(']');
+                if (!string.IsNullOrEmpty(Remark))
+                {
+                    s.Append('[');
+                    s.Append(Remark);
+                    s.Append(']');
+                }
                 return s.ToString();
             }
         }

@@ -261,7 +261,7 @@ namespace Lunar.Util
             var t = MsaLonT2(w) * 36525;
             t = t - DtT(t) + ONE_THIRD;
             var v = ((t + 0.5) % 1) * SECOND_PER_DAY;
-            if (v is < 1800 or > SECOND_PER_DAY - 1800)
+            if (v < 1800 || v > SECOND_PER_DAY - 1800)
             {
                 t = MsaLonT(w) * 36525 - DtT(t) + ONE_THIRD;
             }

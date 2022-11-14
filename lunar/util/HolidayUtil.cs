@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 // ReSharper disable InconsistentNaming
 // ReSharper disable CommentTypo
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Lunar.Util
 {
@@ -54,7 +55,7 @@ namespace Lunar.Util
         private static Holiday BuildHolidayForward(string s)
         {
             var chars = s.Substring(8, 2).ToCharArray();
-            var day = s[..8];
+            var day = s.Substring(0, 8);
             var name = NAMES_IN_USE[chars[0] - ZERO];
             var work = chars[1] == ZERO;
             var target = s.Substring(10, 8);
@@ -68,7 +69,7 @@ namespace Lunar.Util
             var day = s.Substring(size - 18, 8);
             var name = NAMES_IN_USE[chars[0] - ZERO];
             var work = chars[1] == ZERO;
-            var target = s[(size - 8)..];
+            var target = s.Substring(size - 8);
             return new Holiday(day, name, work, target);
         }
 
@@ -79,7 +80,7 @@ namespace Lunar.Util
             {
                 return null;
             }
-            var right = DATA_IN_USE[start..];
+            var right = DATA_IN_USE.Substring(start);
             var n = right.Length % SIZE;
             if (n > 0)
             {
@@ -99,12 +100,12 @@ namespace Lunar.Util
             {
                 return null;
             }
-            var left = DATA_IN_USE[..(start + key.Length)];
+            var left = DATA_IN_USE.Substring(0, start + key.Length);
             var size = left.Length;
             var n = size % SIZE;
             if (n > 0)
             {
-                left = left[..(size - n)];
+                left = left.Substring(0, size - n);
             }
             size = left.Length;
             while ((!left.EndsWith(key)) && size >= SIZE)
@@ -126,7 +127,7 @@ namespace Lunar.Util
             while (s.StartsWith(key))
             {
                 l.Add(BuildHolidayForward(s));
-                s = s[SIZE..];
+                s = s.Substring(SIZE);
             }
             return l;
         }
@@ -142,7 +143,7 @@ namespace Lunar.Util
             while (s.EndsWith(key))
             {
                 l.Add(BuildHolidayBackward(s));
-                s = s[..^SIZE];
+                s = s.Substring(0, s.Length - SIZE);
             }
             l.Reverse();
             return l;
@@ -243,8 +244,8 @@ namespace Lunar.Util
             var append = new StringBuilder();
             while (data.Length >= SIZE)
             {
-                var segment = data[..SIZE];
-                var day = segment[..8];
+                var segment = data.Substring(0, SIZE);
+                var day = segment.Substring(0, 8);
                 var remove = TAG_REMOVE.Equals(segment.Substring(8, 1));
                 Holiday holiday = GetHoliday(day);
                 if (null == holiday)

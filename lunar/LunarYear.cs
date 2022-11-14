@@ -34,9 +34,9 @@ namespace Lunar
         /// </summary>
         private static readonly int[] LEAP_12 = { 37, 56, 113, 132, 151, 189, 208, 227, 246, 284, 303, 341, 360, 379, 417, 436, 458, 477, 496, 515, 534, 572, 591, 629, 648, 667, 697, 716, 792, 811, 830, 868, 906, 925, 944, 963, 982, 1001, 1020, 1039, 1058, 1088, 1153, 1202, 1221, 1240, 1297, 1335, 1392, 1411, 1422, 1430, 1517, 1525, 1536, 1574, 3358, 3472, 3806, 3988, 4751, 4941, 5066, 5123, 5275, 5343, 5438, 5457, 5495, 5533, 5552, 5715, 5810, 5829, 5905, 5924, 6421, 6535, 6793, 6812, 6888, 6907, 7002, 7184, 7260, 7279, 7374, 7556, 7746, 7757, 7776, 7833, 7852, 7871, 7966, 8015, 8110, 8129, 8148, 8224, 8243, 8338, 8406, 8425, 8482, 8501, 8520, 8558, 8596, 8607, 8615, 8645, 8740, 8778, 8835, 8865, 8930, 8960, 8979, 8998, 9017, 9055, 9074, 9093, 9112, 9150, 9188, 9237, 9275, 9332, 9351, 9370, 9408, 9427, 9446, 9457, 9465, 9495, 9560, 9590, 9628, 9647, 9685, 9715, 9742, 9780, 9810, 9818, 9829, 9848, 9867, 9905, 9924, 9943, 9962, 10000 };
 
-        private static readonly Dictionary<int, int> LEAP = new();
+        private static readonly Dictionary<int, int> LEAP = new Dictionary<int, int>();
 
-        private static readonly Dictionary<int, LunarYear> CACHE = new();
+        private static readonly Dictionary<int, LunarYear> CACHE = new Dictionary<int, LunarYear>();
 
         static LunarYear()
         {
@@ -65,9 +65,9 @@ namespace Lunar
         /// </summary>
         public int ZhiIndex { get; }
 
-        public List<LunarMonth> Months { get; } = new();
+        public List<LunarMonth> Months { get; } = new List<LunarMonth>();
 
-        public List<double> JieQiJulianDays { get; } = new();
+        public List<double> JieQiJulianDays { get; } = new List<double>();
 
         /// <summary>
         /// 通过农历年初始化
@@ -108,10 +108,18 @@ namespace Lunar
             {
                 // ignored
             }
-
-            if (null != obj) return obj;
-            obj = new LunarYear(lunarYear);
-            CACHE.Add(lunarYear, obj);
+            if (null == obj)
+            {
+                obj = new LunarYear(lunarYear);
+                try
+                {
+                    CACHE.Add(lunarYear, obj);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
             return obj;
         }
 
@@ -133,7 +141,7 @@ namespace Lunar
                 t += ShouXingUtil.ONE_THIRD - ShouXingUtil.DtT(t);
                 JieQiJulianDays.Add(t + Solar.J2000);
                 // 按中午12点算的节气
-                if (i is > 0 and < 28)
+                if (i > 0 && i < 28)
                 {
                     jq[i - 1] = Math.Round(t);
                 }

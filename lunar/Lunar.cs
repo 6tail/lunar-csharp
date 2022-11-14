@@ -158,28 +158,28 @@ namespace Lunar
         /// <summary>
         /// 节气表
         /// </summary>
-        public Dictionary<string, Solar> JieQiTable { get; } = new();
+        public Dictionary<string, Solar> JieQiTable { get; } = new Dictionary<string, Solar>();
 
         private EightChar.EightChar _eightChar;
 
         /// <summary>
         /// 八字
         /// </summary>
-        public EightChar.EightChar EightChar => _eightChar ??= new EightChar.EightChar(this);
+        public EightChar.EightChar EightChar => _eightChar ?? (_eightChar = new EightChar.EightChar(this));
 
         private Foto _foto;
         
         /// <summary>
         /// 佛历
         /// </summary>
-        public Foto Foto => _foto ??= Foto.FromLunar(this);
+        public Foto Foto => _foto ?? (_foto = Foto.FromLunar(this));
 
         private Tao _tao;
 
         /// <summary>
         /// 道历
         /// </summary>
-        public Tao Tao => _tao ??= Tao.FromLunar(this);
+        public Tao Tao => _tao ?? (_tao = Tao.FromLunar(this));
 
         /// <summary>
         /// 默认使用当前日期初始化
@@ -928,12 +928,19 @@ namespace Lunar
         /// <returns>方位</returns>
         public string GetYearPositionTaiSui(int sect = 2)
         {
-            var yearZhiIndex = sect switch
+            int yearZhiIndex;
+            switch (sect)
             {
-                1 => YearZhiIndex,
-                3 => YearZhiIndexExact,
-                _ => YearZhiIndexByLiChun
-            };
+                case 1:
+                    yearZhiIndex = YearZhiIndex;
+                    break;
+                case 3:
+                    yearZhiIndex = YearZhiIndexExact;
+                    break;
+                default:
+                    yearZhiIndex = YearZhiIndexByLiChun;
+                    break;
+            }
             return LunarUtil.POSITION_TAI_SUI_YEAR[yearZhiIndex];
         }
 
@@ -1654,9 +1661,9 @@ namespace Lunar
             }
             var filter = filters.Count > 0;
             var today = wholeDay ? Solar.Ymd : Solar.YmdHms;
-            foreach (var (key, current) in JieQiTable)
+            foreach (var entry in JieQiTable)
             {
-                var jq = ConvertJieQi(key);
+                var jq = ConvertJieQi(entry.Key);
                 if (filter)
                 {
                     if (!filters.Contains(jq))
@@ -1665,6 +1672,7 @@ namespace Lunar
                     }
                 }
 
+                var current = entry.Value;
                 var day = wholeDay ? current.Ymd : current.YmdHms;
                 if (forward)
                 {
@@ -1715,17 +1723,32 @@ namespace Lunar
 
         protected string ConvertJieQi(string name)
         {
-            return name switch
+            var jq = name;
+            switch (jq)
             {
-                "DONG_ZHI" => "冬至",
-                "DA_HAN" => "大寒",
-                "XIAO_HAN" => "小寒",
-                "LI_CHUN" => "立春",
-                "DA_XUE" => "大雪",
-                "YU_SHUI" => "雨水",
-                "JING_ZHE" => "惊蛰",
-                _ => name
-            };
+                case "DONG_ZHI":
+                    jq = "冬至";
+                    break;
+                case "DA_HAN":
+                    jq = "大寒";
+                    break;
+                case "XIAO_HAN":
+                    jq = "小寒";
+                    break;
+                case "LI_CHUN":
+                    jq = "立春";
+                    break;
+                case "DA_XUE":
+                    jq = "大雪";
+                    break;
+                case "YU_SHUI":
+                    jq = "雨水";
+                    break;
+                case "JING_ZHE":
+                    jq = "惊蛰";
+                    break;
+            }
+            return jq;
         }
 
         /// <summary>
@@ -1735,13 +1758,13 @@ namespace Lunar
         {
             get
             {
-                foreach (var (key, d) in JieQiTable)
+                foreach (var entry in JieQiTable)
                 {
+                    var d = entry.Value;
                     if (d.Year == Solar.Year && d.Month == Solar.Month && d.Day == Solar.Day)
                     {
-                        return ConvertJieQi(key);
+                        return ConvertJieQi(entry.Key);
                     }
-
                 }
                 return "";
             }

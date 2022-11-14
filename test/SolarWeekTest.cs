@@ -1,5 +1,5 @@
 using Lunar;
-using NUnit.Framework;
+using Xunit;
 
 namespace test
 {
@@ -8,23 +8,19 @@ namespace test
     /// </summary>
     public class SolarWeekTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
+        
+        [Fact]
         public void Test1()
         {
             var week = SolarWeek.FromYmd(2022, 3, 6, 0);
-            Assert.AreEqual(11, week.IndexInYear);
+            Assert.Equal(11, week.IndexInYear);
         }
 
-        [Test]
+        [Fact]
         public void Test2()
         {
             var week = SolarWeek.FromYmd(2022, 3, 6, 1);
-            Assert.AreEqual(10, week.IndexInYear);
+            Assert.Equal(10, week.IndexInYear);
         }
     }
 }

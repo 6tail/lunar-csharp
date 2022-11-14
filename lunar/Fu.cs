@@ -1,4 +1,5 @@
-﻿namespace Lunar
+﻿// ReSharper disable MemberCanBePrivate.Global
+namespace Lunar
 {
     /// <summary>
     /// 三伏

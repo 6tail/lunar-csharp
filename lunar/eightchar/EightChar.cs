@@ -16,12 +16,13 @@ namespace Lunar.EightChar
         /// 月支，按正月起寅排列
         /// </summary>
         public static readonly string[] MONTH_ZHI = { "", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑" };
+        
         /// <summary>
         /// 长生十二神
         /// </summary>
         public static readonly string[] CHANG_SHENG = { "长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养" };
         
-        private static readonly Dictionary<string, int> CHANG_SHENG_OFFSET = new();
+        private static readonly Dictionary<string, int> CHANG_SHENG_OFFSET = new Dictionary<string, int>();
 
         static EightChar()
         {

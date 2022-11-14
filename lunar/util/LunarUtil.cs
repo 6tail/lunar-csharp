@@ -1233,11 +1233,11 @@ namespace Lunar.Util
             var index = right.IndexOf(day + "=", StringComparison.Ordinal);
             while (index > -1)
             {
-                right = right[(index + 3)..];
+                right = right.Substring(index + 3);
                 var left = right;
                 if (left.Contains("="))
                 {
-                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 2)];
+                    left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 2);
                 }
                 var matched = false;
                 var months = left.Substring(0, left.IndexOf(":", StringComparison.Ordinal));
@@ -1253,10 +1253,10 @@ namespace Lunar.Util
                 if (matched)
                 {
                     var ys = left.Substring(left.IndexOf(":", StringComparison.Ordinal) + 1);
-                    ys = ys[..ys.IndexOf(",", StringComparison.Ordinal)];
+                    ys = ys.Substring(0, ys.IndexOf(",", StringComparison.Ordinal));
                     for (int i = 0, j = ys.Length; i < j; i += 2)
                     {
-                        string m = ys.Substring(i, 2);
+                        var m = ys.Substring(i, 2);
                         l.Add(YI_JI[Int32.Parse(m, NumberStyles.HexNumber)]);
                     }
                     break;
@@ -1285,14 +1285,14 @@ namespace Lunar.Util
             var index = right.IndexOf(day + "=", StringComparison.Ordinal);
             while (index > -1)
             {
-                right = right[(index + 3)..];
+                right = right.Substring(index + 3);
                 var left = right;
                 if (left.Contains("="))
                 {
-                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 2)];
+                    left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 2);
                 }
                 var matched = false;
-                var months = left[..left.IndexOf(":", StringComparison.Ordinal)];
+                var months = left.Substring(0, left.IndexOf(":", StringComparison.Ordinal));
                 for (int i = 0, j = months.Length; i < j; i += 2)
                 {
                     var m = months.Substring(i, 2);
@@ -1307,7 +1307,7 @@ namespace Lunar.Util
                     var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                     for (int i = 0, j = js.Length; i < j; i += 2)
                     {
-                        string m = js.Substring(i, 2);
+                        var m = js.Substring(i, 2);
                         l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
                     }
                     break;
@@ -1336,12 +1336,12 @@ namespace Lunar.Util
             var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                var left = DAY_SHEN_SHA[(index + 4)..];
+                var left = DAY_SHEN_SHA.Substring(index + 4);
                 if (left.Contains("="))
                 {
-                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 3)];
+                    left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 3);
                 }
-                var js = left[..left.IndexOf(",", StringComparison.Ordinal)];
+                var js = left.Substring(0, left.IndexOf(",", StringComparison.Ordinal));
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
                     string m = js.Substring(i, 2);
@@ -1370,7 +1370,7 @@ namespace Lunar.Util
             var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                var left = DAY_SHEN_SHA[(index + 4)..];
+                var left = DAY_SHEN_SHA.Substring(index + 4);
                 if (left.Contains("="))
                 {
                     left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 3);
@@ -1403,12 +1403,12 @@ namespace Lunar.Util
             var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
             if (index > -1)
             {
-                var left = TIME_YI_JI[(index + 5)..];
+                var left = TIME_YI_JI.Substring(index + 5);
                 if (left.Contains("="))
                 {
-                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 4)];
+                    left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 4);
                 }
-                var ys = left[..left.IndexOf(",", StringComparison.Ordinal)];
+                var ys = left.Substring(0, left.IndexOf(",", StringComparison.Ordinal));
                 for (int i = 0, j = ys.Length; i < j; i += 2)
                 {
                     var m = ys.Substring(i, 2);
@@ -1439,9 +1439,9 @@ namespace Lunar.Util
                 var left = TIME_YI_JI.Substring(index + 5);
                 if (left.Contains("="))
                 {
-                    left = left[..(left.IndexOf("=", StringComparison.Ordinal) - 4)];
+                    left = left.Substring(0, left.IndexOf("=", StringComparison.Ordinal) - 4);
                 }
-                var js = left[(left.IndexOf(",", StringComparison.Ordinal) + 1)..];
+                var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
                     var m = js.Substring(i, 2);
@@ -1462,8 +1462,8 @@ namespace Lunar.Util
         /// <returns>旬下标，0-5</returns>
         public static int GetXunIndex(string ganZhi)
         {
-            var gan = ganZhi[..1];
-            var zhi = ganZhi[1..];
+            var gan = ganZhi.Substring(0, 1);
+            var zhi = ganZhi.Substring(1);
             var ganIndex = 0;
             var zhiIndex = 0;
             for (int i = 0, j = GAN.Length; i < j; i++)

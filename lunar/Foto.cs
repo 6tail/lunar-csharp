@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lunar.Util;
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Lunar
 {
@@ -86,7 +89,7 @@ namespace Lunar
             }
         }
 
-        public bool MonthZhai => Month is 1 or 5 or 9;
+        public bool MonthZhai => Month == 1 || Month == 5 || Month == 9;
 
         /// <summary>
         /// 杨公忌日
@@ -102,7 +105,7 @@ namespace Lunar
         /// <summary>
         /// 朔望斋日
         /// </summary>
-        public bool DayZhaiShuoWang => Day is 1 or 15;
+        public bool DayZhaiShuoWang => Day == 1 || Day == 15;
 
         /// <summary>
         /// 六斋日
@@ -134,7 +137,7 @@ namespace Lunar
         /// <summary>
         /// 十斋日
         /// </summary>
-        public bool DayZhaiTen => Day is 1 or 8 or 14 or 15 or 18 or 23 or 24 or 28 or 29 or 30;
+        public bool DayZhaiTen => Day == 1 || Day == 8  || Day == 14  || Day == 15  || Day == 18  || Day == 23  || Day == 24  || Day == 28  || Day == 29  || Day == 30;
 
         /// <summary>
         /// 观音斋日

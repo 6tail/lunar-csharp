@@ -1,5 +1,5 @@
 using Lunar;
-using NUnit.Framework;
+using Xunit;
 
 namespace test
 {
@@ -8,12 +8,8 @@ namespace test
     /// </summary>
     public class GanZhiTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
+        
+        [Fact]
         public void Test1()
         {
             const int  year = 2020;
@@ -25,15 +21,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("己亥", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("己亥", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("丙子", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丙子", lunar.MonthInGanZhiExact);
+            Assert.Equal("丙子", lunar.MonthInGanZhi);
+            Assert.Equal("丙子", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test2()
         {
             const int  year = 2020;
@@ -45,15 +41,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("己亥", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("己亥", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhiExact);
+            Assert.Equal("丁丑", lunar.MonthInGanZhi);
+            Assert.Equal("丁丑", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test3()
         {
             const int  year = 2020;
@@ -65,15 +61,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("己亥", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("己亥", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhiExact);
+            Assert.Equal("丁丑", lunar.MonthInGanZhi);
+            Assert.Equal("丁丑", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test4()
         {
             const int  year = 2020;
@@ -85,15 +81,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhiExact);
+            Assert.Equal("丁丑", lunar.MonthInGanZhi);
+            Assert.Equal("丁丑", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test5()
         {
             const int  year = 2020;
@@ -105,15 +101,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhiExact);
+            Assert.Equal("丁丑", lunar.MonthInGanZhi);
+            Assert.Equal("丁丑", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test6()
         {
             const int  year = 2020;
@@ -125,15 +121,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhiExact);
+            Assert.Equal("丁丑", lunar.MonthInGanZhi);
+            Assert.Equal("丁丑", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test7()
         {
             const int  year = 2020;
@@ -145,15 +141,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("戊寅", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("丁丑", lunar.MonthInGanZhiExact);
+            Assert.Equal("戊寅", lunar.MonthInGanZhi);
+            Assert.Equal("丁丑", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test8()
         {
             const int  year = 2020;
@@ -165,16 +161,16 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("戊寅", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("戊寅", lunar.MonthInGanZhiExact);
+            Assert.Equal("戊寅", lunar.MonthInGanZhi);
+            Assert.Equal("戊寅", lunar.MonthInGanZhiExact);
         }
 
 
-        [Test]
+        [Fact]
         public void Test9()
         {
             const int  year = 2020;
@@ -186,15 +182,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("戊寅", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("戊寅", lunar.MonthInGanZhiExact);
+            Assert.Equal("戊寅", lunar.MonthInGanZhi);
+            Assert.Equal("戊寅", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test10()
         {
             const int  year = 2020;
@@ -206,15 +202,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhiExact);
+            Assert.Equal("辛巳", lunar.MonthInGanZhi);
+            Assert.Equal("辛巳", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test11()
         {
             const int  year = 2020;
@@ -226,15 +222,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhiExact);
+            Assert.Equal("辛巳", lunar.MonthInGanZhi);
+            Assert.Equal("辛巳", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test12()
         {
             const int  year = 2020;
@@ -246,15 +242,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhiExact);
+            Assert.Equal("辛巳", lunar.MonthInGanZhi);
+            Assert.Equal("辛巳", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test13()
         {
             const int  year = 2020;
@@ -266,15 +262,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("辛巳", lunar.MonthInGanZhiExact);
+            Assert.Equal("辛巳", lunar.MonthInGanZhi);
+            Assert.Equal("辛巳", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test14()
         {
             const int  year = 2020;
@@ -286,15 +282,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("庚子", lunar.YearInGanZhi);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("庚子", lunar.YearInGanZhiExact);
+            Assert.Equal("庚子", lunar.YearInGanZhi);
+            Assert.Equal("庚子", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("庚子", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("壬午", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("壬午", lunar.MonthInGanZhiExact);
+            Assert.Equal("壬午", lunar.MonthInGanZhi);
+            Assert.Equal("壬午", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test15()
         {
             const int  year = 2019;
@@ -306,15 +302,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("己亥", lunar.YearInGanZhi);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("己亥", lunar.YearInGanZhiExact);
+            Assert.Equal("己亥", lunar.YearInGanZhi);
+            Assert.Equal("己亥", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("己亥", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("戊辰", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("戊辰", lunar.MonthInGanZhiExact);
+            Assert.Equal("戊辰", lunar.MonthInGanZhi);
+            Assert.Equal("戊辰", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test16()
         {
             const int  year = 1986;
@@ -326,15 +322,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("丙寅", lunar.YearInGanZhi);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiExact);
+            Assert.Equal("丙寅", lunar.YearInGanZhi);
+            Assert.Equal("丙寅", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("丙寅", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("癸巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("癸巳", lunar.MonthInGanZhiExact);
+            Assert.Equal("癸巳", lunar.MonthInGanZhi);
+            Assert.Equal("癸巳", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test17()
         {
             const int  year = 1986;
@@ -346,15 +342,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("丙寅", lunar.YearInGanZhi);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiExact);
+            Assert.Equal("丙寅", lunar.YearInGanZhi);
+            Assert.Equal("丙寅", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("丙寅", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("壬辰", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("壬辰", lunar.MonthInGanZhiExact);
+            Assert.Equal("壬辰", lunar.MonthInGanZhi);
+            Assert.Equal("壬辰", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test18()
         {
             const int  year = 1986;
@@ -366,15 +362,15 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("丙寅", lunar.YearInGanZhi);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiExact);
+            Assert.Equal("丙寅", lunar.YearInGanZhi);
+            Assert.Equal("丙寅", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("丙寅", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("癸巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("壬辰", lunar.MonthInGanZhiExact);
+            Assert.Equal("癸巳", lunar.MonthInGanZhi);
+            Assert.Equal("壬辰", lunar.MonthInGanZhiExact);
         }
 
-        [Test]
+        [Fact]
         public void Test19()
         {
             const int  year = 1986;
@@ -386,12 +382,12 @@ namespace test
             var solar = new Solar(year, month, day, hour, minute);
             var lunar = solar.Lunar;
 
-            Assert.AreEqual("丙寅", lunar.YearInGanZhi);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiByLiChun);
-            Assert.AreEqual("丙寅", lunar.YearInGanZhiExact);
+            Assert.Equal("丙寅", lunar.YearInGanZhi);
+            Assert.Equal("丙寅", lunar.YearInGanZhiByLiChun);
+            Assert.Equal("丙寅", lunar.YearInGanZhiExact);
 
-            Assert.AreEqual("癸巳", lunar.MonthInGanZhi, "getMonthInGanZhi 未返回所需的值。");
-            Assert.AreEqual("癸巳", lunar.MonthInGanZhiExact);
+            Assert.Equal("癸巳", lunar.MonthInGanZhi);
+            Assert.Equal("癸巳", lunar.MonthInGanZhiExact);
         }
     }
 }
