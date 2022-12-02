@@ -85,6 +85,26 @@ namespace Lunar
                 return l;
             }
         }
+        
+        /// <summary>
+        /// 获取本月的阳历周列表
+        /// </summary>
+        /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
+        /// <returns>周列表</returns>
+        public List<SolarWeek> GetWeeks(int start) {
+            var l = new List<SolarWeek>();
+            var week = SolarWeek.FromYmd(Year, Month, 1, start);
+            var firstDay = week.FirstDay;
+            while (true) {
+                l.Add(week);
+                week = week.Next(1, false);
+                firstDay = week.FirstDay;
+                if (firstDay.Year > Year || firstDay.Month > Month) {
+                    break;
+                }
+            }
+            return l;
+        }
 
         /// <summary>
         /// 获取往后推几个月的阳历月，如果要往前推，则月数用负数

@@ -55,20 +55,6 @@ namespace test
         }
 
         [Fact]
-        public void Test23()
-        {
-            var lunar = Lunar.Lunar.FromYmdHms(2022, 1, 1);
-            Assert.Equal("六白金开阳", lunar.YearNineStar.ToString());
-        }
-
-        [Fact]
-        public void Test24()
-        {
-            var lunar = Lunar.Lunar.FromYmdHms(2033, 1, 1);
-            Assert.Equal("四绿木天权", lunar.YearNineStar.ToString());
-        }
-
-        [Fact]
         public void Test025()
         {
             var solar = Solar.FromYmdHms(2021, 6, 7, 21, 18);

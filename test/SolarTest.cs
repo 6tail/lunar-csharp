@@ -15,7 +15,7 @@ namespace test
         [Fact]
         public void TestNext()
         {
-            Solar date = new Solar(2020, 1, 23);
+            var date = new Solar(2020, 1, 23);
             Assert.Equal("2020-01-24", date.Next(1).ToString());
             // 仅工作日，跨越春节假期
             Assert.Equal("2020-02-03", date.Next(1, true).ToString());

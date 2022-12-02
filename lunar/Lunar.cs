@@ -1387,14 +1387,16 @@ namespace Lunar
 
         protected NineStar GetYearNineStar(string yearInGanZhi)
         {
-            var index = LunarUtil.GetJiaZiIndex(yearInGanZhi) + 1;
-            var yearOffset = 0;
-            if (index != LunarUtil.GetJiaZiIndex(YearInGanZhi) + 1)
-            {
-                yearOffset = -1;
+            var indexExact = LunarUtil.GetJiaZiIndex(yearInGanZhi) + 1;
+            var index = LunarUtil.GetJiaZiIndex(YearInGanZhi) + 1;
+            var yearOffset = indexExact - index;
+            if (yearOffset > 1) {
+                yearOffset -= 60;
+            } else if (yearOffset < -1) {
+                yearOffset += 60;
             }
             var yuan = (Year + yearOffset + 2696) / 60 % 3;
-            var offset = (62 + yuan * 3 - index) % 9;
+            var offset = (62 + yuan * 3 - indexExact) % 9;
             if (0 == offset)
             {
                 offset = 9;

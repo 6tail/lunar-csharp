@@ -5,8 +5,8 @@
         <LangVersion>7.1</LangVersion>
         <RootNamespace>Lunar</RootNamespace>
         <PackageId>lunar-csharp</PackageId>
-        <PackageVersion>1.4.0</PackageVersion>
-        <Title>日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。</Title>
+        <PackageVersion>1.4.1</PackageVersion>
+        <Title>无依赖的阳历、阴历、道历和佛历工具库</Title>
         <Authors>6tail</Authors>
         <Description>日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。</Description>
         <Copyright>Copyright (c) 2022 6tail</Copyright>
@@ -15,8 +15,9 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>日历;公历;阳历;农历;阴历;老黄历;佛历;道历;法定假日</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <AssemblyVersion>1.4.0</AssemblyVersion>
-        <FileVersion>1.4.0</FileVersion>
+        <AssemblyVersion>1.4.1</AssemblyVersion>
+        <FileVersion>1.4.1</FileVersion>
+        <PackageReleaseNotes>修复立春比春节早时年九星的错误；新增阳历月中获取周。</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
