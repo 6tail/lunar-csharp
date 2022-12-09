@@ -94,11 +94,10 @@ namespace Lunar
         public List<SolarWeek> GetWeeks(int start) {
             var l = new List<SolarWeek>();
             var week = SolarWeek.FromYmd(Year, Month, 1, start);
-            var firstDay = week.FirstDay;
             while (true) {
                 l.Add(week);
                 week = week.Next(1, false);
-                firstDay = week.FirstDay;
+                var firstDay = week.FirstDay;
                 if (firstDay.Year > Year || firstDay.Month > Month) {
                     break;
                 }
