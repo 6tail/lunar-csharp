@@ -1,4 +1,5 @@
 using Lunar;
+using Lunar.Util;
 using Xunit;
 
 namespace test
@@ -93,6 +94,83 @@ namespace test
         {
             var solar = Solar.FromYmdHms(2022, 3, 28);
             Assert.Equal("全国中小学生安全教育日", solar.Festivals[0]);
+        }
+        
+        [Fact]
+        public void Test11()
+        {
+            var solar = Solar.FromYmdHms(2022, 1, 1);
+            Assert.Equal("2022-01-02", solar.Next(1).Ymd);
+        }
+        
+        [Fact]
+        public void Test12()
+        {
+            var solar = Solar.FromYmdHms(2022, 1, 31);
+            Assert.Equal("2022-02-01", solar.Next(1).Ymd);
+        }
+        
+        [Fact]
+        public void Test13()
+        {
+            var solar = Solar.FromYmdHms(2022, 1, 1);
+            Assert.Equal("2023-01-01", solar.Next(365).Ymd);
+        }
+        
+        [Fact]
+        public void Test14()
+        {
+            var solar = Solar.FromYmdHms(2023, 1, 1);
+            Assert.Equal("2022-01-01", solar.Next(-365).Ymd);
+        }
+        
+        [Fact]
+        public void Test15()
+        {
+            var solar = Solar.FromYmdHms(1582, 10, 4);
+            Assert.Equal("1582-10-15", solar.Next(1).Ymd);
+        }
+        
+        [Fact]
+        public void Test16()
+        {
+            var solar = Solar.FromYmdHms(1582, 10, 4);
+            Assert.Equal("1582-11-01", solar.Next(18).Ymd);
+        }
+        
+        [Fact]
+        public void Test17()
+        {
+            var solar = Solar.FromYmdHms(1582, 11, 1);
+            Assert.Equal("1582-10-04", solar.Next(-18).Ymd);
+        }
+        
+        [Fact]
+        public void Test18()
+        {
+            var solar = Solar.FromYmdHms(1582, 11, 1);
+            Assert.Equal("1582-10-15", solar.Next(-17).Ymd);
+        }
+        
+        [Fact]
+        public void Test19()
+        {
+            var days = SolarUtil.GetDaysBetween(1582, 10, 4, 1582, 10, 15);
+            Assert.Equal(1, days);
+        }
+        
+        [Fact]
+        public void Test20()
+        {
+            var days = SolarUtil.GetDaysBetween(1582, 10, 4, 1582, 11, 1);
+            Assert.Equal(18, days);
+        }
+        
+        [Fact]
+        public void Test21()
+        {
+            var days = SolarUtil.GetDaysBetween(1582, 1, 1, 1583, 1, 1);
+            Assert.Equal(355, days);
         }
     }
 }

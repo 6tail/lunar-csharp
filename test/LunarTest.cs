@@ -503,5 +503,19 @@ namespace test
             var lunar = solar.Lunar;
             Assert.Equal("春社", lunar.OtherFestivals[0]);
         }
+        
+        [Fact]
+        public void Test55()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(1582, 9, 18);
+            Assert.Equal("1582-10-04", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test56()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(1582, 9, 19);
+            Assert.Equal("1582-10-15", lunar.Solar.Ymd);
+        }
     }
 }

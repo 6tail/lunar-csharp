@@ -131,7 +131,7 @@ namespace Lunar.Util
         /// <returns>true/false 闰年/非闰年</returns>
         public static bool IsLeapYear(int year)
         {
-            return DateTime.IsLeapYear(year);
+            return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
         }
 
         /// <summary>
@@ -141,6 +141,9 @@ namespace Lunar.Util
         /// <returns>天数</returns>
         public static int GetDaysOfYear(int year)
         {
+            if (1582 == year) {
+                return 355;
+            }
             return IsLeapYear(year) ? 366 : 365;
         }
 
@@ -156,7 +159,13 @@ namespace Lunar.Util
             {
                 return 21;
             }
-            return DateTime.DaysInMonth(year, month);
+            int m = month - 1;
+            int d = DAYS_OF_MONTH[m];
+            //公历闰年2月多一天
+            if (m == 1 && IsLeapYear(year)) {
+                d++;
+            }
+            return d;
         }
 
         /// <summary>
@@ -173,11 +182,16 @@ namespace Lunar.Util
             {
                 days += GetDaysOfMonth(year, i);
             }
-            days += day;
-            if (1582 == year && 10 == month && day >= 15)
-            {
-                days -= 10;
+            var d = day;
+            if (1582 == year && 10 == month) {
+                if (day >= 15) {
+                    d -= 10;
+                } else if (day > 4)
+                {
+                    throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
+                }
             }
+            days += d;
             return days;
         }
 
@@ -190,10 +204,49 @@ namespace Lunar.Util
         /// <returns>周数</returns>
         public static int GetWeeksOfMonth(int year, int month, int start)
         {
-            var days = GetDaysOfMonth(year, month);
-            var firstDay = ExactDate.FromYmdHms(year, month, 1);
-            var week = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
-            return (int)Math.Ceiling((days + week - start) * 1D / WEEK.Length);
+            return (int) Math.Ceiling((GetDaysOfMonth(year, month) + Solar.FromYmdHms(year, month, 1).Week - start) * 1D / WEEK.Length);
+        }
+        
+        /// <summary>
+        /// 获取两个日期之间相差的天数（如果日期a比日期b小，天数为正，如果日期a比日期b大，天数为负）
+        /// </summary>
+        /// <param name="ay">年a</param>
+        /// <param name="am">月a</param>
+        /// <param name="ad">日a</param>
+        /// <param name="by">年b</param>
+        /// <param name="bm">月b</param>
+        /// <param name="bd">日b</param>
+        /// <returns>天数</returns>
+        public static int GetDaysBetween(int ay, int am, int ad, int by, int bm, int bd)
+        {
+            int n;
+            int days;
+            int i;
+            if (ay == by)
+            {
+                n = GetDaysInYear(by, bm, bd) - GetDaysInYear(ay, am, ad);
+            }
+            else if (ay > by)
+            {
+                days = GetDaysOfYear(by) - GetDaysInYear(by, bm, bd);
+                for (i = by + 1; i < ay; i++)
+                {
+                    days += GetDaysOfYear(i);
+                }
+                days += GetDaysInYear(ay, am, ad);
+                n = -days;
+            }
+            else
+            {
+                days = GetDaysOfYear(ay) - GetDaysInYear(ay, am, ad);
+                for (i = ay + 1; i < by; i++)
+                {
+                    days += GetDaysOfYear(i);
+                }
+                days += GetDaysInYear(by, bm, bd);
+                n = days;
+            }
+            return n;
         }
     }
 }

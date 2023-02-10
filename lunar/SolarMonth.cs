@@ -112,9 +112,18 @@ namespace Lunar
         /// <returns>阳历月</returns>
         public SolarMonth Next(int months)
         {
-            var c = ExactDate.FromYmdHms(Year, Month, 1);
-            c = c.AddMonths(months);
-            return new SolarMonth(c);
+            var n = months < 0 ? -1 : 1;
+            var m = Math.Abs(months);
+            var y = Year + m / 12 * n;
+            m = Month + m % 12 * n;
+            if (m > 12) {
+                m -= 12;
+                y++;
+            } else if (m < 1) {
+                m += 12;
+                y--;
+            }
+            return new SolarMonth(y, m);
         }
 
         public override string ToString()

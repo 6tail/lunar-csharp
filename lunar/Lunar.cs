@@ -203,16 +203,16 @@ namespace Lunar
             var m = y.GetMonth(lunarMonth);
             if (null == m)
             {
-                throw new ArgumentOutOfRangeException(nameof(lunarMonth), "wrong lunar year " + lunarYear + " month " + lunarMonth);
+                throw new ArgumentException("wrong lunar year " + lunarYear + " month " + lunarMonth);
             }
             if (lunarDay < 1)
             {
-                throw new ArgumentOutOfRangeException(nameof(lunarDay), "lunar day must bigger than 0");
+                throw new ArgumentException("lunar day must bigger than 0");
             }
             var days = m.DayCount;
             if (lunarDay > days)
             {
-                throw new ArgumentOutOfRangeException("only " + days + " days in lunar year " + lunarYear + " month " + lunarMonth);
+                throw new ArgumentException("only " + days + " days in lunar year " + lunarYear + " month " + lunarMonth);
             }
             Year = lunarYear;
             Month = lunarMonth;
@@ -229,21 +229,17 @@ namespace Lunar
         }
 
         /// <summary>
-        /// 通过阳历日期初始化
+        /// 通过阳历初始化
         /// </summary>
-        /// <param name="date">阳历日期</param>
-        public Lunar(DateTime date)
+        /// <param name="solar">阳历</param>
+        public Lunar(Solar solar)
         {
-            Solar = new Solar(date);
-            var currentYear = Solar.Year;
-            var currentMonth = Solar.Month;
-            var currentDay = Solar.Day;
-            var ly = LunarYear.FromYear(currentYear);            
+            var ly = LunarYear.FromYear(solar.Year);            
             foreach (var m in ly.Months)
             {
                 // 初一
                 var firstDay = Solar.FromJulianDay(m.FirstJulianDay);
-                var days = ExactDate.GetDaysBetween(firstDay.Year, firstDay.Month, firstDay.Day, currentYear, currentMonth, currentDay);
+                var days = solar.Subtract(firstDay);
                 if (days < m.DayCount)
                 {
                     Year = m.Year;
@@ -252,10 +248,19 @@ namespace Lunar
                     break;
                 }
             }
-            Hour = Solar.Hour;
-            Minute = Solar.Minute;
-            Second = Solar.Second;
+            Hour = solar.Hour;
+            Minute = solar.Minute;
+            Second = solar.Second;
+            Solar = solar;
             Compute(ly);
+        }
+        
+        /// <summary>
+        /// 通过阳历日期初始化
+        /// </summary>
+        /// <param name="date">阳历日期</param>
+        public Lunar(DateTime date): this(Solar.FromDate(date))
+        {
         }
 
         /// <summary>
@@ -1501,19 +1506,19 @@ namespace Lunar
                 var offset = 0;
                 if (string.Compare(solarYmd, solarShunBaiYmd, StringComparison.Ordinal) >= 0 && string.Compare(solarYmd, solarNiZiYmd, StringComparison.Ordinal) < 0)
                 {
-                    offset = ExactDate.GetDaysBetween(solarShunBai.Calendar, Solar.Calendar) % 9;
+                    offset = Solar.Subtract(solarShunBai) % 9;
                 }
                 else if (string.Compare(solarYmd, solarNiZiYmd, StringComparison.Ordinal) >= 0 && string.Compare(solarYmd, solarShunBaiYmd2, StringComparison.Ordinal) < 0)
                 {
-                    offset = 8 - (ExactDate.GetDaysBetween(solarNiZi.Calendar, Solar.Calendar) % 9);
+                    offset = 8 - (Solar.Subtract(solarNiZi) % 9);
                 }
                 else if (string.Compare(solarYmd, solarShunBaiYmd2, StringComparison.Ordinal) >= 0)
                 {
-                    offset = ExactDate.GetDaysBetween(solarShunBai2.Calendar, Solar.Calendar) % 9;
+                    offset = Solar.Subtract(solarShunBai2) % 9;
                 }
                 else if (string.Compare(solarYmd, solarShunBaiYmd, StringComparison.Ordinal) < 0)
                 {
-                    offset = (8 + ExactDate.GetDaysBetween(Solar.Calendar, solarShunBai.Calendar)) % 9;
+                    offset = (8 + solarShunBai.Subtract(Solar)) % 9;
                 }
 
                 return NineStar.FromIndex(offset);
@@ -1562,9 +1567,9 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetNextJie(bool wholeDay = false)
         {
-            int l = JIE_QI_IN_USE.Length / 2;
-            string[] conditions = new string[l];
-            for (int i = 0; i < l; i++)
+            var l = JIE_QI_IN_USE.Length / 2;
+            var conditions = new string[l];
+            for (var i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2];
             }
@@ -1578,9 +1583,9 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetPrevJie(bool wholeDay = false)
         {
-            int l = JIE_QI_IN_USE.Length / 2;
-            string[] conditions = new string[l];
-            for (int i = 0; i < l; i++)
+            var l = JIE_QI_IN_USE.Length / 2;
+            var conditions = new string[l];
+            for (var i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2];
             }
@@ -1594,9 +1599,9 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetNextQi(bool wholeDay = false)
         {
-            int l = JIE_QI_IN_USE.Length / 2;
-            string[] conditions = new string[l];
-            for (int i = 0; i < l; i++)
+            var l = JIE_QI_IN_USE.Length / 2;
+            var conditions = new string[l];
+            for (var i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2 + 1];
             }
@@ -1610,9 +1615,9 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetPrevQi(bool wholeDay = false)
         {
-            int l = JIE_QI_IN_USE.Length / 2;
-            string[] conditions = new string[l];
-            for (int i = 0; i < l; i++)
+            var l = JIE_QI_IN_USE.Length / 2;
+            var conditions = new string[l];
+            for (var i = 0; i < l; i++)
             {
                 conditions[i] = JIE_QI_IN_USE[i * 2 + 1];
             }
@@ -2027,22 +2032,24 @@ namespace Lunar
         {
             get
             {
-                DateTime currentCalendar = ExactDate.FromYmdHms(Solar.Year, Solar.Month, Solar.Day);
-                Solar start = JieQiTable["DONG_ZHI"];
-                DateTime startCalendar = ExactDate.FromYmdHms(start.Year, start.Month, start.Day);
-                if (currentCalendar.CompareTo(startCalendar) < 0)
+                var current = new Solar(Solar.Year, Solar.Month, Solar.Day);
+                var start = JieQiTable["DONG_ZHI"];
+                start = new Solar(start.Year, start.Month, start.Day);
+                if (current.IsBefore(start))
                 {
                     start = JieQiTable["冬至"];
-                    startCalendar = ExactDate.FromYmdHms(start.Year, start.Month, start.Day);
+                    start = new Solar(start.Year, start.Month, start.Day);
                 }
 
-                DateTime endCalendar = startCalendar.AddDays(81);
-                if (currentCalendar.CompareTo(startCalendar) < 0 || currentCalendar.CompareTo(endCalendar) >= 0)
+                var end = new Solar(start.Year, start.Month, start.Day);
+                end = end.Next(81);
+                
+                if (current.IsBefore(start) || !current.IsBefore(end))
                 {
                     return null;
                 }
 
-                int days = ExactDate.GetDaysBetween(startCalendar, currentCalendar);
+                var days = current.Subtract(start);
                 return new ShuJiu(LunarUtil.NUMBER[days / 9 + 1] + "九", days % 9 + 1);
             }
         }
@@ -2053,37 +2060,39 @@ namespace Lunar
         public Fu Fu
         {
             get
-            {
-                DateTime currentCalendar = ExactDate.FromYmdHms(Solar.Year, Solar.Month, Solar.Day);
-                Solar xiaZhi = JieQiTable["夏至"];
-                Solar liQiu = JieQiTable["立秋"];
-                DateTime startCalendar = ExactDate.FromYmdHms(xiaZhi.Year, xiaZhi.Month, xiaZhi.Day);
-                int add = 6 - xiaZhi.Lunar.DayGanIndex;
+            { 
+                var current = new Solar(Solar.Year, Solar.Month, Solar.Day);
+                var xiaZhi = JieQiTable["夏至"];
+                var liQiu = JieQiTable["立秋"];
+                var start = new Solar(xiaZhi.Year, xiaZhi.Month, xiaZhi.Day);
+                var add = 6 - xiaZhi.Lunar.DayGanIndex;
                 if (add < 0)
                 {
                     add += 10;
                 }
                 add += 20;
-                startCalendar = startCalendar.AddDays(add);
-                if (currentCalendar.CompareTo(startCalendar) < 0)
+                start = start.Next(add);
+                if (current.IsBefore(start))
                 {
                     return null;
                 }
-                int days = ExactDate.GetDaysBetween(startCalendar, currentCalendar);
+
+                var days = current.Subtract(start);
                 if (days < 10)
                 {
                     return new Fu("初伏", days + 1);
                 }
-                startCalendar = startCalendar.AddDays(10);
-                days = ExactDate.GetDaysBetween(startCalendar, currentCalendar);
+
+                start = start.Next(10);
+                days = current.Subtract(start);
                 if (days < 10)
                 {
                     return new Fu("中伏", days + 1);
                 }
-                startCalendar = startCalendar.AddDays(10);
-                DateTime liQiuCalendar = ExactDate.FromYmdHms(liQiu.Year, liQiu.Month, liQiu.Day);
-                days = ExactDate.GetDaysBetween(startCalendar, currentCalendar);
-                if (liQiuCalendar.CompareTo(startCalendar) <= 0)
+                start = start.Next(10);
+                days = current.Subtract(start);
+                var liQiuSolar = new Solar(liQiu.Year, liQiu.Month, liQiu.Day);
+                if (!liQiuSolar.IsAfter(start))
                 {
                     if (days < 10)
                     {
@@ -2096,8 +2105,8 @@ namespace Lunar
                     {
                         return new Fu("中伏", days + 11);
                     }
-                    startCalendar = startCalendar.AddDays(10);
-                    days = ExactDate.GetDaysBetween(startCalendar, currentCalendar);
+                    start = start.Next(10);
+                    days = current.Subtract(start);
                     if (days < 10)
                     {
                         return new Fu("末伏", days + 1);
@@ -2120,17 +2129,16 @@ namespace Lunar
             get
             {
                 var jieQi = GetPrevJieQi(true);
-                var name = jieQi.Name;
                 var offset = 0;
                 for (int i = 0, j = JIE_QI.Length; i < j; i++)
                 {
-                    if (!name.Equals(JIE_QI[i])) continue;
-                    offset = i;
-                    break;
+                    if (jieQi.Name.Equals(JIE_QI[i]))
+                    {
+                        offset = i;
+                        break;
+                    }
                 }
-                var startSolar = jieQi.Solar;
-                var days = ExactDate.GetDaysBetween(startSolar.Year, startSolar.Month, startSolar.Day, Solar.Year, Solar.Month, Solar.Day);
-                var index = days / 5;
+                var index = Solar.Subtract(jieQi.Solar) / 5;
                 if (index > 2) {
                     index = 2;
                 }
@@ -2146,10 +2154,8 @@ namespace Lunar
             get
             {
                 var jieQi = GetPrevJieQi(true);
-                var startSolar = jieQi.Solar;
-                var days = ExactDate.GetDaysBetween(startSolar.Year, startSolar.Month, startSolar.Day, Solar.Year, Solar.Month, Solar.Day);
                 var max = LunarUtil.HOU.Length - 1;
-                var offset = days / 5;
+                var offset = Solar.Subtract(jieQi.Solar) / 5;
                 if (offset > max)
                 {
                     offset = max;

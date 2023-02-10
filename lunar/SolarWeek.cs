@@ -94,9 +94,7 @@ namespace Lunar
         {
             get
             {
-                var firstDay = ExactDate.FromYmdHms(Year, Month, 1);
-                var firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
-                var offset = firstDayWeek - Start;
+                var offset = Solar.FromYmdHms(Year, Month, 1).Week - Start;
                 if (offset < 0)
                 {
                     offset += 7;
@@ -112,9 +110,7 @@ namespace Lunar
         {
             get
             {
-                var firstDay = ExactDate.FromYmdHms(Year, 1, 1);
-                var firstDayWeek = Convert.ToInt32(firstDay.DayOfWeek.ToString("d"));
-                var offset = firstDayWeek - Start;
+                var offset = Solar.FromYmdHms(Year, 1, 1).Week - Start;
                 if (offset < 0)
                 {
                     offset += 7;
@@ -135,17 +131,17 @@ namespace Lunar
             {
                 return new SolarWeek(Year, Month, Day, Start);
             }
+            var solar = Solar.FromYmdHms(Year, Month, Day);
             if (separateMonth)
             {
                 var n = weeks;
-                var c = ExactDate.FromYmdHms(Year, Month, Day);
-                var week = new SolarWeek(c, Start);
+                var week = new SolarWeek(solar.Year, solar.Month, solar.Day, Start);
                 var m = Month;
                 var plus = n > 0;
                 while (0 != n)
                 {
-                    c = c.AddDays(plus ? 7 : -7);
-                    week = new SolarWeek(c, Start);
+                    solar = solar.Next(plus ? 7 : -7);
+                    week = new SolarWeek(solar.Year, solar.Month, solar.Day, Start);
                     var weekMonth = week.Month;
                     if (m != weekMonth)
                     {
@@ -160,8 +156,8 @@ namespace Lunar
                             }
                             else
                             {
-                                c = ExactDate.FromYmdHms(week.Year, week.Month, 1);
-                                week = new SolarWeek(c, Start);
+                                solar = Solar.FromYmdHms(week.Year, week.Month, 1);
+                                week = new SolarWeek(solar.Year, solar.Month, solar.Day, Start);
                             }
                         }
                         else
@@ -176,8 +172,8 @@ namespace Lunar
                             }
                             else
                             {
-                                c = ExactDate.FromYmdHms(week.Year, week.Month, SolarUtil.GetDaysOfMonth(week.Year, week.Month));
-                                week = new SolarWeek(c, Start);
+                                solar = Solar.FromYmdHms(week.Year, week.Month, SolarUtil.GetDaysOfMonth(week.Year, week.Month));
+                                week = new SolarWeek(solar.Year, solar.Month, solar.Day, Start);
                             }
                         }
                         m = weekMonth;
@@ -188,9 +184,8 @@ namespace Lunar
             }
             else
             {
-                var c = ExactDate.FromYmdHms(Year, Month, Day);
-                c = c.AddDays(weeks * 7);
-                return new SolarWeek(c, Start);
+                solar = solar.Next(weeks * 7);
+                return new SolarWeek(solar.Year, solar.Month, solar.Day, Start);
             }
         }
 
@@ -201,15 +196,13 @@ namespace Lunar
         {
             get
             {
-                var c = ExactDate.FromYmdHms(Year, Month, Day);
-                var week = Convert.ToInt32(c.DayOfWeek.ToString("d"));
-                var prev = week - Start;
+                var solar = Solar.FromYmdHms(Year, Month, Day);
+                var prev = solar.Week - Start;
                 if (prev < 0)
                 {
                     prev += 7;
                 }
-                c = c.AddDays(-prev);
-                return new Solar(c);
+                return solar.Next(-prev);
             }
         }
 

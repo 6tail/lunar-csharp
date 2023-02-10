@@ -84,13 +84,8 @@ namespace Lunar
         /// <returns>推移后的季度</returns>
         public SolarSeason Next(int seasons)
         {
-            if (0 == seasons)
-            {
-                return new SolarSeason(Year, Month);
-            }
-            var c = ExactDate.FromYmdHms(Year, Month, 1);
-            c = c.AddMonths(MONTH_COUNT * seasons);
-            return new SolarSeason(c);
+            SolarMonth m = SolarMonth.FromYm(Year, Month).Next(MONTH_COUNT * seasons);
+            return new SolarSeason(m.Year, m.Month);
         }
 
         /// <summary>

@@ -48,11 +48,6 @@ namespace Lunar
         public int Second { get; }
 
         /// <summary>
-        /// 日历
-        /// </summary>
-        public DateTime Calendar { get; }
-
-        /// <summary>
         /// 默认使用当前日期初始化
         /// </summary>
         public Solar(): this(DateTime.Now)
@@ -70,12 +65,19 @@ namespace Lunar
         /// <param name="second">秒钟，0到59</param>
         public Solar(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
-            if (year == 1582 && month == 10)
-            {
-                if (day >= 15)
-                {
-                    day -= 10;
+            if (1582 == year && 10 == month) {
+                if (day > 4 && day < 15) {
+                    throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
                 }
+            }
+            if (hour < 0 || hour > 23) {
+                throw new ArgumentException("wrong hour %d" + hour);
+            }
+            if (minute < 0 || minute > 59) {
+                throw new ArgumentException("wrong minute %d" + minute);
+            }
+            if (second < 0 || second > 59) {
+                throw new ArgumentException("wrong second %d" + second);
             }
             Year = year;
             Month = month;
@@ -83,7 +85,6 @@ namespace Lunar
             Hour = hour;
             Minute = minute;
             Second = second;
-            Calendar = ExactDate.FromYmdHms(year, month, day, hour, minute, second);
         }
 
         /// <summary>
@@ -145,7 +146,6 @@ namespace Lunar
                 minute -= 60;
                 hour++;
             }
-            Calendar = ExactDate.FromYmdHms(year, month, day, hour, minute, second);
             Year = year;
             Month = month;
             Day = day;
@@ -203,14 +203,24 @@ namespace Lunar
         {
             sect = (1 == sect) ? 1 : 2;
             var l = new List<Solar>();
+            var years = new List<int>();
             var today = new Solar();
-            var lunar = today.Lunar;
-            var offsetYear = LunarUtil.GetJiaZiIndex(lunar.YearInGanZhiExact) - LunarUtil.GetJiaZiIndex(yearGanZhi);
+            var offsetYear = LunarUtil.GetJiaZiIndex(today.Lunar.YearInGanZhiExact) - LunarUtil.GetJiaZiIndex(yearGanZhi);
             if (offsetYear < 0)
             {
                 offsetYear += 60;
             }
-            var startYear = lunar.Year - offsetYear;
+            var startYear = today.Year - offsetYear - 1;
+            while (true)
+            {
+                years.Add(startYear);
+                startYear -= 60;
+                if (startYear < baseYear)
+                {
+                    years.Add(baseYear);
+                    break;
+                }
+            }
             var hour = 0;
             var timeZhi = timeGanZhi.Substring(1);
             for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
@@ -220,59 +230,26 @@ namespace Lunar
                     hour = (i - 1) * 2;
                 }
             }
-            while (startYear >= baseYear)
+
+            foreach (var y in years)
             {
-                var year = startYear - 1;
-                var counter = 0;
-                var month = 12;
-                int day;
-                var found = false;
-                while (counter < 15)
+                for (var x = 0; x < 3; x++)
                 {
-                    if (year >= baseYear)
+                    var year = y + x;
+                    var solar = new Solar(year, 1, 1, hour);
+                    while (solar.Year == year)
                     {
-                        day = 1;
-                        var solar = new Solar(year, month, day, hour);
-                        lunar = solar.Lunar;
-                        if (lunar.YearInGanZhiExact.Equals(yearGanZhi) && lunar.MonthInGanZhiExact.Equals(monthGanZhi))
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    month++;
-                    if (month > 12)
-                    {
-                        month = 1;
-                        year++;
-                    }
-                    counter++;
-                }
-                if (found)
-                {
-                    counter = 0;
-                    month--;
-                    if (month < 1)
-                    {
-                        month = 12;
-                        year--;
-                    }
-                    day = 1;
-                    Solar solar = new Solar(year, month, day, hour);
-                    while (counter < 61)
-                    {
-                        lunar = solar.Lunar;
-                        string dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
+                        var lunar = solar.Lunar;
+                        var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                         if (lunar.YearInGanZhiExact.Equals(yearGanZhi) && lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.TimeInGanZhi.Equals(timeGanZhi))
                         {
                             l.Add(solar);
+                            x = 3;
                             break;
                         }
                         solar = solar.Next(1);
-                        counter++;
                     }
                 }
-                startYear -= 60;
             }
             return l;
         }
@@ -285,7 +262,32 @@ namespace Lunar
         /// <summary>
         /// 星期，0代表周日，1代表周一
         /// </summary>
-        public int Week => Convert.ToInt32(Calendar.DayOfWeek.ToString("d"));
+        public int Week
+        {
+            get
+            {
+                var start = new Solar(1582, 10, 15);
+                var y = Year;
+                var m = Month;
+                var d = Day;
+                var current = new Solar(y, m, d);
+                // 蔡勒公式
+                if (m < 3) {
+                    m += 12;
+                    y--;
+                }
+                var c = y / 100;
+                y = y - c * 100;
+                var x = y + y / 4 + c / 4 - 2 * c;
+                int w;
+                if (current.IsBefore(start)) {
+                    w = (x + 13 * (m + 1) / 5 + d + 2) % 7;
+                } else {
+                    w = (x + 26 * (m + 1) / 10 + d - 1) % 7;
+                }
+                return (w + 7) % 7;
+            }
+        }
 
         /// <summary>
         /// 星期的中文：日一二三四五六
@@ -393,7 +395,7 @@ namespace Lunar
         /// <summary>
         /// 阴历
         /// </summary>
-        public Lunar Lunar => new Lunar(Calendar);
+        public Lunar Lunar => new Lunar(this);
 
         /// <summary>
         /// 儒略日
@@ -430,20 +432,12 @@ namespace Lunar
         {
             get
             {
-                var d = Day;
-                if (Year == 1582 && Month == 10)
-                {
-                    if (d >= 5)
-                    {
-                        d += 10;
-                    }
-                }
                 var y = Year + "";
                 while (y.Length < 4)
                 {
                     y = "0" + y;
                 }
-                return y + "-" + (Month < 10 ? "0" : "") + Month + "-" + (d < 10 ? "0" : "") + d;
+                return y + "-" + (Month < 10 ? "0" : "") + Month + "-" + (Day < 10 ? "0" : "") + Day;
             }
         }
 
@@ -472,6 +466,214 @@ namespace Lunar
         }
 
         /// <summary>
+        /// 阳历日期相减，获得相差天数
+        /// </summary>
+        /// <param name="solar">阳历</param>
+        /// <returns>天数</returns>
+        public int Subtract(Solar solar)
+        {
+            return SolarUtil.GetDaysBetween(solar.Year, solar.Month, solar.Day, Year, Month, Day);
+        }
+        
+        /// <summary>
+        /// 阳历日期相减，获得相差分钟数
+        /// </summary>
+        /// <param name="solar">阳历</param>
+        /// <returns>分钟数</returns>
+        public int SubtractMinute(Solar solar)
+        {
+            var days = Subtract(solar);
+            var cm = Hour * 60 + Minute;
+            var sm = solar.Hour * 60 + solar.Minute;
+            var m = cm - sm;
+            if (m < 0) {
+                m += 1440;
+                days--;
+            }
+            m += days * 1440;
+            return m;
+        }
+
+        /// <summary>
+        /// 是否在指定日期之后
+        /// </summary>
+        /// <param name="solar">阳历</param>
+        /// <returns>true/false</returns>
+        public bool IsAfter(Solar solar)
+        {
+            if (Year > solar.Year) {
+                return true;
+            }
+            if (Year < solar.Year) {
+                return false;
+            }
+            if (Month > solar.Month) {
+                return true;
+            }
+            if (Month < solar.Month) {
+                return false;
+            }
+            if (Day > solar.Day) {
+                return true;
+            }
+            if (Day < solar.Day) {
+                return false;
+            }
+            if (Hour > solar.Hour) {
+                return true;
+            }
+            if (Hour < solar.Hour) {
+                return false;
+            }
+            if (Minute > solar.Minute) {
+                return true;
+            }
+            if (Minute < solar.Minute) {
+                return false;
+            }
+            return Second > solar.Second;
+        }
+
+        /// <summary>
+        /// 是否在指定日期之前
+        /// </summary>
+        /// <param name="solar">阳历</param>
+        /// <returns>true/false</returns>
+        public bool IsBefore(Solar solar)
+        {
+            if (Year > solar.Year) {
+                return false;
+            }
+            if (Year < solar.Year) {
+                return true;
+            }
+            if (Month > solar.Month) {
+                return false;
+            }
+            if (Month < solar.Month) {
+                return true;
+            }
+            if (Day > solar.Day) {
+                return false;
+            }
+            if (Day < solar.Day) {
+                return true;
+            }
+            if (Hour > solar.Hour) {
+                return false;
+            }
+            if (Hour < solar.Hour) {
+                return true;
+            }
+            if (Minute > solar.Minute) {
+                return false;
+            }
+            if (Minute < solar.Minute) {
+                return true;
+            }
+            return Second < solar.Second;
+        }
+
+        /// <summary>
+        /// 年推移
+        /// </summary>
+        /// <param name="years">年数</param>
+        /// <returns>阳历</returns>
+        public Solar NextYear(int years)
+        {
+            var y = Year + years;
+            var m = Month;
+            var d = Day;
+            // 2月处理
+            if (2 == m) {
+                if (d > 28) {
+                    if (!SolarUtil.IsLeapYear(y)) {
+                        d -= 28;
+                        m++;
+                    }
+                }
+            }
+            if (1582 == y && 10 == m) {
+                if (d > 4 && d < 15) {
+                    d += 10;
+                }
+            }
+            return new Solar(y, m, d, Hour, Minute, Second);
+        }
+
+        /// <summary>
+        /// 月推移
+        /// </summary>
+        /// <param name="months">月数</param>
+        /// <returns>阳历</returns>
+        public Solar NextMonth(int months)
+        {
+            var month = SolarMonth.FromYm(Year, Month);
+            month = month.Next(months);
+            var y = month.Year;
+            var m = month.Month;
+            var d = Day;
+            // 2月处理
+            if (2 == m) {
+                if (d > 28) {
+                    if (!SolarUtil.IsLeapYear(y)) {
+                        d -= 28;
+                        m++;
+                    }
+                }
+            }
+            if (1582 == y && 10 == m) {
+                if (d > 4 && d < 15) {
+                    d += 10;
+                }
+            }
+            return new Solar(y, m, d, Hour, Minute, Second);
+        }
+
+        /// <summary>
+        /// 日推移
+        /// </summary>
+        /// <param name="days">天数</param>
+        /// <returns>阳历</returns>
+        public Solar NextDay(int days)
+        {
+            var y = Year;
+            var m = Month;
+            var d = Day;
+            if (days > 0) {
+                d = Day + days;
+                var daysInMonth = SolarUtil.GetDaysOfMonth(y, m);
+                while (d > daysInMonth) {
+                    d -= daysInMonth;
+                    m++;
+                    if (m > 12) {
+                        m -= 12;
+                        y++;
+                    }
+                    daysInMonth = SolarUtil.GetDaysOfMonth(y, m);
+                }
+            } else if (days < 0) {
+                var rest = -days;
+                while (d <= rest) {
+                    rest -= d;
+                    m--;
+                    if (m < 1) {
+                        m = 12;
+                        y--;
+                    }
+                    d = SolarUtil.GetDaysOfMonth(y, m);
+                }
+                d -= rest;
+            }
+            if (1582 == y && 10 == m) {
+                if (d > 4 && d < 15) {
+                    d += 10;
+                }
+            }
+            return new Solar(y, m, d, Hour, Minute, Second);
+        }
+
+        /// <summary>
         /// 获取往后推几天的阳历日期，如果要往前推，则天数用负数
         /// </summary>
         /// <param name="days">天数</param>
@@ -479,40 +681,51 @@ namespace Lunar
         /// <returns>阳历日期</returns>
         public Solar Next(int days, bool onlyWorkday = false)
         {
-            var c = ExactDate.FromYmdHms(Year, Month, Day, Hour, Minute, Second);
-            if (0 == days) return new Solar(c);
-            if (!onlyWorkday)
-            {
-                c = c.AddDays(days);
+            if(!onlyWorkday) {
+                return NextDay(days);
             }
-            else
-            {
+            var solar = new Solar(Year, Month, Day, Hour, Minute, Second);
+            if (days != 0) {
                 var rest = Math.Abs(days);
                 var add = days < 1 ? -1 : 1;
-                while (rest > 0)
-                {
-                    c = c.AddDays(add);
+                while (rest > 0) {
+                    solar = solar.Next(add);
                     var work = true;
-                    var holiday = HolidayUtil.GetHoliday(c.Year, c.Month, c.Day);
-                    if (null == holiday)
-                    {
-                        var week = c.DayOfWeek.ToString("d");
-                        if ("0".Equals(week)||"6".Equals(week))
-                        {
+                    Holiday holiday = HolidayUtil.GetHoliday(solar.Year, solar.Month, solar.Day);
+                    if (null == holiday) {
+                        int week = solar.Week;
+                        if (0 == week || 6 == week) {
                             work = false;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         work = holiday.Work;
                     }
-                    if (work)
-                    {
-                        rest--;
+                    if (work) {
+                        rest -= 1;
                     }
                 }
             }
-            return new Solar(c);
+            return solar;
+        }
+
+        /// <summary>
+        /// 小时推移
+        /// </summary>
+        /// <param name="hours">小时数</param>
+        /// <returns>阳历</returns>
+        public Solar NextHour(int hours)
+        {
+            var h = Hour + hours;
+            var n = h < 0 ? -1 : 1;
+            var hour = Math.Abs(h);
+            var days = hour / 24 * n;
+            hour = (hour % 24) * n;
+            if (hour < 0) {
+                hour += 24;
+                days--;
+            }
+            var solar = Next(days);
+            return new Solar(solar.Year, solar.Month, solar.Day, hour, solar.Minute, solar.Second);
         }
     }
 }

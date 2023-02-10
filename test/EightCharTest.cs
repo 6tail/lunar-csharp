@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Lunar;
 using Lunar.EightChar;
 using Xunit;
@@ -329,6 +331,80 @@ namespace test
             Assert.Equal("甲寅", eightChar.Month);
             Assert.Equal("庚子", eightChar.Day);
             Assert.Equal("戊子", eightChar.Time);
+        }
+        
+        [Fact]
+        public void Test12()
+        {
+            var solars = Solar.FromBaZi("丙辰","丁酉","丙子","甲午");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "1976-09-21 12:00:00",
+                "1916-10-06 12:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void Test13()
+        {
+            var solars = Solar.FromBaZi("壬寅","庚戌","己未","乙亥");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "2022-11-02 22:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void Test14()
+        {
+            var solars = Solar.FromBaZi("己卯","辛未","甲戌","壬申");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "1999-07-21 16:00:00",
+                "1939-08-05 16:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void Test15()
+        {
+            var solars = Solar.FromBaZi("庚子","戊子","己卯","庚午");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "1960-12-17 12:00:00",
+                "1901-01-01 12:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void Test16()
+        {
+            var solars = Solar.FromBaZi("庚子","癸未","乙丑","丁亥");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "2020-07-21 22:00:00",
+                "1960-08-05 22:00:00"
+            };
+
+            Assert.Equal(expected, actual);
         }
     }
 }

@@ -84,13 +84,8 @@ namespace Lunar
         /// <returns>推移后的半年</returns>
         public SolarHalfYear Next(int halfYears)
         {
-            if (0 == halfYears)
-            {
-                return new SolarHalfYear(Year, Month);
-            }
-            var c = ExactDate.FromYmdHms(Year, Month, 1);
-            c = c.AddMonths(MONTH_COUNT * halfYears);
-            return new SolarHalfYear(c);
+            var m = SolarMonth.FromYm(Year, Month).Next(MONTH_COUNT * halfYears);
+            return new SolarHalfYear(m.Year, m.Month);
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 using Lunar.Util;
-using System;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
@@ -64,7 +63,7 @@ namespace Lunar.EightChar
 
             if (2 == sect)
             {
-                var minutes = (long)(new TimeSpan(end.Calendar.Ticks - start.Calendar.Ticks).TotalMinutes);
+                var minutes = end.SubtractMinute(start);
                 var y = minutes / 4320;
                 minutes -= y * 4320;
                 var m = minutes / 360;
@@ -72,10 +71,10 @@ namespace Lunar.EightChar
                 var d = minutes / 12;
                 minutes -= d * 12;
                 var h = minutes * 2;
-                year = (int)y;
-                month = (int)m;
-                day = (int)d;
-                hour = (int)h;
+                year = y;
+                month = m;
+                day = d;
+                hour = h;
             }
             else
             {
@@ -83,7 +82,7 @@ namespace Lunar.EightChar
                 var startTimeZhiIndex = (start.Hour == 23) ? 11 : LunarUtil.GetTimeZhiIndex(start.YmdHms.Substring(11, 5));
                 // 时辰差
                 var hourDiff = endTimeZhiIndex - startTimeZhiIndex;
-                var dayDiff = ExactDate.GetDaysBetween(start.Year, start.Month, start.Day, end.Year, end.Month, end.Day);
+                var dayDiff = end.Subtract(start);
                 if (hourDiff < 0)
                 {
                     hourDiff += 12;
@@ -109,13 +108,11 @@ namespace Lunar.EightChar
         {
             get
             {
-                var birth = Lunar.Solar;
-                var c = ExactDate.FromYmdHms(birth.Year, birth.Month, birth.Day, birth.Hour, birth.Minute, birth.Second);
-                c = c.AddYears(StartYear);
-                c = c.AddMonths(StartMonth);
-                c = c.AddDays(StartDay);
-                c = c.AddHours(StartHour);
-                return Solar.FromDate(c);
+                var solar = Lunar.Solar;
+                solar = solar.NextYear(StartYear);
+                solar = solar.NextMonth(StartMonth);
+                solar = solar.Next(StartDay);
+                return solar.NextHour(StartHour);
             }
         }
 

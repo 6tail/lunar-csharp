@@ -91,9 +91,7 @@ namespace Lunar
         /// <returns>阳历年</returns>
         public SolarYear Next(int years)
         {
-            var c = ExactDate.FromYmdHms(Year, 1, 1);
-            c = c.AddYears(years);
-            return new SolarYear(c);
+            return new SolarYear(Year + years);
         }
 
         public override string ToString()
