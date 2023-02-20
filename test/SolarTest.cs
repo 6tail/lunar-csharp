@@ -172,5 +172,12 @@ namespace test
             var days = SolarUtil.GetDaysBetween(1582, 1, 1, 1583, 1, 1);
             Assert.Equal(355, days);
         }
+        
+        [Fact]
+        public void Test22()
+        {
+            var solar = Solar.FromYmdHms(1582, 10, 15);
+            Assert.Equal("1582-09-30", solar.Next(-5).Ymd);
+        }
     }
 }

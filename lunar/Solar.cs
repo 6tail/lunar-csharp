@@ -486,7 +486,8 @@ namespace Lunar
             var cm = Hour * 60 + Minute;
             var sm = solar.Hour * 60 + solar.Minute;
             var m = cm - sm;
-            if (m < 0) {
+            if (m < 0)
+            {
                 m += 1440;
                 days--;
             }
@@ -501,34 +502,43 @@ namespace Lunar
         /// <returns>true/false</returns>
         public bool IsAfter(Solar solar)
         {
-            if (Year > solar.Year) {
+            if (Year > solar.Year)
+            {
                 return true;
             }
-            if (Year < solar.Year) {
+            if (Year < solar.Year)
+            {
                 return false;
             }
-            if (Month > solar.Month) {
+            if (Month > solar.Month)
+            {
                 return true;
             }
-            if (Month < solar.Month) {
+            if (Month < solar.Month) 
+            {
                 return false;
             }
             if (Day > solar.Day) {
                 return true;
             }
-            if (Day < solar.Day) {
+            if (Day < solar.Day)
+            {
                 return false;
             }
-            if (Hour > solar.Hour) {
+            if (Hour > solar.Hour)
+            {
                 return true;
             }
-            if (Hour < solar.Hour) {
+            if (Hour < solar.Hour)
+            {
                 return false;
             }
-            if (Minute > solar.Minute) {
+            if (Minute > solar.Minute)
+            {
                 return true;
             }
-            if (Minute < solar.Minute) {
+            if (Minute < solar.Minute)
+            {
                 return false;
             }
             return Second > solar.Second;
@@ -541,34 +551,44 @@ namespace Lunar
         /// <returns>true/false</returns>
         public bool IsBefore(Solar solar)
         {
-            if (Year > solar.Year) {
+            if (Year > solar.Year)
+            {
                 return false;
             }
-            if (Year < solar.Year) {
+            if (Year < solar.Year)
+            {
                 return true;
             }
-            if (Month > solar.Month) {
+            if (Month > solar.Month)
+            {
                 return false;
             }
-            if (Month < solar.Month) {
+            if (Month < solar.Month) 
+            {
                 return true;
             }
-            if (Day > solar.Day) {
+            if (Day > solar.Day)
+            {
                 return false;
             }
-            if (Day < solar.Day) {
+            if (Day < solar.Day)
+            {
                 return true;
             }
-            if (Hour > solar.Hour) {
+            if (Hour > solar.Hour)
+            {
                 return false;
             }
-            if (Hour < solar.Hour) {
+            if (Hour < solar.Hour)
+            {
                 return true;
             }
-            if (Minute > solar.Minute) {
+            if (Minute > solar.Minute)
+            {
                 return false;
             }
-            if (Minute < solar.Minute) {
+            if (Minute < solar.Minute) 
+            {
                 return true;
             }
             return Second < solar.Second;
@@ -585,16 +605,20 @@ namespace Lunar
             var m = Month;
             var d = Day;
             // 2月处理
-            if (2 == m) {
-                if (d > 28) {
-                    if (!SolarUtil.IsLeapYear(y)) {
-                        d -= 28;
-                        m++;
+            if (2 == m)
+            {
+                if (d > 28)
+                {
+                    if (!SolarUtil.IsLeapYear(y))
+                    {
+                        d = 28;
                     }
                 }
             }
-            if (1582 == y && 10 == m) {
-                if (d > 4 && d < 15) {
+            if (1582 == y && 10 == m)
+            {
+                if (d > 4 && d < 15)
+                {
                     d += 10;
                 }
             }
@@ -614,16 +638,20 @@ namespace Lunar
             var m = month.Month;
             var d = Day;
             // 2月处理
-            if (2 == m) {
-                if (d > 28) {
-                    if (!SolarUtil.IsLeapYear(y)) {
-                        d -= 28;
-                        m++;
+            if (2 == m)
+            {
+                if (d > 28)
+                {
+                    if (!SolarUtil.IsLeapYear(y)) 
+                    {
+                        d = 28;
                     }
                 }
             }
-            if (1582 == y && 10 == m) {
-                if (d > 4 && d < 15) {
+            if (1582 == y && 10 == m)
+            {
+                if (d > 4 && d < 15)
+                {
                     d += 10;
                 }
             }
@@ -640,33 +668,42 @@ namespace Lunar
             var y = Year;
             var m = Month;
             var d = Day;
-            if (days > 0) {
-                d = Day + days;
+            if (1582 == y && 10 == m)
+            {
+                if (d > 4)
+                {
+                    d -= 10;
+                }
+            }
+            if (days > 0)
+            {
+                d += days;
                 var daysInMonth = SolarUtil.GetDaysOfMonth(y, m);
                 while (d > daysInMonth) {
                     d -= daysInMonth;
                     m++;
                     if (m > 12) {
-                        m -= 12;
+                        m = 1;
                         y++;
                     }
                     daysInMonth = SolarUtil.GetDaysOfMonth(y, m);
                 }
-            } else if (days < 0) {
-                var rest = -days;
-                while (d <= rest) {
-                    rest -= d;
+            } else if (days < 0)
+            {
+                while (d + days <= 0)
+                {
                     m--;
                     if (m < 1) {
                         m = 12;
                         y--;
                     }
-                    d = SolarUtil.GetDaysOfMonth(y, m);
+                    d += SolarUtil.GetDaysOfMonth(y, m);
                 }
-                d -= rest;
+                d += days;
             }
-            if (1582 == y && 10 == m) {
-                if (d > 4 && d < 15) {
+            if (1582 == y && 10 == m)
+            {
+                if (d > 4) {
                     d += 10;
                 }
             }
@@ -681,26 +718,32 @@ namespace Lunar
         /// <returns>阳历日期</returns>
         public Solar Next(int days, bool onlyWorkday = false)
         {
-            if(!onlyWorkday) {
+            if(!onlyWorkday)
+            {
                 return NextDay(days);
             }
             var solar = new Solar(Year, Month, Day, Hour, Minute, Second);
-            if (days != 0) {
+            if (days != 0)
+            {
                 var rest = Math.Abs(days);
                 var add = days < 1 ? -1 : 1;
-                while (rest > 0) {
+                while (rest > 0)
+                {
                     solar = solar.Next(add);
                     var work = true;
-                    Holiday holiday = HolidayUtil.GetHoliday(solar.Year, solar.Month, solar.Day);
-                    if (null == holiday) {
-                        int week = solar.Week;
+                    var holiday = HolidayUtil.GetHoliday(solar.Year, solar.Month, solar.Day);
+                    if (null == holiday)
+                    {
+                        var week = solar.Week;
                         if (0 == week || 6 == week) {
                             work = false;
                         }
-                    } else {
+                    } else
+                    {
                         work = holiday.Work;
                     }
-                    if (work) {
+                    if (work)
+                    {
                         rest -= 1;
                     }
                 }
@@ -720,7 +763,8 @@ namespace Lunar
             var hour = Math.Abs(h);
             var days = hour / 24 * n;
             hour = (hour % 24) * n;
-            if (hour < 0) {
+            if (hour < 0)
+            {
                 hour += 24;
                 days--;
             }
