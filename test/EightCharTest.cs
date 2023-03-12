@@ -406,5 +406,49 @@ namespace test
 
             Assert.Equal(expected, actual);
         }
+        
+        [Fact]
+        public void Test17()
+        {
+            var solars = Solar.FromBaZi("癸卯","甲寅","癸丑","甲子", 2, 1843);
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "2023-02-24 23:00:00",
+                "1843-02-08 23:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void Test18()
+        {
+            var solars = Solar.FromBaZi("己亥","丁丑","壬寅","戊申");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "1960-01-15 16:00:00",
+                "1900-01-29 16:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
+        
+        [Fact]
+        public void Test19()
+        {
+            var solars = Solar.FromBaZi("己亥","丙子","癸酉","庚申");
+            var actual = solars.Select(solar => solar.YmdHms).ToList();
+
+            var expected = new List<string>
+            {
+                "1959-12-17 16:00:00"
+            };
+
+            Assert.Equal(expected, actual);
+        }
     }
 }

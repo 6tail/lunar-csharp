@@ -517,5 +517,82 @@ namespace test
             var lunar = Lunar.Lunar.FromYmdHms(1582, 9, 19);
             Assert.Equal("1582-10-15", lunar.Solar.Ymd);
         }
+        
+        [Fact]
+        public void Test57()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(1518, 1, 1);
+            Assert.Equal("1518-02-10", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test58()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(793, 1, 1);
+            Assert.Equal("0793-02-15", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test59()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(2025, -6, 1);
+            Assert.Equal("2025-07-25", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test60()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(2025, 6, 1);
+            Assert.Equal("2025-06-25", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test61()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(193, 1, 1);
+            Assert.Equal("0193-02-19", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test62()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(288, 1, 1);
+            Assert.Equal("0288-02-19", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test63()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(755, 1, 1);
+            Assert.Equal("0755-02-16", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test64()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(41, 1, 1);
+            Assert.Equal("0041-02-20", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test65()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(57, 1, 1);
+            Assert.Equal("0057-02-23", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test66()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(345, 1, 1);
+            Assert.Equal("0345-02-18", lunar.Solar.Ymd);
+        }
+        
+        [Fact]
+        public void Test67()
+        {
+            var lunar = Lunar.Lunar.FromYmdHms(1537, 1, 1);
+            Assert.Equal("1537-02-10", lunar.Solar.Ymd);
+        }
     }
 }

@@ -65,20 +65,39 @@ namespace Lunar
         /// <param name="second">秒钟，0到59</param>
         public Solar(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
-            if (1582 == year && 10 == month) {
-                if (day > 4 && day < 15) {
+            if (1582 == year && 10 == month)
+            {
+                if (day > 4 && day < 15)
+                {
                     throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
                 }
             }
-            if (hour < 0 || hour > 23) {
+
+            if (month < 1 || month > 12)
+            {
+                throw new ArgumentException("wrong month " + month);
+            }
+
+            if (day < 1 || day > 31)
+            {
+                throw new ArgumentException("wrong day " + day);
+            }
+
+            if (hour < 0 || hour > 23)
+            {
                 throw new ArgumentException("wrong hour %d" + hour);
             }
-            if (minute < 0 || minute > 59) {
+
+            if (minute < 0 || minute > 59)
+            {
                 throw new ArgumentException("wrong minute %d" + minute);
             }
-            if (second < 0 || second > 59) {
+
+            if (second < 0 || second > 59)
+            {
                 throw new ArgumentException("wrong second %d" + second);
             }
+
             Year = year;
             Month = month;
             Day = day;
@@ -211,40 +230,47 @@ namespace Lunar
                 offsetYear += 60;
             }
             var startYear = today.Year - offsetYear - 1;
-            while (true)
+            var minYear = baseYear - 2;
+            while (startYear >= minYear)
             {
                 years.Add(startYear);
                 startYear -= 60;
-                if (startYear < baseYear)
-                {
-                    years.Add(baseYear);
-                    break;
-                }
             }
-            var hour = 0;
+            var hours = new List<int>();
             var timeZhi = timeGanZhi.Substring(1);
-            for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+            for (int i = 1, j = LunarUtil.ZHI.Length; i < j; i++)
             {
                 if (LunarUtil.ZHI[i].Equals(timeZhi))
                 {
-                    hour = (i - 1) * 2;
+                    hours.Add((i - 1) * 2);
                 }
             }
 
-            foreach (var y in years)
+            if ("子".Equals(timeZhi))
             {
-                for (var x = 0; x < 3; x++)
+                hours.Add(23);
+            }
+
+            foreach (var hour in hours)
+            {
+                foreach (var y in years)
                 {
-                    var year = y + x;
-                    var solar = new Solar(year, 1, 1, hour);
-                    while (solar.Year == year)
+                    var maxYear = y + 3;
+                    var year = y;
+                    var month = 11;
+                    if (year < baseYear)
+                    {
+                        year = baseYear;
+                        month = 1;
+                    }
+                    var solar = new Solar(year, month, 1, hour);
+                    while (solar.Year <= maxYear)
                     {
                         var lunar = solar.Lunar;
                         var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                         if (lunar.YearInGanZhiExact.Equals(yearGanZhi) && lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.TimeInGanZhi.Equals(timeGanZhi))
                         {
                             l.Add(solar);
-                            x = 3;
                             break;
                         }
                         solar = solar.Next(1);
@@ -632,8 +658,7 @@ namespace Lunar
         /// <returns>阳历</returns>
         public Solar NextMonth(int months)
         {
-            var month = SolarMonth.FromYm(Year, Month);
-            month = month.Next(months);
+            var month = SolarMonth.FromYm(Year, Month).Next(months);
             var y = month.Year;
             var m = month.Month;
             var d = Day;
@@ -726,7 +751,7 @@ namespace Lunar
             if (days != 0)
             {
                 var rest = Math.Abs(days);
-                var add = days < 1 ? -1 : 1;
+                var add = days < 0 ? -1 : 1;
                 while (rest > 0)
                 {
                     solar = solar.Next(add);

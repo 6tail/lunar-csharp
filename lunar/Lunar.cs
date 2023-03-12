@@ -237,9 +237,7 @@ namespace Lunar
             var ly = LunarYear.FromYear(solar.Year);            
             foreach (var m in ly.Months)
             {
-                // 初一
-                var firstDay = Solar.FromJulianDay(m.FirstJulianDay);
-                var days = solar.Subtract(firstDay);
+                var days = solar.Subtract(Solar.FromJulianDay(m.FirstJulianDay));
                 if (days < m.DayCount)
                 {
                     Year = m.Year;
@@ -2041,8 +2039,7 @@ namespace Lunar
                     start = new Solar(start.Year, start.Month, start.Day);
                 }
 
-                var end = new Solar(start.Year, start.Month, start.Day);
-                end = end.Next(81);
+                var end = new Solar(start.Year, start.Month, start.Day).Next(81);
                 
                 if (current.IsBefore(start) || !current.IsBefore(end))
                 {

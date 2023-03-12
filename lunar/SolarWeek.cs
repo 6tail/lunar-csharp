@@ -162,11 +162,9 @@ namespace Lunar
                         }
                         else
                         {
-                            var size = SolarUtil.GetWeeksOfMonth(week.Year, week.Month, Start);
-                            if (size == index)
+                            if (SolarUtil.GetWeeksOfMonth(week.Year, week.Month, Start) == index)
                             {
-                                var firstDay = week.FirstDay;
-                                var lastDay = firstDay.Next(6);
+                                var lastDay = week.FirstDay.Next(6);
                                 week = new SolarWeek(lastDay.Year, lastDay.Month, lastDay.Day, Start);
                                 weekMonth = week.Month;
                             }

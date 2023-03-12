@@ -137,5 +137,26 @@ namespace test
             var year = new LunarYear(2004);
             Assert.Equal("八运", year.Yun);
         }
+        
+        [Fact]
+        public void Test19()
+        {
+            var year = new LunarYear(2023);
+            Assert.Equal(384, year.DayCount);
+        }
+        
+        [Fact]
+        public void Test20()
+        {
+            var year = new LunarYear(2021);
+            Assert.Equal(354, year.DayCount);
+        }
+        
+        [Fact]
+        public void Test21()
+        {
+            var year = new LunarYear(2022);
+            Assert.Equal(355, year.DayCount);
+        }
     }
 }

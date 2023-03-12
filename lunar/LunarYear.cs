@@ -149,9 +149,10 @@ namespace Lunar
 
             // 冬至前的初一
             var w = ShouXingUtil.CalcShuo(jq[0]);
-            if (w > jq[0])
-            {
-                w -= 29.5306;
+            if (w > jq[0]) {
+                if (Year != 41 && Year != 193 && Year != 288 && Year != 345 && Year != 918 && Year != 1013) {
+                    w -= 29.5306;
+                }
             }
             // 递推每月初一
             for (int i = 0, j = hs.Length; i < j; i++)
@@ -163,68 +164,49 @@ namespace Lunar
             {
                 dayCounts[i] = (int)(hs[i + 1] - hs[i]);
             }
+            
+            var prevYear = Year - 1;
+            var leapYear = -1;
+            var leapIndex = -1;
 
-            var currentYearLeap = -1;
             try
             {
-                currentYearLeap = LEAP[Year];
+                leapIndex = LEAP[Year];
+                leapYear = Year;
             }
             catch
             {
-                // ignored
-            }
-
-            if (-1 == currentYearLeap)
-            {
-                currentYearLeap = -1;
-                if (hs[13] <= jq[24])
+                try
                 {
-                    var i = 1;
-                    while (hs[i + 1] > jq[2 * i] && i < 13)
+                    leapIndex = LEAP[prevYear] - 12;
+                    leapYear = prevYear;
+                }
+                catch
+                {
+                    if (hs[13] <= jq[24])
                     {
-                        i++;
+                        var i = 1;
+                        while (hs[i + 1] > jq[2 * i] && i < 13)
+                        {
+                            i++;
+                        }
+                        leapYear = Year;
+                        leapIndex = i;
                     }
-                    currentYearLeap = i;
                 }
             }
-
-            var prevYear = Year - 1;
-            var prevYearLeap = -1;
-            try
-            {
-                prevYearLeap = LEAP[prevYear];
-            }
-            catch
-            {
-                // ignored
-            }
-
-            prevYearLeap = -1 == prevYearLeap ? -1 : prevYearLeap - 12;
 
             var y = prevYear;
             var m = 11;
             for (int i = 0, j = dayCounts.Length; i < j; i++)
             {
                 var cm = m;
-                var isNextLeap = false;
-                if (y == Year && i == currentYearLeap)
+                if (y == leapYear && i == leapIndex)
                 {
                     cm = -cm;
-                }
-                else if (y == prevYear && i == prevYearLeap)
-                {
-                    cm = -cm;
-                }
-                if (y == Year && i + 1 == currentYearLeap)
-                {
-                    isNextLeap = true;
-                }
-                else if (y == prevYear && i + 1 == prevYearLeap)
-                {
-                    isNextLeap = true;
                 }
                 Months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000));
-                if (!isNextLeap)
+                if (y != leapYear || i + 1 != leapIndex)
                 {
                     m++;
                 }
@@ -258,6 +240,16 @@ namespace Lunar
 
         public int LeapMonth => (from m in Months where m.Year == Year && m.Leap select Math.Abs(m.Month)).FirstOrDefault();
 
+        /// <summary>
+        /// 获取总天数
+        /// </summary>
+        public int DayCount => Months.Where(m => m.Year == Year).Sum(m => m.DayCount);
+
+        /// <summary>
+        /// 获取当年的农历月们
+        /// </summary>
+        public List<LunarMonth> MonthsInYear => Months.Where(m => m.Year == Year).ToList();
+        
         public override string ToString()
         {
             return Year + "";
