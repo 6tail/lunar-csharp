@@ -198,6 +198,7 @@ namespace Lunar
 
             var y = prevYear;
             var m = 11;
+            var index = m;
             for (int i = 0, j = dayCounts.Length; i < j; i++)
             {
                 var cm = m;
@@ -205,14 +206,16 @@ namespace Lunar
                 {
                     cm = -cm;
                 }
-                Months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000));
+                Months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000, index));
                 if (y != leapYear || i + 1 != leapIndex)
                 {
                     m++;
                 }
+                index++;
                 if (m == 13)
                 {
                     m = 1;
+                    index = 1;
                     y++;
                 }
             }

@@ -122,8 +122,7 @@ namespace Lunar.EightChar
 
         private string GetDiShi(int zhiIndex)
         {
-            var offset = CHANG_SHENG_OFFSET[DayGan];
-            var index = offset + (DayGanIndex % 2 == 0 ? zhiIndex : -zhiIndex);
+            var index = CHANG_SHENG_OFFSET[DayGan] + (DayGanIndex % 2 == 0 ? zhiIndex : -zhiIndex);
             if (index >= 12)
             {
                 index -= 12;

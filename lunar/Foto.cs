@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,13 +79,31 @@ namespace Lunar
                 var l = new List<FotoFestival>();
                 try
                 {
-                    l.AddRange(FotoUtil.FESTIVAL[Month + "-" + Day]);
+                    l.AddRange(FotoUtil.FESTIVAL[Math.Abs(Month) + "-" + Day]);
                 }
                 catch
                 {
                     // ignored
                 }
 
+                return l;
+            }
+        }
+        
+        public List<string> OtherFestivals
+        {
+            get
+            {
+                var l = new List<string>();
+                try
+                {
+                    var fs = FotoUtil.OTHER_FESTIVAL[Month + "-" + Day];
+                    l.AddRange(fs);
+                }
+                catch
+                {
+                    // ignored
+                }
                 return l;
             }
         }

@@ -36,6 +36,8 @@ namespace Lunar.Util
         private static readonly FotoFestival HH = new FotoFestival("月晦", JS, true, "如月小，即戒廿九");
 
         public static readonly Dictionary<string, List<FotoFestival>> FESTIVAL = new Dictionary<string, List<FotoFestival>>();
+        
+        public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
 
         static FotoUtil()
         {
@@ -258,6 +260,37 @@ namespace Lunar.Util
             FESTIVAL.Add("12-28", new List<FotoFestival>(new[] { R }));
             FESTIVAL.Add("12-29", new List<FotoFestival>(new[] { new FotoFestival("华严菩萨诞"), T }));
             FESTIVAL.Add("12-30", new List<FotoFestival>(new[] { new FotoFestival("诸神下降，察访善恶", "犯者男女俱亡") }));
+            
+            OTHER_FESTIVAL.Add("1-1", new List<string>(new[] { "弥勒菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("1-6", new List<string>(new[] { "定光佛圣诞" }));
+            OTHER_FESTIVAL.Add("2-8", new List<string>(new[] { "释迦牟尼佛出家" }));
+            OTHER_FESTIVAL.Add("2-15", new List<string>(new[] { "释迦牟尼佛涅槃" }));
+            OTHER_FESTIVAL.Add("2-19", new List<string>(new[] { "观世音菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("2-21", new List<string>(new[] { "普贤菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("3-16", new List<string>(new[] { "准提菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("4-4", new List<string>(new[] { "文殊菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("4-8", new List<string>(new[] { "释迦牟尼佛圣诞" }));
+            OTHER_FESTIVAL.Add("4-15", new List<string>(new[] { "佛吉祥日" }));
+            OTHER_FESTIVAL.Add("4-28", new List<string>(new[] { "药王菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("5-13", new List<string>(new[] { "伽蓝菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("6-3", new List<string>(new[] { "韦驮菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("6-19", new List<string>(new[] { "观音菩萨成道" }));
+            OTHER_FESTIVAL.Add("7-13", new List<string>(new[] { "大势至菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("7-15", new List<string>(new[] { "佛欢喜日" }));
+            OTHER_FESTIVAL.Add("7-24", new List<string>(new[] { "龙树菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("7-30", new List<string>(new[] { "地藏菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("8-15", new List<string>(new[] { "月光菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("8-22", new List<string>(new[] { "燃灯佛圣诞" }));
+            OTHER_FESTIVAL.Add("9-9", new List<string>(new[] { "摩利支天菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("9-19", new List<string>(new[] { "观世音菩萨出家" }));
+            OTHER_FESTIVAL.Add("9-30", new List<string>(new[] { "药师琉璃光佛圣诞" }));
+            OTHER_FESTIVAL.Add("10-5", new List<string>(new[] { "达摩祖师圣诞" }));
+            OTHER_FESTIVAL.Add("10-20", new List<string>(new[] { "文殊菩萨出家" }));
+            OTHER_FESTIVAL.Add("11-17", new List<string>(new[] { "阿弥陀佛圣诞" }));
+            OTHER_FESTIVAL.Add("11-19", new List<string>(new[] { "日光菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("12-8", new List<string>(new[] { "释迦牟尼佛成道" }));
+            OTHER_FESTIVAL.Add("12-23", new List<string>(new[] { "监斋菩萨圣诞" }));
+            OTHER_FESTIVAL.Add("12-29", new List<string>(new[] { "华严菩萨圣诞" }));
         }
 
         /// <summary>

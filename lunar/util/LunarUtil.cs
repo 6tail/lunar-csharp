@@ -185,7 +185,7 @@ namespace Lunar.Util
         /// <summary>
         /// 月相
         /// </summary>
-        public static readonly string[] YUE_XIANG = { "", "朔", "既朔", "蛾眉新", "蛾眉新", "蛾眉", "夕月", "上弦", "上弦", "九夜", "宵", "宵", "宵", "渐盈凸", "小望", "望", "既望", "立待", "居待", "寝待", "更待", "渐亏凸", "下弦", "下弦", "有明", "有明", "蛾眉残", "蛾眉残", "残", "晓", "晦" };
+        public static readonly string[] YUE_XIANG = { "", "朔", "既朔", "蛾眉新", "蛾眉新", "蛾眉", "夕", "上弦", "上弦", "九夜", "宵", "宵", "宵", "渐盈凸", "小望", "望", "既望", "立待", "居待", "寝待", "更待", "渐亏凸", "下弦", "下弦", "有明", "有明", "蛾眉残", "蛾眉残", "残", "晓", "晦" };
 
         /// <summary>
         /// 地支相冲（子午相冲，丑未相冲，寅申相冲，辰戌相冲，卯酉相冲，巳亥相冲），由于地支对应十二生肖，也就对应了生肖相冲
@@ -1243,8 +1243,7 @@ namespace Lunar.Util
                 var months = left.Substring(0, left.IndexOf(":", StringComparison.Ordinal));
                 for (int i = 0, j = months.Length; i < j; i += 2)
                 {
-                    var m = months.Substring(i, 2);
-                    if (m.Equals(month))
+                    if (months.Substring(i, 2).Equals(month))
                     {
                         matched = true;
                         break;
@@ -1256,8 +1255,7 @@ namespace Lunar.Util
                     ys = ys.Substring(0, ys.IndexOf(",", StringComparison.Ordinal));
                     for (int i = 0, j = ys.Length; i < j; i += 2)
                     {
-                        var m = ys.Substring(i, 2);
-                        l.Add(YI_JI[Int32.Parse(m, NumberStyles.HexNumber)]);
+                        l.Add(YI_JI[int.Parse(ys.Substring(i, 2), NumberStyles.HexNumber)]);
                     }
                     break;
                 }
@@ -1295,8 +1293,7 @@ namespace Lunar.Util
                 var months = left.Substring(0, left.IndexOf(":", StringComparison.Ordinal));
                 for (int i = 0, j = months.Length; i < j; i += 2)
                 {
-                    var m = months.Substring(i, 2);
-                    if (m.Equals(month))
+                    if (months.Substring(i, 2).Equals(month))
                     {
                         matched = true;
                         break;
@@ -1307,8 +1304,7 @@ namespace Lunar.Util
                     var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                     for (int i = 0, j = js.Length; i < j; i += 2)
                     {
-                        var m = js.Substring(i, 2);
-                        l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
+                        l.Add(YI_JI[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)]);
                     }
                     break;
                 }
@@ -1344,8 +1340,7 @@ namespace Lunar.Util
                 var js = left.Substring(0, left.IndexOf(",", StringComparison.Ordinal));
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
-                    string m = js.Substring(i, 2);
-                    l.Add(SHEN_SHA[int.Parse(m, NumberStyles.HexNumber)]);
+                    l.Add(SHEN_SHA[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count < 1)
@@ -1378,8 +1373,7 @@ namespace Lunar.Util
                 var xs = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                 for (int i = 0, j = xs.Length; i < j; i += 2)
                 {
-                    var m = xs.Substring(i, 2);
-                    l.Add(SHEN_SHA[int.Parse(m, NumberStyles.HexNumber)]);
+                    l.Add(SHEN_SHA[int.Parse(xs.Substring(i, 2), NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count < 1)
@@ -1411,8 +1405,7 @@ namespace Lunar.Util
                 var ys = left.Substring(0, left.IndexOf(",", StringComparison.Ordinal));
                 for (int i = 0, j = ys.Length; i < j; i += 2)
                 {
-                    var m = ys.Substring(i, 2);
-                    l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
+                    l.Add(YI_JI[int.Parse(ys.Substring(i, 2), NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count < 1)
@@ -1444,8 +1437,7 @@ namespace Lunar.Util
                 var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
-                    var m = js.Substring(i, 2);
-                    l.Add(YI_JI[int.Parse(m, NumberStyles.HexNumber)]);
+                    l.Add(YI_JI[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)]);
                 }
             }
             if (l.Count<1)

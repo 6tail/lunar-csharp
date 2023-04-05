@@ -28,6 +28,10 @@ namespace Lunar
         /// 初一的儒略日
         /// </summary>
         public double FirstJulianDay { get; }
+        
+        public int Index { get; }
+        
+        public int ZhiIndex { get; }
 
         /// <summary>
         /// 初始化
@@ -36,12 +40,15 @@ namespace Lunar
         /// <param name="lunarMonth">农历月：1-12，闰月为负数，如闰2月为-2</param>
         /// <param name="dayCount">天数</param>
         /// <param name="firstJulianDay">初一的儒略日</param>
-        public LunarMonth(int lunarYear, int lunarMonth, int dayCount, double firstJulianDay)
+        /// <param name="index">序号</param>
+        public LunarMonth(int lunarYear, int lunarMonth, int dayCount, double firstJulianDay, int index)
         {
             Year = lunarYear;
             Month = lunarMonth;
             DayCount = dayCount;
             FirstJulianDay = firstJulianDay;
+            Index = index;
+            ZhiIndex = (index - 1 + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
         }
 
         /// <summary>
@@ -59,6 +66,49 @@ namespace Lunar
         /// 是否闰月
         /// </summary>
         public bool Leap => Month < 0;
+
+        public int GanIndex
+        {
+            get
+            {
+                var offset = (LunarYear.FromYear(Year).GanIndex + 1) % 5 * 2;
+                return (Index - 1 + offset) % 10;
+            }
+        }
+
+        public string Gan => LunarUtil.GAN[GanIndex + 1];
+        
+        public string Zhi => LunarUtil.ZHI[ZhiIndex + 1];
+        
+        public string GanZhi => Gan + Zhi;
+        
+        public string PositionXi => LunarUtil.POSITION_XI[GanIndex + 1];
+
+        public string PositionXiDesc => LunarUtil.POSITION_DESC[PositionXi];
+
+        public string PositionYangGui => LunarUtil.POSITION_YANG_GUI[GanIndex + 1];
+
+        public string PositionYangGuiDesc => LunarUtil.POSITION_DESC[PositionYangGui];
+
+        public string PositionYinGui => LunarUtil.POSITION_YIN_GUI[GanIndex + 1];
+
+        public string PositionYinGuiDesc => LunarUtil.POSITION_DESC[PositionYinGui];
+
+        public string PositionFu => GetPositionFu();
+        
+        public string GetPositionFu(int sect = 2) {
+            return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[GanIndex + 1];
+        }
+
+        public string PositionFuDesc => GetPositionFuDesc();
+        
+        public string GetPositionFuDesc(int sect = 2) {
+            return LunarUtil.POSITION_DESC[GetPositionFu(sect)];
+        }
+
+        public string PositionCai => LunarUtil.POSITION_CAI[GanIndex + 1];
+
+        public string PositionCaiDesc => LunarUtil.POSITION_DESC[PositionCai];
 
         /// <summary>
         /// 太岁方位，如艮

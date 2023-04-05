@@ -200,15 +200,7 @@ namespace Lunar
         /// <summary>
         /// 天神
         /// </summary>
-        public string TianShen
-        {
-            get
-            {
-                var dayZhi = Lunar.DayZhiExact;
-                var offset = LunarUtil.ZHI_TIAN_SHEN_OFFSET[dayZhi];
-                return LunarUtil.TIAN_SHEN[(ZhiIndex + offset) % 12 + 1];
-            }
-        }
+        public string TianShen => LunarUtil.TIAN_SHEN[(ZhiIndex + LunarUtil.ZHI_TIAN_SHEN_OFFSET[Lunar.DayZhiExact]) % 12 + 1];
 
         /// <summary>
         /// 天神类型：黄道/黑道

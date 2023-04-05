@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Lunar;
 using Xunit;
 // ReSharper disable IdentifierTypo
@@ -26,6 +27,17 @@ namespace test
             Assert.Equal("貉", foto.Animal);
             Assert.Equal("东", foto.Gong);
             Assert.Equal("青龙", foto.Shou);
+        }
+        
+        [Fact]
+        public void Test3()
+        {
+            var foto = Foto.FromLunar(Lunar.Lunar.FromYmdHms(2021, 3, 16));
+            var expected = new List<string>
+            {
+                "准提菩萨圣诞"
+            };
+            Assert.Equal(expected, foto.OtherFestivals);
         }
     }
 }
