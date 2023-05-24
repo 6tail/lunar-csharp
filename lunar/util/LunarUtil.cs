@@ -244,6 +244,9 @@ namespace Lunar.Util
         /// </summary>
         public static readonly Dictionary<string, string> FESTIVAL = new Dictionary<string, string>();
 
+        /// <summary>
+        /// 非正式节日
+        /// </summary>
         public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
 
         /// <summary>
