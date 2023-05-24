@@ -12,7 +12,7 @@ namespace Lunar
     /// <summary>
     /// 农历年
     /// </summary>
-    public class LunarYear
+    public sealed class LunarYear
     {
         /// <summary>
         /// 元

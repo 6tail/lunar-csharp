@@ -9,7 +9,7 @@ namespace Lunar
     /// <summary>
     /// 九星
     /// </summary>
-    public class NineStar
+    public sealed class NineStar
     {
 
         /// <summary>

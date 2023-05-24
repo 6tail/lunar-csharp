@@ -4,7 +4,7 @@ namespace Lunar
     /// <summary>
     /// 道历节日
     /// </summary>
-    public class TaoFestival
+    public sealed class TaoFestival
     {
 
         /// <summary>

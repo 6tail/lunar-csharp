@@ -10,7 +10,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 八字
     /// </summary>
-    public class EightChar
+    public sealed class EightChar
     {
         /// <summary>
         /// 月支，按正月起寅排列

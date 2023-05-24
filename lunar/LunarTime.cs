@@ -9,7 +9,7 @@ namespace Lunar
     /// <summary>
     /// 时辰
     /// </summary>
-    public class LunarTime
+    public sealed class LunarTime
     {
         /// <summary>
         /// 天干下标，0-9

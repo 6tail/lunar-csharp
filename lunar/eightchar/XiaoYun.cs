@@ -8,7 +8,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 小运
     /// </summary>
-    public class XiaoYun
+    public sealed class XiaoYun
     {
         /// <summary>
         /// 序数，0-9

@@ -4,7 +4,7 @@ namespace Lunar
     /// <summary>
     /// 节假日
     /// </summary>
-    public class Holiday
+    public sealed class Holiday
     {
         /// <summary>
         /// 日期，YYYY-MM-DD

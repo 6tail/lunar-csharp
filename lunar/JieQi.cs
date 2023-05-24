@@ -5,7 +5,7 @@ namespace Lunar
     /// <summary>
     /// 节气
     /// </summary>
-    public class JieQi
+    public sealed class JieQi
     {
         private string _name;
         

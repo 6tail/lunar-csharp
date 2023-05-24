@@ -7,7 +7,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 运
     /// </summary>
-    public class Yun
+    public sealed class Yun
     {
         /// <summary>
         /// 性别(1男，0女)

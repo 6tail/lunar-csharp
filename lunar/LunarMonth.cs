@@ -7,7 +7,7 @@ namespace Lunar
     /// <summary>
     /// 农历月
     /// </summary>
-    public class LunarMonth
+    public sealed class LunarMonth
     {
         /// <summary>
         /// 农历年

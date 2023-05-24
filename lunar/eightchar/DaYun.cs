@@ -8,7 +8,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 大运
     /// </summary>
-    public class DaYun
+    public sealed class DaYun
     {
         /// <summary>
         /// 开始年(含)

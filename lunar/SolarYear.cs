@@ -8,7 +8,7 @@ namespace Lunar
     /// <summary>
     /// 阳历年
     /// </summary>
-    public class SolarYear
+    public sealed class SolarYear
     {
         /// <summary>
         /// 年

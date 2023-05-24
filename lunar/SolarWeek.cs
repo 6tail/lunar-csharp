@@ -9,7 +9,7 @@ namespace Lunar
     /// <summary>
     /// 阳历周
     /// </summary>
-    public class SolarWeek
+    public sealed class SolarWeek
     {
         /// <summary>
         /// 年

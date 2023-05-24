@@ -8,7 +8,7 @@ namespace Lunar
     /// <summary>
     /// 佛历因果犯忌
     /// </summary>
-    public class FotoFestival
+    public sealed class FotoFestival
     {
 
         /// <summary>

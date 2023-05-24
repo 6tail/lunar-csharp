@@ -12,7 +12,7 @@ namespace Lunar
     /// <summary>
     /// 道历
     /// </summary>
-    public class Tao
+    public sealed class Tao
     {
         /// <summary>
         /// 道历元年

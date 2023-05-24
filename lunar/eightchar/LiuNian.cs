@@ -8,7 +8,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 流年
     /// </summary>
-    public class LiuNian
+    public sealed class LiuNian
     {
         /// <summary>
         /// 序数，0-9

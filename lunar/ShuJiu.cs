@@ -4,7 +4,7 @@ namespace Lunar
     /// <summary>
     /// 数九
     /// </summary>
-    public class ShuJiu
+    public sealed class ShuJiu
     {
         /// <summary>
         /// 名称，如一九、二九

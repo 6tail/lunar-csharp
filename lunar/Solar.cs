@@ -10,7 +10,7 @@ namespace Lunar
     /// <summary>
     /// 阳历日期
     /// </summary>
-    public class Solar
+    public sealed class Solar
     {
         /// <summary>
         /// 2000年儒略日数(2000-1-1 12:00:00 UTC)

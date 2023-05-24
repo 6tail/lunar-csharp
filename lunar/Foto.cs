@@ -12,7 +12,7 @@ namespace Lunar
     /// <summary>
     /// 佛历
     /// </summary>
-    public class Foto
+    public sealed class Foto
     {
         /// <summary>
         /// 佛灭〇年

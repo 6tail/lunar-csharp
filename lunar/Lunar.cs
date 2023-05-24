@@ -13,7 +13,7 @@ namespace Lunar
     /// <summary>
     /// 农历日期
     /// </summary>
-    public class Lunar
+    public sealed class Lunar
     {
         /// <summary>
         /// 节气表，国标以冬至为首个节气
