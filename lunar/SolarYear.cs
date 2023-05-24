@@ -94,11 +94,14 @@ namespace Lunar
             return new SolarYear(Year + years);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "";
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => Year + "年";
     }
 }

@@ -126,11 +126,15 @@ namespace Lunar
             return new SolarMonth(y, m);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "-" + Month;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => Year + "年" + Month + "月";
     }
 }

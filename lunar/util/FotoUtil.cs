@@ -35,8 +35,14 @@ namespace Lunar.Util
         private static readonly FotoFestival M = new FotoFestival("司命奏事", JS, true, "如月小，即戒廿九");
         private static readonly FotoFestival HH = new FotoFestival("月晦", JS, true, "如月小，即戒廿九");
 
+        /// <summary>
+        /// 节日
+        /// </summary>
         public static readonly Dictionary<string, List<FotoFestival>> FESTIVAL = new Dictionary<string, List<FotoFestival>>();
-        
+
+        /// <summary>
+        /// 非正式节日
+        /// </summary>
         public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
 
         static FotoUtil()

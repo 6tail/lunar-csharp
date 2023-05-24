@@ -25,10 +25,19 @@ namespace Lunar.Util
         /// </summary>
         public static readonly string[] XING_ZUO = { "白羊", "金牛", "双子", "巨蟹", "狮子", "处女", "天秤", "天蝎", "射手", "摩羯", "水瓶", "双鱼" };
 
+        /// <summary>
+        /// 节日
+        /// </summary>
         public static readonly Dictionary<string,string> FESTIVAL = new Dictionary<string,string>();
-        
+
+        /// <summary>
+        /// 按星期的节日
+        /// </summary>
         public static readonly Dictionary<string, string> WEEK_FESTIVAL = new Dictionary<string, string>();
-        
+
+        /// <summary>
+        /// 非正式节日
+        /// </summary>
         public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
 
         static SolarUtil()

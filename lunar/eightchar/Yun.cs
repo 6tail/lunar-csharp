@@ -39,8 +39,17 @@ namespace Lunar.EightChar
         /// </summary>
         public bool Forward { get; }
 
+        /// <summary>
+        /// 农历
+        /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 创建运
+        /// </summary>
+        /// <param name="eightChar">八字</param>
+        /// <param name="gender">性别</param>
+        /// <param name="sect">流派</param>
         public Yun(EightChar eightChar, int gender, int sect = 1)
         {
             Lunar = eightChar.Lunar;

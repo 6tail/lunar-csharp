@@ -35,6 +35,9 @@ namespace Lunar.EightChar
         /// </summary>
         public bool Forward { get; }
 
+        /// <summary>
+        /// 农历
+        /// </summary>
         public Lunar Lunar { get; }
 
         /// <summary>

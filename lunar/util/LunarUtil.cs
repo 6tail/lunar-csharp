@@ -68,7 +68,9 @@ namespace Lunar.Util
         /// </summary>
         public static readonly string[] POSITION_FU = { "", "巽", "巽", "震", "震", "坎", "离", "坤", "坤", "乾", "兑" };
 
-        //《福神方位歌》流派2：甲己正北是福神，丙辛西北乾宫存，乙庚坤位戊癸艮，丁壬巽上好追寻。
+        /// <summary>
+        /// 《福神方位歌》流派2：甲己正北是福神，丙辛西北乾宫存，乙庚坤位戊癸艮，丁壬巽上好追寻。
+        /// </summary>
         public static readonly string[] POSITION_FU_2 = {"","坎","坤","乾","巽","艮","坎","坤","乾","巽","艮"};
 
         /// <summary>
@@ -237,7 +239,11 @@ namespace Lunar.Util
         /// </summary>
         public static readonly Dictionary<string, string> TIAN_SHEN_TYPE_LUCK = new Dictionary<string, string>();
 
+        /// <summary>
+        /// 节日
+        /// </summary>
         public static readonly Dictionary<string, string> FESTIVAL = new Dictionary<string, string>();
+
         public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
 
         /// <summary>

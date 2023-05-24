@@ -400,6 +400,9 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 非正式节日
+        /// </summary>
         public List<string> OtherFestivals
         {
             get
@@ -449,11 +452,16 @@ namespace Lunar
             }
         }
 
+
+        /// <inheritdoc />
         public override string ToString()
         {
             return Ymd;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Ymd
         {
             get
@@ -467,8 +475,14 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string YmdHms => Ymd + " " + (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute + ":" + (Second < 10 ? "0" : "") + Second;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString
         {
             get

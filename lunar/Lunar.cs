@@ -966,9 +966,16 @@ namespace Lunar
         {
             return LunarUtil.POSITION_DESC[GetYearPositionTaiSui(sect)];
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="monthZhiIndex"></param>
+        /// <param name="monthGanIndex"></param>
+        /// <returns></returns>
         protected string GetMonthPositionTaiSui(int monthZhiIndex, int monthGanIndex)
         {
+            // TODO: 应该是 private 吗？
+
             string p;
             var m = monthZhiIndex - LunarUtil.BASE_MONTH_ZHI_INDEX;
             if (m < 0)
@@ -1042,8 +1049,16 @@ namespace Lunar
             return LunarUtil.POSITION_DESC[GetMonthPositionTaiSui(sect)];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dayInGanZhi"></param>
+        /// <param name="yearZhiIndex"></param>
+        /// <returns></returns>
         protected string GetDayPositionTaiSui(string dayInGanZhi, int yearZhiIndex)
         {
+            // TODO: 应该是 private 吗？
+
             string p;
             if ("甲子,乙丑,丙寅,丁卯,戊辰,已巳".Contains(dayInGanZhi))
             {
@@ -1387,9 +1402,15 @@ namespace Lunar
         /// 月相
         /// </summary>
         public string YueXiang => LunarUtil.YUE_XIANG[Day];
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yearInGanZhi"></param>
+        /// <returns></returns>
         protected NineStar GetYearNineStar(string yearInGanZhi)
         {
+            // TODO: 应该是 private 吗？
+
             var indexExact = LunarUtil.GetJiaZiIndex(yearInGanZhi) + 1;
             var index = LunarUtil.GetJiaZiIndex(YearInGanZhi) + 1;
             var yearOffset = indexExact - index;
@@ -1435,8 +1456,16 @@ namespace Lunar
         /// </summary>
         public NineStar YearNineStar => GetYearNineStar();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yearZhiIndex"></param>
+        /// <param name="monthZhiIndex"></param>
+        /// <returns></returns>
         protected NineStar GetMonthNineStar(int yearZhiIndex, int monthZhiIndex)
         {
+            // TODO: 应该是 private 吗？
+
             var n = 27 - yearZhiIndex % 3 * 3;
             if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX)
             {
@@ -1726,8 +1755,15 @@ namespace Lunar
             return null == near ? null : new JieQi(name, near);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         protected string ConvertJieQi(string name)
         {
+            // TODO: 应该是 private 吗？
+
             var jq = name;
             switch (jq)
             {
@@ -1820,6 +1856,9 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString
         {
             get
@@ -1917,6 +1956,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;

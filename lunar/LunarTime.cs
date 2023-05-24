@@ -256,6 +256,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return GanZhi;
