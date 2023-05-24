@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>

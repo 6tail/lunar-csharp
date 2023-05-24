@@ -7,6 +7,8 @@ using Lunar.Util;
 // ReSharper disable IdentifierTypo
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>

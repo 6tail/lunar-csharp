@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
@@ -278,16 +280,8 @@ namespace Lunar
         /// </summary>
         public string FullString => Year + "年";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        protected string GetZaoByGan(int index, string name)
+        private string GetZaoByGan(int index, string name)
         {
-            // TODO: private?
-
             var offset = index - Solar.FromJulianDay(GetMonth(1).FirstJulianDay).Lunar.DayGanIndex;
             if (offset < 0)
             {
@@ -296,16 +290,8 @@ namespace Lunar
             return new Regex("几", RegexOptions.Singleline).Replace(name, LunarUtil.NUMBER[offset + 1], 1);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        protected string GetZaoByZhi(int index, string name)
+        private string GetZaoByZhi(int index, string name)
         {
-            // TODO: private?
-
             var offset = index - Solar.FromJulianDay(GetMonth(1).FirstJulianDay).Lunar.DayZhiIndex;
             if (offset < 0)
             {

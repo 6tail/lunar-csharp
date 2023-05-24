@@ -8,6 +8,8 @@ using Lunar.Util;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
@@ -966,16 +968,9 @@ namespace Lunar
         {
             return LunarUtil.POSITION_DESC[GetYearPositionTaiSui(sect)];
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="monthZhiIndex"></param>
-        /// <param name="monthGanIndex"></param>
-        /// <returns></returns>
-        protected string GetMonthPositionTaiSui(int monthZhiIndex, int monthGanIndex)
-        {
-            // TODO: 应该是 private 吗？
 
+        private string GetMonthPositionTaiSui(int monthZhiIndex, int monthGanIndex)
+        {
             string p;
             var m = monthZhiIndex - LunarUtil.BASE_MONTH_ZHI_INDEX;
             if (m < 0)
@@ -1049,16 +1044,8 @@ namespace Lunar
             return LunarUtil.POSITION_DESC[GetMonthPositionTaiSui(sect)];
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dayInGanZhi"></param>
-        /// <param name="yearZhiIndex"></param>
-        /// <returns></returns>
-        protected string GetDayPositionTaiSui(string dayInGanZhi, int yearZhiIndex)
+        private string GetDayPositionTaiSui(string dayInGanZhi, int yearZhiIndex)
         {
-            // TODO: 应该是 private 吗？
-
             string p;
             if ("甲子,乙丑,丙寅,丁卯,戊辰,已巳".Contains(dayInGanZhi))
             {
@@ -1241,7 +1228,7 @@ namespace Lunar
         {
             get
             {
-                for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+                for (int i = 0, j = LunarUtil.ZHI.Count; i < j; i++)
                 {
                     if (LunarUtil.ZHI[i].Equals(DayChong))
                     {
@@ -1260,7 +1247,7 @@ namespace Lunar
             get
             {
                 string chong = TimeChong;
-                for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+                for (int i = 0, j = LunarUtil.ZHI.Count; i < j; i++)
                 {
                     if (LunarUtil.ZHI[i].Equals(chong))
                     {
@@ -1370,47 +1357,41 @@ namespace Lunar
         /// <summary>
         /// 日宜，如果没有，返回["无"]
         /// </summary>
-        public List<string> DayYi => LunarUtil.GetDayYi(MonthInGanZhiExact, DayInGanZhi);
+        public IEnumerable<string> DayYi => LunarUtil.GetDayYi(MonthInGanZhiExact, DayInGanZhi);
 
         /// <summary>
         /// 日忌，如果没有，返回["无"]
         /// </summary>
-        public List<string> DayJi => LunarUtil.GetDayJi(MonthInGanZhiExact, DayInGanZhi);
+        public IEnumerable<string> DayJi => LunarUtil.GetDayJi(MonthInGanZhiExact, DayInGanZhi);
 
         /// <summary>
         /// 日吉神（宜趋），如果没有，返回["无"]
         /// </summary>
-        public List<string> DayJiShen => LunarUtil.GetDayJiShen(Month, DayInGanZhi);
+        public IEnumerable<string> DayJiShen => LunarUtil.GetDayJiShen(Month, DayInGanZhi);
 
         /// <summary>
         /// 日凶煞（宜忌），如果没有，返回["无"]
         /// </summary>
-        public List<string> DayXiongSha => LunarUtil.GetDayXiongSha(Month, DayInGanZhi);
+        public IEnumerable<string> DayXiongSha => LunarUtil.GetDayXiongSha(Month, DayInGanZhi);
 
         /// <summary>
         /// 时辰宜，如果没有，返回["无"]
         /// </summary>
         /// <returns>宜</returns>
-        public List<string> TimeYi => LunarUtil.GetTimeYi(DayInGanZhiExact, TimeInGanZhi);
+        public IEnumerable<string> TimeYi => LunarUtil.GetTimeYi(DayInGanZhiExact, TimeInGanZhi);
 
         /// <summary>
         /// 时辰忌，如果没有，返回["无"]
         /// </summary>
-        public List<string> TimeJi => LunarUtil.GetTimeJi(DayInGanZhiExact, TimeInGanZhi);
+        public IEnumerable<string> TimeJi => LunarUtil.GetTimeJi(DayInGanZhiExact, TimeInGanZhi);
 
         /// <summary>
         /// 月相
         /// </summary>
         public string YueXiang => LunarUtil.YUE_XIANG[Day];
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="yearInGanZhi"></param>
-        /// <returns></returns>
-        protected NineStar GetYearNineStar(string yearInGanZhi)
-        {
-            // TODO: 应该是 private 吗？
 
+        private NineStar GetYearNineStar(string yearInGanZhi)
+        {
             var indexExact = LunarUtil.GetJiaZiIndex(yearInGanZhi) + 1;
             var index = LunarUtil.GetJiaZiIndex(YearInGanZhi) + 1;
             var yearOffset = indexExact - index;
@@ -1456,16 +1437,8 @@ namespace Lunar
         /// </summary>
         public NineStar YearNineStar => GetYearNineStar();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="yearZhiIndex"></param>
-        /// <param name="monthZhiIndex"></param>
-        /// <returns></returns>
-        protected NineStar GetMonthNineStar(int yearZhiIndex, int monthZhiIndex)
+        private NineStar GetMonthNineStar(int yearZhiIndex, int monthZhiIndex)
         {
-            // TODO: 应该是 private 吗？
-
             var n = 27 - yearZhiIndex % 3 * 3;
             if (monthZhiIndex < LunarUtil.BASE_MONTH_ZHI_INDEX)
             {
@@ -1755,15 +1728,8 @@ namespace Lunar
             return null == near ? null : new JieQi(name, near);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        protected string ConvertJieQi(string name)
+        private string ConvertJieQi(string name)
         {
-            // TODO: 应该是 private 吗？
-
             var jq = name;
             switch (jq)
             {
@@ -2179,7 +2145,7 @@ namespace Lunar
                 if (index > 2) {
                     index = 2;
                 }
-                return LunarUtil.WU_HOU[(offset * 3 + index) % LunarUtil.WU_HOU.Length];
+                return LunarUtil.WU_HOU[(offset * 3 + index) % LunarUtil.WU_HOU.Count];
             }
         }
 
@@ -2191,7 +2157,7 @@ namespace Lunar
             get
             {
                 var jieQi = GetPrevJieQi(true);
-                var max = LunarUtil.HOU.Length - 1;
+                var max = LunarUtil.HOU.Count - 1;
                 var offset = Solar.Subtract(jieQi.Solar) / 5;
                 if (offset > max)
                 {

@@ -15,7 +15,20 @@ namespace Lunar.Util
         /// <summary>
         /// 观音斋日期
         /// </summary>
-        public static readonly string[] DAY_ZHAI_GUAN_YIN = { "1-8", "2-7", "2-9", "2-19", "3-3", "3-6", "3-13", "4-22", "5-3", "5-17", "6-16", "6-18", "6-19", "6-23", "7-13", "8-16", "9-19", "9-23", "10-2", "11-19", "11-24", "12-25" };
+        public static IReadOnlyList<string> DAY_ZHAI_GUAN_YIN { get; } =
+            Array.AsReadOnly(new[] {
+                "1-8", 
+                "2-7", "2-9", "2-19",
+                "3-3", "3-6", "3-13", 
+                "4-22",
+                "5-3", "5-17", 
+                "6-16", "6-18", "6-19", "6-23", 
+                "7-13", 
+                "8-16", 
+                "9-19", "9-23", 
+                "10-2", 
+                "11-19", "11-24", 
+                "12-25" });
 
         private const string DJ = "犯者夺纪";
         private const string JS = "犯者减寿";
@@ -34,6 +47,8 @@ namespace Lunar.Util
         private static readonly FotoFestival R = new FotoFestival("人神在阴", "犯者得病", true, "宜先一日即戒");
         private static readonly FotoFestival M = new FotoFestival("司命奏事", JS, true, "如月小，即戒廿九");
         private static readonly FotoFestival HH = new FotoFestival("月晦", JS, true, "如月小，即戒廿九");
+
+        // TODO: 可访问性调整
 
         /// <summary>
         /// 节日
@@ -302,12 +317,18 @@ namespace Lunar.Util
         /// <summary>
         /// 27星宿，佛教从印度传入中国，印度把28星宿改为27星宿，把牛宿(牛金牛)纳入了女宿(女土蝠)。
         /// </summary>
-        public static readonly string[] XIU_27 = { "角", "亢", "氐", "房", "心", "尾", "箕", "斗", "女", "虚", "危", "室", "壁", "奎", "娄", "胃", "昴", "毕", "觜", "参", "井", "鬼", "柳", "星", "张", "翼", "轸" };
+        public static IReadOnlyList<string> XIU_27 { get; } =
+            Array.AsReadOnly(new[]{
+                "角", "亢", "氐", "房", "心", "尾", "箕", "斗",
+                "女", "虚", "危", "室", "壁", "奎", "娄", "胃",
+                "昴", "毕", "觜", "参", "井", "鬼", "柳", "星",
+                "张", "翼", "轸" });
 
         /// <summary>
         /// 每月初一的27星宿偏移
         /// </summary>
-        private static readonly int[] XIU_OFFSET = { 11, 13, 15, 17, 19, 21, 24, 0, 2, 4, 7, 9 };
+        private static IReadOnlyList<int> XIU_OFFSET { get; } =
+            Array.AsReadOnly(new[] { 11, 13, 15, 17, 19, 21, 24, 0, 2, 4, 7, 9 });
 
         /// <summary>
         /// 获取27星宿
@@ -317,7 +338,7 @@ namespace Lunar.Util
         /// <returns>星宿</returns>
         public static string GetXiu(int month, int day)
         {
-            return XIU_27[(XIU_OFFSET[Math.Abs(month) - 1] + day - 1) % XIU_27.Length];
+            return XIU_27[(XIU_OFFSET[Math.Abs(month) - 1] + day - 1) % XIU_27.Count];
         }
     }
 }

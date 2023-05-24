@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Lunar;
 using Lunar.Util;
 
@@ -33,7 +34,7 @@ namespace demo
             Console.WriteLine(baZi.YearShiShenGan + " " + baZi.MonthShiShenGan + " " + baZi.DayShiShenGan + " " + baZi.TimeShiShenGan);
 
             // 八字地支十神
-            Console.WriteLine(baZi.YearShiShenZhi[0] + " " + baZi.MonthShiShenZhi[0] + " " + baZi.DayShiShenZhi[0] + " " + baZi.TimeShiShenZhi[0]);
+            Console.WriteLine(baZi.YearShiShenZhi.First() + " " + baZi.MonthShiShenZhi.First() + " " + baZi.DayShiShenZhi.First() + " " + baZi.TimeShiShenZhi.First());
 
             // 八字年支十神
             foreach (var s in baZi.YearShiShenZhi)

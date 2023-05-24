@@ -1,4 +1,5 @@
 using Lunar.Util;
+using System.Linq;
 using Xunit;
 
 namespace test
@@ -30,7 +31,7 @@ namespace test
         [Fact]
         public void GetHolidaysTest()
         {
-            Assert.Equal(35, HolidayUtil.GetHolidays(2012).Count);
+            Assert.Equal(35, HolidayUtil.GetHolidays(2012).Count());
         }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace test
         [Fact]
         public void GetHolidaysTest1()
         {
-            Assert.Equal(1, HolidayUtil.GetHolidays(2013, 5).Count);
+            Assert.Equal(1, HolidayUtil.GetHolidays(2013, 5).Count());
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace test
         [Fact]
         public void GetHolidaysTest2()
         {
-            Assert.Equal(35, HolidayUtil.GetHolidays("2012").Count);
+            Assert.Equal(35, HolidayUtil.GetHolidays("2012").Count());
         }
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace test
         [Fact]
         public void GetHolidaysByTargetTest()
         {
-            Assert.Equal(4, HolidayUtil.GetHolidaysByTarget(2018, 5, 1).Count);
+            Assert.Equal(4, HolidayUtil.GetHolidaysByTarget(2018, 5, 1).Count());
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace test
         [Fact]
         public void GetHolidaysByTargetTest1()
         {
-            Assert.Equal(4, HolidayUtil.GetHolidaysByTarget("2018-05-01").Count);
+            Assert.Equal(4, HolidayUtil.GetHolidaysByTarget("2018-05-01").Count());
         }
 
         /// <summary>
@@ -91,8 +92,8 @@ namespace test
             Assert.Equal("2099-01-01 元旦节 2099-01-01", HolidayUtil.GetHoliday("2099-01-01") + "");
 
             // 自定义节假日名称
-            var names = new string[HolidayUtil.NAMES.Length];
-            for (int i = 0, j = HolidayUtil.NAMES.Length; i < j; i++) {
+            var names = new string[HolidayUtil.NAMES.Count];
+            for (int i = 0, j = HolidayUtil.NAMES.Count; i < j; i++) {
                 names[i] = HolidayUtil.NAMES[i];
             }
             names[0] = "元旦";
@@ -104,7 +105,7 @@ namespace test
 
             // 追加节假日名称和数据
             names = new string[12];
-            for (int i = 0, j = HolidayUtil.NAMES.Length; i < j; i++)
+            for (int i = 0, j = HolidayUtil.NAMES.Count; i < j; i++)
             {
                 names[i] = HolidayUtil.NAMES[i];
             }

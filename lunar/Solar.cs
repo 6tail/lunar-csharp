@@ -5,6 +5,8 @@ using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
@@ -238,7 +240,7 @@ namespace Lunar
             }
             var hours = new List<int>();
             var timeZhi = timeGanZhi.Substring(1);
-            for (int i = 1, j = LunarUtil.ZHI.Length; i < j; i++)
+            for (int i = 1, j = LunarUtil.ZHI.Count; i < j; i++)
             {
                 if (LunarUtil.ZHI[i].Equals(timeZhi))
                 {

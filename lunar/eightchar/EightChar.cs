@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lunar.Util;
@@ -15,12 +16,14 @@ namespace Lunar.EightChar
         /// <summary>
         /// 月支，按正月起寅排列
         /// </summary>
-        public static readonly string[] MONTH_ZHI = { "", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑" };
+        public static IReadOnlyList<string> MONTH_ZHI { get; } =
+            Array.AsReadOnly(new[] { "", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑" });
         
         /// <summary>
         /// 长生十二神
         /// </summary>
-        public static readonly string[] CHANG_SHENG = { "长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养" };
+        public static IReadOnlyList<string> CHANG_SHENG { get; } =
+            Array.AsReadOnly(new[] { "长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养" });
         
         private static readonly Dictionary<string, int> CHANG_SHENG_OFFSET = new Dictionary<string, int>();
 
@@ -99,7 +102,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 年藏干
         /// </summary>
-        public List<string> YearHideGan => LunarUtil.ZHI_HIDE_GAN[YearZhi];
+        public IReadOnlyList<string> YearHideGan => LunarUtil.ZHI_HIDE_GAN[YearZhi];
 
         /// <summary>
         /// 年五行
@@ -116,17 +119,15 @@ namespace Lunar.EightChar
         /// </summary>
         public string YearShiShenGan => LunarUtil.SHI_SHEN_GAN[DayGan + YearGan];
 
-        private List<string> GetShiShenZhi(string zhi)
+        private IReadOnlyList<string> GetShiShenZhi(string zhi)
         {
             var hideGan = LunarUtil.ZHI_HIDE_GAN[zhi];
-            var l = new List<string>(hideGan.Count);
-            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[DayGan + zhi + gan]));
-            return l;
+            return hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[DayGan + zhi + gan]).ToList();
         }
         /// <summary>
         /// 年十神支
         /// </summary>
-        public List<string> YearShiShenZhi => GetShiShenZhi(YearZhi);
+        public IEnumerable<string> YearShiShenZhi => GetShiShenZhi(YearZhi);
 
         /// <summary>
         /// 日干序号
@@ -175,7 +176,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 月藏干
         /// </summary>
-        public List<string> MonthHideGan => LunarUtil.ZHI_HIDE_GAN[MonthZhi];
+        public IReadOnlyList<string> MonthHideGan => LunarUtil.ZHI_HIDE_GAN[MonthZhi];
 
         /// <summary>
         /// 月五行
@@ -195,7 +196,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 月十神支
         /// </summary>
-        public List<string> MonthShiShenZhi => GetShiShenZhi(MonthZhi);
+        public IEnumerable<string> MonthShiShenZhi => GetShiShenZhi(MonthZhi);
         /// <summary>
         /// 月地势
         /// </summary>
@@ -219,7 +220,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 日支藏干
         /// </summary>
-        public List<string> DayHideGan => LunarUtil.ZHI_HIDE_GAN[DayZhi];
+        public IReadOnlyList<string> DayHideGan => LunarUtil.ZHI_HIDE_GAN[DayZhi];
 
         /// <summary>
         /// 日五行
@@ -239,7 +240,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 日十神支
         /// </summary>
-        public List<string> DayShiShenZhi => GetShiShenZhi(DayZhi);
+        public IEnumerable<string> DayShiShenZhi => GetShiShenZhi(DayZhi);
 
         /// <summary>
         /// 日地势
@@ -264,7 +265,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 时支藏干
         /// </summary>
-        public List<string> TimeHideGan => LunarUtil.ZHI_HIDE_GAN[TimeZhi];
+        public IReadOnlyList<string> TimeHideGan => LunarUtil.ZHI_HIDE_GAN[TimeZhi];
 
         /// <summary>
         /// 时五行
@@ -284,7 +285,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 时十神支
         /// </summary>
-        public List<string> TimeShiShenZhi => GetShiShenZhi(TimeZhi);
+        public IEnumerable<string> TimeShiShenZhi => GetShiShenZhi(TimeZhi);
 
         /// <summary>
         /// 时地势
@@ -344,7 +345,7 @@ namespace Lunar.EightChar
             {
                 var monthZhiIndex = 0;
                 var timeZhiIndex = 0;
-                for (int i = 0, j = MONTH_ZHI.Length; i < j; i++)
+                for (int i = 0, j = MONTH_ZHI.Count; i < j; i++)
                 {
                     var zhi = MONTH_ZHI[i];
                     if (Lunar.MonthZhiExact.Equals(zhi))
@@ -384,12 +385,12 @@ namespace Lunar.EightChar
         /// </summary>
         public string ShenGong
         {
-            // TODO: 好复杂，没有仔细看，真的是身宫吗？若不是，还要注意调整 ShenGongNaYin 的注释
+            // TODO: 好复杂，没有仔细看，是身宫吗？若不是，还要注意调整 ShenGongNaYin 的注释
             get
             {
                 var monthZhiIndex = 0;
                 var timeZhiIndex = 0;
-                for (int i = 0, j = MONTH_ZHI.Length; i < j; i++)
+                for (int i = 0, j = MONTH_ZHI.Count; i < j; i++)
                 {
                     var zhi = MONTH_ZHI[i];
                     if (Lunar.MonthZhiExact.Equals(zhi))

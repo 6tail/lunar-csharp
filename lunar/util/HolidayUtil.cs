@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 // ReSharper disable InconsistentNaming
 // ReSharper disable CommentTypo
@@ -30,7 +31,11 @@ namespace Lunar.Util
         /// <summary>
         /// 节假日名称（元旦0，春节1，清明2，劳动3，端午4，中秋5，国庆6，国庆中秋7，抗战胜利日8）
         /// </summary>
-        public static readonly string[] NAMES = { "元旦节", "春节", "清明节", "劳动节", "端午节", "中秋节", "国庆节", "国庆中秋", "抗战胜利日" };
+        public static IReadOnlyList<string> NAMES { get; } =
+            Array.AsReadOnly(new[] {
+                "元旦节", "春节", "清明节",
+                "劳动节", "端午节", "中秋节",
+                "国庆节", "国庆中秋", "抗战胜利日" });
 
         /// <summary>
         /// 节假日数据，日期YYYYMMDD+名称下标+是否调休+对应节日YYYYMMDD
@@ -40,7 +45,7 @@ namespace Lunar.Util
         /// <summary>
         /// 使用的节假日名称
         /// </summary>
-        private static string[] NAMES_IN_USE = NAMES;
+        private static IReadOnlyList<string> NAMES_IN_USE = NAMES;
 
         /// <summary>
         /// 使用的节假日数据
@@ -116,20 +121,18 @@ namespace Lunar.Util
             return left;
         }
 
-        private static List<Holiday> FindHolidaysForward(string key)
+        private static IEnumerable<Holiday> FindHolidaysForward(string key)
         {
-            var l = new List<Holiday>();
             var s = FindForward(key);
             if (null == s)
             {
-                return l;
+                yield break;
             }
             while (s.StartsWith(key))
             {
-                l.Add(BuildHolidayForward(s));
+                yield return BuildHolidayForward(s);
                 s = s.Substring(SIZE);
             }
-            return l;
         }
 
         private static List<Holiday> FindHolidaysBackward(string key)
@@ -159,7 +162,7 @@ namespace Lunar.Util
         public static Holiday GetHoliday(int year, int month, int day)
         {
             var l = FindHolidaysForward(year + Padding(month) + Padding(day));
-            return l.Count < 1 ? null : l[0];
+            return l.FirstOrDefault();
         }
 
         /// <summary>
@@ -170,7 +173,7 @@ namespace Lunar.Util
         public static Holiday GetHoliday(string ymd)
         {
             var l = FindHolidaysForward(ymd.Replace("-", ""));
-            return l.Count < 1 ? null : l[0];
+            return l.FirstOrDefault();
         }
 
         /// <summary>
@@ -179,7 +182,7 @@ namespace Lunar.Util
         /// <param name="year">年</param>
         /// <param name="month">月，1-12</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> GetHolidays(int year, int month)
+        public static IEnumerable<Holiday> GetHolidays(int year, int month)
         {
             return FindHolidaysForward(year + Padding(month));
         }
@@ -189,7 +192,7 @@ namespace Lunar.Util
         /// </summary>
         /// <param name="year">年</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> GetHolidays(int year)
+        public static IEnumerable<Holiday> GetHolidays(int year)
         {
             return FindHolidaysForward(year + "");
         }
@@ -199,7 +202,7 @@ namespace Lunar.Util
         /// </summary>
         /// <param name="ymd">年、年月、年月日</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> GetHolidays(string ymd)
+        public static IEnumerable<Holiday> GetHolidays(string ymd)
         {
             return FindHolidaysForward(ymd.Replace("-", ""));
         }
@@ -209,7 +212,7 @@ namespace Lunar.Util
         /// </summary>
         /// <param name="ymd">年月日</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> GetHolidaysByTarget(string ymd)
+        public static IEnumerable<Holiday> GetHolidaysByTarget(string ymd)
         {
             return FindHolidaysBackward(ymd.Replace("-", ""));
         }
@@ -221,7 +224,7 @@ namespace Lunar.Util
         /// <param name="month">月</param>
         /// <param name="day">日</param>
         /// <returns>节假日列表</returns>
-        public static List<Holiday> GetHolidaysByTarget(int year, int month, int day)
+        public static IEnumerable<Holiday> GetHolidaysByTarget(int year, int month, int day)
         {
             return FindHolidaysBackward(year + Padding(month) + Padding(day));
         }
@@ -231,11 +234,11 @@ namespace Lunar.Util
         /// </summary>
         /// <param name="names">用于替换默认的节假日名称列表，传null即可使用默认名称</param>
         /// <param name="data">需要修正或追加的节假日数据，每18位表示1天依次排列，格式：当天年月日YYYYMMDD(8位)+节假日名称下标(1位)+调休标识(1位)+节假日当天YYYYMMDD(8位)。例：202005023120200501代表2020-05-02为劳动节放假，对应节假日为2020-05-01</param>
-        public static void Fix(string[] names, string data)
+        public static void Fix(IEnumerable<string> names, string data)
         {
             if (null != names)
             {
-                NAMES_IN_USE = names;
+                NAMES_IN_USE = names.ToList();
             }
             if (null == data)
             {
@@ -258,7 +261,7 @@ namespace Lunar.Util
                 else
                 {
                     int nameIndex = -1;
-                    for (int i = 0, j = NAMES_IN_USE.Length; i < j; ++i)
+                    for (int i = 0, j = NAMES_IN_USE.Count; i < j; ++i)
                     {
                         if (NAMES_IN_USE[i].Equals(holiday.Name))
                         {

@@ -1,4 +1,5 @@
 using Lunar.Util;
+using System.Collections.Generic;
 // ReSharper disable IdentifierTypo
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -61,7 +62,7 @@ namespace Lunar.EightChar
                 {
                     offset += DaYun.StartAge - 1;
                 }
-                offset %= LunarUtil.JIA_ZI.Length;
+                offset %= LunarUtil.JIA_ZI.Count;
                 return LunarUtil.JIA_ZI[offset];
             }
         }
@@ -80,15 +81,13 @@ namespace Lunar.EightChar
         /// 获取流月
         /// </summary>
         /// <returns>流月</returns>
-        public LiuYue[] GetLiuYue()
+        public IEnumerable<LiuYue> GetLiuYue()
         {
             const int n = 12;
-            var l = new LiuYue[n];
             for (var i = 0; i < n; i++)
             {
-                l[i] = new LiuYue(this, i);
+                yield return new LiuYue(this, i);
             }
-            return l;
         }
 
     }

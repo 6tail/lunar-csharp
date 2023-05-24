@@ -88,7 +88,7 @@ namespace Lunar.EightChar
                 }
                 var offset = LunarUtil.GetJiaZiIndex(Lunar.MonthInGanZhiExact);
                 offset += Yun.Forward ? Index : -Index;
-                var size = LunarUtil.JIA_ZI.Length;
+                var size = LunarUtil.JIA_ZI.Count;
                 if (offset >= size)
                 {
                     offset -= size;

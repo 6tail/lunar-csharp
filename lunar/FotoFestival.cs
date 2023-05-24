@@ -3,6 +3,9 @@ using System.Text;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable ClassNeverInstantiated.Global
+
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>

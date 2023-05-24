@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
@@ -21,112 +23,210 @@ namespace Lunar.Util
         /// <summary>
         /// 旬
         /// </summary>
-        public static readonly string[] XUN = {"甲子","甲戌","甲申","甲午","甲辰","甲寅"};
+        public static IReadOnlyList<string> XUN { get; } =
+            Array.AsReadOnly(new[] { "甲子", "甲戌", "甲申", "甲午", "甲辰", "甲寅" });
   
         /// <summary>
         /// 旬空
         /// </summary>
-        public static readonly string[] XUN_KONG = { "戌亥", "申酉", "午未", "辰巳", "寅卯", "子丑" };
+        public static IReadOnlyList<string> XUN_KONG { get; } =
+            Array.AsReadOnly(new[] { "戌亥", "申酉", "午未", "辰巳", "寅卯", "子丑" });
 
         /// <summary>
         /// 六曜
         /// </summary>
-        public static readonly string[] LIU_YAO = { "先胜", "友引", "先负", "佛灭", "大安", "赤口" };
+        public static IReadOnlyList<string> LIU_YAO { get; } =
+            Array.AsReadOnly(new[] { "先胜", "友引", "先负", "佛灭", "大安", "赤口" });
 
         /// <summary>
         /// 候
         /// </summary>
-        public static readonly string[] HOU = { "初候", "二候", "三候" };
+        public static IReadOnlyList<string> HOU { get; } =
+            Array.AsReadOnly(new[] { "初候", "二候", "三候" });
 
         /// <summary>
         /// 物候
         /// </summary>
-        public static readonly string[] WU_HOU = { "蚯蚓结", "麋角解", "水泉动", "雁北乡", "鹊始巢", "雉始雊", "鸡始乳", "征鸟厉疾", "水泽腹坚", "东风解冻", "蛰虫始振", "鱼陟负冰", "獭祭鱼", "候雁北", "草木萌动", "桃始华", "仓庚鸣", "鹰化为鸠", "玄鸟至", "雷乃发声", "始电", "桐始华", "田鼠化为鴽", "虹始见", "萍始生", "鸣鸠拂奇羽", "戴胜降于桑", "蝼蝈鸣", "蚯蚓出", "王瓜生", "苦菜秀", "靡草死", "麦秋至", "螳螂生", "鵙始鸣", "反舌无声", "鹿角解", "蜩始鸣", "半夏生", "温风至", "蟋蟀居壁", "鹰始挚", "腐草为萤", "土润溽暑", "大雨行时", "凉风至", "白露降", "寒蝉鸣", "鹰乃祭鸟", "天地始肃", "禾乃登", "鸿雁来", "玄鸟归", "群鸟养羞", "雷始收声", "蛰虫坯户", "水始涸", "鸿雁来宾", "雀入大水为蛤", "菊有黄花", "豺乃祭兽", "草木黄落", "蛰虫咸俯", "水始冰", "地始冻", "雉入大水为蜃", "虹藏不见", "天气上升地气下降", "闭塞而成冬", "鹖鴠不鸣", "虎始交", "荔挺出" };
+        public static IReadOnlyList<string> WU_HOU { get; } =
+            Array.AsReadOnly(new[] { 
+                "蚯蚓结", "麋角解", "水泉动", "雁北乡", 
+                "鹊始巢", "雉始雊", "鸡始乳", "征鸟厉疾", 
+                "水泽腹坚", "东风解冻", "蛰虫始振", "鱼陟负冰",
+                "獭祭鱼", "候雁北", "草木萌动", "桃始华", 
+                "仓庚鸣", "鹰化为鸠", "玄鸟至", "雷乃发声",
+                "始电", "桐始华", "田鼠化为鴽", "虹始见", 
+                "萍始生", "鸣鸠拂奇羽", "戴胜降于桑", "蝼蝈鸣",
+                "蚯蚓出", "王瓜生", "苦菜秀", "靡草死", 
+                "麦秋至", "螳螂生", "鵙始鸣", "反舌无声", 
+                "鹿角解", "蜩始鸣", "半夏生", "温风至", 
+                "蟋蟀居壁", "鹰始挚", "腐草为萤", "土润溽暑", 
+                "大雨行时", "凉风至", "白露降", "寒蝉鸣", 
+                "鹰乃祭鸟", "天地始肃", "禾乃登", "鸿雁来", 
+                "玄鸟归", "群鸟养羞", "雷始收声", "蛰虫坯户",
+                "水始涸", "鸿雁来宾", "雀入大水为蛤", "菊有黄花", 
+                "豺乃祭兽", "草木黄落", "蛰虫咸俯", "水始冰", 
+                "地始冻", "雉入大水为蜃", "虹藏不见", "天气上升地气下降", 
+                "闭塞而成冬", "鹖鴠不鸣", "虎始交", "荔挺出" });
 
         /// <summary>
         /// 天干
         /// </summary>
-        public static readonly string[] GAN = { "", "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" };
+        public static IReadOnlyList<string> GAN { get; } =
+            Array.AsReadOnly(new[] { "", "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" });
 
         /// <summary>
         /// 喜神方位，《喜神方位歌》：甲己在艮乙庚乾，丙辛坤位喜神安.  丁壬只在离宫坐，戊癸原在在巽间。
         /// </summary>
-        public static readonly string[] POSITION_XI = { "", "艮", "乾", "坤", "离", "巽", "艮", "乾", "坤", "离", "巽" };
+        public static IReadOnlyList<string> POSITION_XI { get; } =
+            Array.AsReadOnly(new[] { "", "艮", "乾", "坤", "离", "巽", "艮", "乾", "坤", "离", "巽" });
 
         /// <summary>
         /// 阳贵方位，《阳贵神歌》：甲戊坤艮位，乙己是坤坎，庚辛居离艮，丙丁兑与乾，震巽属何日，壬癸贵神安。
         /// </summary>
-        public static readonly string[] POSITION_YANG_GUI = { "", "坤", "坤", "兑", "乾", "艮", "坎", "离", "艮", "震", "巽" };
+        public static IReadOnlyList<string> POSITION_YANG_GUI { get; } =
+            Array.AsReadOnly(new[] { "", "坤", "坤", "兑", "乾", "艮", "坎", "离", "艮", "震", "巽" });
 
         /// <summary>
         /// 阴贵方位，《阴贵神歌》：甲戊见牛羊，乙己鼠猴乡，丙丁猪鸡位，壬癸蛇兔藏，庚辛逢虎马，此是贵神方。
         /// </summary>
-        public static readonly string[] POSITION_YIN_GUI = { "", "艮", "坎", "乾", "兑", "坤", "坤", "艮", "离", "巽", "震" };
+        public static IReadOnlyList<string> POSITION_YIN_GUI { get; } =
+            Array.AsReadOnly(new[] { "", "艮", "坎", "乾", "兑", "坤", "坤", "艮", "离", "巽", "震" });
 
         /// <summary>
         /// 《福神方位歌》流派1：甲乙东南是福神，丙丁正东是堪宜，戊北己南庚辛坤，壬在乾方癸在西。
         /// </summary>
-        public static readonly string[] POSITION_FU = { "", "巽", "巽", "震", "震", "坎", "离", "坤", "坤", "乾", "兑" };
+        public static IReadOnlyList<string> POSITION_FU { get; } =
+            Array.AsReadOnly(new[] { "", "巽", "巽", "震", "震", "坎", "离", "坤", "坤", "乾", "兑" });
 
         /// <summary>
         /// 《福神方位歌》流派2：甲己正北是福神，丙辛西北乾宫存，乙庚坤位戊癸艮，丁壬巽上好追寻。
         /// </summary>
-        public static readonly string[] POSITION_FU_2 = {"","坎","坤","乾","巽","艮","坎","坤","乾","巽","艮"};
+        public static IReadOnlyList<string> POSITION_FU_2 { get; } =
+            Array.AsReadOnly(new[] { "", "坎", "坤", "乾", "巽", "艮", "坎", "坤", "乾", "巽", "艮" });
 
         /// <summary>
         /// 财神方位，《财神方位歌》：甲乙东北是财神，丙丁向在西南寻，戊己正北坐方位， 庚辛正东去安身，壬癸原来正南坐，便是财神方位真。
         /// </summary>
-        public static readonly string[] POSITION_CAI = { "", "艮", "艮", "坤", "坤", "坎", "坎", "震", "震", "离", "离" };
+        public static IReadOnlyList<string> POSITION_CAI { get; } =
+            Array.AsReadOnly(new[] { "", "艮", "艮", "坤", "坤", "坎", "坎", "震", "震", "离", "离" });
 
         /// <summary>
         /// 逐日胎神方位
         /// </summary>
-        public static readonly string[] POSITION_TAI_DAY = { "占门碓 外东南", "碓磨厕 外东南", "厨灶炉 外正南", "仓库门 外正南", "房床栖 外正南", "占门床 外正南", "占碓磨 外正南", "厕灶厨 外西南", "仓库炉 外西南", "房床门 外西南", "门碓栖 外西南", "碓磨床 外西南", "厨灶碓 外西南", "仓库厕 外正西", "房床炉 外正西", "占大门 外正西", "碓磨栖 外正西", "厨房床 外正西", "仓库碓 外西北", "房床厕 外西北", "占门炉 外西北", "门碓磨 外西北", "厨灶栖 外西北", "仓库床 外西北", "房床碓 外正北", "占门厕 外正北", "碓磨炉 外正北", "厨灶门 外正北", "仓库栖 外正北", "占房床 房内北", "占门碓 房内北", "碓磨厕 房内北", "厨灶炉 房内北", "门仓库 房内北", "床房栖 房内中", "占门床 房内中", "占碓磨 房内南", "厨磨厕 房内南", "仓库炉 房内南", "房床门 房内西", "门碓栖 房内东", "碓磨床 房内东", "厨灶碓 房内东", "仓库厕 房内东", "房床炉 房内中", "占大门 外东北", "碓磨栖 外东北", "厨灶床 外东北", "仓库碓 外东北", "房床厕 外东北", "占门炉 外东北", "门碓磨 外正东", "厨灶栖 外正东", "仓库床 外正东", "房床碓 外正东", "占门厕 外正东", "碓磨炉 外东南", "厨灶门 外东南", "仓库栖 外东南", "占房床 外东南" };
+        public static IReadOnlyList<string> POSITION_TAI_DAY { get; } =
+            Array.AsReadOnly(new[] {
+                "占门碓 外东南", "碓磨厕 外东南", "厨灶炉 外正南", "仓库门 外正南", 
+                "房床栖 外正南", "占门床 外正南", "占碓磨 外正南", "厕灶厨 外西南",
+                "仓库炉 外西南", "房床门 外西南", "门碓栖 外西南", "碓磨床 外西南", 
+                "厨灶碓 外西南", "仓库厕 外正西", "房床炉 外正西", "占大门 外正西",
+                "碓磨栖 外正西", "厨房床 外正西", "仓库碓 外西北", "房床厕 外西北", 
+                "占门炉 外西北", "门碓磨 外西北", "厨灶栖 外西北", "仓库床 外西北", 
+                "房床碓 外正北", "占门厕 外正北", "碓磨炉 外正北", "厨灶门 外正北", 
+                "仓库栖 外正北", "占房床 房内北", "占门碓 房内北", "碓磨厕 房内北",
+                "厨灶炉 房内北", "门仓库 房内北", "床房栖 房内中", "占门床 房内中", 
+                "占碓磨 房内南", "厨磨厕 房内南", "仓库炉 房内南", "房床门 房内西", 
+                "门碓栖 房内东", "碓磨床 房内东", "厨灶碓 房内东", "仓库厕 房内东", 
+                "房床炉 房内中", "占大门 外东北", "碓磨栖 外东北", "厨灶床 外东北", 
+                "仓库碓 外东北", "房床厕 外东北", "占门炉 外东北", "门碓磨 外正东", 
+                "厨灶栖 外正东", "仓库床 外正东", "房床碓 外正东", "占门厕 外正东", 
+                "碓磨炉 外东南", "厨灶门 外东南", "仓库栖 外东南", "占房床 外东南" });
 
         /// <summary>
         /// 逐月胎神方位
         /// </summary>
-        public static readonly string[] POSITION_TAI_MONTH = { "占房床", "占户窗", "占门堂", "占厨灶", "占房床", "占床仓", "占碓磨", "占厕户", "占门房", "占房床", "占灶炉", "占房床" };
+        public static IReadOnlyList<string> POSITION_TAI_MONTH { get; } =
+            Array.AsReadOnly(new[] {
+                "占房床", "占户窗", "占门堂", "占厨灶", "占房床", "占床仓", 
+                "占碓磨", "占厕户", "占门房", "占房床", "占灶炉", "占房床" });
 
         /// <summary>
         /// 年太岁方位
         /// </summary>
-        public static readonly string[] POSITION_TAI_SUI_YEAR = { "坎", "艮", "艮", "震", "巽", "巽", "离", "坤", "坤", "兑", "坎", "坎" };
+        public static IReadOnlyList<string> POSITION_TAI_SUI_YEAR { get; } =
+            Array.AsReadOnly(new[] { "坎", "艮", "艮", "震", "巽", "巽", "离", "坤", "坤", "兑", "坎", "坎" });
 
         /// <summary>
         /// 天干方位
         /// </summary>
-        public static readonly string[] POSITION_GAN = { "震", "震", "离", "离", "中", "中", "兑", "兑", "坎", "坎" };
+        public static IReadOnlyList<string> POSITION_GAN { get; } =
+            Array.AsReadOnly(new[] { "震", "震", "离", "离", "中", "中", "兑", "兑", "坎", "坎" });
 
         /// <summary>
         /// 地支方位
         /// </summary>
-        public static readonly string[] POSITION_ZHI = { "坎", "中", "震", "震", "中", "离", "离", "中", "兑", "兑", "中", "坎" };
+        public static IReadOnlyList<string> POSITION_ZHI { get; } =
+            Array.AsReadOnly(new[] { 
+                "坎", "中", "震", "震", "中", "离", 
+                "离", "中", "兑", "兑", "中", "坎" });
 
         /// <summary>
         /// 地支
         /// </summary>
-        public static readonly string[] ZHI = { "", "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" };
+        public static IReadOnlyList<string> ZHI { get; } =
+            Array.AsReadOnly(new[] {
+                "", "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" });
 
         /// <summary>
         /// 六十甲子
         /// </summary>
-        public static readonly string[] JIA_ZI = { "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉", "甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未", "甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳", "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯", "甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑", "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥" };
+        public static IReadOnlyList<string> JIA_ZI { get; } =
+            Array.AsReadOnly(new [] {
+                "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", 
+                "庚午", "辛未", "壬申", "癸酉", "甲戌", "乙亥",
+                "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳",
+                "壬午", "癸未", "甲申", "乙酉", "丙戌", "丁亥", 
+                "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳", 
+                "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", 
+                "庚子", "辛丑", "壬寅", "癸卯", "甲辰", "乙巳", 
+                "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", 
+                "壬子", "癸丑", "甲寅", "乙卯", "丙辰", "丁巳",
+                "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥" });
 
         /// <summary>
         /// 十二值星
         /// </summary>
-        public static readonly string[] ZHI_XING = { "", "建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭" };
+        public static IReadOnlyList<string> ZHI_XING { get; } =
+            Array.AsReadOnly(new[] { 
+                "", "建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭" });
 
         /// <summary>
         /// 十二天神
         /// </summary>
-        public static readonly string[] TIAN_SHEN = { "", "青龙", "明堂", "天刑", "朱雀", "金匮", "天德", "白虎", "玉堂", "天牢", "玄武", "司命", "勾陈" };
+        public static IReadOnlyList<string> TIAN_SHEN { get; } =
+            Array.AsReadOnly(new[] {
+                "", "青龙", "明堂", "天刑", "朱雀", "金匮", "天德",
+                "白虎", "玉堂", "天牢", "玄武", "司命", "勾陈" });
 
         /// <summary>
         /// 宜忌
         /// </summary>
-        private static readonly string[] YI_JI = { "祭祀", "祈福", "求嗣", "开光", "塑绘", "齐醮", "斋醮", "沐浴", "酬神", "造庙", "祀灶", "焚香", "谢土", "出火", "雕刻", "嫁娶", "订婚", "纳采", "问名", "纳婿", "归宁", "安床", "合帐", "冠笄", "订盟", "进人口", "裁衣", "挽面", "开容", "修坟", "启钻", "破土", "安葬", "立碑", "成服", "除服", "开生坟", "合寿木", "入殓", "移柩", "普渡", "入宅", "安香", "安门", "修造", "起基", "动土", "上梁", "竖柱", "开井开池", "作陂放水", "拆卸", "破屋", "坏垣", "补垣", "伐木做梁", "作灶", "解除", "开柱眼", "穿屏扇架", "盖屋合脊", "开厕", "造仓", "塞穴", "平治道涂", "造桥", "作厕", "筑堤", "开池", "伐木", "开渠", "掘井", "扫舍", "放水", "造屋", "合脊", "造畜稠", "修门", "定磉", "作梁", "修饰垣墙", "架马", "开市", "挂匾", "纳财", "求财", "开仓", "买车", "置产", "雇庸", "出货财", "安机械", "造车器", "经络", "酝酿", "作染", "鼓铸", "造船", "割蜜", "栽种", "取渔", "结网", "牧养", "安碓磑", "习艺", "入学", "理发", "探病", "见贵", "乘船", "渡水", "针灸", "出行", "移徙", "分居", "剃头", "整手足甲", "纳畜", "捕捉", "畋猎", "教牛马", "会亲友", "赴任", "求医", "治病", "词讼", "起基动土", "破屋坏垣", "盖屋", "造仓库", "立券交易", "交易", "立券", "安机", "会友", "求医疗病", "诸事不宜", "馀事勿取", "行丧", "断蚁", "归岫", "无" };
+        private static readonly string[] YI_JI = {
+                "祭祀", "祈福", "求嗣", "开光", "塑绘", "齐醮",
+                "斋醮", "沐浴", "酬神", "造庙", "祀灶", "焚香",
+                "谢土", "出火", "雕刻", "嫁娶", "订婚", "纳采",
+                "问名", "纳婿", "归宁", "安床", "合帐", "冠笄",
+                "订盟", "进人口", "裁衣", "挽面", "开容", "修坟",
+                "启钻", "破土", "安葬", "立碑", "成服", "除服",
+                "开生坟", "合寿木", "入殓", "移柩", "普渡", "入宅",
+                "安香", "安门", "修造", "起基", "动土", "上梁",
+                "竖柱", "开井开池", "作陂放水", "拆卸", "破屋",
+                "坏垣", "补垣", "伐木做梁", "作灶", "解除", "开柱眼",
+                "穿屏扇架", "盖屋合脊", "开厕", "造仓", "塞穴",
+                "平治道涂", "造桥", "作厕", "筑堤", "开池", "伐木",
+                "开渠", "掘井", "扫舍", "放水", "造屋", "合脊",
+                "造畜稠", "修门", "定磉", "作梁", "修饰垣墙",
+                "架马", "开市", "挂匾", "纳财", "求财", "开仓",
+                "买车", "置产", "雇庸", "出货财", "安机械", "造车器",
+                "经络", "酝酿", "作染", "鼓铸", "造船", "割蜜",
+                "栽种", "取渔", "结网", "牧养", "安碓磑", "习艺",
+                "入学", "理发", "探病", "见贵", "乘船", "渡水",
+                "针灸", "出行", "移徙", "分居", "剃头", "整手足甲",
+                "纳畜", "捕捉", "畋猎", "教牛马", "会亲友", "赴任",
+                "求医", "治病", "词讼", "起基动土", "破屋坏垣", "盖屋",
+                "造仓库", "立券交易", "交易", "立券", "安机", "会友",
+                "求医疗病", "诸事不宜", "馀事勿取", "行丧", "断蚁",
+                "归岫", "无"
+        };
 
         /// <summary>
         /// 每日宜忌数据
@@ -141,7 +241,30 @@ namespace Lunar.Util
         /// <summary>
         /// 神煞
         /// </summary>
-        private static readonly string[] SHEN_SHA = { "无", "天恩", "母仓", "时阳", "生气", "益后", "青龙", "灾煞", "天火", "四忌", "八龙", "复日", "续世", "明堂", "月煞", "月虚", "血支", "天贼", "五虚", "土符", "归忌", "血忌", "月德", "月恩", "四相", "王日", "天仓", "不将", "要安", "五合", "鸣吠对", "月建", "小时", "土府", "往亡", "天刑", "天德", "官日", "吉期", "玉宇", "大时", "大败", "咸池", "朱雀", "守日", "天巫", "福德", "六仪", "金堂", "金匮", "厌对", "招摇", "九空", "九坎", "九焦", "相日", "宝光", "天罡", "死神", "月刑", "月害", "游祸", "重日", "时德", "民日", "三合", "临日", "天马", "时阴", "鸣吠", "死气", "地囊", "白虎", "月德合", "敬安", "玉堂", "普护", "解神", "小耗", "天德合", "月空", "驿马", "天后", "除神", "月破", "大耗", "五离", "天牢", "阴德", "福生", "天吏", "致死", "元武", "阳德", "天喜", "天医", "司命", "月厌", "地火", "四击", "大煞", "大会", "天愿", "六合", "五富", "圣心", "河魁", "劫煞", "四穷", "勾陈", "触水龙", "八风", "天赦", "五墓", "八专", "阴错", "四耗", "阳错", "四废", "三阴", "小会", "阴道冲阳", "单阴", "孤辰", "阴位", "行狠", "了戾", "绝阴", "纯阳", "七鸟", "岁薄", "阴阳交破", "阴阳俱错", "阴阳击冲", "逐阵", "阳错阴冲", "七符", "天狗", "九虎", "成日", "天符", "孤阳", "绝阳", "纯阴", "六蛇", "阴神", "解除", "阳破阴冲" };
+        private static readonly string[] SHEN_SHA = { 
+            "无", "天恩", "母仓", "时阳", "生气", "益后", "青龙", 
+            "灾煞", "天火", "四忌", "八龙", "复日", "续世", "明堂",
+            "月煞", "月虚", "血支", "天贼", "五虚", "土符", "归忌",
+            "血忌", "月德", "月恩", "四相", "王日", "天仓", "不将", 
+            "要安", "五合", "鸣吠对", "月建", "小时", "土府", "往亡",
+            "天刑", "天德", "官日", "吉期", "玉宇", "大时", "大败", 
+            "咸池", "朱雀", "守日", "天巫", "福德", "六仪", "金堂", 
+            "金匮", "厌对", "招摇", "九空", "九坎", "九焦", "相日",
+            "宝光", "天罡", "死神", "月刑", "月害", "游祸", "重日", 
+            "时德", "民日", "三合", "临日", "天马", "时阴", "鸣吠", 
+            "死气", "地囊", "白虎", "月德合", "敬安", "玉堂", "普护", 
+            "解神", "小耗", "天德合", "月空", "驿马", "天后", "除神",
+            "月破", "大耗", "五离", "天牢", "阴德", "福生", "天吏", 
+            "致死", "元武", "阳德", "天喜", "天医", "司命", "月厌", 
+            "地火", "四击", "大煞", "大会", "天愿", "六合", "五富",
+            "圣心", "河魁", "劫煞", "四穷", "勾陈", "触水龙", "八风",
+            "天赦", "五墓", "八专", "阴错", "四耗", "阳错", "四废", 
+            "三阴", "小会", "阴道冲阳", "单阴", "孤辰", "阴位", "行狠",
+            "了戾", "绝阴", "纯阳", "七鸟", "岁薄", "阴阳交破",
+            "阴阳俱错", "阴阳击冲", "逐阵", "阳错阴冲", "七符", "天狗",
+            "九虎", "成日", "天符", "孤阳", "绝阳", "纯阴", "六蛇",
+            "阴神", "解除", "阳破阴冲" 
+        };
 
         /// <summary>
         /// 每日神煞数据
@@ -152,92 +275,130 @@ namespace Lunar.Util
         /// <summary>
         /// 彭祖百忌.天干
         /// </summary>
-        public static readonly string[] PENGZU_GAN = { "", "甲不开仓财物耗散", "乙不栽植千株不长", "丙不修灶必见灾殃", "丁不剃头头必生疮", "戊不受田田主不祥", "己不破券二比并亡", "庚不经络织机虚张", "辛不合酱主人不尝", "壬不泱水更难提防", "癸不词讼理弱敌强" };
+        public static IReadOnlyList<string> PENGZU_GAN { get; } =
+            Array.AsReadOnly(new[] {
+                "", "甲不开仓财物耗散", "乙不栽植千株不长", "丙不修灶必见灾殃", "丁不剃头头必生疮",
+                "戊不受田田主不祥", "己不破券二比并亡", "庚不经络织机虚张", "辛不合酱主人不尝",
+                "壬不泱水更难提防", "癸不词讼理弱敌强" });
 
         /// <summary>
         /// 彭祖百忌.地支
         /// </summary>
-        public static readonly string[] PENGZU_ZHI = { "", "子不问卜自惹祸殃", "丑不冠带主不还乡", "寅不祭祀神鬼不尝", "卯不穿井水泉不香", "辰不哭泣必主重丧", "巳不远行财物伏藏", "午不苫盖屋主更张", "未不服药毒气入肠", "申不安床鬼祟入房", "酉不会客醉坐颠狂", "戌不吃犬作怪上床", "亥不嫁娶不利新郎" };
+        public static IReadOnlyList<string> PENGZU_ZHI { get; } =
+            Array.AsReadOnly(new [] { 
+                "", "子不问卜自惹祸殃", "丑不冠带主不还乡", "寅不祭祀神鬼不尝", "卯不穿井水泉不香",
+                "辰不哭泣必主重丧", "巳不远行财物伏藏", "午不苫盖屋主更张", "未不服药毒气入肠",
+                "申不安床鬼祟入房", "酉不会客醉坐颠狂", "戌不吃犬作怪上床", "亥不嫁娶不利新郎" });
 
         /// <summary>
         /// 数字
         /// </summary>
-        public static readonly string[] NUMBER = { "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二" };
+        public static IReadOnlyList<string> NUMBER { get; } =
+            Array.AsReadOnly(new [] {
+                "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二" });
 
         /// <summary>
         /// 月
         /// </summary>
-        public static readonly string[] MONTH = { "", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊" };
+        public static IReadOnlyList<string> MONTH { get; } =
+            Array.AsReadOnly(new[]{
+                "", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊" });
 
         /// <summary>
         /// 季节
         /// </summary>
-        public static readonly string[] SEASON = { "", "孟春", "仲春", "季春", "孟夏", "仲夏", "季夏", "孟秋", "仲秋", "季秋", "孟冬", "仲冬", "季冬" };
+        public static IReadOnlyList<string> SEASON { get; } =
+            Array.AsReadOnly(new[] { 
+                "", "孟春", "仲春", "季春", "孟夏", "仲夏", "季夏", 
+                "孟秋", "仲秋", "季秋", "孟冬", "仲冬", "季冬" });
 
         /// <summary>
-        /// 生效
+        /// 生肖
         /// </summary>
-        public static readonly string[] SHENGXIAO = { "", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
+        public static IReadOnlyList<string> SHENGXIAO { get; } =
+            Array.AsReadOnly(new[]{
+                "", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" });
 
         /// <summary>
         /// 日
         /// </summary>
-        public static readonly string[] DAY = { "", "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十" };
+        public static IReadOnlyList<string> DAY { get; } =
+            Array.AsReadOnly(new[] {
+                "", "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
+                "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
+                "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十" });
 
         /// <summary>
         /// 月相
         /// </summary>
-        public static readonly string[] YUE_XIANG = { "", "朔", "既朔", "蛾眉新", "蛾眉新", "蛾眉", "夕", "上弦", "上弦", "九夜", "宵", "宵", "宵", "渐盈凸", "小望", "望", "既望", "立待", "居待", "寝待", "更待", "渐亏凸", "下弦", "下弦", "有明", "有明", "蛾眉残", "蛾眉残", "残", "晓", "晦" };
+        public static IReadOnlyList<string> YUE_XIANG { get; } =
+            Array.AsReadOnly(new[] {
+                "", "朔", "既朔", "蛾眉新", "蛾眉新", "蛾眉", "夕", "上弦",
+                "上弦", "九夜", "宵", "宵", "宵", "渐盈凸", "小望", "望",
+                "既望", "立待", "居待", "寝待", "更待", "渐亏凸", "下弦",
+                "下弦", "有明", "有明", "蛾眉残", "蛾眉残", "残", "晓", "晦" });
 
         /// <summary>
         /// 地支相冲（子午相冲，丑未相冲，寅申相冲，辰戌相冲，卯酉相冲，巳亥相冲），由于地支对应十二生肖，也就对应了生肖相冲
         /// </summary>
-        public static readonly string[] CHONG = { "午", "未", "申", "酉", "戌", "亥", "子", "丑", "寅", "卯", "辰", "巳" };
+        public static IReadOnlyList<string> CHONG { get; } =
+            Array.AsReadOnly(new[] { 
+                "午", "未", "申", "酉", 
+                "戌", "亥", "子", "丑", 
+                "寅", "卯", "辰", "巳" });
 
         /// <summary>
         /// 天干相冲之无情之克（阳克阳，阴克阴）
         /// </summary>
-        public static readonly string[] CHONG_GAN = { "戊", "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁" };
+        public static IReadOnlyList<string> CHONG_GAN { get; } =
+            Array.AsReadOnly(new[] { "戊", "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁" });
 
         /// <summary>
         /// 天干相冲之有情之克（阳克阴，阴克阳）
         /// </summary>
-        public static readonly string[] CHONG_GAN_TIE = { "己", "戊", "辛", "庚", "癸", "壬", "乙", "甲", "丁", "丙" };
+        public static IReadOnlyList<string> CHONG_GAN_TIE { get; } =
+            Array.AsReadOnly(new[] { "己", "戊", "辛", "庚", "癸", "壬", "乙", "甲", "丁", "丙" });
 
         /// <summary>
         /// 天干四冲
         /// </summary>
-        public static readonly string[] CHONG_GAN_4 = { "庚", "辛", "壬", "癸", "", "", "甲", "乙", "丙", "丁" };
+        public static IReadOnlyList<string> CHONG_GAN_4 { get; } =
+            Array.AsReadOnly(new[] { "庚", "辛", "壬", "癸", "", "", "甲", "乙", "丙", "丁" });
 
         /// <summary>
         /// 天干五合
         /// </summary>
-        public static readonly string[] HE_GAN_5 = { "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁", "戊" };
+        public static IReadOnlyList<string> HE_GAN_5 { get; } =
+            Array.AsReadOnly(new[] { "己", "庚", "辛", "壬", "癸", "甲", "乙", "丙", "丁", "戊" });
 
         /// <summary>
         /// 地支六合
         /// </summary>
-        public static readonly string[] HE_ZHI_6 = { "丑", "子", "亥", "戌", "酉", "申", "未", "午", "巳", "辰", "卯", "寅" };
+        public static IReadOnlyList<string> HE_ZHI_6 { get; } =
+            Array.AsReadOnly(new[]{
+                "丑", "子", "亥", "戌", "酉", "申", "未", "午", "巳", "辰", "卯", "寅" });
 
         /// <summary>
         /// 月份地支对应天神偏移下标
         /// </summary>
-        public static readonly Dictionary<string, int> ZHI_TIAN_SHEN_OFFSET = new Dictionary<string, int>();
+        public static IReadOnlyDictionary<string, int> ZHI_TIAN_SHEN_OFFSET { get; }
 
         /// <summary>
         /// 天神类型：黄道，黑道
         /// </summary>
-        public static readonly Dictionary<string, string> TIAN_SHEN_TYPE = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> TIAN_SHEN_TYPE { get; }
 
         /// <summary>
         /// 禄（甲禄在寅，乙禄在卯，丙戊禄在巳、丁己禄在午、庚禄在申、辛禄在酉、壬禄在亥、癸禄在子）
         /// </summary>
-        public static readonly Dictionary<string, string> LU = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> LU { get; }
 
         /// <summary>
         /// 天神类型吉凶
         /// </summary>
-        public static readonly Dictionary<string, string> TIAN_SHEN_TYPE_LUCK = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> TIAN_SHEN_TYPE_LUCK { get; }
+
+        // TODO: 可访问性调整
 
         /// <summary>
         /// 节日
@@ -252,129 +413,141 @@ namespace Lunar.Util
         /// <summary>
         /// 28星宿对照表，地支+星期
         /// </summary>
-        public static readonly Dictionary<string, string> XIU = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> XIU { get; }
 
         /// <summary>
         /// 星宿对应吉凶
         /// </summary>
-        public static readonly Dictionary<string, string> XIU_LUCK = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> XIU_LUCK { get; }
 
         /// <summary>
         /// 星宿歌
         /// </summary>
-        public static readonly Dictionary<string, string> XIU_SONG = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> XIU_SONG { get; }
 
         /// <summary>
         /// 兽
         /// </summary>
-        public static readonly Dictionary<string, string> SHOU = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> SHOU { get; }
 
         /// <summary>
         /// 煞
         /// </summary>
-        public static readonly Dictionary<string, string> SHA = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> SHA { get; }
 
         /// <summary>
         /// 方位描述
         /// </summary>
-        public static readonly Dictionary<string, string> POSITION_DESC = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> POSITION_DESC { get; }
 
         /// <summary>
         /// 宫
         /// </summary>
-        public static readonly Dictionary<string, string> GONG = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> GONG { get; }
 
         /// <summary>
         /// 政
         /// </summary>
-        public static readonly Dictionary<string, string> ZHENG = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> ZHENG { get; }
 
         /// <summary>
         /// 动物
         /// </summary>
-        public static readonly Dictionary<string, string> ANIMAL = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> ANIMAL { get; }
 
         /// <summary>
         /// 天干五行
         /// </summary>
-        public static readonly Dictionary<string, string> WU_XING_GAN = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> WU_XING_GAN { get; }
 
         /// <summary>
         /// 地支五行
         /// </summary>
-        public static readonly Dictionary<string, string> WU_XING_ZHI = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> WU_XING_ZHI { get; }
 
         /// <summary>
         /// 纳音
         /// </summary>
-        public static readonly Dictionary<string, string> NAYIN = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> NAYIN { get; }
 
         /// <summary>
         /// 天干十神，日主+天干为键
         /// </summary>
-        public static readonly Dictionary<string, string> SHI_SHEN_GAN = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> SHI_SHEN_GAN { get; }
 
         /// <summary>
         /// 地支十神，日主+地支藏干主气为键
         /// </summary>
-        public static readonly Dictionary<string, string> SHI_SHEN_ZHI = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> SHI_SHEN_ZHI { get; }
 
         /// <summary>
         /// 地支藏干表，分别为主气、余气、杂气
         /// </summary>
-        public static readonly Dictionary<string, List<string>> ZHI_HIDE_GAN = new Dictionary<string, List<string>>();
+        public static IReadOnlyDictionary<string, IReadOnlyList<string>> ZHI_HIDE_GAN { get; }
 
         static LunarUtil()
         {
-            ZHI_TIAN_SHEN_OFFSET.Add("子", 4);
-            ZHI_TIAN_SHEN_OFFSET.Add("丑", 2);
-            ZHI_TIAN_SHEN_OFFSET.Add("寅", 0);
-            ZHI_TIAN_SHEN_OFFSET.Add("卯", 10);
-            ZHI_TIAN_SHEN_OFFSET.Add("辰", 8);
-            ZHI_TIAN_SHEN_OFFSET.Add("巳", 6);
-            ZHI_TIAN_SHEN_OFFSET.Add("午", 4);
-            ZHI_TIAN_SHEN_OFFSET.Add("未", 2);
-            ZHI_TIAN_SHEN_OFFSET.Add("申", 0);
-            ZHI_TIAN_SHEN_OFFSET.Add("酉", 10);
-            ZHI_TIAN_SHEN_OFFSET.Add("戌", 8);
-            ZHI_TIAN_SHEN_OFFSET.Add("亥", 6);
+            var zhiTianShenOffset = new Dictionary<string, int> {
+                { "子", 4 },
+                { "丑", 2 },
+                { "寅", 0 },
+                { "卯", 10 },
+                { "辰", 8 },
+                { "巳", 6 },
+                { "午", 4 },
+                { "未", 2 },
+                { "申", 0 },
+                { "酉", 10 },
+                { "戌", 8 },
+                { "亥", 6 }
+            };
+            ZHI_TIAN_SHEN_OFFSET = new ReadOnlyDictionary<string, int>(zhiTianShenOffset);
 
-            TIAN_SHEN_TYPE.Add("青龙", "黄道");
-            TIAN_SHEN_TYPE.Add("明堂", "黄道");
-            TIAN_SHEN_TYPE.Add("金匮", "黄道");
-            TIAN_SHEN_TYPE.Add("天德", "黄道");
-            TIAN_SHEN_TYPE.Add("玉堂", "黄道");
-            TIAN_SHEN_TYPE.Add("司命", "黄道");
+            var tianShenType = new Dictionary<string, string> {
+                { "青龙", "黄道" },
+                { "明堂", "黄道" },
+                { "金匮", "黄道" },
+                { "天德", "黄道" },
+                { "玉堂", "黄道" },
+                { "司命", "黄道" },
 
-            TIAN_SHEN_TYPE.Add("天刑", "黑道");
-            TIAN_SHEN_TYPE.Add("朱雀", "黑道");
-            TIAN_SHEN_TYPE.Add("白虎", "黑道");
-            TIAN_SHEN_TYPE.Add("天牢", "黑道");
-            TIAN_SHEN_TYPE.Add("玄武", "黑道");
-            TIAN_SHEN_TYPE.Add("勾陈", "黑道");
+                { "天刑", "黑道" },
+                { "朱雀", "黑道" },
+                { "白虎", "黑道" },
+                { "天牢", "黑道" },
+                { "玄武", "黑道" },
+                { "勾陈", "黑道" }
+            };
+            TIAN_SHEN_TYPE = new ReadOnlyDictionary<string, string>(tianShenType);
 
-            TIAN_SHEN_TYPE_LUCK.Add("黄道", "吉");
-            TIAN_SHEN_TYPE_LUCK.Add("黑道", "凶");
+            var tianShenTypeLuck = new Dictionary<string, string> {
+                { "黄道", "吉" },
+                { "黑道", "凶" }
+            };
+            TIAN_SHEN_TYPE_LUCK = new ReadOnlyDictionary<string, string>(tianShenTypeLuck);
 
-            LU.Add("甲", "寅");
-            LU.Add("乙", "卯");
-            LU.Add("丙", "巳");
-            LU.Add("丁", "午");
-            LU.Add("戊", "巳");
-            LU.Add("己", "午");
-            LU.Add("庚", "申");
-            LU.Add("辛", "酉");
-            LU.Add("壬", "亥");
-            LU.Add("癸", "子");
+            var lu = new Dictionary<string, string> {
+                { "甲", "寅" },
+                { "乙", "卯" },
+                { "丙", "巳" },
+                { "丁", "午" },
+                { "戊", "巳" },
+                { "己", "午" },
+                { "庚", "申" },
+                { "辛", "酉" },
+                { "壬", "亥" },
+                { "癸", "子" },
 
-            LU.Add("寅", "甲");
-            LU.Add("卯", "乙");
-            LU.Add("巳", "丙,戊");
-            LU.Add("午", "丁,己");
-            LU.Add("申", "庚");
-            LU.Add("酉", "辛");
-            LU.Add("亥", "壬");
-            LU.Add("子", "癸");
+                { "寅", "甲" },
+                { "卯", "乙" },
+                { "巳", "丙,戊" },
+                { "午", "丁,己" },
+                { "申", "庚" },
+                { "酉", "辛" },
+                { "亥", "壬" },
+                { "子", "癸" }
+            };
+            LU = new ReadOnlyDictionary<string, string>(lu);
 
             FESTIVAL.Add("1-1", "春节");
             FESTIVAL.Add("1-15", "元宵节");
@@ -413,754 +586,799 @@ namespace Lunar.Util
             OTHER_FESTIVAL.Add("12-16", new List<string>(new[] { "尾牙" }));
             OTHER_FESTIVAL.Add("12-24", new List<string>(new[] { "祭灶日" }));
 
-            XIU.Add("申1", "毕");
-            XIU.Add("申2", "翼");
-            XIU.Add("申3", "箕");
-            XIU.Add("申4", "奎");
-            XIU.Add("申5", "鬼");
-            XIU.Add("申6", "氐");
-            XIU.Add("申0", "虚");
+            var xiu = new Dictionary<string, string> {
+                { "申1", "毕" },
+                { "申2", "翼" },
+                { "申3", "箕" },
+                { "申4", "奎" },
+                { "申5", "鬼" },
+                { "申6", "氐" },
+                { "申0", "虚" },
 
-            XIU.Add("子1", "毕");
-            XIU.Add("子2", "翼");
-            XIU.Add("子3", "箕");
-            XIU.Add("子4", "奎");
-            XIU.Add("子5", "鬼");
-            XIU.Add("子6", "氐");
-            XIU.Add("子0", "虚");
+                { "子1", "毕" },
+                { "子2", "翼" },
+                { "子3", "箕" },
+                { "子4", "奎" },
+                { "子5", "鬼" },
+                { "子6", "氐" },
+                { "子0", "虚" },
 
-            XIU.Add("辰1", "毕");
-            XIU.Add("辰2", "翼");
-            XIU.Add("辰3", "箕");
-            XIU.Add("辰4", "奎");
-            XIU.Add("辰5", "鬼");
-            XIU.Add("辰6", "氐");
-            XIU.Add("辰0", "虚");
+                { "辰1", "毕" },
+                { "辰2", "翼" },
+                { "辰3", "箕" },
+                { "辰4", "奎" },
+                { "辰5", "鬼" },
+                { "辰6", "氐" },
+                { "辰0", "虚" },
 
-            XIU.Add("巳1", "危");
-            XIU.Add("巳2", "觜");
-            XIU.Add("巳3", "轸");
-            XIU.Add("巳4", "斗");
-            XIU.Add("巳5", "娄");
-            XIU.Add("巳6", "柳");
-            XIU.Add("巳0", "房");
+                { "巳1", "危" },
+                { "巳2", "觜" },
+                { "巳3", "轸" },
+                { "巳4", "斗" },
+                { "巳5", "娄" },
+                { "巳6", "柳" },
+                { "巳0", "房" },
 
-            XIU.Add("酉1", "危");
-            XIU.Add("酉2", "觜");
-            XIU.Add("酉3", "轸");
-            XIU.Add("酉4", "斗");
-            XIU.Add("酉5", "娄");
-            XIU.Add("酉6", "柳");
-            XIU.Add("酉0", "房");
+                { "酉1", "危" },
+                { "酉2", "觜" },
+                { "酉3", "轸" },
+                { "酉4", "斗" },
+                { "酉5", "娄" },
+                { "酉6", "柳" },
+                { "酉0", "房" },
 
-            XIU.Add("丑1", "危");
-            XIU.Add("丑2", "觜");
-            XIU.Add("丑3", "轸");
-            XIU.Add("丑4", "斗");
-            XIU.Add("丑5", "娄");
-            XIU.Add("丑6", "柳");
-            XIU.Add("丑0", "房");
+                { "丑1", "危" },
+                { "丑2", "觜" },
+                { "丑3", "轸" },
+                { "丑4", "斗" },
+                { "丑5", "娄" },
+                { "丑6", "柳" },
+                { "丑0", "房" },
 
-            XIU.Add("寅1", "心");
-            XIU.Add("寅2", "室");
-            XIU.Add("寅3", "参");
-            XIU.Add("寅4", "角");
-            XIU.Add("寅5", "牛");
-            XIU.Add("寅6", "胃");
-            XIU.Add("寅0", "星");
+                { "寅1", "心" },
+                { "寅2", "室" },
+                { "寅3", "参" },
+                { "寅4", "角" },
+                { "寅5", "牛" },
+                { "寅6", "胃" },
+                { "寅0", "星" },
 
-            XIU.Add("午1", "心");
-            XIU.Add("午2", "室");
-            XIU.Add("午3", "参");
-            XIU.Add("午4", "角");
-            XIU.Add("午5", "牛");
-            XIU.Add("午6", "胃");
-            XIU.Add("午0", "星");
+                { "午1", "心" },
+                { "午2", "室" },
+                { "午3", "参" },
+                { "午4", "角" },
+                { "午5", "牛" },
+                { "午6", "胃" },
+                { "午0", "星" },
 
-            XIU.Add("戌1", "心");
-            XIU.Add("戌2", "室");
-            XIU.Add("戌3", "参");
-            XIU.Add("戌4", "角");
-            XIU.Add("戌5", "牛");
-            XIU.Add("戌6", "胃");
-            XIU.Add("戌0", "星");
+                { "戌1", "心" },
+                { "戌2", "室" },
+                { "戌3", "参" },
+                { "戌4", "角" },
+                { "戌5", "牛" },
+                { "戌6", "胃" },
+                { "戌0", "星" },
 
-            XIU.Add("亥1", "张");
-            XIU.Add("亥2", "尾");
-            XIU.Add("亥3", "壁");
-            XIU.Add("亥4", "井");
-            XIU.Add("亥5", "亢");
-            XIU.Add("亥6", "女");
-            XIU.Add("亥0", "昴");
+                { "亥1", "张" },
+                { "亥2", "尾" },
+                { "亥3", "壁" },
+                { "亥4", "井" },
+                { "亥5", "亢" },
+                { "亥6", "女" },
+                { "亥0", "昴" },
 
-            XIU.Add("卯1", "张");
-            XIU.Add("卯2", "尾");
-            XIU.Add("卯3", "壁");
-            XIU.Add("卯4", "井");
-            XIU.Add("卯5", "亢");
-            XIU.Add("卯6", "女");
-            XIU.Add("卯0", "昴");
+                { "卯1", "张" },
+                { "卯2", "尾" },
+                { "卯3", "壁" },
+                { "卯4", "井" },
+                { "卯5", "亢" },
+                { "卯6", "女" },
+                { "卯0", "昴" },
 
-            XIU.Add("未1", "张");
-            XIU.Add("未2", "尾");
-            XIU.Add("未3", "壁");
-            XIU.Add("未4", "井");
-            XIU.Add("未5", "亢");
-            XIU.Add("未6", "女");
-            XIU.Add("未0", "昴");
+                { "未1", "张" },
+                { "未2", "尾" },
+                { "未3", "壁" },
+                { "未4", "井" },
+                { "未5", "亢" },
+                { "未6", "女" },
+                { "未0", "昴" }
+            };
+            XIU = new ReadOnlyDictionary<string, string>(xiu);
 
-            XIU_LUCK.Add("角", "吉");
-            XIU_LUCK.Add("亢", "凶");
-            XIU_LUCK.Add("氐", "凶");
-            XIU_LUCK.Add("房", "吉");
-            XIU_LUCK.Add("心", "凶");
-            XIU_LUCK.Add("尾", "吉");
-            XIU_LUCK.Add("箕", "吉");
-            XIU_LUCK.Add("斗", "吉");
-            XIU_LUCK.Add("牛", "凶");
-            XIU_LUCK.Add("女", "凶");
-            XIU_LUCK.Add("虚", "凶");
-            XIU_LUCK.Add("危", "凶");
-            XIU_LUCK.Add("室", "吉");
-            XIU_LUCK.Add("壁", "吉");
-            XIU_LUCK.Add("奎", "凶");
-            XIU_LUCK.Add("娄", "吉");
-            XIU_LUCK.Add("胃", "吉");
-            XIU_LUCK.Add("昴", "凶");
-            XIU_LUCK.Add("毕", "吉");
-            XIU_LUCK.Add("觜", "凶");
-            XIU_LUCK.Add("参", "吉");
-            XIU_LUCK.Add("井", "吉");
-            XIU_LUCK.Add("鬼", "凶");
-            XIU_LUCK.Add("柳", "凶");
-            XIU_LUCK.Add("星", "凶");
-            XIU_LUCK.Add("张", "吉");
-            XIU_LUCK.Add("翼", "凶");
-            XIU_LUCK.Add("轸", "吉");
+            var xiuLuck = new Dictionary<string, string> {
+                { "角", "吉" },
+                { "亢", "凶" },
+                { "氐", "凶" },
+                { "房", "吉" },
+                { "心", "凶" },
+                { "尾", "吉" },
+                { "箕", "吉" },
+                { "斗", "吉" },
+                { "牛", "凶" },
+                { "女", "凶" },
+                { "虚", "凶" },
+                { "危", "凶" },
+                { "室", "吉" },
+                { "壁", "吉" },
+                { "奎", "凶" },
+                { "娄", "吉" },
+                { "胃", "吉" },
+                { "昴", "凶" },
+                { "毕", "吉" },
+                { "觜", "凶" },
+                { "参", "吉" },
+                { "井", "吉" },
+                { "鬼", "凶" },
+                { "柳", "凶" },
+                { "星", "凶" },
+                { "张", "吉" },
+                { "翼", "凶" },
+                { "轸", "吉" }
+            };
+            XIU_LUCK = new ReadOnlyDictionary<string, string>(xiuLuck);
 
-            XIU_SONG.Add("角", "角星造作主荣昌，外进田财及女郎，嫁娶婚姻出贵子，文人及第见君王，惟有埋葬不可用，三年之后主瘟疫，起工修筑坟基地，堂前立见主人凶。");
-            XIU_SONG.Add("亢", "亢星造作长房当，十日之中主有殃，田地消磨官失职，接运定是虎狼伤，嫁娶婚姻用此日，儿孙新妇守空房，埋葬若还用此日，当时害祸主重伤。");
-            XIU_SONG.Add("氐", "氐星造作主灾凶，费尽田园仓库空，埋葬不可用此日，悬绳吊颈祸重重，若是婚姻离别散，夜招浪子入房中，行船必定遭沉没，更生聋哑子孙穷。");
-            XIU_SONG.Add("房", "房星造作田园进，钱财牛马遍山岗，更招外处田庄宅，荣华富贵福禄康，埋葬若然用此日，高官进职拜君王，嫁娶嫦娥至月殿，三年抱子至朝堂。");
-            XIU_SONG.Add("心", "心星造作大为凶，更遭刑讼狱囚中，忤逆官非宅产退，埋葬卒暴死相从，婚姻若是用此日，子死儿亡泪满胸，三年之内连遭祸，事事教君没始终。");
-            XIU_SONG.Add("尾", "尾星造作主天恩，富贵荣华福禄增，招财进宝兴家宅，和合婚姻贵子孙，埋葬若能依此日，男清女正子孙兴，开门放水招田宅，代代公侯远播名。");
-            XIU_SONG.Add("箕", "箕星造作主高强，岁岁年年大吉昌，埋葬修坟大吉利，田蚕牛马遍山岗，开门放水招田宅，箧满金银谷满仓，福荫高官加禄位，六亲丰禄乐安康。");
-            XIU_SONG.Add("斗", "斗星造作主招财，文武官员位鼎台，田宅家财千万进，坟堂修筑贵富来，开门放水招牛马，旺蚕男女主和谐，遇此吉宿来照护，时支福庆永无灾。");
-            XIU_SONG.Add("牛", "牛星造作主灾危，九横三灾不可推，家宅不安人口退，田蚕不利主人衰，嫁娶婚姻皆自损，金银财谷渐无之，若是开门并放水，牛猪羊马亦伤悲。");
-            XIU_SONG.Add("女", "女星造作损婆娘，兄弟相嫌似虎狼，埋葬生灾逢鬼怪，颠邪疾病主瘟惶，为事遭官财失散，泻利留连不可当，开门放水用此日，全家财散主离乡。");
-            XIU_SONG.Add("虚", "虚星造作主灾殃，男女孤眠不一双，内乱风声无礼节，儿孙媳妇伴人床，开门放水遭灾祸，虎咬蛇伤又卒亡，三三五五连年病，家破人亡不可当。");
-            XIU_SONG.Add("危", "危星不可造高楼，自遭刑吊见血光，三年孩子遭水厄，后生出外永不还，埋葬若还逢此日，周年百日取高堂，三年两载一悲伤，开门放水到官堂。");
-            XIU_SONG.Add("室", "室星修造进田牛，儿孙代代近王侯，家贵荣华天上至，寿如彭祖八千秋，开门放水招财帛，和合婚姻生贵儿，埋葬若能依此日，门庭兴旺福无休。");
-            XIU_SONG.Add("壁", "壁星造作主增财，丝蚕大熟福滔天，奴婢自来人口进，开门放水出英贤，埋葬招财官品进，家中诸事乐陶然，婚姻吉利主贵子，早播名誉著祖鞭。");
-            XIU_SONG.Add("奎", "奎星造作得祯祥，家内荣和大吉昌，若是埋葬阴卒死，当年定主两三伤，看看军令刑伤到，重重官事主瘟惶，开门放水遭灾祸，三年两次损儿郎。");
-            XIU_SONG.Add("娄", "娄星修造起门庭，财旺家和事事兴，外进钱财百日进，一家兄弟播高名，婚姻进益生贵子，玉帛金银箱满盈，放水开门皆吉利，男荣女贵寿康宁。");
-            XIU_SONG.Add("胃", "胃星造作事如何，家贵荣华喜气多，埋葬贵临官禄位，夫妇齐眉永保康，婚姻遇此家富贵，三灾九祸不逢他，从此门前多吉庆，儿孙代代拜金阶。");
-            XIU_SONG.Add("昴", "昴星造作进田牛，埋葬官灾不得休，重丧二日三人死，尽卖田园不记增，开门放水招灾祸，三岁孩儿白了头，婚姻不可逢此日，死别生离是可愁。");
-            XIU_SONG.Add("毕", "毕星造作主光前，买得田园有余钱，埋葬此日添官职，田蚕大熟永丰年，开门放水多吉庆，合家人口得安然，婚姻若得逢此日，生得孩儿福寿全。");
-            XIU_SONG.Add("觜", "觜星造作有徒刑，三年必定主伶丁，埋葬卒死多因此，取定寅年使杀人，三丧不止皆由此，一人药毒二人身，家门田地皆退败，仓库金银化作尘。");
-            XIU_SONG.Add("参", "参星造作旺人家，文星照耀大光华，只因造作田财旺，埋葬招疾哭黄沙，开门放水加官职，房房子孙见田加，婚姻许遁遭刑克，男女朝开幕落花。");
-            XIU_SONG.Add("井", "井星造作旺蚕田，金榜题名第一光，埋葬须防惊卒死，狂颠风疾入黄泉，开门放水招财帛，牛马猪羊旺莫言，贵人田塘来入宅，儿孙兴旺有余钱。");
-            XIU_SONG.Add("鬼", "鬼星起造卒人亡，堂前不见主人郎，埋葬此日官禄至，儿孙代代近君王，开门放水须伤死，嫁娶夫妻不久长，修土筑墙伤产女，手扶双女泪汪汪。");
-            XIU_SONG.Add("柳", "柳星造作主遭官，昼夜偷闭不暂安，埋葬瘟惶多疾病，田园退尽守冬寒，开门放水遭聋瞎，腰驼背曲似弓弯，更有棒刑宜谨慎，妇人随客走盘桓。");
-            XIU_SONG.Add("星", "星宿日好造新房，进职加官近帝王，不可埋葬并放水，凶星临位女人亡，生离死别无心恋，要自归休别嫁郎，孔子九曲殊难度，放水开门天命伤。");
-            XIU_SONG.Add("张", "张星日好造龙轩，年年并见进庄田，埋葬不久升官职，代代为官近帝前，开门放水招财帛，婚姻和合福绵绵，田蚕人满仓库满，百般顺意自安然。");
-            XIU_SONG.Add("翼", "翼星不利架高堂，三年二载见瘟惶，埋葬若还逢此日，子孙必定走他乡，婚姻此日不宜利，归家定是不相当，开门放水家须破，少女恋花贪外郎。");
-            XIU_SONG.Add("轸", "轸星临水造龙宫，代代为官受皇封，富贵荣华增寿禄，库满仓盈自昌隆，埋葬文昌来照助，宅舍安宁不见凶，更有为官沾帝宠，婚姻龙子入龙宫。");
+            var xiuSong = new Dictionary<string, string> {
+                { "角", "角星造作主荣昌，外进田财及女郎，嫁娶婚姻出贵子，文人及第见君王，惟有埋葬不可用，三年之后主瘟疫，起工修筑坟基地，堂前立见主人凶。" },
+                { "亢", "亢星造作长房当，十日之中主有殃，田地消磨官失职，接运定是虎狼伤，嫁娶婚姻用此日，儿孙新妇守空房，埋葬若还用此日，当时害祸主重伤。" },
+                { "氐", "氐星造作主灾凶，费尽田园仓库空，埋葬不可用此日，悬绳吊颈祸重重，若是婚姻离别散，夜招浪子入房中，行船必定遭沉没，更生聋哑子孙穷。" },
+                { "房", "房星造作田园进，钱财牛马遍山岗，更招外处田庄宅，荣华富贵福禄康，埋葬若然用此日，高官进职拜君王，嫁娶嫦娥至月殿，三年抱子至朝堂。" },
+                { "心", "心星造作大为凶，更遭刑讼狱囚中，忤逆官非宅产退，埋葬卒暴死相从，婚姻若是用此日，子死儿亡泪满胸，三年之内连遭祸，事事教君没始终。" },
+                { "尾", "尾星造作主天恩，富贵荣华福禄增，招财进宝兴家宅，和合婚姻贵子孙，埋葬若能依此日，男清女正子孙兴，开门放水招田宅，代代公侯远播名。" },
+                { "箕", "箕星造作主高强，岁岁年年大吉昌，埋葬修坟大吉利，田蚕牛马遍山岗，开门放水招田宅，箧满金银谷满仓，福荫高官加禄位，六亲丰禄乐安康。" },
+                { "斗", "斗星造作主招财，文武官员位鼎台，田宅家财千万进，坟堂修筑贵富来，开门放水招牛马，旺蚕男女主和谐，遇此吉宿来照护，时支福庆永无灾。" },
+                { "牛", "牛星造作主灾危，九横三灾不可推，家宅不安人口退，田蚕不利主人衰，嫁娶婚姻皆自损，金银财谷渐无之，若是开门并放水，牛猪羊马亦伤悲。" },
+                { "女", "女星造作损婆娘，兄弟相嫌似虎狼，埋葬生灾逢鬼怪，颠邪疾病主瘟惶，为事遭官财失散，泻利留连不可当，开门放水用此日，全家财散主离乡。" },
+                { "虚", "虚星造作主灾殃，男女孤眠不一双，内乱风声无礼节，儿孙媳妇伴人床，开门放水遭灾祸，虎咬蛇伤又卒亡，三三五五连年病，家破人亡不可当。" },
+                { "危", "危星不可造高楼，自遭刑吊见血光，三年孩子遭水厄，后生出外永不还，埋葬若还逢此日，周年百日取高堂，三年两载一悲伤，开门放水到官堂。" },
+                { "室", "室星修造进田牛，儿孙代代近王侯，家贵荣华天上至，寿如彭祖八千秋，开门放水招财帛，和合婚姻生贵儿，埋葬若能依此日，门庭兴旺福无休。" },
+                { "壁", "壁星造作主增财，丝蚕大熟福滔天，奴婢自来人口进，开门放水出英贤，埋葬招财官品进，家中诸事乐陶然，婚姻吉利主贵子，早播名誉著祖鞭。" },
+                { "奎", "奎星造作得祯祥，家内荣和大吉昌，若是埋葬阴卒死，当年定主两三伤，看看军令刑伤到，重重官事主瘟惶，开门放水遭灾祸，三年两次损儿郎。" },
+                { "娄", "娄星修造起门庭，财旺家和事事兴，外进钱财百日进，一家兄弟播高名，婚姻进益生贵子，玉帛金银箱满盈，放水开门皆吉利，男荣女贵寿康宁。" },
+                { "胃", "胃星造作事如何，家贵荣华喜气多，埋葬贵临官禄位，夫妇齐眉永保康，婚姻遇此家富贵，三灾九祸不逢他，从此门前多吉庆，儿孙代代拜金阶。" },
+                { "昴", "昴星造作进田牛，埋葬官灾不得休，重丧二日三人死，尽卖田园不记增，开门放水招灾祸，三岁孩儿白了头，婚姻不可逢此日，死别生离是可愁。" },
+                { "毕", "毕星造作主光前，买得田园有余钱，埋葬此日添官职，田蚕大熟永丰年，开门放水多吉庆，合家人口得安然，婚姻若得逢此日，生得孩儿福寿全。" },
+                { "觜", "觜星造作有徒刑，三年必定主伶丁，埋葬卒死多因此，取定寅年使杀人，三丧不止皆由此，一人药毒二人身，家门田地皆退败，仓库金银化作尘。" },
+                { "参", "参星造作旺人家，文星照耀大光华，只因造作田财旺，埋葬招疾哭黄沙，开门放水加官职，房房子孙见田加，婚姻许遁遭刑克，男女朝开幕落花。" },
+                { "井", "井星造作旺蚕田，金榜题名第一光，埋葬须防惊卒死，狂颠风疾入黄泉，开门放水招财帛，牛马猪羊旺莫言，贵人田塘来入宅，儿孙兴旺有余钱。" },
+                { "鬼", "鬼星起造卒人亡，堂前不见主人郎，埋葬此日官禄至，儿孙代代近君王，开门放水须伤死，嫁娶夫妻不久长，修土筑墙伤产女，手扶双女泪汪汪。" },
+                { "柳", "柳星造作主遭官，昼夜偷闭不暂安，埋葬瘟惶多疾病，田园退尽守冬寒，开门放水遭聋瞎，腰驼背曲似弓弯，更有棒刑宜谨慎，妇人随客走盘桓。" },
+                { "星", "星宿日好造新房，进职加官近帝王，不可埋葬并放水，凶星临位女人亡，生离死别无心恋，要自归休别嫁郎，孔子九曲殊难度，放水开门天命伤。" },
+                { "张", "张星日好造龙轩，年年并见进庄田，埋葬不久升官职，代代为官近帝前，开门放水招财帛，婚姻和合福绵绵，田蚕人满仓库满，百般顺意自安然。" },
+                { "翼", "翼星不利架高堂，三年二载见瘟惶，埋葬若还逢此日，子孙必定走他乡，婚姻此日不宜利，归家定是不相当，开门放水家须破，少女恋花贪外郎。" },
+                { "轸", "轸星临水造龙宫，代代为官受皇封，富贵荣华增寿禄，库满仓盈自昌隆，埋葬文昌来照助，宅舍安宁不见凶，更有为官沾帝宠，婚姻龙子入龙宫。" }
+            };
+            XIU_SONG = new ReadOnlyDictionary<string, string>(xiuSong);
 
-            SHOU.Add("东", "青龙");
-            SHOU.Add("南", "朱雀");
-            SHOU.Add("西", "白虎");
-            SHOU.Add("北", "玄武");
+            var shou = new Dictionary<string, string> {
+                { "东", "青龙" },
+                { "南", "朱雀" },
+                { "西", "白虎" },
+                { "北", "玄武" }
+            };
+            SHOU = new ReadOnlyDictionary<string, string>(shou);
 
-            SHA.Add("子", "南");
-            SHA.Add("丑", "东");
-            SHA.Add("寅", "北");
-            SHA.Add("卯", "西");
-            SHA.Add("辰", "南");
-            SHA.Add("巳", "东");
-            SHA.Add("午", "北");
-            SHA.Add("未", "西");
-            SHA.Add("申", "南");
-            SHA.Add("酉", "东");
-            SHA.Add("戌", "北");
-            SHA.Add("亥", "西");
+            var sha = new Dictionary<string, string> {
+                { "子", "南" },
+                { "丑", "东" },
+                { "寅", "北" },
+                { "卯", "西" },
+                { "辰", "南" },
+                { "巳", "东" },
+                { "午", "北" },
+                { "未", "西" },
+                { "申", "南" },
+                { "酉", "东" },
+                { "戌", "北" },
+                { "亥", "西" }
+            };
+            SHA = new ReadOnlyDictionary<string, string>(sha);
 
-            POSITION_DESC.Add("坎", "正北");
-            POSITION_DESC.Add("艮", "东北");
-            POSITION_DESC.Add("震", "正东");
-            POSITION_DESC.Add("巽", "东南");
-            POSITION_DESC.Add("离", "正南");
-            POSITION_DESC.Add("坤", "西南");
-            POSITION_DESC.Add("兑", "正西");
-            POSITION_DESC.Add("乾", "西北");
-            POSITION_DESC.Add("中", "中宫");
+            var positionDesc = new Dictionary<string, string> {
+                { "坎", "正北" },
+                { "艮", "东北" },
+                { "震", "正东" },
+                { "巽", "东南" },
+                { "离", "正南" },
+                { "坤", "西南" },
+                { "兑", "正西" },
+                { "乾", "西北" },
+                { "中", "中宫" }
+            };
+            POSITION_DESC = new ReadOnlyDictionary<string, string>(positionDesc);
 
-            GONG.Add("角", "东");
-            GONG.Add("井", "南");
-            GONG.Add("奎", "西");
-            GONG.Add("斗", "北");
-            GONG.Add("亢", "东");
-            GONG.Add("鬼", "南");
-            GONG.Add("娄", "西");
-            GONG.Add("牛", "北");
-            GONG.Add("氐", "东");
-            GONG.Add("柳", "南");
-            GONG.Add("胃", "西");
-            GONG.Add("女", "北");
-            GONG.Add("房", "东");
-            GONG.Add("星", "南");
-            GONG.Add("昴", "西");
-            GONG.Add("虚", "北");
-            GONG.Add("心", "东");
-            GONG.Add("张", "南");
-            GONG.Add("毕", "西");
-            GONG.Add("危", "北");
-            GONG.Add("尾", "东");
-            GONG.Add("翼", "南");
-            GONG.Add("觜", "西");
-            GONG.Add("室", "北");
-            GONG.Add("箕", "东");
-            GONG.Add("轸", "南");
-            GONG.Add("参", "西");
-            GONG.Add("壁", "北");
+            var gong = new Dictionary<string, string> {
+                { "角", "东" },
+                { "井", "南" },
+                { "奎", "西" },
+                { "斗", "北" },
+                { "亢", "东" },
+                { "鬼", "南" },
+                { "娄", "西" },
+                { "牛", "北" },
+                { "氐", "东" },
+                { "柳", "南" },
+                { "胃", "西" },
+                { "女", "北" },
+                { "房", "东" },
+                { "星", "南" },
+                { "昴", "西" },
+                { "虚", "北" },
+                { "心", "东" },
+                { "张", "南" },
+                { "毕", "西" },
+                { "危", "北" },
+                { "尾", "东" },
+                { "翼", "南" },
+                { "觜", "西" },
+                { "室", "北" },
+                { "箕", "东" },
+                { "轸", "南" },
+                { "参", "西" },
+                { "壁", "北" }
+            };
+            GONG = new ReadOnlyDictionary<string, string>(gong);
 
-            ZHENG.Add("角", "木");
-            ZHENG.Add("井", "木");
-            ZHENG.Add("奎", "木");
-            ZHENG.Add("斗", "木");
-            ZHENG.Add("亢", "金");
-            ZHENG.Add("鬼", "金");
-            ZHENG.Add("娄", "金");
-            ZHENG.Add("牛", "金");
-            ZHENG.Add("氐", "土");
-            ZHENG.Add("柳", "土");
-            ZHENG.Add("胃", "土");
-            ZHENG.Add("女", "土");
-            ZHENG.Add("房", "日");
-            ZHENG.Add("星", "日");
-            ZHENG.Add("昴", "日");
-            ZHENG.Add("虚", "日");
-            ZHENG.Add("心", "月");
-            ZHENG.Add("张", "月");
-            ZHENG.Add("毕", "月");
-            ZHENG.Add("危", "月");
-            ZHENG.Add("尾", "火");
-            ZHENG.Add("翼", "火");
-            ZHENG.Add("觜", "火");
-            ZHENG.Add("室", "火");
-            ZHENG.Add("箕", "水");
-            ZHENG.Add("轸", "水");
-            ZHENG.Add("参", "水");
-            ZHENG.Add("壁", "水");
+            var zheng = new Dictionary<string, string> {
+                { "角", "木" },
+                { "井", "木" },
+                { "奎", "木" },
+                { "斗", "木" },
+                { "亢", "金" },
+                { "鬼", "金" },
+                { "娄", "金" },
+                { "牛", "金" },
+                { "氐", "土" },
+                { "柳", "土" },
+                { "胃", "土" },
+                { "女", "土" },
+                { "房", "日" },
+                { "星", "日" },
+                { "昴", "日" },
+                { "虚", "日" },
+                { "心", "月" },
+                { "张", "月" },
+                { "毕", "月" },
+                { "危", "月" },
+                { "尾", "火" },
+                { "翼", "火" },
+                { "觜", "火" },
+                { "室", "火" },
+                { "箕", "水" },
+                { "轸", "水" },
+                { "参", "水" },
+                { "壁", "水" }
+            };
+            ZHENG = new ReadOnlyDictionary<string, string>(zheng);
 
-            ANIMAL.Add("角", "蛟");
-            ANIMAL.Add("斗", "獬");
-            ANIMAL.Add("奎", "狼");
-            ANIMAL.Add("井", "犴");
-            ANIMAL.Add("亢", "龙");
-            ANIMAL.Add("牛", "牛");
-            ANIMAL.Add("娄", "狗");
-            ANIMAL.Add("鬼", "羊");
-            ANIMAL.Add("女", "蝠");
-            ANIMAL.Add("氐", "貉");
-            ANIMAL.Add("胃", "彘");
-            ANIMAL.Add("柳", "獐");
-            ANIMAL.Add("房", "兔");
-            ANIMAL.Add("虚", "鼠");
-            ANIMAL.Add("昴", "鸡");
-            ANIMAL.Add("星", "马");
-            ANIMAL.Add("心", "狐");
-            ANIMAL.Add("危", "燕");
-            ANIMAL.Add("毕", "乌");
-            ANIMAL.Add("张", "鹿");
-            ANIMAL.Add("尾", "虎");
-            ANIMAL.Add("室", "猪");
-            ANIMAL.Add("觜", "猴");
-            ANIMAL.Add("翼", "蛇");
-            ANIMAL.Add("箕", "豹");
-            ANIMAL.Add("壁", "獝");
-            ANIMAL.Add("参", "猿");
-            ANIMAL.Add("轸", "蚓");
+            var animal = new Dictionary<string, string> {
+                { "角", "蛟" },
+                { "斗", "獬" },
+                { "奎", "狼" },
+                { "井", "犴" },
+                { "亢", "龙" },
+                { "牛", "牛" },
+                { "娄", "狗" },
+                { "鬼", "羊" },
+                { "女", "蝠" },
+                { "氐", "貉" },
+                { "胃", "彘" },
+                { "柳", "獐" },
+                { "房", "兔" },
+                { "虚", "鼠" },
+                { "昴", "鸡" },
+                { "星", "马" },
+                { "心", "狐" },
+                { "危", "燕" },
+                { "毕", "乌" },
+                { "张", "鹿" },
+                { "尾", "虎" },
+                { "室", "猪" },
+                { "觜", "猴" },
+                { "翼", "蛇" },
+                { "箕", "豹" },
+                { "壁", "獝" },
+                { "参", "猿" },
+                { "轸", "蚓" }
+            };
+            ANIMAL = new ReadOnlyDictionary<string, string>(animal);
 
-            WU_XING_GAN.Add("甲", "木");
-            WU_XING_GAN.Add("乙", "木");
-            WU_XING_GAN.Add("丙", "火");
-            WU_XING_GAN.Add("丁", "火");
-            WU_XING_GAN.Add("戊", "土");
-            WU_XING_GAN.Add("己", "土");
-            WU_XING_GAN.Add("庚", "金");
-            WU_XING_GAN.Add("辛", "金");
-            WU_XING_GAN.Add("壬", "水");
-            WU_XING_GAN.Add("癸", "水");
+            var wuXingGan = new Dictionary<string, string> {
+                { "甲", "木" },
+                { "乙", "木" },
+                { "丙", "火" },
+                { "丁", "火" },
+                { "戊", "土" },
+                { "己", "土" },
+                { "庚", "金" },
+                { "辛", "金" },
+                { "壬", "水" },
+                { "癸", "水" }
+            };
+            WU_XING_GAN = new ReadOnlyDictionary<string, string>(wuXingGan);
 
-            WU_XING_ZHI.Add("寅", "木");
-            WU_XING_ZHI.Add("卯", "木");
-            WU_XING_ZHI.Add("巳", "火");
-            WU_XING_ZHI.Add("午", "火");
-            WU_XING_ZHI.Add("辰", "土");
-            WU_XING_ZHI.Add("丑", "土");
-            WU_XING_ZHI.Add("戌", "土");
-            WU_XING_ZHI.Add("未", "土");
-            WU_XING_ZHI.Add("申", "金");
-            WU_XING_ZHI.Add("酉", "金");
-            WU_XING_ZHI.Add("亥", "水");
-            WU_XING_ZHI.Add("子", "水");
+            var wuXingZhi = new Dictionary<string, string> {
+                { "寅", "木" },
+                { "卯", "木" },
+                { "巳", "火" },
+                { "午", "火" },
+                { "辰", "土" },
+                { "丑", "土" },
+                { "戌", "土" },
+                { "未", "土" },
+                { "申", "金" },
+                { "酉", "金" },
+                { "亥", "水" },
+                { "子", "水" }
+            };
+            WU_XING_ZHI = new ReadOnlyDictionary<string, string>(wuXingZhi);
 
-            NAYIN.Add("甲子", "海中金");
-            NAYIN.Add("甲午", "沙中金");
-            NAYIN.Add("丙寅", "炉中火");
-            NAYIN.Add("丙申", "山下火");
-            NAYIN.Add("戊辰", "大林木");
-            NAYIN.Add("戊戌", "平地木");
-            NAYIN.Add("庚午", "路旁土");
-            NAYIN.Add("庚子", "壁上土");
-            NAYIN.Add("壬申", "剑锋金");
-            NAYIN.Add("壬寅", "金箔金");
-            NAYIN.Add("甲戌", "山头火");
-            NAYIN.Add("甲辰", "覆灯火");
-            NAYIN.Add("丙子", "涧下水");
-            NAYIN.Add("丙午", "天河水");
-            NAYIN.Add("戊寅", "城头土");
-            NAYIN.Add("戊申", "大驿土");
-            NAYIN.Add("庚辰", "白蜡金");
-            NAYIN.Add("庚戌", "钗钏金");
-            NAYIN.Add("壬午", "杨柳木");
-            NAYIN.Add("壬子", "桑柘木");
-            NAYIN.Add("甲申", "泉中水");
-            NAYIN.Add("甲寅", "大溪水");
-            NAYIN.Add("丙戌", "屋上土");
-            NAYIN.Add("丙辰", "沙中土");
-            NAYIN.Add("戊子", "霹雳火");
-            NAYIN.Add("戊午", "天上火");
-            NAYIN.Add("庚寅", "松柏木");
-            NAYIN.Add("庚申", "石榴木");
-            NAYIN.Add("壬辰", "长流水");
-            NAYIN.Add("壬戌", "大海水");
-            NAYIN.Add("乙丑", "海中金");
-            NAYIN.Add("乙未", "沙中金");
-            NAYIN.Add("丁卯", "炉中火");
-            NAYIN.Add("丁酉", "山下火");
-            NAYIN.Add("己巳", "大林木");
-            NAYIN.Add("己亥", "平地木");
-            NAYIN.Add("辛未", "路旁土");
-            NAYIN.Add("辛丑", "壁上土");
-            NAYIN.Add("癸酉", "剑锋金");
-            NAYIN.Add("癸卯", "金箔金");
-            NAYIN.Add("乙亥", "山头火");
-            NAYIN.Add("乙巳", "覆灯火");
-            NAYIN.Add("丁丑", "涧下水");
-            NAYIN.Add("丁未", "天河水");
-            NAYIN.Add("己卯", "城头土");
-            NAYIN.Add("己酉", "大驿土");
-            NAYIN.Add("辛巳", "白蜡金");
-            NAYIN.Add("辛亥", "钗钏金");
-            NAYIN.Add("癸未", "杨柳木");
-            NAYIN.Add("癸丑", "桑柘木");
-            NAYIN.Add("乙酉", "泉中水");
-            NAYIN.Add("乙卯", "大溪水");
-            NAYIN.Add("丁亥", "屋上土");
-            NAYIN.Add("丁巳", "沙中土");
-            NAYIN.Add("己丑", "霹雳火");
-            NAYIN.Add("己未", "天上火");
-            NAYIN.Add("辛卯", "松柏木");
-            NAYIN.Add("辛酉", "石榴木");
-            NAYIN.Add("癸巳", "长流水");
-            NAYIN.Add("癸亥", "大海水");
+            var nayin = new Dictionary<string, string> {
+                { "甲子", "海中金" },
+                { "甲午", "沙中金" },
+                { "丙寅", "炉中火" },
+                { "丙申", "山下火" },
+                { "戊辰", "大林木" },
+                { "戊戌", "平地木" },
+                { "庚午", "路旁土" },
+                { "庚子", "壁上土" },
+                { "壬申", "剑锋金" },
+                { "壬寅", "金箔金" },
+                { "甲戌", "山头火" },
+                { "甲辰", "覆灯火" },
+                { "丙子", "涧下水" },
+                { "丙午", "天河水" },
+                { "戊寅", "城头土" },
+                { "戊申", "大驿土" },
+                { "庚辰", "白蜡金" },
+                { "庚戌", "钗钏金" },
+                { "壬午", "杨柳木" },
+                { "壬子", "桑柘木" },
+                { "甲申", "泉中水" },
+                { "甲寅", "大溪水" },
+                { "丙戌", "屋上土" },
+                { "丙辰", "沙中土" },
+                { "戊子", "霹雳火" },
+                { "戊午", "天上火" },
+                { "庚寅", "松柏木" },
+                { "庚申", "石榴木" },
+                { "壬辰", "长流水" },
+                { "壬戌", "大海水" },
+                { "乙丑", "海中金" },
+                { "乙未", "沙中金" },
+                { "丁卯", "炉中火" },
+                { "丁酉", "山下火" },
+                { "己巳", "大林木" },
+                { "己亥", "平地木" },
+                { "辛未", "路旁土" },
+                { "辛丑", "壁上土" },
+                { "癸酉", "剑锋金" },
+                { "癸卯", "金箔金" },
+                { "乙亥", "山头火" },
+                { "乙巳", "覆灯火" },
+                { "丁丑", "涧下水" },
+                { "丁未", "天河水" },
+                { "己卯", "城头土" },
+                { "己酉", "大驿土" },
+                { "辛巳", "白蜡金" },
+                { "辛亥", "钗钏金" },
+                { "癸未", "杨柳木" },
+                { "癸丑", "桑柘木" },
+                { "乙酉", "泉中水" },
+                { "乙卯", "大溪水" },
+                { "丁亥", "屋上土" },
+                { "丁巳", "沙中土" },
+                { "己丑", "霹雳火" },
+                { "己未", "天上火" },
+                { "辛卯", "松柏木" },
+                { "辛酉", "石榴木" },
+                { "癸巳", "长流水" },
+                { "癸亥", "大海水" }
+            };
+            NAYIN = new ReadOnlyDictionary<string, string>(nayin);
 
-            SHI_SHEN_GAN.Add("甲甲", "比肩");
-            SHI_SHEN_GAN.Add("甲乙", "劫财");
-            SHI_SHEN_GAN.Add("甲丙", "食神");
-            SHI_SHEN_GAN.Add("甲丁", "伤官");
-            SHI_SHEN_GAN.Add("甲戊", "偏财");
-            SHI_SHEN_GAN.Add("甲己", "正财");
-            SHI_SHEN_GAN.Add("甲庚", "七杀");
-            SHI_SHEN_GAN.Add("甲辛", "正官");
-            SHI_SHEN_GAN.Add("甲壬", "偏印");
-            SHI_SHEN_GAN.Add("甲癸", "正印");
-            SHI_SHEN_GAN.Add("乙乙", "比肩");
-            SHI_SHEN_GAN.Add("乙甲", "劫财");
-            SHI_SHEN_GAN.Add("乙丁", "食神");
-            SHI_SHEN_GAN.Add("乙丙", "伤官");
-            SHI_SHEN_GAN.Add("乙己", "偏财");
-            SHI_SHEN_GAN.Add("乙戊", "正财");
-            SHI_SHEN_GAN.Add("乙辛", "七杀");
-            SHI_SHEN_GAN.Add("乙庚", "正官");
-            SHI_SHEN_GAN.Add("乙癸", "偏印");
-            SHI_SHEN_GAN.Add("乙壬", "正印");
-            SHI_SHEN_GAN.Add("丙丙", "比肩");
-            SHI_SHEN_GAN.Add("丙丁", "劫财");
-            SHI_SHEN_GAN.Add("丙戊", "食神");
-            SHI_SHEN_GAN.Add("丙己", "伤官");
-            SHI_SHEN_GAN.Add("丙庚", "偏财");
-            SHI_SHEN_GAN.Add("丙辛", "正财");
-            SHI_SHEN_GAN.Add("丙壬", "七杀");
-            SHI_SHEN_GAN.Add("丙癸", "正官");
-            SHI_SHEN_GAN.Add("丙甲", "偏印");
-            SHI_SHEN_GAN.Add("丙乙", "正印");
-            SHI_SHEN_GAN.Add("丁丁", "比肩");
-            SHI_SHEN_GAN.Add("丁丙", "劫财");
-            SHI_SHEN_GAN.Add("丁己", "食神");
-            SHI_SHEN_GAN.Add("丁戊", "伤官");
-            SHI_SHEN_GAN.Add("丁辛", "偏财");
-            SHI_SHEN_GAN.Add("丁庚", "正财");
-            SHI_SHEN_GAN.Add("丁癸", "七杀");
-            SHI_SHEN_GAN.Add("丁壬", "正官");
-            SHI_SHEN_GAN.Add("丁乙", "偏印");
-            SHI_SHEN_GAN.Add("丁甲", "正印");
-            SHI_SHEN_GAN.Add("戊戊", "比肩");
-            SHI_SHEN_GAN.Add("戊己", "劫财");
-            SHI_SHEN_GAN.Add("戊庚", "食神");
-            SHI_SHEN_GAN.Add("戊辛", "伤官");
-            SHI_SHEN_GAN.Add("戊壬", "偏财");
-            SHI_SHEN_GAN.Add("戊癸", "正财");
-            SHI_SHEN_GAN.Add("戊甲", "七杀");
-            SHI_SHEN_GAN.Add("戊乙", "正官");
-            SHI_SHEN_GAN.Add("戊丙", "偏印");
-            SHI_SHEN_GAN.Add("戊丁", "正印");
-            SHI_SHEN_GAN.Add("己己", "比肩");
-            SHI_SHEN_GAN.Add("己戊", "劫财");
-            SHI_SHEN_GAN.Add("己辛", "食神");
-            SHI_SHEN_GAN.Add("己庚", "伤官");
-            SHI_SHEN_GAN.Add("己癸", "偏财");
-            SHI_SHEN_GAN.Add("己壬", "正财");
-            SHI_SHEN_GAN.Add("己乙", "七杀");
-            SHI_SHEN_GAN.Add("己甲", "正官");
-            SHI_SHEN_GAN.Add("己丁", "偏印");
-            SHI_SHEN_GAN.Add("己丙", "正印");
-            SHI_SHEN_GAN.Add("庚庚", "比肩");
-            SHI_SHEN_GAN.Add("庚辛", "劫财");
-            SHI_SHEN_GAN.Add("庚壬", "食神");
-            SHI_SHEN_GAN.Add("庚癸", "伤官");
-            SHI_SHEN_GAN.Add("庚甲", "偏财");
-            SHI_SHEN_GAN.Add("庚乙", "正财");
-            SHI_SHEN_GAN.Add("庚丙", "七杀");
-            SHI_SHEN_GAN.Add("庚丁", "正官");
-            SHI_SHEN_GAN.Add("庚戊", "偏印");
-            SHI_SHEN_GAN.Add("庚己", "正印");
-            SHI_SHEN_GAN.Add("辛辛", "比肩");
-            SHI_SHEN_GAN.Add("辛庚", "劫财");
-            SHI_SHEN_GAN.Add("辛癸", "食神");
-            SHI_SHEN_GAN.Add("辛壬", "伤官");
-            SHI_SHEN_GAN.Add("辛乙", "偏财");
-            SHI_SHEN_GAN.Add("辛甲", "正财");
-            SHI_SHEN_GAN.Add("辛丁", "七杀");
-            SHI_SHEN_GAN.Add("辛丙", "正官");
-            SHI_SHEN_GAN.Add("辛己", "偏印");
-            SHI_SHEN_GAN.Add("辛戊", "正印");
-            SHI_SHEN_GAN.Add("壬壬", "比肩");
-            SHI_SHEN_GAN.Add("壬癸", "劫财");
-            SHI_SHEN_GAN.Add("壬甲", "食神");
-            SHI_SHEN_GAN.Add("壬乙", "伤官");
-            SHI_SHEN_GAN.Add("壬丙", "偏财");
-            SHI_SHEN_GAN.Add("壬丁", "正财");
-            SHI_SHEN_GAN.Add("壬戊", "七杀");
-            SHI_SHEN_GAN.Add("壬己", "正官");
-            SHI_SHEN_GAN.Add("壬庚", "偏印");
-            SHI_SHEN_GAN.Add("壬辛", "正印");
-            SHI_SHEN_GAN.Add("癸癸", "比肩");
-            SHI_SHEN_GAN.Add("癸壬", "劫财");
-            SHI_SHEN_GAN.Add("癸乙", "食神");
-            SHI_SHEN_GAN.Add("癸甲", "伤官");
-            SHI_SHEN_GAN.Add("癸丁", "偏财");
-            SHI_SHEN_GAN.Add("癸丙", "正财");
-            SHI_SHEN_GAN.Add("癸己", "七杀");
-            SHI_SHEN_GAN.Add("癸戊", "正官");
-            SHI_SHEN_GAN.Add("癸辛", "偏印");
-            SHI_SHEN_GAN.Add("癸庚", "正印");
+            var shiShenGan = new Dictionary<string, string> {
+                { "甲甲", "比肩" },
+                { "甲乙", "劫财" },
+                { "甲丙", "食神" },
+                { "甲丁", "伤官" },
+                { "甲戊", "偏财" },
+                { "甲己", "正财" },
+                { "甲庚", "七杀" },
+                { "甲辛", "正官" },
+                { "甲壬", "偏印" },
+                { "甲癸", "正印" },
+                { "乙乙", "比肩" },
+                { "乙甲", "劫财" },
+                { "乙丁", "食神" },
+                { "乙丙", "伤官" },
+                { "乙己", "偏财" },
+                { "乙戊", "正财" },
+                { "乙辛", "七杀" },
+                { "乙庚", "正官" },
+                { "乙癸", "偏印" },
+                { "乙壬", "正印" },
+                { "丙丙", "比肩" },
+                { "丙丁", "劫财" },
+                { "丙戊", "食神" },
+                { "丙己", "伤官" },
+                { "丙庚", "偏财" },
+                { "丙辛", "正财" },
+                { "丙壬", "七杀" },
+                { "丙癸", "正官" },
+                { "丙甲", "偏印" },
+                { "丙乙", "正印" },
+                { "丁丁", "比肩" },
+                { "丁丙", "劫财" },
+                { "丁己", "食神" },
+                { "丁戊", "伤官" },
+                { "丁辛", "偏财" },
+                { "丁庚", "正财" },
+                { "丁癸", "七杀" },
+                { "丁壬", "正官" },
+                { "丁乙", "偏印" },
+                { "丁甲", "正印" },
+                { "戊戊", "比肩" },
+                { "戊己", "劫财" },
+                { "戊庚", "食神" },
+                { "戊辛", "伤官" },
+                { "戊壬", "偏财" },
+                { "戊癸", "正财" },
+                { "戊甲", "七杀" },
+                { "戊乙", "正官" },
+                { "戊丙", "偏印" },
+                { "戊丁", "正印" },
+                { "己己", "比肩" },
+                { "己戊", "劫财" },
+                { "己辛", "食神" },
+                { "己庚", "伤官" },
+                { "己癸", "偏财" },
+                { "己壬", "正财" },
+                { "己乙", "七杀" },
+                { "己甲", "正官" },
+                { "己丁", "偏印" },
+                { "己丙", "正印" },
+                { "庚庚", "比肩" },
+                { "庚辛", "劫财" },
+                { "庚壬", "食神" },
+                { "庚癸", "伤官" },
+                { "庚甲", "偏财" },
+                { "庚乙", "正财" },
+                { "庚丙", "七杀" },
+                { "庚丁", "正官" },
+                { "庚戊", "偏印" },
+                { "庚己", "正印" },
+                { "辛辛", "比肩" },
+                { "辛庚", "劫财" },
+                { "辛癸", "食神" },
+                { "辛壬", "伤官" },
+                { "辛乙", "偏财" },
+                { "辛甲", "正财" },
+                { "辛丁", "七杀" },
+                { "辛丙", "正官" },
+                { "辛己", "偏印" },
+                { "辛戊", "正印" },
+                { "壬壬", "比肩" },
+                { "壬癸", "劫财" },
+                { "壬甲", "食神" },
+                { "壬乙", "伤官" },
+                { "壬丙", "偏财" },
+                { "壬丁", "正财" },
+                { "壬戊", "七杀" },
+                { "壬己", "正官" },
+                { "壬庚", "偏印" },
+                { "壬辛", "正印" },
+                { "癸癸", "比肩" },
+                { "癸壬", "劫财" },
+                { "癸乙", "食神" },
+                { "癸甲", "伤官" },
+                { "癸丁", "偏财" },
+                { "癸丙", "正财" },
+                { "癸己", "七杀" },
+                { "癸戊", "正官" },
+                { "癸辛", "偏印" },
+                { "癸庚", "正印" }
+            };
+            SHI_SHEN_GAN = new ReadOnlyDictionary<string, string>(shiShenGan);
 
-            SHI_SHEN_ZHI.Add("甲子癸", "正印");
-            SHI_SHEN_ZHI.Add("甲丑癸", "正印");
-            SHI_SHEN_ZHI.Add("甲丑己", "正财");
-            SHI_SHEN_ZHI.Add("甲丑辛", "正官");
-            SHI_SHEN_ZHI.Add("甲寅丙", "食神");
-            SHI_SHEN_ZHI.Add("甲寅甲", "比肩");
-            SHI_SHEN_ZHI.Add("甲寅戊", "偏财");
-            SHI_SHEN_ZHI.Add("甲卯乙", "劫财");
-            SHI_SHEN_ZHI.Add("甲辰乙", "劫财");
-            SHI_SHEN_ZHI.Add("甲辰戊", "偏财");
-            SHI_SHEN_ZHI.Add("甲辰癸", "正印");
-            SHI_SHEN_ZHI.Add("甲巳戊", "偏财");
-            SHI_SHEN_ZHI.Add("甲巳丙", "食神");
-            SHI_SHEN_ZHI.Add("甲巳庚", "七杀");
-            SHI_SHEN_ZHI.Add("甲午丁", "伤官");
-            SHI_SHEN_ZHI.Add("甲午己", "正财");
-            SHI_SHEN_ZHI.Add("甲未乙", "劫财");
-            SHI_SHEN_ZHI.Add("甲未己", "正财");
-            SHI_SHEN_ZHI.Add("甲未丁", "伤官");
-            SHI_SHEN_ZHI.Add("甲申戊", "偏财");
-            SHI_SHEN_ZHI.Add("甲申庚", "七杀");
-            SHI_SHEN_ZHI.Add("甲申壬", "偏印");
-            SHI_SHEN_ZHI.Add("甲酉辛", "正官");
-            SHI_SHEN_ZHI.Add("甲戌辛", "正官");
-            SHI_SHEN_ZHI.Add("甲戌戊", "偏财");
-            SHI_SHEN_ZHI.Add("甲戌丁", "伤官");
-            SHI_SHEN_ZHI.Add("甲亥壬", "偏印");
-            SHI_SHEN_ZHI.Add("甲亥甲", "比肩");
-            SHI_SHEN_ZHI.Add("乙子癸", "偏印");
-            SHI_SHEN_ZHI.Add("乙丑癸", "偏印");
-            SHI_SHEN_ZHI.Add("乙丑己", "偏财");
-            SHI_SHEN_ZHI.Add("乙丑辛", "七杀");
-            SHI_SHEN_ZHI.Add("乙寅丙", "伤官");
-            SHI_SHEN_ZHI.Add("乙寅甲", "劫财");
-            SHI_SHEN_ZHI.Add("乙寅戊", "正财");
-            SHI_SHEN_ZHI.Add("乙卯乙", "比肩");
-            SHI_SHEN_ZHI.Add("乙辰乙", "比肩");
-            SHI_SHEN_ZHI.Add("乙辰戊", "正财");
-            SHI_SHEN_ZHI.Add("乙辰癸", "偏印");
-            SHI_SHEN_ZHI.Add("乙巳戊", "正财");
-            SHI_SHEN_ZHI.Add("乙巳丙", "伤官");
-            SHI_SHEN_ZHI.Add("乙巳庚", "正官");
-            SHI_SHEN_ZHI.Add("乙午丁", "食神");
-            SHI_SHEN_ZHI.Add("乙午己", "偏财");
-            SHI_SHEN_ZHI.Add("乙未乙", "比肩");
-            SHI_SHEN_ZHI.Add("乙未己", "偏财");
-            SHI_SHEN_ZHI.Add("乙未丁", "食神");
-            SHI_SHEN_ZHI.Add("乙申戊", "正财");
-            SHI_SHEN_ZHI.Add("乙申庚", "正官");
-            SHI_SHEN_ZHI.Add("乙申壬", "正印");
-            SHI_SHEN_ZHI.Add("乙酉辛", "七杀");
-            SHI_SHEN_ZHI.Add("乙戌辛", "七杀");
-            SHI_SHEN_ZHI.Add("乙戌戊", "正财");
-            SHI_SHEN_ZHI.Add("乙戌丁", "食神");
-            SHI_SHEN_ZHI.Add("乙亥壬", "正印");
-            SHI_SHEN_ZHI.Add("乙亥甲", "劫财");
-            SHI_SHEN_ZHI.Add("丙子癸", "正官");
-            SHI_SHEN_ZHI.Add("丙丑癸", "正官");
-            SHI_SHEN_ZHI.Add("丙丑己", "伤官");
-            SHI_SHEN_ZHI.Add("丙丑辛", "正财");
-            SHI_SHEN_ZHI.Add("丙寅丙", "比肩");
-            SHI_SHEN_ZHI.Add("丙寅甲", "偏印");
-            SHI_SHEN_ZHI.Add("丙寅戊", "食神");
-            SHI_SHEN_ZHI.Add("丙卯乙", "正印");
-            SHI_SHEN_ZHI.Add("丙辰乙", "正印");
-            SHI_SHEN_ZHI.Add("丙辰戊", "食神");
-            SHI_SHEN_ZHI.Add("丙辰癸", "正官");
-            SHI_SHEN_ZHI.Add("丙巳戊", "食神");
-            SHI_SHEN_ZHI.Add("丙巳丙", "比肩");
-            SHI_SHEN_ZHI.Add("丙巳庚", "偏财");
-            SHI_SHEN_ZHI.Add("丙午丁", "劫财");
-            SHI_SHEN_ZHI.Add("丙午己", "伤官");
-            SHI_SHEN_ZHI.Add("丙未乙", "正印");
-            SHI_SHEN_ZHI.Add("丙未己", "伤官");
-            SHI_SHEN_ZHI.Add("丙未丁", "劫财");
-            SHI_SHEN_ZHI.Add("丙申戊", "食神");
-            SHI_SHEN_ZHI.Add("丙申庚", "偏财");
-            SHI_SHEN_ZHI.Add("丙申壬", "七杀");
-            SHI_SHEN_ZHI.Add("丙酉辛", "正财");
-            SHI_SHEN_ZHI.Add("丙戌辛", "正财");
-            SHI_SHEN_ZHI.Add("丙戌戊", "食神");
-            SHI_SHEN_ZHI.Add("丙戌丁", "劫财");
-            SHI_SHEN_ZHI.Add("丙亥壬", "七杀");
-            SHI_SHEN_ZHI.Add("丙亥甲", "偏印");
-            SHI_SHEN_ZHI.Add("丁子癸", "七杀");
-            SHI_SHEN_ZHI.Add("丁丑癸", "七杀");
-            SHI_SHEN_ZHI.Add("丁丑己", "食神");
-            SHI_SHEN_ZHI.Add("丁丑辛", "偏财");
-            SHI_SHEN_ZHI.Add("丁寅丙", "劫财");
-            SHI_SHEN_ZHI.Add("丁寅甲", "正印");
-            SHI_SHEN_ZHI.Add("丁寅戊", "伤官");
-            SHI_SHEN_ZHI.Add("丁卯乙", "偏印");
-            SHI_SHEN_ZHI.Add("丁辰乙", "偏印");
-            SHI_SHEN_ZHI.Add("丁辰戊", "伤官");
-            SHI_SHEN_ZHI.Add("丁辰癸", "七杀");
-            SHI_SHEN_ZHI.Add("丁巳戊", "伤官");
-            SHI_SHEN_ZHI.Add("丁巳丙", "劫财");
-            SHI_SHEN_ZHI.Add("丁巳庚", "正财");
-            SHI_SHEN_ZHI.Add("丁午丁", "比肩");
-            SHI_SHEN_ZHI.Add("丁午己", "食神");
-            SHI_SHEN_ZHI.Add("丁未乙", "偏印");
-            SHI_SHEN_ZHI.Add("丁未己", "食神");
-            SHI_SHEN_ZHI.Add("丁未丁", "比肩");
-            SHI_SHEN_ZHI.Add("丁申戊", "伤官");
-            SHI_SHEN_ZHI.Add("丁申庚", "正财");
-            SHI_SHEN_ZHI.Add("丁申壬", "正官");
-            SHI_SHEN_ZHI.Add("丁酉辛", "偏财");
-            SHI_SHEN_ZHI.Add("丁戌辛", "偏财");
-            SHI_SHEN_ZHI.Add("丁戌戊", "伤官");
-            SHI_SHEN_ZHI.Add("丁戌丁", "比肩");
-            SHI_SHEN_ZHI.Add("丁亥壬", "正官");
-            SHI_SHEN_ZHI.Add("丁亥甲", "正印");
-            SHI_SHEN_ZHI.Add("戊子癸", "正财");
-            SHI_SHEN_ZHI.Add("戊丑癸", "正财");
-            SHI_SHEN_ZHI.Add("戊丑己", "劫财");
-            SHI_SHEN_ZHI.Add("戊丑辛", "伤官");
-            SHI_SHEN_ZHI.Add("戊寅丙", "偏印");
-            SHI_SHEN_ZHI.Add("戊寅甲", "七杀");
-            SHI_SHEN_ZHI.Add("戊寅戊", "比肩");
-            SHI_SHEN_ZHI.Add("戊卯乙", "正官");
-            SHI_SHEN_ZHI.Add("戊辰乙", "正官");
-            SHI_SHEN_ZHI.Add("戊辰戊", "比肩");
-            SHI_SHEN_ZHI.Add("戊辰癸", "正财");
-            SHI_SHEN_ZHI.Add("戊巳戊", "比肩");
-            SHI_SHEN_ZHI.Add("戊巳丙", "偏印");
-            SHI_SHEN_ZHI.Add("戊巳庚", "食神");
-            SHI_SHEN_ZHI.Add("戊午丁", "正印");
-            SHI_SHEN_ZHI.Add("戊午己", "劫财");
-            SHI_SHEN_ZHI.Add("戊未乙", "正官");
-            SHI_SHEN_ZHI.Add("戊未己", "劫财");
-            SHI_SHEN_ZHI.Add("戊未丁", "正印");
-            SHI_SHEN_ZHI.Add("戊申戊", "比肩");
-            SHI_SHEN_ZHI.Add("戊申庚", "食神");
-            SHI_SHEN_ZHI.Add("戊申壬", "偏财");
-            SHI_SHEN_ZHI.Add("戊酉辛", "伤官");
-            SHI_SHEN_ZHI.Add("戊戌辛", "伤官");
-            SHI_SHEN_ZHI.Add("戊戌戊", "比肩");
-            SHI_SHEN_ZHI.Add("戊戌丁", "正印");
-            SHI_SHEN_ZHI.Add("戊亥壬", "偏财");
-            SHI_SHEN_ZHI.Add("戊亥甲", "七杀");
-            SHI_SHEN_ZHI.Add("己子癸", "偏财");
-            SHI_SHEN_ZHI.Add("己丑癸", "偏财");
-            SHI_SHEN_ZHI.Add("己丑己", "比肩");
-            SHI_SHEN_ZHI.Add("己丑辛", "食神");
-            SHI_SHEN_ZHI.Add("己寅丙", "正印");
-            SHI_SHEN_ZHI.Add("己寅甲", "正官");
-            SHI_SHEN_ZHI.Add("己寅戊", "劫财");
-            SHI_SHEN_ZHI.Add("己卯乙", "七杀");
-            SHI_SHEN_ZHI.Add("己辰乙", "七杀");
-            SHI_SHEN_ZHI.Add("己辰戊", "劫财");
-            SHI_SHEN_ZHI.Add("己辰癸", "偏财");
-            SHI_SHEN_ZHI.Add("己巳戊", "劫财");
-            SHI_SHEN_ZHI.Add("己巳丙", "正印");
-            SHI_SHEN_ZHI.Add("己巳庚", "伤官");
-            SHI_SHEN_ZHI.Add("己午丁", "偏印");
-            SHI_SHEN_ZHI.Add("己午己", "比肩");
-            SHI_SHEN_ZHI.Add("己未乙", "七杀");
-            SHI_SHEN_ZHI.Add("己未己", "比肩");
-            SHI_SHEN_ZHI.Add("己未丁", "偏印");
-            SHI_SHEN_ZHI.Add("己申戊", "劫财");
-            SHI_SHEN_ZHI.Add("己申庚", "伤官");
-            SHI_SHEN_ZHI.Add("己申壬", "正财");
-            SHI_SHEN_ZHI.Add("己酉辛", "食神");
-            SHI_SHEN_ZHI.Add("己戌辛", "食神");
-            SHI_SHEN_ZHI.Add("己戌戊", "劫财");
-            SHI_SHEN_ZHI.Add("己戌丁", "偏印");
-            SHI_SHEN_ZHI.Add("己亥壬", "正财");
-            SHI_SHEN_ZHI.Add("己亥甲", "正官");
-            SHI_SHEN_ZHI.Add("庚子癸", "伤官");
-            SHI_SHEN_ZHI.Add("庚丑癸", "伤官");
-            SHI_SHEN_ZHI.Add("庚丑己", "正印");
-            SHI_SHEN_ZHI.Add("庚丑辛", "劫财");
-            SHI_SHEN_ZHI.Add("庚寅丙", "七杀");
-            SHI_SHEN_ZHI.Add("庚寅甲", "偏财");
-            SHI_SHEN_ZHI.Add("庚寅戊", "偏印");
-            SHI_SHEN_ZHI.Add("庚卯乙", "正财");
-            SHI_SHEN_ZHI.Add("庚辰乙", "正财");
-            SHI_SHEN_ZHI.Add("庚辰戊", "偏印");
-            SHI_SHEN_ZHI.Add("庚辰癸", "伤官");
-            SHI_SHEN_ZHI.Add("庚巳戊", "偏印");
-            SHI_SHEN_ZHI.Add("庚巳丙", "七杀");
-            SHI_SHEN_ZHI.Add("庚巳庚", "比肩");
-            SHI_SHEN_ZHI.Add("庚午丁", "正官");
-            SHI_SHEN_ZHI.Add("庚午己", "正印");
-            SHI_SHEN_ZHI.Add("庚未乙", "正财");
-            SHI_SHEN_ZHI.Add("庚未己", "正印");
-            SHI_SHEN_ZHI.Add("庚未丁", "正官");
-            SHI_SHEN_ZHI.Add("庚申戊", "偏印");
-            SHI_SHEN_ZHI.Add("庚申庚", "比肩");
-            SHI_SHEN_ZHI.Add("庚申壬", "食神");
-            SHI_SHEN_ZHI.Add("庚酉辛", "劫财");
-            SHI_SHEN_ZHI.Add("庚戌辛", "劫财");
-            SHI_SHEN_ZHI.Add("庚戌戊", "偏印");
-            SHI_SHEN_ZHI.Add("庚戌丁", "正官");
-            SHI_SHEN_ZHI.Add("庚亥壬", "食神");
-            SHI_SHEN_ZHI.Add("庚亥甲", "偏财");
-            SHI_SHEN_ZHI.Add("辛子癸", "食神");
-            SHI_SHEN_ZHI.Add("辛丑癸", "食神");
-            SHI_SHEN_ZHI.Add("辛丑己", "偏印");
-            SHI_SHEN_ZHI.Add("辛丑辛", "比肩");
-            SHI_SHEN_ZHI.Add("辛寅丙", "正官");
-            SHI_SHEN_ZHI.Add("辛寅甲", "正财");
-            SHI_SHEN_ZHI.Add("辛寅戊", "正印");
-            SHI_SHEN_ZHI.Add("辛卯乙", "偏财");
-            SHI_SHEN_ZHI.Add("辛辰乙", "偏财");
-            SHI_SHEN_ZHI.Add("辛辰戊", "正印");
-            SHI_SHEN_ZHI.Add("辛辰癸", "食神");
-            SHI_SHEN_ZHI.Add("辛巳戊", "正印");
-            SHI_SHEN_ZHI.Add("辛巳丙", "正官");
-            SHI_SHEN_ZHI.Add("辛巳庚", "劫财");
-            SHI_SHEN_ZHI.Add("辛午丁", "七杀");
-            SHI_SHEN_ZHI.Add("辛午己", "偏印");
-            SHI_SHEN_ZHI.Add("辛未乙", "偏财");
-            SHI_SHEN_ZHI.Add("辛未己", "偏印");
-            SHI_SHEN_ZHI.Add("辛未丁", "七杀");
-            SHI_SHEN_ZHI.Add("辛申戊", "正印");
-            SHI_SHEN_ZHI.Add("辛申庚", "劫财");
-            SHI_SHEN_ZHI.Add("辛申壬", "伤官");
-            SHI_SHEN_ZHI.Add("辛酉辛", "比肩");
-            SHI_SHEN_ZHI.Add("辛戌辛", "比肩");
-            SHI_SHEN_ZHI.Add("辛戌戊", "正印");
-            SHI_SHEN_ZHI.Add("辛戌丁", "七杀");
-            SHI_SHEN_ZHI.Add("辛亥壬", "伤官");
-            SHI_SHEN_ZHI.Add("辛亥甲", "正财");
-            SHI_SHEN_ZHI.Add("壬子癸", "劫财");
-            SHI_SHEN_ZHI.Add("壬丑癸", "劫财");
-            SHI_SHEN_ZHI.Add("壬丑己", "正官");
-            SHI_SHEN_ZHI.Add("壬丑辛", "正印");
-            SHI_SHEN_ZHI.Add("壬寅丙", "偏财");
-            SHI_SHEN_ZHI.Add("壬寅甲", "食神");
-            SHI_SHEN_ZHI.Add("壬寅戊", "七杀");
-            SHI_SHEN_ZHI.Add("壬卯乙", "伤官");
-            SHI_SHEN_ZHI.Add("壬辰乙", "伤官");
-            SHI_SHEN_ZHI.Add("壬辰戊", "七杀");
-            SHI_SHEN_ZHI.Add("壬辰癸", "劫财");
-            SHI_SHEN_ZHI.Add("壬巳戊", "七杀");
-            SHI_SHEN_ZHI.Add("壬巳丙", "偏财");
-            SHI_SHEN_ZHI.Add("壬巳庚", "偏印");
-            SHI_SHEN_ZHI.Add("壬午丁", "正财");
-            SHI_SHEN_ZHI.Add("壬午己", "正官");
-            SHI_SHEN_ZHI.Add("壬未乙", "伤官");
-            SHI_SHEN_ZHI.Add("壬未己", "正官");
-            SHI_SHEN_ZHI.Add("壬未丁", "正财");
-            SHI_SHEN_ZHI.Add("壬申戊", "七杀");
-            SHI_SHEN_ZHI.Add("壬申庚", "偏印");
-            SHI_SHEN_ZHI.Add("壬申壬", "比肩");
-            SHI_SHEN_ZHI.Add("壬酉辛", "正印");
-            SHI_SHEN_ZHI.Add("壬戌辛", "正印");
-            SHI_SHEN_ZHI.Add("壬戌戊", "七杀");
-            SHI_SHEN_ZHI.Add("壬戌丁", "正财");
-            SHI_SHEN_ZHI.Add("壬亥壬", "比肩");
-            SHI_SHEN_ZHI.Add("壬亥甲", "食神");
-            SHI_SHEN_ZHI.Add("癸子癸", "比肩");
-            SHI_SHEN_ZHI.Add("癸丑癸", "比肩");
-            SHI_SHEN_ZHI.Add("癸丑己", "七杀");
-            SHI_SHEN_ZHI.Add("癸丑辛", "偏印");
-            SHI_SHEN_ZHI.Add("癸寅丙", "正财");
-            SHI_SHEN_ZHI.Add("癸寅甲", "伤官");
-            SHI_SHEN_ZHI.Add("癸寅戊", "正官");
-            SHI_SHEN_ZHI.Add("癸卯乙", "食神");
-            SHI_SHEN_ZHI.Add("癸辰乙", "食神");
-            SHI_SHEN_ZHI.Add("癸辰戊", "正官");
-            SHI_SHEN_ZHI.Add("癸辰癸", "比肩");
-            SHI_SHEN_ZHI.Add("癸巳戊", "正官");
-            SHI_SHEN_ZHI.Add("癸巳丙", "正财");
-            SHI_SHEN_ZHI.Add("癸巳庚", "正印");
-            SHI_SHEN_ZHI.Add("癸午丁", "偏财");
-            SHI_SHEN_ZHI.Add("癸午己", "七杀");
-            SHI_SHEN_ZHI.Add("癸未乙", "食神");
-            SHI_SHEN_ZHI.Add("癸未己", "七杀");
-            SHI_SHEN_ZHI.Add("癸未丁", "偏财");
-            SHI_SHEN_ZHI.Add("癸申戊", "正官");
-            SHI_SHEN_ZHI.Add("癸申庚", "正印");
-            SHI_SHEN_ZHI.Add("癸申壬", "劫财");
-            SHI_SHEN_ZHI.Add("癸酉辛", "偏印");
-            SHI_SHEN_ZHI.Add("癸戌辛", "偏印");
-            SHI_SHEN_ZHI.Add("癸戌戊", "正官");
-            SHI_SHEN_ZHI.Add("癸戌丁", "偏财");
-            SHI_SHEN_ZHI.Add("癸亥壬", "劫财");
-            SHI_SHEN_ZHI.Add("癸亥甲", "伤官");
+            var shiShenZhi = new Dictionary<string, string> {
+                { "甲子癸", "正印" },
+                { "甲丑癸", "正印" },
+                { "甲丑己", "正财" },
+                { "甲丑辛", "正官" },
+                { "甲寅丙", "食神" },
+                { "甲寅甲", "比肩" },
+                { "甲寅戊", "偏财" },
+                { "甲卯乙", "劫财" },
+                { "甲辰乙", "劫财" },
+                { "甲辰戊", "偏财" },
+                { "甲辰癸", "正印" },
+                { "甲巳戊", "偏财" },
+                { "甲巳丙", "食神" },
+                { "甲巳庚", "七杀" },
+                { "甲午丁", "伤官" },
+                { "甲午己", "正财" },
+                { "甲未乙", "劫财" },
+                { "甲未己", "正财" },
+                { "甲未丁", "伤官" },
+                { "甲申戊", "偏财" },
+                { "甲申庚", "七杀" },
+                { "甲申壬", "偏印" },
+                { "甲酉辛", "正官" },
+                { "甲戌辛", "正官" },
+                { "甲戌戊", "偏财" },
+                { "甲戌丁", "伤官" },
+                { "甲亥壬", "偏印" },
+                { "甲亥甲", "比肩" },
+                { "乙子癸", "偏印" },
+                { "乙丑癸", "偏印" },
+                { "乙丑己", "偏财" },
+                { "乙丑辛", "七杀" },
+                { "乙寅丙", "伤官" },
+                { "乙寅甲", "劫财" },
+                { "乙寅戊", "正财" },
+                { "乙卯乙", "比肩" },
+                { "乙辰乙", "比肩" },
+                { "乙辰戊", "正财" },
+                { "乙辰癸", "偏印" },
+                { "乙巳戊", "正财" },
+                { "乙巳丙", "伤官" },
+                { "乙巳庚", "正官" },
+                { "乙午丁", "食神" },
+                { "乙午己", "偏财" },
+                { "乙未乙", "比肩" },
+                { "乙未己", "偏财" },
+                { "乙未丁", "食神" },
+                { "乙申戊", "正财" },
+                { "乙申庚", "正官" },
+                { "乙申壬", "正印" },
+                { "乙酉辛", "七杀" },
+                { "乙戌辛", "七杀" },
+                { "乙戌戊", "正财" },
+                { "乙戌丁", "食神" },
+                { "乙亥壬", "正印" },
+                { "乙亥甲", "劫财" },
+                { "丙子癸", "正官" },
+                { "丙丑癸", "正官" },
+                { "丙丑己", "伤官" },
+                { "丙丑辛", "正财" },
+                { "丙寅丙", "比肩" },
+                { "丙寅甲", "偏印" },
+                { "丙寅戊", "食神" },
+                { "丙卯乙", "正印" },
+                { "丙辰乙", "正印" },
+                { "丙辰戊", "食神" },
+                { "丙辰癸", "正官" },
+                { "丙巳戊", "食神" },
+                { "丙巳丙", "比肩" },
+                { "丙巳庚", "偏财" },
+                { "丙午丁", "劫财" },
+                { "丙午己", "伤官" },
+                { "丙未乙", "正印" },
+                { "丙未己", "伤官" },
+                { "丙未丁", "劫财" },
+                { "丙申戊", "食神" },
+                { "丙申庚", "偏财" },
+                { "丙申壬", "七杀" },
+                { "丙酉辛", "正财" },
+                { "丙戌辛", "正财" },
+                { "丙戌戊", "食神" },
+                { "丙戌丁", "劫财" },
+                { "丙亥壬", "七杀" },
+                { "丙亥甲", "偏印" },
+                { "丁子癸", "七杀" },
+                { "丁丑癸", "七杀" },
+                { "丁丑己", "食神" },
+                { "丁丑辛", "偏财" },
+                { "丁寅丙", "劫财" },
+                { "丁寅甲", "正印" },
+                { "丁寅戊", "伤官" },
+                { "丁卯乙", "偏印" },
+                { "丁辰乙", "偏印" },
+                { "丁辰戊", "伤官" },
+                { "丁辰癸", "七杀" },
+                { "丁巳戊", "伤官" },
+                { "丁巳丙", "劫财" },
+                { "丁巳庚", "正财" },
+                { "丁午丁", "比肩" },
+                { "丁午己", "食神" },
+                { "丁未乙", "偏印" },
+                { "丁未己", "食神" },
+                { "丁未丁", "比肩" },
+                { "丁申戊", "伤官" },
+                { "丁申庚", "正财" },
+                { "丁申壬", "正官" },
+                { "丁酉辛", "偏财" },
+                { "丁戌辛", "偏财" },
+                { "丁戌戊", "伤官" },
+                { "丁戌丁", "比肩" },
+                { "丁亥壬", "正官" },
+                { "丁亥甲", "正印" },
+                { "戊子癸", "正财" },
+                { "戊丑癸", "正财" },
+                { "戊丑己", "劫财" },
+                { "戊丑辛", "伤官" },
+                { "戊寅丙", "偏印" },
+                { "戊寅甲", "七杀" },
+                { "戊寅戊", "比肩" },
+                { "戊卯乙", "正官" },
+                { "戊辰乙", "正官" },
+                { "戊辰戊", "比肩" },
+                { "戊辰癸", "正财" },
+                { "戊巳戊", "比肩" },
+                { "戊巳丙", "偏印" },
+                { "戊巳庚", "食神" },
+                { "戊午丁", "正印" },
+                { "戊午己", "劫财" },
+                { "戊未乙", "正官" },
+                { "戊未己", "劫财" },
+                { "戊未丁", "正印" },
+                { "戊申戊", "比肩" },
+                { "戊申庚", "食神" },
+                { "戊申壬", "偏财" },
+                { "戊酉辛", "伤官" },
+                { "戊戌辛", "伤官" },
+                { "戊戌戊", "比肩" },
+                { "戊戌丁", "正印" },
+                { "戊亥壬", "偏财" },
+                { "戊亥甲", "七杀" },
+                { "己子癸", "偏财" },
+                { "己丑癸", "偏财" },
+                { "己丑己", "比肩" },
+                { "己丑辛", "食神" },
+                { "己寅丙", "正印" },
+                { "己寅甲", "正官" },
+                { "己寅戊", "劫财" },
+                { "己卯乙", "七杀" },
+                { "己辰乙", "七杀" },
+                { "己辰戊", "劫财" },
+                { "己辰癸", "偏财" },
+                { "己巳戊", "劫财" },
+                { "己巳丙", "正印" },
+                { "己巳庚", "伤官" },
+                { "己午丁", "偏印" },
+                { "己午己", "比肩" },
+                { "己未乙", "七杀" },
+                { "己未己", "比肩" },
+                { "己未丁", "偏印" },
+                { "己申戊", "劫财" },
+                { "己申庚", "伤官" },
+                { "己申壬", "正财" },
+                { "己酉辛", "食神" },
+                { "己戌辛", "食神" },
+                { "己戌戊", "劫财" },
+                { "己戌丁", "偏印" },
+                { "己亥壬", "正财" },
+                { "己亥甲", "正官" },
+                { "庚子癸", "伤官" },
+                { "庚丑癸", "伤官" },
+                { "庚丑己", "正印" },
+                { "庚丑辛", "劫财" },
+                { "庚寅丙", "七杀" },
+                { "庚寅甲", "偏财" },
+                { "庚寅戊", "偏印" },
+                { "庚卯乙", "正财" },
+                { "庚辰乙", "正财" },
+                { "庚辰戊", "偏印" },
+                { "庚辰癸", "伤官" },
+                { "庚巳戊", "偏印" },
+                { "庚巳丙", "七杀" },
+                { "庚巳庚", "比肩" },
+                { "庚午丁", "正官" },
+                { "庚午己", "正印" },
+                { "庚未乙", "正财" },
+                { "庚未己", "正印" },
+                { "庚未丁", "正官" },
+                { "庚申戊", "偏印" },
+                { "庚申庚", "比肩" },
+                { "庚申壬", "食神" },
+                { "庚酉辛", "劫财" },
+                { "庚戌辛", "劫财" },
+                { "庚戌戊", "偏印" },
+                { "庚戌丁", "正官" },
+                { "庚亥壬", "食神" },
+                { "庚亥甲", "偏财" },
+                { "辛子癸", "食神" },
+                { "辛丑癸", "食神" },
+                { "辛丑己", "偏印" },
+                { "辛丑辛", "比肩" },
+                { "辛寅丙", "正官" },
+                { "辛寅甲", "正财" },
+                { "辛寅戊", "正印" },
+                { "辛卯乙", "偏财" },
+                { "辛辰乙", "偏财" },
+                { "辛辰戊", "正印" },
+                { "辛辰癸", "食神" },
+                { "辛巳戊", "正印" },
+                { "辛巳丙", "正官" },
+                { "辛巳庚", "劫财" },
+                { "辛午丁", "七杀" },
+                { "辛午己", "偏印" },
+                { "辛未乙", "偏财" },
+                { "辛未己", "偏印" },
+                { "辛未丁", "七杀" },
+                { "辛申戊", "正印" },
+                { "辛申庚", "劫财" },
+                { "辛申壬", "伤官" },
+                { "辛酉辛", "比肩" },
+                { "辛戌辛", "比肩" },
+                { "辛戌戊", "正印" },
+                { "辛戌丁", "七杀" },
+                { "辛亥壬", "伤官" },
+                { "辛亥甲", "正财" },
+                { "壬子癸", "劫财" },
+                { "壬丑癸", "劫财" },
+                { "壬丑己", "正官" },
+                { "壬丑辛", "正印" },
+                { "壬寅丙", "偏财" },
+                { "壬寅甲", "食神" },
+                { "壬寅戊", "七杀" },
+                { "壬卯乙", "伤官" },
+                { "壬辰乙", "伤官" },
+                { "壬辰戊", "七杀" },
+                { "壬辰癸", "劫财" },
+                { "壬巳戊", "七杀" },
+                { "壬巳丙", "偏财" },
+                { "壬巳庚", "偏印" },
+                { "壬午丁", "正财" },
+                { "壬午己", "正官" },
+                { "壬未乙", "伤官" },
+                { "壬未己", "正官" },
+                { "壬未丁", "正财" },
+                { "壬申戊", "七杀" },
+                { "壬申庚", "偏印" },
+                { "壬申壬", "比肩" },
+                { "壬酉辛", "正印" },
+                { "壬戌辛", "正印" },
+                { "壬戌戊", "七杀" },
+                { "壬戌丁", "正财" },
+                { "壬亥壬", "比肩" },
+                { "壬亥甲", "食神" },
+                { "癸子癸", "比肩" },
+                { "癸丑癸", "比肩" },
+                { "癸丑己", "七杀" },
+                { "癸丑辛", "偏印" },
+                { "癸寅丙", "正财" },
+                { "癸寅甲", "伤官" },
+                { "癸寅戊", "正官" },
+                { "癸卯乙", "食神" },
+                { "癸辰乙", "食神" },
+                { "癸辰戊", "正官" },
+                { "癸辰癸", "比肩" },
+                { "癸巳戊", "正官" },
+                { "癸巳丙", "正财" },
+                { "癸巳庚", "正印" },
+                { "癸午丁", "偏财" },
+                { "癸午己", "七杀" },
+                { "癸未乙", "食神" },
+                { "癸未己", "七杀" },
+                { "癸未丁", "偏财" },
+                { "癸申戊", "正官" },
+                { "癸申庚", "正印" },
+                { "癸申壬", "劫财" },
+                { "癸酉辛", "偏印" },
+                { "癸戌辛", "偏印" },
+                { "癸戌戊", "正官" },
+                { "癸戌丁", "偏财" },
+                { "癸亥壬", "劫财" },
+                { "癸亥甲", "伤官" }
+            };
+            SHI_SHEN_ZHI = new ReadOnlyDictionary<string, string>(shiShenZhi);
 
-            ZHI_HIDE_GAN.Add("子", new List<string>(new[] { "癸" }));
-            ZHI_HIDE_GAN.Add("丑", new List<string>(new[] { "己", "癸", "辛" }));
-            ZHI_HIDE_GAN.Add("寅", new List<string>(new[] { "甲", "丙", "戊" }));
-            ZHI_HIDE_GAN.Add("卯", new List<string>(new[] { "乙" }));
-            ZHI_HIDE_GAN.Add("辰", new List<string>(new[] { "戊", "乙", "癸" }));
-            ZHI_HIDE_GAN.Add("巳", new List<string>(new[] { "丙", "庚", "戊" }));
-            ZHI_HIDE_GAN.Add("午", new List<string>(new[] { "丁", "己" }));
-            ZHI_HIDE_GAN.Add("未", new List<string>(new[] { "己", "丁", "乙" }));
-            ZHI_HIDE_GAN.Add("申", new List<string>(new[] { "庚", "壬", "戊" }));
-            ZHI_HIDE_GAN.Add("酉", new List<string>(new[] { "辛" }));
-            ZHI_HIDE_GAN.Add("戌", new List<string>(new[] { "戊", "辛", "丁" }));
-            ZHI_HIDE_GAN.Add("亥", new List<string>(new[] { "壬", "甲" }));
+            var zhiHideGan = new Dictionary<string, IReadOnlyList<string>> {
+                { "子", Array.AsReadOnly(new[] { "癸" }) },
+                { "丑", Array.AsReadOnly(new[] { "己", "癸", "辛" }) },
+                { "寅", Array.AsReadOnly(new[] { "甲", "丙", "戊" }) },
+                { "卯", Array.AsReadOnly(new[] { "乙" }) },
+                { "辰", Array.AsReadOnly(new[] { "戊", "乙", "癸" }) },
+                { "巳", Array.AsReadOnly(new[] { "丙", "庚", "戊" }) },
+                { "午", Array.AsReadOnly(new[] { "丁", "己" }) },
+                { "未", Array.AsReadOnly(new[] { "己", "丁", "乙" }) },
+                { "申", Array.AsReadOnly(new[] { "庚", "壬", "戊" }) },
+                { "酉", Array.AsReadOnly(new[] { "辛" }) },
+                { "戌", Array.AsReadOnly(new[] { "戊", "辛", "丁" }) },
+                { "亥", Array.AsReadOnly(new[] { "壬", "甲" }) }
+            };
+            ZHI_HIDE_GAN = zhiHideGan;
         }
 
         /// <summary>
@@ -1217,7 +1435,7 @@ namespace Lunar.Util
         /// <returns>甲子序号</returns>
         public static int GetJiaZiIndex(string ganZhi)
         {
-            for (int i = 0, j = JIA_ZI.Length; i < j; i++)
+            for (int i = 0, j = JIA_ZI.Count; i < j; i++)
             {
                 if (JIA_ZI[i].Equals(ganZhi))
                 {
@@ -1233,13 +1451,15 @@ namespace Lunar.Util
         /// <param name="monthGanZhi">月干支</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>宜</returns>
-        public static List<string> GetDayYi(string monthGanZhi, string dayGanZhi)
+        public static IEnumerable<string> GetDayYi(string monthGanZhi, string dayGanZhi)
         {
-            var l = new List<string>();
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Hex(GetJiaZiIndex(monthGanZhi));
             var right = DAY_YI_JI;
             var index = right.IndexOf(day + "=", StringComparison.Ordinal);
+
+            bool found = false;
+
             while (index > -1)
             {
                 right = right.Substring(index + 3);
@@ -1264,17 +1484,17 @@ namespace Lunar.Util
                     ys = ys.Substring(0, ys.IndexOf(",", StringComparison.Ordinal));
                     for (int i = 0, j = ys.Length; i < j; i += 2)
                     {
-                        l.Add(YI_JI[int.Parse(ys.Substring(i, 2), NumberStyles.HexNumber)]);
+                        yield return YI_JI[int.Parse(ys.Substring(i, 2), NumberStyles.HexNumber)];
+                        found = true;
                     }
                     break;
                 }
                 index = right.IndexOf(day + "=", StringComparison.Ordinal);
             }
-            if (l.Count < 1)
+            if (!found)
             {
-                l.Add("无");
+                yield return "无";
             }
-            return l;
         }
 
         /// <summary>
@@ -1283,13 +1503,15 @@ namespace Lunar.Util
         /// <param name="monthGanZhi">月干支</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>忌</returns>
-        public static List<string> GetDayJi(string monthGanZhi, string dayGanZhi)
+        public static IEnumerable<string> GetDayJi(string monthGanZhi, string dayGanZhi)
         {
-            var l = new List<string>();
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Hex(GetJiaZiIndex(monthGanZhi));
             var right = DAY_YI_JI;
             var index = right.IndexOf(day + "=", StringComparison.Ordinal);
+
+            bool found = false;
+
             while (index > -1)
             {
                 right = right.Substring(index + 3);
@@ -1313,17 +1535,17 @@ namespace Lunar.Util
                     var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                     for (int i = 0, j = js.Length; i < j; i += 2)
                     {
-                        l.Add(YI_JI[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)]);
+                        yield return YI_JI[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)];
+                        found = true;
                     }
                     break;
                 }
                 index = right.IndexOf(day + "=", StringComparison.Ordinal);
             }
-            if (l.Count < 1)
+            if (!found)
             {
-                l.Add("无");
+                yield return "无";
             }
-            return l;
         }
 
 
@@ -1333,12 +1555,14 @@ namespace Lunar.Util
         /// <param name="lunarMonth">月</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>日吉神</returns>
-        public static List<string> GetDayJiShen(int lunarMonth, string dayGanZhi)
+        public static IEnumerable<string> GetDayJiShen(int lunarMonth, string dayGanZhi)
         {
-            var l = new List<string>();
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Math.Abs(lunarMonth).ToString("X");
             var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
+
+            bool found = false;
+
             if (index > -1)
             {
                 var left = DAY_SHEN_SHA.Substring(index + 4);
@@ -1349,14 +1573,14 @@ namespace Lunar.Util
                 var js = left.Substring(0, left.IndexOf(",", StringComparison.Ordinal));
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
-                    l.Add(SHEN_SHA[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)]);
+                    yield return SHEN_SHA[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)];
+                    found = true;
                 }
             }
-            if (l.Count < 1)
+            if (!found)
             {
-                l.Add("无");
+                yield return "无";
             }
-            return l;
         }
 
 
@@ -1366,12 +1590,14 @@ namespace Lunar.Util
         /// <param name="lunarMonth">月</param>
         /// <param name="dayGanZhi">日干支</param>
         /// <returns>日凶煞</returns>
-        public static List<string> GetDayXiongSha(int lunarMonth, string dayGanZhi)
+        public static IEnumerable<string> GetDayXiongSha(int lunarMonth, string dayGanZhi)
         {
-            var l = new List<string>();
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Math.Abs(lunarMonth).ToString("X");
             var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
+
+            bool found = false;
+
             if (index > -1)
             {
                 var left = DAY_SHEN_SHA.Substring(index + 4);
@@ -1382,14 +1608,14 @@ namespace Lunar.Util
                 var xs = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                 for (int i = 0, j = xs.Length; i < j; i += 2)
                 {
-                    l.Add(SHEN_SHA[int.Parse(xs.Substring(i, 2), NumberStyles.HexNumber)]);
+                    yield return SHEN_SHA[int.Parse(xs.Substring(i, 2), NumberStyles.HexNumber)];
+                    found = true;
                 }
             }
-            if (l.Count < 1)
+            if (!found)
             {
-                l.Add("无");
+                yield return "无";
             }
-            return l;
         }
 
         /// <summary>
@@ -1398,12 +1624,14 @@ namespace Lunar.Util
         /// <param name="dayGanZhi">日干支</param>
         /// <param name="timeGanZhi">时干支</param>
         /// <returns>宜</returns>
-        public static List<string> GetTimeYi(string dayGanZhi, string timeGanZhi)
+        public static IEnumerable<string> GetTimeYi(string dayGanZhi, string timeGanZhi)
         {
-            var l = new List<string>();
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var time = Hex(GetJiaZiIndex(timeGanZhi));
             var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
+
+            bool found = false;
+
             if (index > -1)
             {
                 var left = TIME_YI_JI.Substring(index + 5);
@@ -1414,14 +1642,14 @@ namespace Lunar.Util
                 var ys = left.Substring(0, left.IndexOf(",", StringComparison.Ordinal));
                 for (int i = 0, j = ys.Length; i < j; i += 2)
                 {
-                    l.Add(YI_JI[int.Parse(ys.Substring(i, 2), NumberStyles.HexNumber)]);
+                    yield return YI_JI[int.Parse(ys.Substring(i, 2), NumberStyles.HexNumber)];
+                    found = true;
                 }
             }
-            if (l.Count < 1)
+            if (!found)
             {
-                l.Add("无");
+                yield return "无";
             }
-            return l;
         }
 
         /// <summary>
@@ -1430,12 +1658,14 @@ namespace Lunar.Util
         /// <param name="dayGanZhi">日干支</param>
         /// <param name="timeGanZhi">时干支</param>
         /// <returns>忌</returns>
-        public static List<string> GetTimeJi(string dayGanZhi, string timeGanZhi)
+        public static IEnumerable<string> GetTimeJi(string dayGanZhi, string timeGanZhi)
         {
-            var l = new List<string>();
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var time = Hex(GetJiaZiIndex(timeGanZhi));
             var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
+
+            bool found = false;
+
             if (index > -1)
             {
                 var left = TIME_YI_JI.Substring(index + 5);
@@ -1446,14 +1676,14 @@ namespace Lunar.Util
                 var js = left.Substring(left.IndexOf(",", StringComparison.Ordinal) + 1);
                 for (int i = 0, j = js.Length; i < j; i += 2)
                 {
-                    l.Add(YI_JI[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)]);
+                    yield return YI_JI[int.Parse(js.Substring(i, 2), NumberStyles.HexNumber)];
+                    found = true;
                 }
             }
-            if (l.Count<1)
+            if (!found)
             {
-                l.Add("无");
+                yield return "无";
             }
-            return l;
         }
 
         /// <summary>
@@ -1467,7 +1697,7 @@ namespace Lunar.Util
             var zhi = ganZhi.Substring(1);
             var ganIndex = 0;
             var zhiIndex = 0;
-            for (int i = 0, j = GAN.Length; i < j; i++)
+            for (int i = 0, j = GAN.Count; i < j; i++)
             {
                 if (GAN[i].Equals(gan))
                 {
@@ -1475,7 +1705,7 @@ namespace Lunar.Util
                     break;
                 }
             }
-            for (int i = 0, j = ZHI.Length; i < j; i++)
+            for (int i = 0, j = ZHI.Count; i < j; i++)
             {
                 if (ZHI[i].Equals(zhi))
                 {

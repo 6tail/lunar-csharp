@@ -1,5 +1,8 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
+
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>

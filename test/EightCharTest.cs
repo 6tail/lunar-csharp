@@ -86,7 +86,7 @@ namespace test
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
             var yun = eightChar.GetYun(0);
-            DaYun[] l = yun.GetDaYun();
+            DaYun[] l = yun.GetDaYun().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 DaYun daYun = l[i];
@@ -108,7 +108,7 @@ namespace test
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
             var yun = eightChar.GetYun(0);
-            DaYun[] daYun = yun.GetDaYun();
+            DaYun[] daYun = yun.GetDaYun().ToArray();
 
             int[] years = { 1983, 1984, 1985, 1986, 1987, 1988 };
             int[] ages = { 1, 2, 3, 4, 5, 6 };
@@ -145,7 +145,7 @@ namespace test
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
             var yun = eightChar.GetYun(0);
-            DaYun[] daYun = yun.GetDaYun();
+            DaYun[] daYun = yun.GetDaYun().ToArray();
 
             int[] years = { 1983, 1984, 1985, 1986, 1987, 1988 };
             int[] ages = { 1, 2, 3, 4, 5, 6 };
@@ -182,11 +182,11 @@ namespace test
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
             var yun = eightChar.GetYun(0);
-            var daYun = yun.GetDaYun();
+            var daYun = yun.GetDaYun().ToArray();
 
             string[] ganZhi = { "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥", "甲子", "乙丑" };
             var liuNian = daYun[0].GetLiuNian();
-            var l = liuNian[0].GetLiuYue();
+            var l = liuNian[0].GetLiuYue().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var liuYue = l[i];
@@ -195,7 +195,7 @@ namespace test
 
             ganZhi = new[] { "庚寅", "辛卯", "壬辰", "癸巳", "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑" };
             liuNian = daYun[4].GetLiuNian();
-            l = liuNian[2].GetLiuYue();
+            l = liuNian[2].GetLiuYue().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var liuYue = l[i];
