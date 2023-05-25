@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
@@ -365,40 +366,26 @@ namespace Lunar
         {
             get
             {
-                var l = new List<string>();
                 //获取几月几日对应的节日
-                try
+                if (SolarUtil.FESTIVAL.TryGetValue($"{Month}-{Day}", out var festival))
                 {
-                    l.Add(SolarUtil.FESTIVAL[Month + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
+                    yield return festival;
                 }
 
                 //计算几月第几个星期几对应的节日
                 var weeks = (int)Math.Ceiling(Day / 7D);
                 //星期几，0代表星期天
-                try
+                if (SolarUtil.WEEK_FESTIVAL.TryGetValue($"{Month}-{weeks}-{Week}", out festival))
                 {
-                    l.Add(SolarUtil.WEEK_FESTIVAL[Month + "-" + weeks + "-" + Week]);
-                }
-                catch
-                {
-                    // ignored
+                    yield return festival;
                 }
 
-                if (Day + 7 <= SolarUtil.GetDaysOfMonth(Year, Month)) return l;
-                try
+                if (Day + 7 <= SolarUtil.GetDaysOfMonth(Year, Month))
+                    yield break;
+                if (SolarUtil.WEEK_FESTIVAL.TryGetValue($"{Month}-0-{Week}", out festival))
                 {
-                    l.Add(SolarUtil.WEEK_FESTIVAL[Month + "-0-" + Week]);
+                    yield return festival;
                 }
-                catch
-                {
-                    // ignored
-                }
-
-                return l;
             }
         }
 
@@ -409,17 +396,9 @@ namespace Lunar
         {
             get
             {
-                var l = new List<string>();
-                try
-                {
-                    var fs = SolarUtil.OTHER_FESTIVAL[Month + "-" + Day];
-                    l.AddRange(fs);
-                }
-                catch
-                {
-                    // ignored
-                }
-                return l;
+                if (!SolarUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
+                    return Enumerable.Empty<string>();
+                return festivals;
             }
         }
 

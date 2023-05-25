@@ -108,48 +108,34 @@ namespace Lunar
         {
             get
             {
-                var l = new List<TaoFestival>();
-                try
+                if(TaoUtil.FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
                 {
-                    l.AddRange(TaoUtil.FESTIVAL[Month + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
+                    foreach (var f in festivals)
+                        yield return f;
                 }
 
                 var jq = Lunar.JieQi;
                 switch (jq)
                 {
                     case "冬至":
-                        l.Add(new TaoFestival("元始天尊圣诞"));
+                        yield return new TaoFestival("元始天尊圣诞");
                         break;
                     case "夏至":
-                        l.Add(new TaoFestival("灵宝天尊圣诞"));
+                        yield return new TaoFestival("灵宝天尊圣诞");
                         break;
                 }
 
                 // 八节日
-                try
+                if (TaoUtil.BA_JIE.TryGetValue(jq, out var festival))
                 {
-                    l.Add(new TaoFestival(TaoUtil.BA_JIE[jq]));
-                }
-                catch
-                {
-                    // ignored
+                    yield return new TaoFestival(festival);
                 }
 
                 // 八会日
-                try
+                if (TaoUtil.BA_HUI.TryGetValue(Lunar.DayInGanZhi, out festival))
                 {
-                    l.Add(new TaoFestival(TaoUtil.BA_HUI[Lunar.DayInGanZhi]));
+                    yield return new TaoFestival(festival);
                 }
-                catch
-                {
-                    // ignored
-                }
-
-                return l;
             }
         }
 

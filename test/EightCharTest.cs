@@ -113,7 +113,7 @@ namespace test
             int[] years = { 1983, 1984, 1985, 1986, 1987, 1988 };
             int[] ages = { 1, 2, 3, 4, 5, 6 };
             string[] ganZhi = { "癸亥", "甲子", "乙丑", "丙寅", "丁卯", "戊辰" };
-            LiuNian[] l = daYun[0].GetLiuNian();
+            LiuNian[] l = daYun[0].GetLiuNian().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 LiuNian liuNian = l[i];
@@ -125,7 +125,7 @@ namespace test
             years = new[] { 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038 };
             ages = new[] { 47, 48, 49, 50, 51, 52, 53, 54, 55, 56 };
             ganZhi = new[] { "己酉", "庚戌", "辛亥", "壬子", "癸丑", "甲寅", "乙卯", "丙辰", "丁巳", "戊午" };
-            l = daYun[5].GetLiuNian();
+            l = daYun[5].GetLiuNian().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var liuNian = l[i];
@@ -150,7 +150,7 @@ namespace test
             int[] years = { 1983, 1984, 1985, 1986, 1987, 1988 };
             int[] ages = { 1, 2, 3, 4, 5, 6 };
             string[] ganZhi = { "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰" };
-            XiaoYun[] l = daYun[0].GetXiaoYun();
+            XiaoYun[] l = daYun[0].GetXiaoYun().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var xiaoYun = l[i];
@@ -162,7 +162,7 @@ namespace test
             years = new[] { 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038 };
             ages = new[] { 47, 48, 49, 50, 51, 52, 53, 54, 55, 56 };
             ganZhi = new[] { "辛酉", "壬戌", "癸亥", "甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午" };
-            l = daYun[5].GetXiaoYun();
+            l = daYun[5].GetXiaoYun().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
                 var xiaoYun = l[i];
@@ -185,7 +185,7 @@ namespace test
             var daYun = yun.GetDaYun().ToArray();
 
             string[] ganZhi = { "甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥", "甲子", "乙丑" };
-            var liuNian = daYun[0].GetLiuNian();
+            var liuNian = daYun[0].GetLiuNian().ToArray();
             var l = liuNian[0].GetLiuYue().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {
@@ -194,7 +194,7 @@ namespace test
             }
 
             ganZhi = new[] { "庚寅", "辛卯", "壬辰", "癸巳", "甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑" };
-            liuNian = daYun[4].GetLiuNian();
+            liuNian = daYun[4].GetLiuNian().ToArray();
             l = liuNian[2].GetLiuYue().ToArray();
             for (int i = 0, j = l.Length; i < j; i++)
             {

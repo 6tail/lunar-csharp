@@ -91,11 +91,13 @@ namespace Lunar
         /// <returns>周列表</returns>
         public IEnumerable<SolarWeek> GetWeeks(int start) {
             var week = SolarWeek.FromYmd(Year, Month, 1, start);
-            while (true) {
+            while (true) 
+            {
                 yield return week;
                 week = week.Next(1, false);
                 var firstDay = week.FirstDay;
-                if (firstDay.Year > Year || firstDay.Month > Month) {
+                if (firstDay.Year > Year || firstDay.Month > Month) 
+                {
                     break;
                 }
             }

@@ -811,21 +811,17 @@ namespace Lunar
         {
             get
             {
-                var l = new List<string>();
-                try
+                if (LunarUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
                 {
-                    l.AddRange(LunarUtil.OTHER_FESTIVAL[Month + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
+                    foreach (var f in festivals)
+                        yield return f;
                 }
 
                 var solarYmd = Solar.Ymd;
                 var jq = JieQiTable["清明"];
                 if (solarYmd.Equals(jq.Next(-1).Ymd))
                 {
-                    l.Add("寒食节");
+                    yield return "寒食节";
                 }
 
                 jq = JieQiTable["立春"];
@@ -836,7 +832,7 @@ namespace Lunar
                 }
                 if (solarYmd.Equals(jq.Next(offset + 40).Ymd))
                 {
-                    l.Add("春社");
+                    yield return "春社";
                 }
 
                 jq = JieQiTable["立秋"];
@@ -847,9 +843,8 @@ namespace Lunar
                 }
                 if (solarYmd.Equals(jq.Next(offset + 40).Ymd))
                 {
-                    l.Add("秋社");
+                    yield return "秋社";
                 }
-                return l;
             }
         }
 
