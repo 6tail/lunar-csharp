@@ -398,17 +398,15 @@ namespace Lunar.Util
         /// </summary>
         public static IReadOnlyDictionary<string, string> TIAN_SHEN_TYPE_LUCK { get; }
 
-        // TODO: 可访问性调整
-
         /// <summary>
         /// 节日
         /// </summary>
-        public static readonly Dictionary<string, string> FESTIVAL = new Dictionary<string, string>();
+        public static IReadOnlyDictionary<string, string> FESTIVAL { get; }
 
         /// <summary>
         /// 非正式节日
         /// </summary>
-        public static readonly Dictionary<string, List<string>> OTHER_FESTIVAL = new Dictionary<string, List<string>>();
+        public static IReadOnlyDictionary<string, IReadOnlyList<string>> OTHER_FESTIVAL { get; }
 
         /// <summary>
         /// 28星宿对照表，地支+星期
@@ -549,42 +547,48 @@ namespace Lunar.Util
             };
             LU = new ReadOnlyDictionary<string, string>(lu);
 
-            FESTIVAL.Add("1-1", "春节");
-            FESTIVAL.Add("1-15", "元宵节");
-            FESTIVAL.Add("2-2", "龙头节");
-            FESTIVAL.Add("5-5", "端午节");
-            FESTIVAL.Add("7-7", "七夕节");
-            FESTIVAL.Add("8-15", "中秋节");
-            FESTIVAL.Add("9-9", "重阳节");
-            FESTIVAL.Add("12-8", "腊八节");
+            var festival = new Dictionary<string, string> {
+                { "1-1", "春节" },
+                { "1-15", "元宵节" },
+                { "2-2", "龙头节" },
+                { "5-5", "端午节" },
+                { "7-7", "七夕节" },
+                { "8-15", "中秋节" },
+                { "9-9", "重阳节" },
+                { "12-8", "腊八节" }
+            };
+            FESTIVAL = new ReadOnlyDictionary<string, string>(festival);
 
-            OTHER_FESTIVAL.Add("1-4", new List<string>(new[] { "接神日" }));
-            OTHER_FESTIVAL.Add("1-5", new List<string>(new[] { "隔开日" }));
-            OTHER_FESTIVAL.Add("1-7", new List<string>(new[] { "人日" }));
-            OTHER_FESTIVAL.Add("1-8", new List<string>(new[] { "谷日", "顺星节" }));
-            OTHER_FESTIVAL.Add("1-9", new List<string>(new[] { "天日" }));
-            OTHER_FESTIVAL.Add("1-10", new List<string>(new[] { "地日" }));
-            OTHER_FESTIVAL.Add("1-20", new List<string>(new[] { "天穿节" }));
-            OTHER_FESTIVAL.Add("1-25", new List<string>(new[] { "填仓节" }));
-            OTHER_FESTIVAL.Add("1-30", new List<string>(new[] { "正月晦" }));
-            OTHER_FESTIVAL.Add("2-1", new List<string>(new[] { "中和节" }));
-            OTHER_FESTIVAL.Add("2-2", new List<string>(new[] { "社日节" }));
-            OTHER_FESTIVAL.Add("3-3", new List<string>(new[] { "上巳节" }));
-            OTHER_FESTIVAL.Add("5-20", new List<string>(new[] { "分龙节" }));
-            OTHER_FESTIVAL.Add("5-25", new List<string>(new[] { "会龙节" }));
-            OTHER_FESTIVAL.Add("6-6", new List<string>(new[] { "天贶节" }));
-            OTHER_FESTIVAL.Add("6-24", new List<string>(new[] { "观莲节" }));
-            OTHER_FESTIVAL.Add("6-25", new List<string>(new[] { "五谷母节" }));
-            OTHER_FESTIVAL.Add("7-14", new List<string>(new[] { "中元节" }));
-            OTHER_FESTIVAL.Add("7-22", new List<string>(new[] { "财神节" }));
-            OTHER_FESTIVAL.Add("7-29", new List<string>(new[] { "地藏节" }));
-            OTHER_FESTIVAL.Add("8-1", new List<string>(new[] { "天灸日" }));
-            OTHER_FESTIVAL.Add("10-1", new List<string>(new[] { "寒衣节" }));
-            OTHER_FESTIVAL.Add("10-10", new List<string>(new[] { "十成节" }));
-            OTHER_FESTIVAL.Add("10-15", new List<string>(new[] { "下元节" }));
-            OTHER_FESTIVAL.Add("12-7", new List<string>(new[] { "驱傩日" }));
-            OTHER_FESTIVAL.Add("12-16", new List<string>(new[] { "尾牙" }));
-            OTHER_FESTIVAL.Add("12-24", new List<string>(new[] { "祭灶日" }));
+            var otherFestival = new Dictionary<string, IReadOnlyList<string>> {
+                { "1-4", Array.AsReadOnly(new[] { "接神日" }) },
+                { "1-5", Array.AsReadOnly(new[] { "隔开日" }) },
+                { "1-7", Array.AsReadOnly(new[] { "人日" }) },
+                { "1-8", Array.AsReadOnly(new[] { "谷日", "顺星节" }) },
+                { "1-9", Array.AsReadOnly(new[] { "天日" }) },
+                { "1-10", Array.AsReadOnly(new[] { "地日" }) },
+                { "1-20", Array.AsReadOnly(new[] { "天穿节" }) },
+                { "1-25", Array.AsReadOnly(new[] { "填仓节" }) },
+                { "1-30", Array.AsReadOnly(new[] { "正月晦" }) },
+                { "2-1", Array.AsReadOnly(new[] { "中和节" }) },
+                { "2-2", Array.AsReadOnly(new[] { "社日节" }) },
+                { "3-3", Array.AsReadOnly(new[] { "上巳节" }) },
+                { "5-20", Array.AsReadOnly(new[] { "分龙节" }) },
+                { "5-25", Array.AsReadOnly(new[] { "会龙节" }) },
+                { "6-6", Array.AsReadOnly(new[] { "天贶节" }) },
+                { "6-24", Array.AsReadOnly(new[] { "观莲节" }) },
+                { "6-25", Array.AsReadOnly(new[] { "五谷母节" }) },
+                { "7-14", Array.AsReadOnly(new[] { "中元节" }) },
+                { "7-22", Array.AsReadOnly(new[] { "财神节" }) },
+                { "7-29", Array.AsReadOnly(new[] { "地藏节" }) },
+                { "8-1", Array.AsReadOnly(new[] { "天灸日" }) },
+                { "10-1", Array.AsReadOnly(new[] { "寒衣节" }) },
+                { "10-10", Array.AsReadOnly(new[] { "十成节" }) },
+                { "10-15", Array.AsReadOnly(new[] { "下元节" }) },
+                { "12-7", Array.AsReadOnly(new[] { "驱傩日" }) },
+                { "12-16", Array.AsReadOnly(new[] { "尾牙" }) },
+                { "12-24", Array.AsReadOnly(new[] { "祭灶日" }) }
+            };
+            OTHER_FESTIVAL = new ReadOnlyDictionary<string, IReadOnlyList<string>>(otherFestival);
 
             var xiu = new Dictionary<string, string> {
                 { "申1", "毕" },

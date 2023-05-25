@@ -5,8 +5,6 @@ using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -220,8 +218,10 @@ namespace Lunar
         /// <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
         /// <param name="baseYear">起始年</param>
         /// <returns>符合的阳历列表</returns>
-        public static List<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
+        public static IEnumerable<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
         {
+            // TODO: 可以把 baseYear 放到无限，让外界使用 TakeWhile 来取
+
             sect = (1 == sect) ? 1 : 2;
             var l = new List<Solar>();
             var years = new List<int>();
@@ -361,7 +361,7 @@ namespace Lunar
         /// <summary>
         /// 节日，有可能一天会有多个节日
         /// </summary>
-        public List<string> Festivals
+        public IEnumerable<string> Festivals
         {
             get
             {
@@ -405,7 +405,7 @@ namespace Lunar
         /// <summary>
         /// 非正式节日
         /// </summary>
-        public List<string> OtherFestivals
+        public IEnumerable<string> OtherFestivals
         {
             get
             {

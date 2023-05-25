@@ -1,4 +1,5 @@
 using Lunar;
+using System.Linq;
 using Xunit;
 
 namespace test
@@ -21,10 +22,10 @@ namespace test
         public void Test1()
         {
             var tao = Tao.FromYmdHms(4718, 10, 18);
-            Assert.Equal(2, tao.Festivals.Count);
+            Assert.Equal(2, tao.Festivals.Count());
 
             tao = Lunar.Lunar.FromYmdHms(2021, 10, 18).Tao;
-            Assert.Equal(2, tao.Festivals.Count);
+            Assert.Equal(2, tao.Festivals.Count());
         }
     }
 }

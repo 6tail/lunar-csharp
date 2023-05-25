@@ -7,8 +7,6 @@ using System.Linq;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -106,7 +104,7 @@ namespace Lunar
         /// <summary>
         /// 节日
         /// </summary>
-        public List<TaoFestival> Festivals
+        public IEnumerable<TaoFestival> Festivals
         {
             get
             {
@@ -155,7 +153,7 @@ namespace Lunar
             }
         }
 
-        private bool IsDayIn(string[] days)
+        private bool IsDayIn(IEnumerable<string> days)
         {
             var md = Month + "-" + Day;
             return days.Any(d => md.Equals(d));

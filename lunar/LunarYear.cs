@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Lunar.Util;
 using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
-
-// TODO: 可访问性调整
 
 namespace Lunar
 {
@@ -67,15 +66,17 @@ namespace Lunar
         /// </summary>
         public int ZhiIndex { get; }
 
+        private readonly List<LunarMonth> months = new List<LunarMonth>();
         /// <summary>
         /// 农历月
         /// </summary>
-        public List<LunarMonth> Months { get; } = new List<LunarMonth>();
+        public IReadOnlyList<LunarMonth> Months { get; }
 
+        private readonly List<double> jieQiJulianDays = new List<double>();
         /// <summary>
         /// 节气
         /// </summary>
-        public List<double> JieQiJulianDays { get; } = new List<double>();
+        public IReadOnlyList<double> JieQiJulianDays { get; }
 
         /// <summary>
         /// 通过农历年初始化
@@ -83,6 +84,9 @@ namespace Lunar
         /// <param name="lunarYear">农历年</param>
         public LunarYear(int lunarYear)
         {
+            Months = new ReadOnlyCollection<LunarMonth>(months);
+            JieQiJulianDays = new ReadOnlyCollection<double>(jieQiJulianDays);
+
             Year = lunarYear;
             var offset = lunarYear - 4;
             var yearGanIndex = offset % 10;
@@ -142,12 +146,12 @@ namespace Lunar
 
             var year = Year - 2000;
             // 从上年的大雪到下年的立春
-            for (int i = 0, j = Lunar.JIE_QI_IN_USE.Length; i < j; i++)
+            for (int i = 0, j = Lunar.JIE_QI_IN_USE.Count; i < j; i++)
             {
                 // 精确的节气
                 var t = 36525 * ShouXingUtil.SaLonT((year + (17 + i) * 15d / 360) * ShouXingUtil.PI_2);
                 t += ShouXingUtil.ONE_THIRD - ShouXingUtil.DtT(t);
-                JieQiJulianDays.Add(t + Solar.J2000);
+                jieQiJulianDays.Add(t + Solar.J2000);
                 // 按中午12点算的节气
                 if (i > 0 && i < 28)
                 {
@@ -214,7 +218,7 @@ namespace Lunar
                 {
                     cm = -cm;
                 }
-                Months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000, index));
+                months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000, index));
                 if (y != leapYear || i + 1 != leapIndex)
                 {
                     m++;
@@ -267,7 +271,7 @@ namespace Lunar
         /// <summary>
         /// 获取当年的农历月们
         /// </summary>
-        public List<LunarMonth> MonthsInYear => Months.Where(m => m.Year == Year).ToList();
+        public IEnumerable<LunarMonth> MonthsInYear => Months.Where(m => m.Year == Year);
         
         /// <inheritdoc />
         public override string ToString()

@@ -7,8 +7,6 @@ using Lunar.Util;
 // ReSharper disable IdentifierTypo
 // ReSharper disable MemberCanBePrivate.Global
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -94,7 +92,6 @@ namespace Lunar
         {
             get
             {
-                // TODO: 好像和 Lunar 的一样？
                 var y = (Year + "").ToCharArray();
                 var s = new StringBuilder();
                 for (int i = 0, j = y.Length; i < j; i++)
@@ -118,42 +115,26 @@ namespace Lunar
         /// <summary>
         /// 节日列表，有可能一天会有多个节日
         /// </summary>
-        public List<FotoFestival> Festivals
+        public IEnumerable<FotoFestival> Festivals
         {
             get
             {
-                var l = new List<FotoFestival>();
-                try
-                {
-                    l.AddRange(FotoUtil.FESTIVAL[Math.Abs(Month) + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
-                }
-
-                return l;
+                if(!FotoUtil.FESTIVAL.TryGetValue($"{Math.Abs(Month)}-{Day}", out var result))
+                    return Enumerable.Empty<FotoFestival>();
+                return result;
             }
         }
 
         /// <summary>
         /// 非正式的节日列表，有可能一天会有多个节日
         /// </summary>
-        public List<string> OtherFestivals
+        public IEnumerable<string> OtherFestivals
         {
             get
             {
-                var l = new List<string>();
-                try
-                {
-                    var fs = FotoUtil.OTHER_FESTIVAL[Month + "-" + Day];
-                    l.AddRange(fs);
-                }
-                catch
-                {
-                    // ignored
-                }
-                return l;
+                if (!FotoUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var result))
+                    return Enumerable.Empty<string>();
+                return result;
             }
         }
 

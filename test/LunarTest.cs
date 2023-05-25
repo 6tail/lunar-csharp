@@ -1,4 +1,5 @@
 using Lunar;
+using System.Linq;
 using Xunit;
 
 namespace test
@@ -167,21 +168,21 @@ namespace test
         public void Test35()
         {
             var lunar = Lunar.Lunar.FromYmdHms(2021, 12, 29);
-            Assert.Equal("除夕", lunar.Festivals[0]);
+            Assert.Equal("除夕", lunar.Festivals.First());
         }
 
         [Fact]
         public void Test36()
         {
             var lunar = Lunar.Lunar.FromYmdHms(2020, 12, 30);
-            Assert.Equal("除夕", lunar.Festivals[0]);
+            Assert.Equal("除夕", lunar.Festivals.First());
         }
 
         [Fact]
         public void Test37()
         {
             var lunar = Lunar.Lunar.FromYmdHms(2020, 12, 29);
-            Assert.Equal(0, lunar.Festivals.Count);
+            Assert.Equal(0, lunar.Festivals.Count());
         }
 
         [Fact]
@@ -189,7 +190,7 @@ namespace test
         {
             var solar = Solar.FromYmdHms(2022, 1, 31);
             var lunar = solar.Lunar;
-            Assert.Equal("除夕", lunar.Festivals[0]);
+            Assert.Equal("除夕", lunar.Festivals.ElementAt(0));
         }
 
         [Fact]
@@ -493,7 +494,7 @@ namespace test
         {
             var solar = Solar.FromYmdHms(1722, 9, 25);
             var lunar = solar.Lunar;
-            Assert.Equal("秋社", lunar.OtherFestivals[0]);
+            Assert.Equal("秋社", lunar.OtherFestivals.First());
         }
 
         [Fact]
@@ -501,7 +502,7 @@ namespace test
         {
             var solar = Solar.FromYmdHms(2021, 3, 21);
             var lunar = solar.Lunar;
-            Assert.Equal("春社", lunar.OtherFestivals[0]);
+            Assert.Equal("春社", lunar.OtherFestivals.First());
         }
         
         [Fact]

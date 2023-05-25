@@ -1,7 +1,5 @@
 // ReSharper disable MemberCanBePrivate.Global
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -30,21 +28,13 @@ namespace Lunar
         public string Target { get; set; }
 
         /// <summary>
-        /// 创建节日
-        /// </summary>
-        public Holiday() 
-        {
-            // TODO: 没用过，是否应删除？
-        }
-
-        /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="day">日期</param>
         /// <param name="name">名称</param>
         /// <param name="work">是否调休</param>
         /// <param name="target">关联的节日</param>
-        public Holiday(string day, string name, bool work, string target)
+        internal Holiday(string day, string name, bool work, string target)
         {
             if (!day.Contains("-"))
             {

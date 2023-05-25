@@ -385,7 +385,6 @@ namespace Lunar.EightChar
         /// </summary>
         public string ShenGong
         {
-            // TODO: 好复杂，没有仔细看，是身宫吗？若不是，还要注意调整 ShenGongNaYin 的注释
             get
             {
                 var monthZhiIndex = 0;

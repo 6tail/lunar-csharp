@@ -4,8 +4,6 @@ using System.Linq;
 using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -220,28 +218,27 @@ namespace Lunar
         /// <summary>
         /// 本周的阳历日期列表（可能跨月）
         /// </summary>
-        public List<Solar> Days
+        public IEnumerable<Solar> Days
         {
             get
             {
                 var firstDay = FirstDay;
-                var l = new List<Solar> {firstDay};
+                yield return firstDay;
                 for (var i = 1; i < 7; i++)
                 {
-                    l.Add(firstDay.Next(i));
+                    yield return firstDay.Next(i);
                 }
-                return l;
             }
         }
 
         /// <summary>
         /// 本周的阳历日期列表（仅限当月）
         /// </summary>
-        public List<Solar> DaysInMonth
+        public IEnumerable<Solar> DaysInMonth
         {
             get
             {
-                return Days.Where(day => Month == day.Month).ToList();
+                return Days.Where(day => Month == day.Month);
             }
         }
 

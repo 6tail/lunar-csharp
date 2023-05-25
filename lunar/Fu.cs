@@ -1,7 +1,5 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -19,21 +17,13 @@ namespace Lunar
         /// 当前入伏第几天，1-20
         /// </summary>
         public int Index { get; set; }
-        
-        /// <summary>
-        /// 创建伏
-        /// </summary>
-        public Fu()
-        {
-            // TODO: 没有使用过，是否应删除
-        }
 
         /// <summary>
         /// 创建伏
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="index">当前入伏第几天</param>
-        public Fu(string name, int index)
+        internal Fu(string name, int index)
         {
             Name = name;
             Index = index;

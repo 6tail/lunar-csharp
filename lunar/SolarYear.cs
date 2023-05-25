@@ -3,8 +3,6 @@ using System.Collections.Generic;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable InconsistentNaming
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -71,18 +69,16 @@ namespace Lunar
         /// <summary>
         /// 本年的阳历月列表
         /// </summary>
-        public List<SolarMonth> Months
+        public IEnumerable<SolarMonth> Months
         {
             get
             {
-                var l = new List<SolarMonth>(MONTH_COUNT);
                 var m = new SolarMonth(Year, 1);
-                l.Add(m);
+                yield return m;
                 for (var i = 1; i < MONTH_COUNT; i++)
                 {
-                    l.Add(m.Next(i));
+                    yield return m.Next(i);
                 }
-                return l;
             }
         }
 

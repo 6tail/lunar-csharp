@@ -241,7 +241,7 @@ namespace test
         [Fact]
         public void TestEightChar2Solar()
         {
-            var l = Solar.FromBaZi("辛丑", "丁酉", "丙寅", "戊戌");
+            var l = Solar.FromBaZi("辛丑", "丁酉", "丙寅", "戊戌").ToArray();
             string[] solarList = { "2021-09-15 20:00:00 星期三 处女座", "1961-09-30 20:00:00 星期六 天秤座" };
             for (int i = 0, j = solarList.Length; i < j; i++)
             {

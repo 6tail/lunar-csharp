@@ -4,8 +4,6 @@ using System.Text;
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable ClassNeverInstantiated.Global
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -41,7 +39,7 @@ namespace Lunar
         /// <param name="result">犯之因果</param>
         /// <param name="everyMonth">是否每月同</param>
         /// <param name="remark">备注</param>
-        public FotoFestival(string name, string result = null, bool everyMonth = false, string remark = null)
+        internal FotoFestival(string name, string result = null, bool everyMonth = false, string remark = null)
         {
             Name = name;
             Result = result ?? "";
