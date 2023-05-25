@@ -7,12 +7,14 @@ using System.Text.RegularExpressions;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 农历年
     /// </summary>
-    public class LunarYear
+    public sealed class LunarYear
     {
         /// <summary>
         /// 元
@@ -65,8 +67,14 @@ namespace Lunar
         /// </summary>
         public int ZhiIndex { get; }
 
+        /// <summary>
+        /// 农历月
+        /// </summary>
         public List<LunarMonth> Months { get; } = new List<LunarMonth>();
 
+        /// <summary>
+        /// 节气
+        /// </summary>
         public List<double> JieQiJulianDays { get; } = new List<double>();
 
         /// <summary>
@@ -236,11 +244,19 @@ namespace Lunar
         /// </summary>
         public string GanZhi => Gan + Zhi;
 
+        /// <summary>
+        /// 取农历月
+        /// </summary>
+        /// <param name="lunarMonth">月</param>
+        /// <returns>农历月</returns>
         public LunarMonth GetMonth(int lunarMonth)
         {
             return Months.FirstOrDefault(m => m.Year == Year && m.Month == lunarMonth);
         }
 
+        /// <summary>
+        /// 闰月
+        /// </summary>
         public int LeapMonth => (from m in Months where m.Year == Year && m.Leap select Math.Abs(m.Month)).FirstOrDefault();
 
         /// <summary>
@@ -253,14 +269,18 @@ namespace Lunar
         /// </summary>
         public List<LunarMonth> MonthsInYear => Months.Where(m => m.Year == Year).ToList();
         
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => Year + "年";
 
-        protected string GetZaoByGan(int index, string name)
+        private string GetZaoByGan(int index, string name)
         {
             var offset = index - Solar.FromJulianDay(GetMonth(1).FirstJulianDay).Lunar.DayGanIndex;
             if (offset < 0)
@@ -270,7 +290,7 @@ namespace Lunar
             return new Regex("几", RegexOptions.Singleline).Replace(name, LunarUtil.NUMBER[offset + 1], 1);
         }
 
-        protected string GetZaoByZhi(int index, string name)
+        private string GetZaoByZhi(int index, string name)
         {
             var offset = index - Solar.FromJulianDay(GetMonth(1).FirstJulianDay).Lunar.DayZhiIndex;
             if (offset < 0)

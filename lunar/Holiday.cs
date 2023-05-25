@@ -1,10 +1,13 @@
 // ReSharper disable MemberCanBePrivate.Global
+
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 节假日
     /// </summary>
-    public class Holiday
+    public sealed class Holiday
     {
         /// <summary>
         /// 日期，YYYY-MM-DD
@@ -26,7 +29,13 @@ namespace Lunar
         /// </summary>
         public string Target { get; set; }
 
-        public Holiday() { }
+        /// <summary>
+        /// 创建节日
+        /// </summary>
+        public Holiday() 
+        {
+            // TODO: 没用过，是否应删除？
+        }
 
         /// <summary>
         /// 初始化
@@ -57,6 +66,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Day + " " + Name + (Work ? "调休" : "") + " " + Target;

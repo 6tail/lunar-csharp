@@ -8,7 +8,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 小运
     /// </summary>
-    public class XiaoYun
+    public sealed class XiaoYun
     {
         /// <summary>
         /// 序数，0-9
@@ -35,6 +35,9 @@ namespace Lunar.EightChar
         /// </summary>
         public bool Forward { get; }
 
+        /// <summary>
+        /// 农历
+        /// </summary>
         public Lunar Lunar { get; }
 
         /// <summary>
@@ -67,7 +70,7 @@ namespace Lunar.EightChar
                     add += DaYun.StartAge - 1;
                 }
                 offset += Forward ? add : -add;
-                var size = LunarUtil.JIA_ZI.Length;
+                var size = LunarUtil.JIA_ZI.Count;
                 while (offset < 0)
                 {
                     offset += size;

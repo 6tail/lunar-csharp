@@ -8,7 +8,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 大运
     /// </summary>
-    public class DaYun
+    public sealed class DaYun
     {
         /// <summary>
         /// 开始年(含)
@@ -40,8 +40,16 @@ namespace Lunar.EightChar
         /// </summary>
         public Yun Yun { get; }
 
+        /// <summary>
+        /// 农历
+        /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 从运和序数初始化
+        /// </summary>
+        /// <param name="yun">运</param>
+        /// <param name="index">序数</param>
         public DaYun(Yun yun, int index)
         {
             Yun = yun;
@@ -80,7 +88,7 @@ namespace Lunar.EightChar
                 }
                 var offset = LunarUtil.GetJiaZiIndex(Lunar.MonthInGanZhiExact);
                 offset += Yun.Forward ? Index : -Index;
-                var size = LunarUtil.JIA_ZI.Length;
+                var size = LunarUtil.JIA_ZI.Count;
                 if (offset >= size)
                 {
                     offset -= size;

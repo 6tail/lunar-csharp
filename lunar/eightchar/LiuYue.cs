@@ -7,7 +7,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 流月
     /// </summary>
-    public class LiuYue
+    public sealed class LiuYue
     {
         /// <summary>
         /// 序数，0-9

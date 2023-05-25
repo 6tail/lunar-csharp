@@ -4,12 +4,14 @@ using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 时辰
     /// </summary>
-    public class LunarTime
+    public sealed class LunarTime
     {
         /// <summary>
         /// 天干下标，0-9
@@ -171,7 +173,7 @@ namespace Lunar
         {
             get
             {
-                for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+                for (int i = 0, j = LunarUtil.ZHI.Count; i < j; i++)
                 {
                     if (LunarUtil.ZHI[i].Equals(Chong))
                     {
@@ -215,12 +217,12 @@ namespace Lunar
         /// <summary>
         /// 宜，如果没有，返回["无"]
         /// </summary>
-        public List<string> Yi => LunarUtil.GetTimeYi(Lunar.DayInGanZhiExact, GanZhi);
+        public IEnumerable<string> Yi => LunarUtil.GetTimeYi(Lunar.DayInGanZhiExact, GanZhi);
 
         /// <summary>
         /// 忌，如果没有，返回["无"]
         /// </summary>
-        public List<string> Ji => LunarUtil.GetTimeJi(Lunar.DayInGanZhiExact, GanZhi);
+        public IEnumerable<string> Ji => LunarUtil.GetTimeJi(Lunar.DayInGanZhiExact, GanZhi);
 
         /// <summary>
         /// 九星（时家紫白星歌诀：三元时白最为佳，冬至阳生顺莫差，孟日七宫仲一白，季日四绿发萌芽，每把时辰起甲子，本时星耀照光华，时星移入中宫去，顺飞八方逐细查。夏至阴生逆回首，孟归三碧季加六，仲在九宫时起甲，依然掌中逆轮跨。）
@@ -256,6 +258,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return GanZhi;

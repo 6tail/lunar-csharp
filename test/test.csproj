@@ -1,11 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.0</TargetFramework>
-
-        <IsPackable>false</IsPackable>
-
-        <LangVersion>7.1</LangVersion>
+        <TargetFramework>net6</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

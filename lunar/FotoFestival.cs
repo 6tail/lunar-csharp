@@ -3,12 +3,15 @@ using System.Text;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable ClassNeverInstantiated.Global
+
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 佛历因果犯忌
     /// </summary>
-    public class FotoFestival
+    public sealed class FotoFestival
     {
 
         /// <summary>
@@ -31,6 +34,13 @@ namespace Lunar
         /// </summary>
         public string Remark { get; }
 
+        /// <summary>
+        /// 创建佛历节日
+        /// </summary>
+        /// <param name="name">是日何日</param>
+        /// <param name="result">犯之因果</param>
+        /// <param name="everyMonth">是否每月同</param>
+        /// <param name="remark">备注</param>
         public FotoFestival(string name, string result = null, bool everyMonth = false, string remark = null)
         {
             Name = name;
@@ -39,6 +49,9 @@ namespace Lunar
             Remark = remark ?? "";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString
         {
             get
@@ -60,6 +73,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;

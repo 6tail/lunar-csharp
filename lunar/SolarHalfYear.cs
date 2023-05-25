@@ -3,12 +3,14 @@ using System.Collections.Generic;
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 阳历半年
     /// </summary>
-    public class SolarHalfYear
+    public sealed class SolarHalfYear
     {
         /// <summary>
         /// 年
@@ -106,11 +108,15 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "." + Index;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => Year + "年" + (Index == 1 ? "上" : "下") + "半年";
     }
 }

@@ -7,13 +7,18 @@ using System.Linq;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 道历
     /// </summary>
-    public class Tao
+    public sealed class Tao
     {
+        /// <summary>
+        /// 道历元年
+        /// </summary>
         public const int BIRTH_YEAR = -2697;
 
         /// <summary>
@@ -21,16 +26,35 @@ namespace Lunar
         /// </summary>
         private Lunar Lunar { get; }
 
+        /// <summary>
+        /// 从农历创建道历
+        /// </summary>
+        /// <param name="lunar">农历</param>
         public Tao(Lunar lunar)
         {
             Lunar = lunar;
         }
 
+        /// <summary>
+        /// 从农历创建道历
+        /// </summary>
+        /// <param name="lunar">农历</param>
+        /// <returns>道历</returns>
         public static Tao FromLunar(Lunar lunar)
         {
             return new Tao(lunar);
         }
 
+        /// <summary>
+        /// 通过指定道历年月日时分秒获取道历
+        /// </summary>
+        /// <param name="year">年（道历）</param>
+        /// <param name="month">月（农历），1到12，闰月为负，即闰2月=-2</param>
+        /// <param name="day">日（农历），1到31</param>
+        /// <param name="hour">小时（阳历）</param>
+        /// <param name="minute">分钟（阳历）</param>
+        /// <param name="second">秒钟（阳历）</param>
+        /// <returns>道历</returns>
         public static Tao FromYmdHms(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
             return FromLunar(Lunar.FromYmdHms(year + BIRTH_YEAR, month, day, hour, minute, second));
@@ -220,8 +244,12 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => "道歷" + YearInChinese + "年，天運" + Lunar.YearInGanZhi + "年，" + Lunar.MonthInGanZhi + "月，" + Lunar.DayInGanZhi + "日。" + MonthInChinese + "月" + DayInChinese + "日，" + Lunar.TimeZhi + "時。";
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;

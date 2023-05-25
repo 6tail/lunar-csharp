@@ -1,10 +1,13 @@
 using System.Text;
+
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 道历节日
     /// </summary>
-    public class TaoFestival
+    public sealed class TaoFestival
     {
 
         /// <summary>
@@ -17,17 +20,25 @@ namespace Lunar
         /// </summary>
         private string Remark { get; set; }
 
+        /// <summary>
+        /// 创建道历节日
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="remark">备注</param>
         public TaoFestival(string name, string remark = null)
         {
             Name = name;
             Remark = remark ?? "";
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString
         {
             get

@@ -4,12 +4,14 @@ using System.Linq;
 using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 阳历周
     /// </summary>
-    public class SolarWeek
+    public sealed class SolarWeek
     {
         /// <summary>
         /// 年
@@ -243,11 +245,15 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "." + Month + "." + Index;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => Year + "年" + Month + "月第" + Index + "周";
     }
 }

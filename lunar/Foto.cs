@@ -7,35 +7,62 @@ using Lunar.Util;
 // ReSharper disable IdentifierTypo
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 佛历
     /// </summary>
-    public class Foto
+    public sealed class Foto
     {
+        /// <summary>
+        /// 佛灭〇年
+        /// </summary>
         public const int DEAD_YEAR = -543;
 
         /// <summary>
-        /// 阴历
+        /// 农历
         /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 通过农历初始化
+        /// </summary>
+        /// <param name="lunar">农历</param>
         public Foto(Lunar lunar)
         {
             Lunar = lunar;
         }
 
+        /// <summary>
+        /// 通过农历获取佛历
+        /// </summary>
+        /// <param name="lunar">农历日期</param>
+        /// <returns>佛历</returns>
         public static Foto FromLunar(Lunar lunar)
         {
             return new Foto(lunar);
         }
 
+        /// <summary>
+        /// 通过指定农历年月日时分秒获取佛历
+        /// </summary>
+        /// <param name="lunarYear">年（农历）</param>
+        /// <param name="lunarMonth">月（农历），1到12，闰月为负，即闰2月=-2</param>
+        /// <param name="lunarDay">日（农历），1到31</param>
+        /// <param name="hour">小时（阳历）</param>
+        /// <param name="minute">分钟（阳历）</param>
+        /// <param name="second">秒钟（阳历）</param>
+        /// <returns>佛历</returns>
         public static Foto FromYmdHms(int lunarYear, int lunarMonth, int lunarDay, int hour = 0, int minute = 0, int second = 0)
         {
             return FromLunar(Lunar.FromYmdHms(lunarYear + DEAD_YEAR - 1, lunarMonth, lunarDay, hour, minute, second));
         }
 
+        /// <summary>
+        /// 佛历年
+        /// </summary>
         public int Year
         {
             get
@@ -50,14 +77,24 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 佛历月（同农历月）
+        /// </summary>
         public int Month => Lunar.Month;
 
+        /// <summary>
+        /// 佛历日（同农历日）
+        /// </summary>
         public int Day => Lunar.Day;
 
+        /// <summary>
+        /// 中文年，如二〇〇一
+        /// </summary>
         public string YearInChinese
         {
             get
             {
+                // TODO: 好像和 Lunar 的一样？
                 var y = (Year + "").ToCharArray();
                 var s = new StringBuilder();
                 for (int i = 0, j = y.Length; i < j; i++)
@@ -68,10 +105,19 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 中文月，如正
+        /// </summary>
         public string MonthInChinese => Lunar.MonthInChinese;
 
+        /// <summary>
+        /// 中文日，如初一
+        /// </summary>
         public string DayInChinese => Lunar.DayInChinese;
 
+        /// <summary>
+        /// 节日列表，有可能一天会有多个节日
+        /// </summary>
         public List<FotoFestival> Festivals
         {
             get
@@ -89,7 +135,10 @@ namespace Lunar
                 return l;
             }
         }
-        
+
+        /// <summary>
+        /// 非正式的节日列表，有可能一天会有多个节日
+        /// </summary>
         public List<string> OtherFestivals
         {
             get
@@ -108,6 +157,9 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 斋月
+        /// </summary>
         public bool MonthZhai => Month == 1 || Month == 5 || Month == 9;
 
         /// <summary>
@@ -205,6 +257,9 @@ namespace Lunar
         /// </summary>
         public string Shou => LunarUtil.SHOU[Gong];
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString
         {
             get
@@ -221,6 +276,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;

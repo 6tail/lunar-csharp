@@ -5,12 +5,14 @@ using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 阳历日期
     /// </summary>
-    public class Solar
+    public sealed class Solar
     {
         /// <summary>
         /// 2000年儒略日数(2000-1-1 12:00:00 UTC)
@@ -238,7 +240,7 @@ namespace Lunar
             }
             var hours = new List<int>();
             var timeZhi = timeGanZhi.Substring(1);
-            for (int i = 1, j = LunarUtil.ZHI.Length; i < j; i++)
+            for (int i = 1, j = LunarUtil.ZHI.Count; i < j; i++)
             {
                 if (LunarUtil.ZHI[i].Equals(timeZhi))
                 {
@@ -400,6 +402,9 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 非正式节日
+        /// </summary>
         public List<string> OtherFestivals
         {
             get
@@ -449,11 +454,16 @@ namespace Lunar
             }
         }
 
+
+        /// <inheritdoc />
         public override string ToString()
         {
             return Ymd;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Ymd
         {
             get
@@ -467,8 +477,14 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string YmdHms => Ymd + " " + (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute + ":" + (Second < 10 ? "0" : "") + Second;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString
         {
             get

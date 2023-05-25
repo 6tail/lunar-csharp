@@ -1,4 +1,5 @@
 using Lunar.Util;
+using System.Collections.Generic;
 // ReSharper disable IdentifierTypo
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -8,7 +9,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 流年
     /// </summary>
-    public class LiuNian
+    public sealed class LiuNian
     {
         /// <summary>
         /// 序数，0-9
@@ -30,8 +31,16 @@ namespace Lunar.EightChar
         /// </summary>
         public int Age { get; }
 
+        /// <summary>
+        /// 农历
+        /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 创建流年
+        /// </summary>
+        /// <param name="daYun">大运</param>
+        /// <param name="index">序数</param>
         public LiuNian(DaYun daYun, int index)
         {
             DaYun = daYun;
@@ -53,7 +62,7 @@ namespace Lunar.EightChar
                 {
                     offset += DaYun.StartAge - 1;
                 }
-                offset %= LunarUtil.JIA_ZI.Length;
+                offset %= LunarUtil.JIA_ZI.Count;
                 return LunarUtil.JIA_ZI[offset];
             }
         }
@@ -72,15 +81,13 @@ namespace Lunar.EightChar
         /// 获取流月
         /// </summary>
         /// <returns>流月</returns>
-        public LiuYue[] GetLiuYue()
+        public IEnumerable<LiuYue> GetLiuYue()
         {
             const int n = 12;
-            var l = new LiuYue[n];
             for (var i = 0; i < n; i++)
             {
-                l[i] = new LiuYue(this, i);
+                yield return new LiuYue(this, i);
             }
-            return l;
         }
 
     }

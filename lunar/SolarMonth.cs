@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 阳历月
     /// </summary>
-    public class SolarMonth
+    public sealed class SolarMonth
     {
         /// <summary>
         /// 年
@@ -126,11 +128,15 @@ namespace Lunar
             return new SolarMonth(y, m);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "-" + Month;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string FullString => Year + "年" + Month + "月";
     }
 }

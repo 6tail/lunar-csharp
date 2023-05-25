@@ -2,12 +2,14 @@ using System;
 using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 农历月
     /// </summary>
-    public class LunarMonth
+    public sealed class LunarMonth
     {
         /// <summary>
         /// 农历年
@@ -29,8 +31,14 @@ namespace Lunar
         /// </summary>
         public double FirstJulianDay { get; }
         
+        /// <summary>
+        /// 序数
+        /// </summary>
         public int Index { get; }
         
+        /// <summary>
+        /// 支序数
+        /// </summary>
         public int ZhiIndex { get; }
 
         /// <summary>
@@ -40,7 +48,7 @@ namespace Lunar
         /// <param name="lunarMonth">农历月：1-12，闰月为负数，如闰2月为-2</param>
         /// <param name="dayCount">天数</param>
         /// <param name="firstJulianDay">初一的儒略日</param>
-        /// <param name="index">序号</param>
+        /// <param name="index">序数</param>
         public LunarMonth(int lunarYear, int lunarMonth, int dayCount, double firstJulianDay, int index)
         {
             Year = lunarYear;
@@ -67,6 +75,9 @@ namespace Lunar
         /// </summary>
         public bool Leap => Month < 0;
 
+        /// <summary>
+        /// 干序数
+        /// </summary>
         public int GanIndex
         {
             get
@@ -75,39 +86,86 @@ namespace Lunar
                 return (Index - 1 + offset) % 10;
             }
         }
-
+        /// <summary>
+        /// 干
+        /// </summary>
         public string Gan => LunarUtil.GAN[GanIndex + 1];
-        
+        /// <summary>
+        /// 支
+        /// </summary>
         public string Zhi => LunarUtil.ZHI[ZhiIndex + 1];
         
+        /// <summary>
+        /// 干支
+        /// </summary>
         public string GanZhi => Gan + Zhi;
         
+        /// <summary>
+        /// 喜神方位
+        /// </summary>
         public string PositionXi => LunarUtil.POSITION_XI[GanIndex + 1];
 
+        /// <summary>
+        /// 喜神方位描述
+        /// </summary>
         public string PositionXiDesc => LunarUtil.POSITION_DESC[PositionXi];
 
+        /// <summary>
+        /// 阳贵方位
+        /// </summary>
         public string PositionYangGui => LunarUtil.POSITION_YANG_GUI[GanIndex + 1];
 
+        /// <summary>
+        /// 阳贵方位描述
+        /// </summary>
         public string PositionYangGuiDesc => LunarUtil.POSITION_DESC[PositionYangGui];
 
+        /// <summary>
+        /// 阴贵方位
+        /// </summary>
         public string PositionYinGui => LunarUtil.POSITION_YIN_GUI[GanIndex + 1];
 
+        /// <summary>
+        /// 阴贵方位描述
+        /// </summary>
         public string PositionYinGuiDesc => LunarUtil.POSITION_DESC[PositionYinGui];
 
+        /// <summary>
+        /// 福神方位（流派2）
+        /// </summary>
         public string PositionFu => GetPositionFu();
         
+        /// <summary>
+        /// 获取福神方位
+        /// </summary>
+        /// <param name="sect">流派</param>
+        /// <returns>福神方位</returns>
         public string GetPositionFu(int sect = 2) {
             return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[GanIndex + 1];
         }
 
+        /// <summary>
+        /// 福神方位描述（流派2）
+        /// </summary>
         public string PositionFuDesc => GetPositionFuDesc();
-        
+
+        /// <summary>
+        /// 获取福神方位描述
+        /// </summary>
+        /// <param name="sect">流派</param>
+        /// <returns>福神方位描述</returns>
         public string GetPositionFuDesc(int sect = 2) {
             return LunarUtil.POSITION_DESC[GetPositionFu(sect)];
         }
 
+        /// <summary>
+        /// 财神方位
+        /// </summary>
         public string PositionCai => LunarUtil.POSITION_CAI[GanIndex + 1];
 
+        /// <summary>
+        /// 财神方位描述
+        /// </summary>
         public string PositionCaiDesc => LunarUtil.POSITION_DESC[PositionCai];
 
         /// <summary>
@@ -169,11 +227,17 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "年" + (Leap ? "闰" : "") + LunarUtil.MONTH[Math.Abs(Month)] + "月(" + DayCount + "天)";
         }
 
+        /// <summary>
+        /// 取后续的第 n 个月
+        /// </summary>
+        /// <param name="n">要取的月</param>
+        /// <returns>月</returns>
         public LunarMonth Next(int n)
         {
             if (0 == n)

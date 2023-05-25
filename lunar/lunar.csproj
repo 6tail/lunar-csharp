@@ -4,6 +4,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>7.1</LangVersion>
         <RootNamespace>Lunar</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		
         <PackageId>lunar-csharp</PackageId>
         <PackageVersion>1.5.3</PackageVersion>
         <Title>无依赖的阳历、阴历、道历和佛历工具库</Title>

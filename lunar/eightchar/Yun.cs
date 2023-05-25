@@ -1,4 +1,6 @@
 using Lunar.Util;
+using System.Collections;
+using System.Collections.Generic;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
@@ -7,7 +9,7 @@ namespace Lunar.EightChar
     /// <summary>
     /// 运
     /// </summary>
-    public class Yun
+    public sealed class Yun
     {
         /// <summary>
         /// 性别(1男，0女)
@@ -39,8 +41,17 @@ namespace Lunar.EightChar
         /// </summary>
         public bool Forward { get; }
 
+        /// <summary>
+        /// 农历
+        /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 创建运
+        /// </summary>
+        /// <param name="eightChar">八字</param>
+        /// <param name="gender">性别</param>
+        /// <param name="sect">流派</param>
         public Yun(EightChar eightChar, int gender, int sect = 1)
         {
             Lunar = eightChar.Lunar;
@@ -121,14 +132,13 @@ namespace Lunar.EightChar
         /// </summary>
         /// <param name="n">轮数</param>
         /// <returns>大运</returns>
-        public DaYun[] GetDaYun(int n = 10)
+        public IEnumerable<DaYun> GetDaYun(int n = 10)
         {
-            var l = new DaYun[n];
+            // TODO: 可以把 n 放到无限，让外界使用 Take 来取
             for (var i = 0; i < n; i++)
             {
-                l[i] = new DaYun(this, i);
+                yield return new DaYun(this, i);
             }
-            return l;
         }
     }
 

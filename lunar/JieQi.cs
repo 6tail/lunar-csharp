@@ -1,11 +1,14 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
+
+// TODO: 可访问性调整
+
 namespace Lunar
 {
     /// <summary>
     /// 节气
     /// </summary>
-    public class JieQi
+    public sealed class JieQi
     {
         private string _name;
         
@@ -49,16 +52,26 @@ namespace Lunar
         /// </summary>
         public bool Qi { get; set; }
         
+        /// <summary>
+        /// 创建节气
+        /// </summary>
         public JieQi()
         {
+            // TODO: 没用过，是否应删除？
         }
 
+        /// <summary>
+        /// 创建节气
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="solar">阳历日期</param>
         public JieQi(string name, Solar solar)
         {
             Name = name;
             Solar = solar;
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;
