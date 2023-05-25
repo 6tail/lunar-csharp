@@ -222,7 +222,6 @@ namespace Lunar
         public static IEnumerable<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
         {
             sect = (1 == sect) ? 1 : 2;
-            var l = new List<Solar>();
             var years = new List<int>();
             var today = new Solar();
             var offsetYear = LunarUtil.GetJiaZiIndex(today.Lunar.YearInGanZhiExact) - LunarUtil.GetJiaZiIndex(yearGanZhi);
@@ -271,14 +270,13 @@ namespace Lunar
                         var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                         if (lunar.YearInGanZhiExact.Equals(yearGanZhi) && lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.TimeInGanZhi.Equals(timeGanZhi))
                         {
-                            l.Add(solar);
+                            yield return solar;
                             break;
                         }
                         solar = solar.Next(1);
                     }
                 }
             }
-            return l;
         }
 
         /// <summary>
