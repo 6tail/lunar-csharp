@@ -111,26 +111,11 @@ namespace Lunar
         /// <returns>农历年</returns>
         public static LunarYear FromYear(int lunarYear)
         {
-            LunarYear obj = null;
-            try
-            {
-                obj = CACHE[lunarYear];
-            }
-            catch
-            {
-                // ignored
-            }
-            if (null == obj)
+            // TODO: 是缓存的话，是否应该 WeekReference ？
+            if (!CACHE.TryGetValue(lunarYear, out var obj))
             {
                 obj = new LunarYear(lunarYear);
-                try
-                {
-                    CACHE.Add(lunarYear, obj);
-                }
-                catch
-                {
-                    // ignored
-                }
+                CACHE[lunarYear] = obj;
             }
             return obj;
         }

@@ -221,8 +221,6 @@ namespace Lunar
         /// <returns>符合的阳历列表</returns>
         public static IEnumerable<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
         {
-            // TODO: 可以把 baseYear 放到无限，让外界使用 TakeWhile 来取
-
             sect = (1 == sect) ? 1 : 2;
             var l = new List<Solar>();
             var years = new List<int>();

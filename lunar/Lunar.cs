@@ -2176,22 +2176,11 @@ namespace Lunar
         {
             get
             {
-                var gan = LunarUtil.LU[DayGan];
-                string zhi = null;
-                try
-                {
-                    zhi = LunarUtil.LU[DayZhi];
-                }
-                catch
-                {
-                    // ignored
-                }
+                var lu = $"{LunarUtil.LU[DayGan]}命互禄";
 
-                var lu = gan + "命互禄";
-                if (null != zhi)
-                {
-                    lu += " " + zhi + "命进禄";
-                }
+                if (LunarUtil.LU.TryGetValue(DayZhi, out var zhi))
+                    lu = $"{lu} {zhi}命进禄";
+
                 return lu;
             }
         }
