@@ -76,7 +76,7 @@ namespace Lunar
         /// <summary>
         /// 干支（时柱）
         /// </summary>
-        public string GanZhi => Gan + Zhi;
+        public string GanZhi => $"{Gan}{Zhi}";
 
         /// <summary>
         /// 喜神方位，如艮

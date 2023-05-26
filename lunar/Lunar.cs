@@ -586,42 +586,42 @@ namespace Lunar
         /// <summary>
         /// 干支纪年（年柱）（以正月初一作为新年的开始），如辛亥
         /// </summary>
-        public string YearInGanZhi => YearGan + YearZhi;
+        public string YearInGanZhi => $"{YearGan}{YearZhi}";
 
         /// <summary>
         /// 干支纪年（年柱）（以立春当天作为新年的开始），如辛亥
         /// </summary>
-        public string YearInGanZhiByLiChun => YearGanByLiChun + YearZhiByLiChun;
+        public string YearInGanZhiByLiChun => $"{YearGanByLiChun}{YearZhiByLiChun}";
 
         /// <summary>
         /// 干支纪年（年柱）（以立春交接的时刻作为新年的开始），如辛亥
         /// </summary>
-        public string YearInGanZhiExact => YearGanExact + YearZhiExact;
+        public string YearInGanZhiExact => $"{YearGanExact}{YearZhiExact}";
 
         /// <summary>
         /// 干支纪月（月柱）（以节交接当天起算），如己卯，月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
         /// </summary>
-        public string MonthInGanZhi => MonthGan + MonthZhi;
+        public string MonthInGanZhi => $"{MonthGan}{MonthZhi}";
 
         /// <summary>
         /// 精确的干支纪月（月柱）（以节交接时刻起算），如己卯，月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
         /// </summary>
-        public string MonthInGanZhiExact => MonthGanExact + MonthZhiExact;
+        public string MonthInGanZhiExact => $"{MonthGanExact}{MonthZhiExact}";
 
         /// <summary>
         /// 干支纪日（日柱），如己卯
         /// </summary>
-        public string DayInGanZhi => DayGan + DayZhi;
+        public string DayInGanZhi => $"{DayGan}{DayZhi}";
 
         /// <summary>
         /// 干支纪日（日柱，八字流派1，晚子时日柱算明天），如己卯
         /// </summary>
-        public string DayInGanZhiExact => DayGanExact + DayZhiExact;
+        public string DayInGanZhiExact => $"{DayGanExact}{DayZhiExact}";
 
         /// <summary>
         /// 干支纪日（日柱，八字流派2，晚子时日柱算当天），如己卯
         /// </summary>
-        public string DayInGanZhiExact2 => DayGanExact2 + DayZhiExact2;
+        public string DayInGanZhiExact2 => $"{DayGanExact2}{DayZhiExact2}";
 
         /// <summary>
         /// 年生肖（以正月初一起算），如虎
@@ -668,7 +668,7 @@ namespace Lunar
         /// <summary>
         /// 中文月，如正
         /// </summary>
-        public string MonthInChinese => (Month < 0 ? "闰" : "") + LunarUtil.MONTH[Math.Abs(Month)];
+        public string MonthInChinese => $"{(Month < 0 ? "闰" : "")}{LunarUtil.MONTH[Math.Abs(Month)]}";
 
         /// <summary>
         /// 中文日，如初一
@@ -688,7 +688,7 @@ namespace Lunar
         /// <summary>
         /// 时辰干支（时柱）
         /// </summary>
-        public string TimeInGanZhi => TimeGan + TimeZhi;
+        public string TimeInGanZhi => $"{TimeGan}{TimeZhi}";
 
         /// <summary>
         /// 农历季节
@@ -748,7 +748,7 @@ namespace Lunar
         /// <summary>
         /// 宿
         /// </summary>
-        public string Xiu => LunarUtil.XIU[DayZhi + Week];
+        public string Xiu => LunarUtil.XIU[$"{DayZhi}{Week}"];
 
         /// <summary>
         /// 宿吉凶，吉/凶

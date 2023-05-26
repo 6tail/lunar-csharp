@@ -246,7 +246,7 @@ namespace Lunar
         /// <summary>
         /// 获取干支
         /// </summary>
-        public string GanZhi => Gan + Zhi;
+        public string GanZhi => $"{Gan}{Zhi}";
 
         /// <summary>
         /// 取农历月

@@ -203,7 +203,7 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Number + Color + WuXing + NameInBeiDou;
+            return $"{Number}{Color}{WuXing}{NameInBeiDou}";
         }
 
         /// <summary>

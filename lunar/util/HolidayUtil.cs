@@ -60,7 +60,7 @@ namespace Lunar.Util
 
         private static string Padding(int n)
         {
-            return (n < 10 ? "0" : "") + n;
+            return n.ToString().PadLeft(2, '0');
         }
 
         private static Holiday BuildHolidayForward(string s, HolidayInfo info)
@@ -168,7 +168,7 @@ namespace Lunar.Util
         public static Holiday GetHoliday(int year, int month, int day)
         {
             var info = holidayInfoInUse;
-            var l = FindHolidaysForward(year + Padding(month) + Padding(day), info);
+            var l = FindHolidaysForward($"{year}{Padding(month)}{Padding(day)}", info);
             return l.FirstOrDefault();
         }
 
@@ -193,7 +193,7 @@ namespace Lunar.Util
         public static IEnumerable<Holiday> GetHolidays(int year, int month)
         {
             var info = holidayInfoInUse;
-            return FindHolidaysForward(year + Padding(month), info);
+            return FindHolidaysForward($"{year}{Padding(month)}", info);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace Lunar.Util
         public static IEnumerable<Holiday> GetHolidaysByTarget(int year, int month, int day)
         {
             var info = holidayInfoInUse;
-            return FindHolidaysBackward(year + Padding(month) + Padding(day), info);
+            return FindHolidaysBackward($"{year}{Padding(month)}{Padding(day)}", info);
         }
 
         /// <summary>
