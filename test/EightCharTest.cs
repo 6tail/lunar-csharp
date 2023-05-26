@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using Lunar;
 using Lunar.EightChar;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 // ReSharper disable IdentifierTypo
 

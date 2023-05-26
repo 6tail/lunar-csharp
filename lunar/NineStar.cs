@@ -1,7 +1,7 @@
+using Lunar.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Lunar.Util;
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo

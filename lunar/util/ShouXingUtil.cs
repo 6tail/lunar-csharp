@@ -10,8 +10,6 @@ namespace Lunar.Util
     /// </summary>
     public static class ShouXingUtil
     {
-        // TODO: 补充注释
-
         /// <summary>
         /// 2π
         /// </summary>

@@ -1,6 +1,6 @@
+using Lunar.Util;
 using System;
 using System.Collections.Generic;
-using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace Lunar
