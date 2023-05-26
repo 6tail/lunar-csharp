@@ -4,6 +4,7 @@ using System.Linq;
 using Lunar.Util;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
@@ -37,7 +38,8 @@ namespace Lunar
 
         private static readonly Dictionary<int, int> LEAP = new Dictionary<int, int>();
 
-        private static readonly Dictionary<int, LunarYear> CACHE = new Dictionary<int, LunarYear>();
+        private static readonly ConcurrentDictionary<int, WeakReference<LunarYear>> CACHE =
+            new ConcurrentDictionary<int, WeakReference<LunarYear>>();
 
         static LunarYear()
         {
@@ -111,20 +113,15 @@ namespace Lunar
         /// <returns>农历年</returns>
         public static LunarYear FromYear(int lunarYear)
         {
-            // TODO: 是缓存的话，是否应该 WeekReference ？
-            if (!CACHE.TryGetValue(lunarYear, out var obj))
-            {
-                obj = new LunarYear(lunarYear);
-                try
-                {
-                    CACHE[lunarYear] = obj;
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-            return obj;
+            if (CACHE.TryGetValue(lunarYear, out var r) && r.TryGetTarget(out var year))
+                return year;
+
+            year = new LunarYear(lunarYear);
+
+            _ = CACHE.TryRemove(lunarYear, out _);
+            _ = CACHE.TryAdd(lunarYear, new WeakReference<LunarYear>(year));
+
+            return year;
         }
 
         private void Compute()
