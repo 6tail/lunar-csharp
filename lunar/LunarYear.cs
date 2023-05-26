@@ -124,6 +124,17 @@ namespace Lunar
             return year;
         }
 
+        /// <summary>
+        /// 清理 <seealso cref="FromYear(int)"/> 导致的缓存。
+        /// 由于 <seealso cref="FromYear(int)"/> 可能会经常被重复调用，
+        /// 包括在调用其他方法时也可能被间接调用，为加快性能设置缓存。
+        /// 正常情况下不需要调用此方法，除非对内存极端敏感且长期保持运行。
+        /// </summary>
+        public static void ClearCache()
+        {
+            CACHE.Clear();
+        }
+
         private void Compute()
         {
             // 节气(中午12点)
