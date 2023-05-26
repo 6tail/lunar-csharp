@@ -249,8 +249,6 @@ namespace Lunar.Util
         /// <param name="data">需要修正或追加的节假日数据，每18位表示1天依次排列，格式：当天年月日YYYYMMDD(8位)+节假日名称下标(1位)+调休标识(1位)+节假日当天YYYYMMDD(8位)。例：202005023120200501代表2020-05-02为劳动节放假，对应节假日为2020-05-01</param>
         public static void Fix(IEnumerable<string> names, string data)
         {
-                NAMES_IN_USE = names.ToList();
-            if (null == data)
             var currentInfo = holidayInfoInUse;
             var newNames = names?.ToArray() ?? currentInfo.Names;
             var newData = currentInfo.Data;
