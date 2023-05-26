@@ -215,7 +215,7 @@ namespace Lunar
             var m = y.GetMonth(lunarMonth);
             if (null == m)
             {
-                throw new ArgumentException("wrong lunar year " + lunarYear + " month " + lunarMonth);
+                throw new ArgumentException($"wrong lunar year {lunarYear} month {lunarMonth}");
             }
             if (lunarDay < 1)
             {
@@ -224,7 +224,7 @@ namespace Lunar
             var days = m.DayCount;
             if (lunarDay > days)
             {
-                throw new ArgumentException("only " + days + " days in lunar year " + lunarYear + " month " + lunarMonth);
+                throw new ArgumentException($"only {days} days in lunar year {lunarYear} month {lunarMonth}");
             }
             Year = lunarYear;
             Month = lunarMonth;
@@ -433,7 +433,7 @@ namespace Lunar
             DayZhiIndexExact2 = dayZhiExact;
 
             // 八字流派1，晚子时（夜子/子夜）日柱算明天
-            var hm = (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute;
+            var hm = $"{Hour.ToString().PadLeft(2, '0')}:{Minute.ToString().PadLeft(2, '0')}";
             if (string.Compare(hm, "23:00", StringComparison.Ordinal) >= 0 && string.Compare(hm, "23:59", StringComparison.Ordinal) <= 0)
             {
                 dayGanExact++;
@@ -457,7 +457,7 @@ namespace Lunar
         /// </summary>
         private void ComputeTime()
         {
-            var hm = (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute;
+            var hm = $"{Hour.ToString().PadLeft(2, '0')}:{Minute.ToString().PadLeft(2, '0')}";
             TimeZhiIndex = LunarUtil.GetTimeZhiIndex(hm);
             TimeGanIndex = (DayGanIndexExact % 5 * 2 + TimeZhiIndex) % 10;
         }
@@ -660,13 +660,8 @@ namespace Lunar
         {
             get
             {
-                var y = (Year + "").ToCharArray();
-                var s = new StringBuilder();
-                for (int i = 0, j = y.Length; i < j; i++)
-                {
-                    s.Append(LunarUtil.NUMBER[y[i] - '0']);
-                }
-                return s.ToString();
+                var chars = Year.ToString().Select(c => LunarUtil.NUMBER[c - '0']);
+                return string.Concat(chars);
             }
         }
 
@@ -1263,12 +1258,12 @@ namespace Lunar
         /// <summary>
         /// 日冲描述，如(壬申)猴
         /// </summary>
-        public string DayChongDesc => "(" + DayChongGan + DayChong + ")" + DayChongShengXiao;
+        public string DayChongDesc => $"({DayChongGan}{DayChong}){DayChongShengXiao}";
 
         /// <summary>
         /// 时冲描述，如(壬申)猴
         /// </summary>
-        public string TimeChongDesc => "(" + TimeChongGan + TimeChong + ")" + TimeChongShengXiao;
+        public string TimeChongDesc => $"({TimeChongGan}{TimeChong}){TimeChongShengXiao}";
 
         /// <summary>
         /// 日煞，如北
@@ -1927,7 +1922,7 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
+            return $"{YearInChinese}年{MonthInChinese}月{DayInChinese}";
         }
 
         /// <summary>
@@ -2055,7 +2050,7 @@ namespace Lunar
                 }
 
                 var days = current.Subtract(start);
-                return new ShuJiu(LunarUtil.NUMBER[days / 9 + 1] + "九", days % 9 + 1);
+                return new ShuJiu($"{LunarUtil.NUMBER[days / 9 + 1]}九", days % 9 + 1);
             }
         }
 
@@ -2165,7 +2160,7 @@ namespace Lunar
                 {
                     offset = max;
                 }
-                return jieQi.Name + " " + LunarUtil.HOU[offset];
+                return $"{jieQi.Name} {LunarUtil.HOU[offset]}";
             }
         }
 

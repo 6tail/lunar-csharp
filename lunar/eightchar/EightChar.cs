@@ -81,7 +81,7 @@ namespace Lunar.EightChar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + " " + Month + " " + Day + " " + Time;
+            return $"{Year} {Month} {Day} {Time}";
         }
 
         /// <summary>

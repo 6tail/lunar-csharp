@@ -1403,7 +1403,8 @@ namespace Lunar.Util
             var x = 1;
             for (var i = 1; i < 22; i += 2)
             {
-                if (string.Compare(hm, (i < 10 ? "0" : "") + i + ":00", StringComparison.Ordinal) >= 0 && string.Compare(hm, (i + 1 < 10 ? "0" : "") + (i + 1) + ":59", StringComparison.Ordinal) <= 0)
+                if (string.Compare(hm, $"{i.ToString().PadLeft(2, '0')}:00", StringComparison.Ordinal) >= 0
+                    && string.Compare(hm, $"{(i + 1).ToString().PadLeft(2, '0')}:59", StringComparison.Ordinal) <= 0)
                 {
                     return x;
                 }
@@ -1460,7 +1461,7 @@ namespace Lunar.Util
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Hex(GetJiaZiIndex(monthGanZhi));
             var right = DAY_YI_JI;
-            var index = right.IndexOf(day + "=", StringComparison.Ordinal);
+            var index = right.IndexOf($"{day}=", StringComparison.Ordinal);
 
             bool found = false;
 
@@ -1493,7 +1494,7 @@ namespace Lunar.Util
                     }
                     break;
                 }
-                index = right.IndexOf(day + "=", StringComparison.Ordinal);
+                index = right.IndexOf($"{day}=", StringComparison.Ordinal);
             }
             if (!found)
             {
@@ -1512,7 +1513,7 @@ namespace Lunar.Util
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Hex(GetJiaZiIndex(monthGanZhi));
             var right = DAY_YI_JI;
-            var index = right.IndexOf(day + "=", StringComparison.Ordinal);
+            var index = right.IndexOf($"{day}=", StringComparison.Ordinal);
 
             bool found = false;
 
@@ -1544,7 +1545,7 @@ namespace Lunar.Util
                     }
                     break;
                 }
-                index = right.IndexOf(day + "=", StringComparison.Ordinal);
+                index = right.IndexOf($"{day}=", StringComparison.Ordinal);
             }
             if (!found)
             {
@@ -1563,7 +1564,7 @@ namespace Lunar.Util
         {
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Math.Abs(lunarMonth).ToString("X");
-            var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
+            var index = DAY_SHEN_SHA.IndexOf($"{month}{day}=", StringComparison.Ordinal);
 
             bool found = false;
 
@@ -1598,7 +1599,7 @@ namespace Lunar.Util
         {
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var month = Math.Abs(lunarMonth).ToString("X");
-            var index = DAY_SHEN_SHA.IndexOf(month + day + "=", StringComparison.Ordinal);
+            var index = DAY_SHEN_SHA.IndexOf($"{month}{day}=", StringComparison.Ordinal);
 
             bool found = false;
 
@@ -1632,7 +1633,7 @@ namespace Lunar.Util
         {
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var time = Hex(GetJiaZiIndex(timeGanZhi));
-            var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
+            var index = TIME_YI_JI.IndexOf($"{day}{time}=", StringComparison.Ordinal);
 
             bool found = false;
 
@@ -1666,7 +1667,7 @@ namespace Lunar.Util
         {
             var day = Hex(GetJiaZiIndex(dayGanZhi));
             var time = Hex(GetJiaZiIndex(timeGanZhi));
-            var index = TIME_YI_JI.IndexOf(day + time + "=", StringComparison.Ordinal);
+            var index = TIME_YI_JI.IndexOf($"{day}{time}=", StringComparison.Ordinal);
 
             bool found = false;
 

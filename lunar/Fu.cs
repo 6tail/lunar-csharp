@@ -32,7 +32,7 @@ namespace Lunar
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Name + "第" + Index + "天";
+        public string FullString => $"{Name}第{Index}天";
 
         /// <inheritdoc />
         public override string ToString()

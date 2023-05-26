@@ -115,7 +115,14 @@ namespace Lunar
             if (!CACHE.TryGetValue(lunarYear, out var obj))
             {
                 obj = new LunarYear(lunarYear);
-                CACHE[lunarYear] = obj;
+                try
+                {
+                    CACHE[lunarYear] = obj;
+                }
+                catch
+                {
+                    // ignored
+                }
             }
             return obj;
         }
@@ -261,13 +268,13 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "";
+            return Year.ToString();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Year + "年";
+        public string FullString => $"{Year}年";
 
         private string GetZaoByGan(int index, string name)
         {
@@ -363,12 +370,12 @@ namespace Lunar
         /// <summary>
         /// 三元
         /// </summary>
-        public string Yuan => YUAN[(Year + 2696) / 60 % 3] + "元";
+        public string Yuan => $"{YUAN[(Year + 2696) / 60 % 3]}元";
 
         /// <summary>
         /// 九运
         /// </summary>
-        public string Yun => YUN[(Year + 2696) / 20 % 9] + "运";
+        public string Yun => $"{YUN[(Year + 2696) / 20 % 9]}运";
 
         /// <summary>
         /// 九星

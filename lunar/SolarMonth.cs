@@ -127,12 +127,12 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "-" + Month;
+            return $"{Year}-{Month}";
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Year + "年" + Month + "月";
+        public string FullString => $"{Year}年{Month}月";
     }
 }

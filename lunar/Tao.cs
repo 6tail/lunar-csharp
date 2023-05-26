@@ -80,14 +80,8 @@ namespace Lunar
         {
             get
             {
-                var y = (Year + "").ToCharArray();
-                var s = new StringBuilder();
-                for (int i = 0, j = y.Length; i < j; i++)
-                {
-                    s.Append(LunarUtil.NUMBER[y[i] - '0']);
-                }
-
-                return s.ToString();
+                var chars = Year.ToString().Select(c => LunarUtil.NUMBER[c - '0']);
+                return string.Concat(chars);
             }
         }
 
@@ -141,7 +135,7 @@ namespace Lunar
 
         private bool IsDayIn(IEnumerable<string> days)
         {
-            var md = Month + "-" + Day;
+            var md = $"{Month}-{Day}";
             return days.Any(d => md.Equals(d));
         }
 
@@ -231,12 +225,12 @@ namespace Lunar
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => "道歷" + YearInChinese + "年，天運" + Lunar.YearInGanZhi + "年，" + Lunar.MonthInGanZhi + "月，" + Lunar.DayInGanZhi + "日。" + MonthInChinese + "月" + DayInChinese + "日，" + Lunar.TimeZhi + "時。";
+        public string FullString => $"道歷{YearInChinese}年，天運{Lunar.YearInGanZhi}年，{Lunar.MonthInGanZhi}月，{Lunar.DayInGanZhi}日。{MonthInChinese}月{DayInChinese}日，{Lunar.TimeZhi}時。";
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
+            return $"{YearInChinese}年{MonthInChinese}月{DayInChinese}";
         }
     }
 

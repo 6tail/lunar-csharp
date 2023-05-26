@@ -95,11 +95,11 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "";
+            return Year.ToString();
         }
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Year + "年";
+        public string FullString => $"{Year}年";
     }
 }

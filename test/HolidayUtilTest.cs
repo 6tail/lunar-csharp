@@ -76,20 +76,20 @@ namespace test
         [Fact]
         public void TestFix()
         {
-            Assert.Equal("2020-01-01 元旦节 2020-01-01", HolidayUtil.GetHoliday("2020-01-01") + "");
+            Assert.Equal("2020-01-01 元旦节 2020-01-01", HolidayUtil.GetHoliday("2020-01-01").ToString());
 
             // 将2020-01-01修改为春节
             HolidayUtil.Fix("202001011120200101");
-            Assert.Equal("2020-01-01 春节 2020-01-01", HolidayUtil.GetHoliday("2020-01-01") + "");
+            Assert.Equal("2020-01-01 春节 2020-01-01", HolidayUtil.GetHoliday("2020-01-01").ToString());
 
             // 追加2099-01-01为元旦节
             HolidayUtil.Fix("209901010120990101");
-            Assert.Equal("2099-01-01 元旦节 2099-01-01", HolidayUtil.GetHoliday("2099-01-01") + "");
+            Assert.Equal("2099-01-01 元旦节 2099-01-01", HolidayUtil.GetHoliday("2099-01-01").ToString());
 
             // 将2020-01-01修改为春节，并追加2099-01-01为元旦节
             HolidayUtil.Fix("202001011120200101209901010120990101");
-            Assert.Equal("2020-01-01 春节 2020-01-01", HolidayUtil.GetHoliday("2020-01-01") + "");
-            Assert.Equal("2099-01-01 元旦节 2099-01-01", HolidayUtil.GetHoliday("2099-01-01") + "");
+            Assert.Equal("2020-01-01 春节 2020-01-01", HolidayUtil.GetHoliday("2020-01-01").ToString());
+            Assert.Equal("2099-01-01 元旦节 2099-01-01", HolidayUtil.GetHoliday("2099-01-01").ToString());
 
             // 自定义节假日名称
             var names = new string[HolidayUtil.NAMES.Count];
@@ -100,8 +100,8 @@ namespace test
             names[1] = "大年初一";
 
             HolidayUtil.Fix(names, null);
-            Assert.Equal("2020-01-01 大年初一 2020-01-01", HolidayUtil.GetHoliday("2020-01-01") + "");
-            Assert.Equal("2099-01-01 元旦 2099-01-01", HolidayUtil.GetHoliday("2099-01-01") + "");
+            Assert.Equal("2020-01-01 大年初一 2020-01-01", HolidayUtil.GetHoliday("2020-01-01").ToString());
+            Assert.Equal("2099-01-01 元旦 2099-01-01", HolidayUtil.GetHoliday("2099-01-01").ToString());
 
             // 追加节假日名称和数据
             names = new string[12];
@@ -114,9 +114,9 @@ namespace test
             names[11] = "她的生日";
 
             HolidayUtil.Fix(names, "20210529912021052920211111:12021111120211201;120211201");
-            Assert.Equal("2021-05-29 我的生日 2021-05-29", HolidayUtil.GetHoliday("2021-05-29") + "");
-            Assert.Equal("2021-11-11 结婚纪念日 2021-11-11", HolidayUtil.GetHoliday("2021-11-11") + "");
-            Assert.Equal("2021-12-01 她的生日 2021-12-01", HolidayUtil.GetHoliday("2021-12-01") + "");
+            Assert.Equal("2021-05-29 我的生日 2021-05-29", HolidayUtil.GetHoliday("2021-05-29").ToString());
+            Assert.Equal("2021-11-11 结婚纪念日 2021-11-11", HolidayUtil.GetHoliday("2021-11-11").ToString());
+            Assert.Equal("2021-12-01 她的生日 2021-12-01", HolidayUtil.GetHoliday("2021-12-01").ToString());
 
         }
 

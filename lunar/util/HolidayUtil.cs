@@ -59,7 +59,7 @@ namespace Lunar.Util
 
         private static Holiday BuildHolidayForward(string s)
         {
-            var chars = s.Substring(8, 2).ToCharArray();
+            var chars = s.Substring(8, 2);
             var day = s.Substring(0, 8);
             var name = NAMES_IN_USE[chars[0] - ZERO];
             var work = chars[1] == ZERO;
@@ -70,7 +70,7 @@ namespace Lunar.Util
         private static Holiday BuildHolidayBackward(string s)
         {
             var size = s.Length;
-            var chars = s.Substring(size - 10, 2).ToCharArray();
+            var chars = s.Substring(size - 10, 2);
             var day = s.Substring(size - 18, 8);
             var name = NAMES_IN_USE[chars[0] - ZERO];
             var work = chars[1] == ZERO;
@@ -194,7 +194,7 @@ namespace Lunar.Util
         /// <returns>节假日列表</returns>
         public static IEnumerable<Holiday> GetHolidays(int year)
         {
-            return FindHolidaysForward(year + "");
+            return FindHolidaysForward(year.ToString());
         }
 
         /// <summary>

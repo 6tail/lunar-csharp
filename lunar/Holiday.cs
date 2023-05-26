@@ -38,7 +38,7 @@ namespace Lunar
         {
             if (!day.Contains("-"))
             {
-                Day = day.Substring(0, 4) + "-" + day.Substring(4, 2) + "-" + day.Substring(6);
+                Day = $"{day.Substring(0, 4)}-{day.Substring(4, 2)}-{day.Substring(6)}";
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Lunar
             Work = work;
             if (!target.Contains("-"))
             {
-                Target = target.Substring(0, 4) + "-" + target.Substring(4, 2) + "-" + target.Substring(6);
+                Target = $"{target.Substring(0, 4)}-{target.Substring(4, 2)}-{target.Substring(6)}";
             }
             else
             {
@@ -59,7 +59,7 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Day + " " + Name + (Work ? "调休" : "") + " " + Target;
+            return $"{Day} {Name}{(Work ? "调休" : "")} {Target}";
         }
     }
 }

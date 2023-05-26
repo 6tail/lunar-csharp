@@ -286,7 +286,7 @@ namespace Lunar.Util
                     d -= 10;
                 } else if (day > 4)
                 {
-                    throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
+                    throw new ArgumentException($"wrong solar year {year} month {month} day {day}");
                 }
             }
             days += d;

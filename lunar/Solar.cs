@@ -70,33 +70,33 @@ namespace Lunar
             {
                 if (day > 4 && day < 15)
                 {
-                    throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
+                    throw new ArgumentException($"wrong solar year {year} month {month} day {day}");
                 }
             }
 
             if (month < 1 || month > 12)
             {
-                throw new ArgumentException("wrong month " + month);
+                throw new ArgumentException($"wrong month {month}");
             }
 
             if (day < 1 || day > 31)
             {
-                throw new ArgumentException("wrong day " + day);
+                throw new ArgumentException($"wrong day {day}");
             }
 
             if (hour < 0 || hour > 23)
             {
-                throw new ArgumentException("wrong hour %d" + hour);
+                throw new ArgumentException($"wrong hour {hour}");
             }
 
             if (minute < 0 || minute > 59)
             {
-                throw new ArgumentException("wrong minute %d" + minute);
+                throw new ArgumentException($"wrong minute {minute}");
             }
 
             if (second < 0 || second > 59)
             {
-                throw new ArgumentException("wrong second %d" + second);
+                throw new ArgumentException($"wrong second {second}");
             }
 
             Year = year;
@@ -443,19 +443,26 @@ namespace Lunar
         {
             get
             {
-                var y = Year + "";
-                while (y.Length < 4)
-                {
-                    y = "0" + y;
-                }
-                return y + "-" + (Month < 10 ? "0" : "") + Month + "-" + (Day < 10 ? "0" : "") + Day;
+                var y = Year.ToString().PadLeft(4, '0');
+                var m = Month.ToString().PadLeft(2, '0');
+                var d = Day.ToString().PadLeft(2, '0');
+                return $"{y}-{m}-{d}";
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string YmdHms => Ymd + " " + (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute + ":" + (Second < 10 ? "0" : "") + Second;
+        public string YmdHms
+        {
+            get
+            {
+                var h = Hour.ToString().PadLeft(2, '0');
+                var m = Minute.ToString().PadLeft(2, '0');
+                var s = Second.ToString().PadLeft(2, '0');
+                return $"{Ymd} {h}:{m}:{s}";
+            }
+        }
 
         /// <summary>
         /// 

@@ -245,12 +245,12 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "." + Month + "." + Index;
+            return $"{Year}.{Month}.{Index}";
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Year + "年" + Month + "月第" + Index + "周";
+        public string FullString => $"{Year}年{Month}月第{Index}周";
     }
 }

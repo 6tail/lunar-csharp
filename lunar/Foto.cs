@@ -92,13 +92,8 @@ namespace Lunar
         {
             get
             {
-                var y = (Year + "").ToCharArray();
-                var s = new StringBuilder();
-                for (int i = 0, j = y.Length; i < j; i++)
-                {
-                    s.Append(LunarUtil.NUMBER[y[i] - '0']);
-                }
-                return s.ToString();
+                var chars = Year.ToString().Select(c => LunarUtil.NUMBER[c - '0']);
+                return string.Concat(chars);
             }
         }
 
@@ -198,7 +193,7 @@ namespace Lunar
         {
             get
             {
-                var k = Month + "-" + Day;
+                var k = $"{Month}-{Day}";
                 return FotoUtil.DAY_ZHAI_GUAN_YIN.Any(d => k.Equals(d));
             }
         }
@@ -260,7 +255,7 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
+            return $"{YearInChinese}年{MonthInChinese}月{DayInChinese}";
         }
     }
 
