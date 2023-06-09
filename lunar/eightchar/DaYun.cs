@@ -1,4 +1,5 @@
 using Lunar.Util;
+using System.Collections.Generic;
 // ReSharper disable IdentifierTypo
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -116,18 +117,16 @@ namespace Lunar.EightChar
         /// </summary>
         /// <param name="n">轮数</param>
         /// <returns>流年</returns>
-        public LiuNian[] GetLiuNian(int n = 10)
+        public IEnumerable<LiuNian> GetLiuNian(int n = 10)
         {
             if (Index < 1)
             {
                 n = EndYear - StartYear + 1;
             }
-            var l = new LiuNian[n];
             for (var i = 0; i < n; ++i)
             {
-                l[i] = new LiuNian(this, i);
+                yield return new LiuNian(this, i);
             }
-            return l;
         }
 
         /// <summary>
@@ -135,20 +134,16 @@ namespace Lunar.EightChar
         /// </summary>
         /// <param name="n">轮数</param>
         /// <returns>小运</returns>
-        public XiaoYun[] GetXiaoYun(int n = 10)
+        public IEnumerable<XiaoYun> GetXiaoYun(int n = 10)
         {
             if (Index < 1)
             {
                 n = EndYear - StartYear + 1;
             }
-            var l = new XiaoYun[n];
             for (var i = 0; i < n; ++i)
             {
-                l[i] = new XiaoYun(this, i, Yun.Forward);
+                yield return new XiaoYun(this, i, Yun.Forward);
             }
-            return l;
         }
-
     }
-
 }

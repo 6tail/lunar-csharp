@@ -1,5 +1,6 @@
 using Lunar;
 using Lunar.Util;
+using System.Linq;
 using Xunit;
 
 namespace test
@@ -93,7 +94,7 @@ namespace test
         public void Test10()
         {
             var solar = Solar.FromYmdHms(2022, 3, 28);
-            Assert.Equal("全国中小学生安全教育日", solar.Festivals[0]);
+            Assert.Equal("全国中小学生安全教育日", solar.Festivals.First());
         }
         
         [Fact]

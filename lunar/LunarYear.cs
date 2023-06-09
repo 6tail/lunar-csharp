@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Lunar.Util;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
-
-// TODO: 可访问性调整
 
 namespace Lunar
 {
@@ -38,7 +38,8 @@ namespace Lunar
 
         private static readonly Dictionary<int, int> LEAP = new Dictionary<int, int>();
 
-        private static readonly Dictionary<int, LunarYear> CACHE = new Dictionary<int, LunarYear>();
+        private static readonly ConcurrentDictionary<int, WeakReference<LunarYear>> CACHE =
+            new ConcurrentDictionary<int, WeakReference<LunarYear>>();
 
         static LunarYear()
         {
@@ -67,15 +68,17 @@ namespace Lunar
         /// </summary>
         public int ZhiIndex { get; }
 
+        private readonly List<LunarMonth> months = new List<LunarMonth>();
         /// <summary>
         /// 农历月
         /// </summary>
-        public List<LunarMonth> Months { get; } = new List<LunarMonth>();
+        public IReadOnlyList<LunarMonth> Months { get; }
 
+        private readonly List<double> jieQiJulianDays = new List<double>();
         /// <summary>
         /// 节气
         /// </summary>
-        public List<double> JieQiJulianDays { get; } = new List<double>();
+        public IReadOnlyList<double> JieQiJulianDays { get; }
 
         /// <summary>
         /// 通过农历年初始化
@@ -83,6 +86,9 @@ namespace Lunar
         /// <param name="lunarYear">农历年</param>
         public LunarYear(int lunarYear)
         {
+            Months = new ReadOnlyCollection<LunarMonth>(months);
+            JieQiJulianDays = new ReadOnlyCollection<double>(jieQiJulianDays);
+
             Year = lunarYear;
             var offset = lunarYear - 4;
             var yearGanIndex = offset % 10;
@@ -107,28 +113,26 @@ namespace Lunar
         /// <returns>农历年</returns>
         public static LunarYear FromYear(int lunarYear)
         {
-            LunarYear obj = null;
-            try
-            {
-                obj = CACHE[lunarYear];
-            }
-            catch
-            {
-                // ignored
-            }
-            if (null == obj)
-            {
-                obj = new LunarYear(lunarYear);
-                try
-                {
-                    CACHE.Add(lunarYear, obj);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-            return obj;
+            if (CACHE.TryGetValue(lunarYear, out var r) && r.TryGetTarget(out var year))
+                return year;
+
+            year = new LunarYear(lunarYear);
+
+            _ = CACHE.TryRemove(lunarYear, out _);
+            _ = CACHE.TryAdd(lunarYear, new WeakReference<LunarYear>(year));
+
+            return year;
+        }
+
+        /// <summary>
+        /// 清理 <seealso cref="FromYear(int)"/> 导致的缓存。
+        /// 由于 <seealso cref="FromYear(int)"/> 可能会经常被重复调用，
+        /// 包括在调用其他方法时也可能被间接调用，为加快性能设置缓存。
+        /// 正常情况下不需要调用此方法，除非对内存极端敏感且长期保持运行。
+        /// </summary>
+        public static void ClearCache()
+        {
+            CACHE.Clear();
         }
 
         private void Compute()
@@ -142,12 +146,12 @@ namespace Lunar
 
             var year = Year - 2000;
             // 从上年的大雪到下年的立春
-            for (int i = 0, j = Lunar.JIE_QI_IN_USE.Length; i < j; i++)
+            for (int i = 0, j = Lunar.JIE_QI_IN_USE.Count; i < j; i++)
             {
                 // 精确的节气
                 var t = 36525 * ShouXingUtil.SaLonT((year + (17 + i) * 15d / 360) * ShouXingUtil.PI_2);
                 t += ShouXingUtil.ONE_THIRD - ShouXingUtil.DtT(t);
-                JieQiJulianDays.Add(t + Solar.J2000);
+                jieQiJulianDays.Add(t + Solar.J2000);
                 // 按中午12点算的节气
                 if (i > 0 && i < 28)
                 {
@@ -214,7 +218,7 @@ namespace Lunar
                 {
                     cm = -cm;
                 }
-                Months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000, index));
+                months.Add(new LunarMonth(y, cm, dayCounts[i], hs[i] + Solar.J2000, index));
                 if (y != leapYear || i + 1 != leapIndex)
                 {
                     m++;
@@ -242,7 +246,7 @@ namespace Lunar
         /// <summary>
         /// 获取干支
         /// </summary>
-        public string GanZhi => Gan + Zhi;
+        public string GanZhi => $"{Gan}{Zhi}";
 
         /// <summary>
         /// 取农历月
@@ -267,18 +271,18 @@ namespace Lunar
         /// <summary>
         /// 获取当年的农历月们
         /// </summary>
-        public List<LunarMonth> MonthsInYear => Months.Where(m => m.Year == Year).ToList();
+        public IEnumerable<LunarMonth> MonthsInYear => Months.Where(m => m.Year == Year);
         
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "";
+            return Year.ToString();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Year + "年";
+        public string FullString => $"{Year}年";
 
         private string GetZaoByGan(int index, string name)
         {
@@ -374,12 +378,12 @@ namespace Lunar
         /// <summary>
         /// 三元
         /// </summary>
-        public string Yuan => YUAN[(Year + 2696) / 60 % 3] + "元";
+        public string Yuan => $"{YUAN[(Year + 2696) / 60 % 3]}元";
 
         /// <summary>
         /// 九运
         /// </summary>
-        public string Yun => YUN[(Year + 2696) / 20 % 9] + "运";
+        public string Yun => $"{YUN[(Year + 2696) / 20 % 9]}运";
 
         /// <summary>
         /// 九星

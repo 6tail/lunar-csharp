@@ -1,10 +1,8 @@
+using Lunar.Util;
 using System;
 using System.Collections.Generic;
-using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
-
-// TODO: 可访问性调整
 
 namespace Lunar
 {
@@ -40,7 +38,8 @@ namespace Lunar
         public LunarTime(int lunarYear, int lunarMonth, int lunarDay, int hour, int minute, int second)
         {
             Lunar = Lunar.FromYmdHms(lunarYear, lunarMonth, lunarDay, hour, minute, second);
-            ZhiIndex = LunarUtil.GetTimeZhiIndex((hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute);
+            var hm = $"{hour.ToString().PadLeft(2, '0')}:{minute.ToString().PadLeft(2, '0')}";
+            ZhiIndex = LunarUtil.GetTimeZhiIndex(hm);
             GanIndex = (Lunar.DayGanIndexExact % 5 * 2 + ZhiIndex) % 10;
         }
 
@@ -77,7 +76,7 @@ namespace Lunar
         /// <summary>
         /// 干支（时柱）
         /// </summary>
-        public string GanZhi => Gan + Zhi;
+        public string GanZhi => $"{Gan}{Zhi}";
 
         /// <summary>
         /// 喜神方位，如艮
@@ -187,7 +186,7 @@ namespace Lunar
         /// <summary>
         /// 冲描述，如(壬申)猴
         /// </summary>
-        public string ChongDesc => "(" + ChongGan + Chong + ")" + ChongShengXiao;
+        public string ChongDesc => $"({ChongGan}{Chong}){ChongShengXiao}";
 
         /// <summary>
         /// 煞，如北
@@ -294,7 +293,7 @@ namespace Lunar
                 {
                     hour -= 1;
                 }
-                return (hour < 10 ? "0" : "") + hour + ":00";
+                return $"{hour.ToString().PadLeft(2, '0')}:00";
             }
         }
 
@@ -318,7 +317,7 @@ namespace Lunar
                 {
                     hour += 1;
                 }
-                return (hour < 10 ? "0" : "") + hour + ":59";
+                return $"{hour.ToString().PadLeft(2, '0')}:59";
             }
         }
 

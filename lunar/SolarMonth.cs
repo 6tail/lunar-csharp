@@ -1,9 +1,7 @@
+using Lunar.Util;
 using System;
 using System.Collections.Generic;
-using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
-
-// TODO: 可访问性调整
 
 namespace Lunar
 {
@@ -72,19 +70,17 @@ namespace Lunar
         /// <summary>
         /// 本月的阳历日期列表
         /// </summary>
-        public List<Solar> Days
+        public IEnumerable<Solar> Days
         {
             get
             {
-                var l = new List<Solar>(31);
                 var d = new Solar(Year, Month, 1);
-                l.Add(d);
+                yield return d;
                 var days = SolarUtil.GetDaysOfMonth(Year, Month);
                 for (var i = 1; i < days; i++)
                 {
-                    l.Add(d.Next(i));
+                    yield return d.Next(i);
                 }
-                return l;
             }
         }
         
@@ -93,18 +89,18 @@ namespace Lunar
         /// </summary>
         /// <param name="start">星期几作为一周的开始，1234560分别代表星期一至星期天</param>
         /// <returns>周列表</returns>
-        public List<SolarWeek> GetWeeks(int start) {
-            var l = new List<SolarWeek>();
+        public IEnumerable<SolarWeek> GetWeeks(int start) {
             var week = SolarWeek.FromYmd(Year, Month, 1, start);
-            while (true) {
-                l.Add(week);
+            while (true) 
+            {
+                yield return week;
                 week = week.Next(1, false);
                 var firstDay = week.FirstDay;
-                if (firstDay.Year > Year || firstDay.Month > Month) {
+                if (firstDay.Year > Year || firstDay.Month > Month) 
+                {
                     break;
                 }
             }
-            return l;
         }
 
         /// <summary>
@@ -131,12 +127,12 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "-" + Month;
+            return $"{Year}-{Month}";
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Year + "年" + Month + "月";
+        public string FullString => $"{Year}年{Month}月";
     }
 }

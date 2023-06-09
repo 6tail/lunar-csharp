@@ -1,5 +1,4 @@
 using Lunar.Util;
-using System.Collections;
 using System.Collections.Generic;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -134,7 +133,6 @@ namespace Lunar.EightChar
         /// <returns>大运</returns>
         public IEnumerable<DaYun> GetDaYun(int n = 10)
         {
-            // TODO: 可以把 n 放到无限，让外界使用 Take 来取
             for (var i = 0; i < n; i++)
             {
                 yield return new DaYun(this, i);

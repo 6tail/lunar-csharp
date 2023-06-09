@@ -1,14 +1,13 @@
+using Lunar.Util;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using Lunar.Util;
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
 // ReSharper disable MemberCanBePrivate.Global
-
-// TODO: 可访问性调整
 
 namespace Lunar
 {
@@ -20,12 +19,23 @@ namespace Lunar
         /// <summary>
         /// 节气表，国标以冬至为首个节气
         /// </summary>
-        public static readonly string[] JIE_QI = { "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪" };
+        public static IReadOnlyList<string> JIE_QI { get; } =
+            Array.AsReadOnly(new[] {
+                "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分",
+                "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑",
+                "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降",
+                "立冬", "小雪", "大雪" });
 
         /// <summary>
         /// 实际的节气表
         /// </summary>
-        public static readonly string[] JIE_QI_IN_USE = { "DA_XUE", "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "DONG_ZHI", "XIAO_HAN", "DA_HAN", "LI_CHUN", "YU_SHUI", "JING_ZHE" };
+        public static IReadOnlyList<string> JIE_QI_IN_USE { get; } =
+            Array.AsReadOnly(new[] {
+                "DA_XUE", "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分",
+                "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑",
+                "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降",
+                "立冬", "小雪", "大雪", "DONG_ZHI", "XIAO_HAN", "DA_HAN",
+                "LI_CHUN", "YU_SHUI", "JING_ZHE" });
 
         /// <summary>
         /// 农历年
@@ -50,97 +60,97 @@ namespace Lunar
         /// <summary>
         /// 时对应的天干下标，0-9
         /// </summary>
-        public int TimeGanIndex { get; set; }
+        public int TimeGanIndex { get; private set; }
 
         /// <summary>
         /// 时对应的地支下标，0-11
         /// </summary>
-        public int TimeZhiIndex { get; set; }
+        public int TimeZhiIndex { get; private set; }
 
         /// <summary>
         /// 日对应的天干下标，0-9
         /// </summary>
-        public int DayGanIndex { get; set; }
+        public int DayGanIndex { get; private set; }
 
         /// <summary>
         /// 日对应的地支下标，0-11
         /// </summary>
-        public int DayZhiIndex { get; set; }
+        public int DayZhiIndex { get; private set; }
 
         /// <summary>
         /// 日对应的天干下标（八字流派1，晚子时日柱算明天），0-9
         /// </summary>
-        public int DayGanIndexExact { get; set; }
+        public int DayGanIndexExact { get; private set; }
 
         /// <summary>
         /// 日对应的地支下标（八字流派1，晚子时日柱算明天），0-11
         /// </summary>
-        public int DayZhiIndexExact { get; set; }
+        public int DayZhiIndexExact { get; private set; }
 
         /// <summary>
         /// 日对应的天干下标（八字流派2，晚子时日柱算当天），0-9
         /// </summary>
-        public int DayGanIndexExact2 { get; set; }
+        public int DayGanIndexExact2 { get; private set; }
 
         /// <summary>
         /// 日对应的地支下标（八字流派2，晚子时日柱算当天），0-11
         /// </summary>
-        public int DayZhiIndexExact2 { get; set; }
+        public int DayZhiIndexExact2 { get; private set; }
 
         /// <summary>
         /// 月对应的天干下标（以节交接当天起算），0-9
         /// </summary>
-        public int MonthGanIndex { get; set; }
+        public int MonthGanIndex { get; private set; }
 
         /// <summary>
         /// 月对应的地支下标（以节交接当天起算），0-11
         /// </summary>
-        public int MonthZhiIndex { get; set; }
+        public int MonthZhiIndex { get; private set; }
 
         /// <summary>
         /// 月对应的天干下标（八字流派1，晚子时日柱算明天），0-9
         /// </summary>
-        public int MonthGanIndexExact { get; set; }
+        public int MonthGanIndexExact { get; private set; }
 
         /// <summary>
         /// 月对应的地支下标（八字流派1，晚子时日柱算明天），0-11
         /// </summary>
-        public int MonthZhiIndexExact { get; set; }
+        public int MonthZhiIndexExact { get; private set; }
 
         /// <summary>
         /// 年对应的天干下标（国标，以正月初一为起点），0-9
         /// </summary>
-        public int YearGanIndex { get; set; }
+        public int YearGanIndex { get; private set; }
 
         /// <summary>
         /// 年对应的地支下标（国标，以正月初一为起点），0-11
         /// </summary>
-        public int YearZhiIndex { get; set; }
+        public int YearZhiIndex { get; private set; }
 
         /// <summary>
         /// 年对应的天干下标（月干计算用，以立春为起点），0-9
         /// </summary>
-        public int YearGanIndexByLiChun { get; set; }
+        public int YearGanIndexByLiChun { get; private set; }
 
         /// <summary>
         /// 年对应的地支下标（月支计算用，以立春为起点），0-11
         /// </summary>
-        public int YearZhiIndexByLiChun { get; set; }
+        public int YearZhiIndexByLiChun { get; private set; }
 
         /// <summary>
         /// 年对应的天干下标（最精确的，供八字用，以立春交接时刻为起点），0-9
         /// </summary>
-        public int YearGanIndexExact { get; set; }
+        public int YearGanIndexExact { get; private set; }
 
         /// <summary>
         /// 年对应的地支下标（最精确的，供八字用，以立春交接时刻为起点），0-11
         /// </summary>
-        public int YearZhiIndexExact { get; set; }
+        public int YearZhiIndexExact { get; private set; }
 
         /// <summary>
         /// 周下标，0-6
         /// </summary>
-        public int WeekIndex { get; set; }
+        public int WeekIndex { get; private set; }
 
         /// <summary>
         /// 阳历小时
@@ -160,7 +170,7 @@ namespace Lunar
         /// <summary>
         /// 节气表
         /// </summary>
-        public Dictionary<string, Solar> JieQiTable { get; } = new Dictionary<string, Solar>();
+        public IReadOnlyDictionary<string, Solar> JieQiTable { get; private set; }
 
         private EightChar.EightChar _eightChar;
 
@@ -205,7 +215,7 @@ namespace Lunar
             var m = y.GetMonth(lunarMonth);
             if (null == m)
             {
-                throw new ArgumentException("wrong lunar year " + lunarYear + " month " + lunarMonth);
+                throw new ArgumentException($"wrong lunar year {lunarYear} month {lunarMonth}");
             }
             if (lunarDay < 1)
             {
@@ -214,7 +224,7 @@ namespace Lunar
             var days = m.DayCount;
             if (lunarDay > days)
             {
-                throw new ArgumentException("only " + days + " days in lunar year " + lunarYear + " month " + lunarMonth);
+                throw new ArgumentException($"only {days} days in lunar year {lunarYear} month {lunarMonth}");
             }
             Year = lunarYear;
             Month = lunarMonth;
@@ -269,10 +279,12 @@ namespace Lunar
         private void ComputeJieQi(LunarYear lunarYear)
         {
             var julianDays = lunarYear.JieQiJulianDays;
-            for (int i = 0, j = JIE_QI_IN_USE.Length; i < j; i++)
+            var jieQiTable= new Dictionary<string, Solar>();
+            for (int i = 0, j = JIE_QI_IN_USE.Count; i < j; i++)
             {
-                JieQiTable.Add(JIE_QI_IN_USE[i], Solar.FromJulianDay(julianDays[i]));
+                jieQiTable.Add(JIE_QI_IN_USE[i], Solar.FromJulianDay(julianDays[i]));
             }
+            JieQiTable = new ReadOnlyDictionary<string, Solar>(jieQiTable);
         }
 
         /// <summary>
@@ -362,7 +374,7 @@ namespace Lunar
             Solar end;
             var ymd = Solar.Ymd;
             var time = Solar.YmdHms;
-            var size = JIE_QI_IN_USE.Length;
+            var size = JIE_QI_IN_USE.Count;
 
             // 序号：大雪以前-3，大雪到小寒之间-2，小寒到立春之间-1，立春之后0
             var index = -3;
@@ -421,7 +433,7 @@ namespace Lunar
             DayZhiIndexExact2 = dayZhiExact;
 
             // 八字流派1，晚子时（夜子/子夜）日柱算明天
-            var hm = (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute;
+            var hm = $"{Hour.ToString().PadLeft(2, '0')}:{Minute.ToString().PadLeft(2, '0')}";
             if (string.Compare(hm, "23:00", StringComparison.Ordinal) >= 0 && string.Compare(hm, "23:59", StringComparison.Ordinal) <= 0)
             {
                 dayGanExact++;
@@ -445,7 +457,7 @@ namespace Lunar
         /// </summary>
         private void ComputeTime()
         {
-            var hm = (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute;
+            var hm = $"{Hour.ToString().PadLeft(2, '0')}:{Minute.ToString().PadLeft(2, '0')}";
             TimeZhiIndex = LunarUtil.GetTimeZhiIndex(hm);
             TimeGanIndex = (DayGanIndexExact % 5 * 2 + TimeZhiIndex) % 10;
         }
@@ -574,42 +586,42 @@ namespace Lunar
         /// <summary>
         /// 干支纪年（年柱）（以正月初一作为新年的开始），如辛亥
         /// </summary>
-        public string YearInGanZhi => YearGan + YearZhi;
+        public string YearInGanZhi => $"{YearGan}{YearZhi}";
 
         /// <summary>
         /// 干支纪年（年柱）（以立春当天作为新年的开始），如辛亥
         /// </summary>
-        public string YearInGanZhiByLiChun => YearGanByLiChun + YearZhiByLiChun;
+        public string YearInGanZhiByLiChun => $"{YearGanByLiChun}{YearZhiByLiChun}";
 
         /// <summary>
         /// 干支纪年（年柱）（以立春交接的时刻作为新年的开始），如辛亥
         /// </summary>
-        public string YearInGanZhiExact => YearGanExact + YearZhiExact;
+        public string YearInGanZhiExact => $"{YearGanExact}{YearZhiExact}";
 
         /// <summary>
         /// 干支纪月（月柱）（以节交接当天起算），如己卯，月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
         /// </summary>
-        public string MonthInGanZhi => MonthGan + MonthZhi;
+        public string MonthInGanZhi => $"{MonthGan}{MonthZhi}";
 
         /// <summary>
         /// 精确的干支纪月（月柱）（以节交接时刻起算），如己卯，月天干口诀：甲己丙寅首，乙庚戊寅头。丙辛从庚寅，丁壬壬寅求，戊癸甲寅居，周而复始流。月地支：正月起寅。
         /// </summary>
-        public string MonthInGanZhiExact => MonthGanExact + MonthZhiExact;
+        public string MonthInGanZhiExact => $"{MonthGanExact}{MonthZhiExact}";
 
         /// <summary>
         /// 干支纪日（日柱），如己卯
         /// </summary>
-        public string DayInGanZhi => DayGan + DayZhi;
+        public string DayInGanZhi => $"{DayGan}{DayZhi}";
 
         /// <summary>
         /// 干支纪日（日柱，八字流派1，晚子时日柱算明天），如己卯
         /// </summary>
-        public string DayInGanZhiExact => DayGanExact + DayZhiExact;
+        public string DayInGanZhiExact => $"{DayGanExact}{DayZhiExact}";
 
         /// <summary>
         /// 干支纪日（日柱，八字流派2，晚子时日柱算当天），如己卯
         /// </summary>
-        public string DayInGanZhiExact2 => DayGanExact2 + DayZhiExact2;
+        public string DayInGanZhiExact2 => $"{DayGanExact2}{DayZhiExact2}";
 
         /// <summary>
         /// 年生肖（以正月初一起算），如虎
@@ -648,20 +660,15 @@ namespace Lunar
         {
             get
             {
-                var y = (Year + "").ToCharArray();
-                var s = new StringBuilder();
-                for (int i = 0, j = y.Length; i < j; i++)
-                {
-                    s.Append(LunarUtil.NUMBER[y[i] - '0']);
-                }
-                return s.ToString();
+                var chars = Year.ToString().Select(c => LunarUtil.NUMBER[c - '0']);
+                return string.Concat(chars);
             }
         }
 
         /// <summary>
         /// 中文月，如正
         /// </summary>
-        public string MonthInChinese => (Month < 0 ? "闰" : "") + LunarUtil.MONTH[Math.Abs(Month)];
+        public string MonthInChinese => $"{(Month < 0 ? "闰" : "")}{LunarUtil.MONTH[Math.Abs(Month)]}";
 
         /// <summary>
         /// 中文日，如初一
@@ -681,7 +688,7 @@ namespace Lunar
         /// <summary>
         /// 时辰干支（时柱）
         /// </summary>
-        public string TimeInGanZhi => TimeGan + TimeZhi;
+        public string TimeInGanZhi => $"{TimeGan}{TimeZhi}";
 
         /// <summary>
         /// 农历季节
@@ -695,7 +702,7 @@ namespace Lunar
         {
             get
             {
-                for (int i = 0, j = JIE_QI_IN_USE.Length; i < j; i += 2)
+                for (int i = 0, j = JIE_QI_IN_USE.Count; i < j; i += 2)
                 {
                     var key = JIE_QI_IN_USE[i];
                     var d = JieQiTable[key];
@@ -715,7 +722,7 @@ namespace Lunar
         {
             get
             {
-                for (int i = 1, j = JIE_QI_IN_USE.Length; i < j; i += 2)
+                for (int i = 1, j = JIE_QI_IN_USE.Count; i < j; i += 2)
                 {
                     var key = JIE_QI_IN_USE[i];
                     var d = JieQiTable[key];
@@ -741,7 +748,7 @@ namespace Lunar
         /// <summary>
         /// 宿
         /// </summary>
-        public string Xiu => LunarUtil.XIU[DayZhi + Week];
+        public string Xiu => LunarUtil.XIU[$"{DayZhi}{Week}"];
 
         /// <summary>
         /// 宿吉凶，吉/凶
@@ -776,49 +783,40 @@ namespace Lunar
         /// <summary>
         /// 节日列表，有可能一天会有多个节日
         /// </summary>
-        public List<string> Festivals
+        public IEnumerable<string> Festivals
         {
             get
             {
-                var l = new List<string>();
-                try
+                if(LunarUtil.FESTIVAL.TryGetValue($"{Month}-{Day}", out var f))
                 {
-                    l.Add(LunarUtil.FESTIVAL[Month + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
+                    yield return f;
                 }
 
-                if (Math.Abs(Month) == 12 && Day >= 29 && Year != Next(1).Year) {
-                    l.Add("除夕");
+                if (Math.Abs(Month) == 12 && Day >= 29 && Year != Next(1).Year)
+                {
+                    yield return "除夕";
                 }
-                return l;
             }
         }
 
         /// <summary>
         /// 非正式的节日列表，有可能一天会有多个节日，如中元节
         /// </summary>
-        public List<string> OtherFestivals
+        public IEnumerable<string> OtherFestivals
         {
             get
             {
-                var l = new List<string>();
-                try
+                if (LunarUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
                 {
-                    l.AddRange(LunarUtil.OTHER_FESTIVAL[Month + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
+                    foreach (var f in festivals)
+                        yield return f;
                 }
 
                 var solarYmd = Solar.Ymd;
                 var jq = JieQiTable["清明"];
                 if (solarYmd.Equals(jq.Next(-1).Ymd))
                 {
-                    l.Add("寒食节");
+                    yield return "寒食节";
                 }
 
                 jq = JieQiTable["立春"];
@@ -829,7 +827,7 @@ namespace Lunar
                 }
                 if (solarYmd.Equals(jq.Next(offset + 40).Ymd))
                 {
-                    l.Add("春社");
+                    yield return "春社";
                 }
 
                 jq = JieQiTable["立秋"];
@@ -840,9 +838,8 @@ namespace Lunar
                 }
                 if (solarYmd.Equals(jq.Next(offset + 40).Ymd))
                 {
-                    l.Add("秋社");
+                    yield return "秋社";
                 }
-                return l;
             }
         }
 
@@ -1261,12 +1258,12 @@ namespace Lunar
         /// <summary>
         /// 日冲描述，如(壬申)猴
         /// </summary>
-        public string DayChongDesc => "(" + DayChongGan + DayChong + ")" + DayChongShengXiao;
+        public string DayChongDesc => $"({DayChongGan}{DayChong}){DayChongShengXiao}";
 
         /// <summary>
         /// 时冲描述，如(壬申)猴
         /// </summary>
-        public string TimeChongDesc => "(" + TimeChongGan + TimeChong + ")" + TimeChongShengXiao;
+        public string TimeChongDesc => $"({TimeChongGan}{TimeChong}){TimeChongShengXiao}";
 
         /// <summary>
         /// 日煞，如北
@@ -1567,7 +1564,7 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetNextJie(bool wholeDay = false)
         {
-            var l = JIE_QI_IN_USE.Length / 2;
+            var l = JIE_QI_IN_USE.Count / 2;
             var conditions = new string[l];
             for (var i = 0; i < l; i++)
             {
@@ -1583,7 +1580,7 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetPrevJie(bool wholeDay = false)
         {
-            var l = JIE_QI_IN_USE.Length / 2;
+            var l = JIE_QI_IN_USE.Count / 2;
             var conditions = new string[l];
             for (var i = 0; i < l; i++)
             {
@@ -1599,7 +1596,7 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetNextQi(bool wholeDay = false)
         {
-            var l = JIE_QI_IN_USE.Length / 2;
+            var l = JIE_QI_IN_USE.Count / 2;
             var conditions = new string[l];
             for (var i = 0; i < l; i++)
             {
@@ -1615,7 +1612,7 @@ namespace Lunar
         /// <returns>节气</returns>
         public JieQi GetPrevQi(bool wholeDay = false)
         {
-            var l = JIE_QI_IN_USE.Length / 2;
+            var l = JIE_QI_IN_USE.Count / 2;
             var conditions = new string[l];
             for (var i = 0; i < l; i++)
             {
@@ -1789,7 +1786,7 @@ namespace Lunar
         {
             get
             {
-                for (int i = 0, j = JIE_QI_IN_USE.Length; i < j; i += 2)
+                for (int i = 0, j = JIE_QI_IN_USE.Count; i < j; i += 2)
                 {
                     var key = JIE_QI_IN_USE[i];
                     var d = JieQiTable[key];
@@ -1809,7 +1806,7 @@ namespace Lunar
         {
             get
             {
-                for (int i = 1, j = JIE_QI_IN_USE.Length; i < j; i += 2)
+                for (int i = 1, j = JIE_QI_IN_USE.Count; i < j; i += 2)
                 {
                     var key = JIE_QI_IN_USE[i];
                     var d = JieQiTable[key];
@@ -1925,7 +1922,7 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
+            return $"{YearInChinese}年{MonthInChinese}月{DayInChinese}";
         }
 
         /// <summary>
@@ -2053,7 +2050,7 @@ namespace Lunar
                 }
 
                 var days = current.Subtract(start);
-                return new ShuJiu(LunarUtil.NUMBER[days / 9 + 1] + "九", days % 9 + 1);
+                return new ShuJiu($"{LunarUtil.NUMBER[days / 9 + 1]}九", days % 9 + 1);
             }
         }
 
@@ -2133,7 +2130,7 @@ namespace Lunar
             {
                 var jieQi = GetPrevJieQi(true);
                 var offset = 0;
-                for (int i = 0, j = JIE_QI.Length; i < j; i++)
+                for (int i = 0, j = JIE_QI.Count; i < j; i++)
                 {
                     if (jieQi.Name.Equals(JIE_QI[i]))
                     {
@@ -2163,7 +2160,7 @@ namespace Lunar
                 {
                     offset = max;
                 }
-                return jieQi.Name + " " + LunarUtil.HOU[offset];
+                return $"{jieQi.Name} {LunarUtil.HOU[offset]}";
             }
         }
 
@@ -2174,22 +2171,11 @@ namespace Lunar
         {
             get
             {
-                var gan = LunarUtil.LU[DayGan];
-                string zhi = null;
-                try
-                {
-                    zhi = LunarUtil.LU[DayZhi];
-                }
-                catch
-                {
-                    // ignored
-                }
+                var lu = $"{LunarUtil.LU[DayGan]}命互禄";
 
-                var lu = gan + "命互禄";
-                if (null != zhi)
-                {
-                    lu += " " + zhi + "命进禄";
-                }
+                if (LunarUtil.LU.TryGetValue(DayZhi, out var zhi))
+                    lu = $"{lu} {zhi}命进禄";
+
                 return lu;
             }
         }
@@ -2202,16 +2188,15 @@ namespace Lunar
         /// <summary>
         /// 当天的时辰列表
         /// </summary>
-        public List<LunarTime> Times
+        public IEnumerable<LunarTime> Times
         {
             get
             {
-                var l = new List<LunarTime> {new LunarTime(Year, Month, Day, 0, 0, 0)};
+                yield return new LunarTime(Year, Month, Day, 0, 0, 0);
                 for (var i = 0; i < 12; i++)
                 {
-                    l.Add(new LunarTime(Year, Month, Day, (i + 1) * 2 - 1, 0, 0));
+                    yield return new LunarTime(Year, Month, Day, (i + 1) * 2 - 1, 0, 0);
                 }
-                return l;
             }
         }
     }

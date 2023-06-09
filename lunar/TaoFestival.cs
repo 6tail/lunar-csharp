@@ -1,7 +1,5 @@
 using System.Text;
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -25,7 +23,7 @@ namespace Lunar
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="remark">备注</param>
-        public TaoFestival(string name, string remark = null)
+        internal TaoFestival(string name, string remark = null)
         {
             Name = name;
             Remark = remark ?? "";

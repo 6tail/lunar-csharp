@@ -1,11 +1,10 @@
+using Lunar.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Lunar.Util;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable IdentifierTypo
-
-// TODO: 可访问性调整
 
 namespace Lunar
 {
@@ -71,33 +70,33 @@ namespace Lunar
             {
                 if (day > 4 && day < 15)
                 {
-                    throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
+                    throw new ArgumentException($"wrong solar year {year} month {month} day {day}");
                 }
             }
 
             if (month < 1 || month > 12)
             {
-                throw new ArgumentException("wrong month " + month);
+                throw new ArgumentException($"wrong month {month}");
             }
 
             if (day < 1 || day > 31)
             {
-                throw new ArgumentException("wrong day " + day);
+                throw new ArgumentException($"wrong day {day}");
             }
 
             if (hour < 0 || hour > 23)
             {
-                throw new ArgumentException("wrong hour %d" + hour);
+                throw new ArgumentException($"wrong hour {hour}");
             }
 
             if (minute < 0 || minute > 59)
             {
-                throw new ArgumentException("wrong minute %d" + minute);
+                throw new ArgumentException($"wrong minute {minute}");
             }
 
             if (second < 0 || second > 59)
             {
-                throw new ArgumentException("wrong second %d" + second);
+                throw new ArgumentException($"wrong second {second}");
             }
 
             Year = year;
@@ -220,10 +219,9 @@ namespace Lunar
         /// <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
         /// <param name="baseYear">起始年</param>
         /// <returns>符合的阳历列表</returns>
-        public static List<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
+        public static IEnumerable<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
         {
             sect = (1 == sect) ? 1 : 2;
-            var l = new List<Solar>();
             var years = new List<int>();
             var today = new Solar();
             var offsetYear = LunarUtil.GetJiaZiIndex(today.Lunar.YearInGanZhiExact) - LunarUtil.GetJiaZiIndex(yearGanZhi);
@@ -272,14 +270,13 @@ namespace Lunar
                         var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                         if (lunar.YearInGanZhiExact.Equals(yearGanZhi) && lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.TimeInGanZhi.Equals(timeGanZhi))
                         {
-                            l.Add(solar);
+                            yield return solar;
                             break;
                         }
                         solar = solar.Next(1);
                     }
                 }
             }
-            return l;
         }
 
         /// <summary>
@@ -361,65 +358,43 @@ namespace Lunar
         /// <summary>
         /// 节日，有可能一天会有多个节日
         /// </summary>
-        public List<string> Festivals
+        public IEnumerable<string> Festivals
         {
             get
             {
-                var l = new List<string>();
                 //获取几月几日对应的节日
-                try
+                if (SolarUtil.FESTIVAL.TryGetValue($"{Month}-{Day}", out var festival))
                 {
-                    l.Add(SolarUtil.FESTIVAL[Month + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
+                    yield return festival;
                 }
 
                 //计算几月第几个星期几对应的节日
                 var weeks = (int)Math.Ceiling(Day / 7D);
                 //星期几，0代表星期天
-                try
+                if (SolarUtil.WEEK_FESTIVAL.TryGetValue($"{Month}-{weeks}-{Week}", out festival))
                 {
-                    l.Add(SolarUtil.WEEK_FESTIVAL[Month + "-" + weeks + "-" + Week]);
-                }
-                catch
-                {
-                    // ignored
+                    yield return festival;
                 }
 
-                if (Day + 7 <= SolarUtil.GetDaysOfMonth(Year, Month)) return l;
-                try
+                if (Day + 7 <= SolarUtil.GetDaysOfMonth(Year, Month))
+                    yield break;
+                if (SolarUtil.WEEK_FESTIVAL.TryGetValue($"{Month}-0-{Week}", out festival))
                 {
-                    l.Add(SolarUtil.WEEK_FESTIVAL[Month + "-0-" + Week]);
+                    yield return festival;
                 }
-                catch
-                {
-                    // ignored
-                }
-
-                return l;
             }
         }
 
         /// <summary>
         /// 非正式节日
         /// </summary>
-        public List<string> OtherFestivals
+        public IEnumerable<string> OtherFestivals
         {
             get
             {
-                var l = new List<string>();
-                try
-                {
-                    var fs = SolarUtil.OTHER_FESTIVAL[Month + "-" + Day];
-                    l.AddRange(fs);
-                }
-                catch
-                {
-                    // ignored
-                }
-                return l;
+                if (!SolarUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
+                    return Enumerable.Empty<string>();
+                return festivals;
             }
         }
 
@@ -468,19 +443,26 @@ namespace Lunar
         {
             get
             {
-                var y = Year + "";
-                while (y.Length < 4)
-                {
-                    y = "0" + y;
-                }
-                return y + "-" + (Month < 10 ? "0" : "") + Month + "-" + (Day < 10 ? "0" : "") + Day;
+                var y = Year.ToString().PadLeft(4, '0');
+                var m = Month.ToString().PadLeft(2, '0');
+                var d = Day.ToString().PadLeft(2, '0');
+                return $"{y}-{m}-{d}";
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public string YmdHms => Ymd + " " + (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute + ":" + (Second < 10 ? "0" : "") + Second;
+        public string YmdHms
+        {
+            get
+            {
+                var h = Hour.ToString().PadLeft(2, '0');
+                var m = Minute.ToString().PadLeft(2, '0');
+                var s = Second.ToString().PadLeft(2, '0');
+                return $"{Ymd} {h}:{m}:{s}";
+            }
+        }
 
         /// <summary>
         /// 

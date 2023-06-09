@@ -1,7 +1,5 @@
 // ReSharper disable MemberCanBePrivate.Global
 
-// TODO: 可访问性调整
-
 namespace Lunar
 {
     /// <summary>
@@ -22,16 +20,9 @@ namespace Lunar
         /// <summary>
         /// 创建数九
         /// </summary>
-        public ShuJiu()
-        {
-        }
-
-        /// <summary>
-        /// 创建数九
-        /// </summary>
         /// <param name="name">名称</param>
         /// <param name="index">序号</param>
-        public ShuJiu(string name, int index)
+        internal ShuJiu(string name, int index)
         {
             Name = name;
             Index = index;
@@ -40,7 +31,7 @@ namespace Lunar
         /// <summary>
         /// 
         /// </summary>
-        public string FullString => Name + "第" + Index + "天";
+        public string FullString => $"{Name}第{Index}天";
 
         /// <inheritdoc />
         public override string ToString()
