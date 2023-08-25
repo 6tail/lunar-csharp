@@ -59,7 +59,8 @@ namespace test
         {
             Assert.Equal(true, SolarUtil.IsLeapYear(2020));
             Assert.Equal(false, SolarUtil.IsLeapYear(2019));
-            Assert.Equal(false, SolarUtil.IsLeapYear(1500));
+            Assert.Equal(false, SolarUtil.IsLeapYear(1700));
+            Assert.Equal(true, SolarUtil.IsLeapYear(1500));
         }
     }
 }

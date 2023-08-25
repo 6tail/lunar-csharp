@@ -75,7 +75,7 @@ namespace Lunar
         /// <summary>
         /// 干支（时柱）
         /// </summary>
-        public string GanZhi => Gan + Zhi;
+        public string GanZhi => $"{Gan}{Zhi}";
 
         /// <summary>
         /// 喜神方位，如艮
@@ -145,13 +145,13 @@ namespace Lunar
         /// <summary>
         /// 财神方位描述，如东北
         /// </summary>
-        /// <returns></returns>
+        /// <returns>描述</returns>
         public string PositionCaiDesc => LunarUtil.POSITION_DESC[PositionCai];
 
         /// <summary>
         /// 冲，如申
         /// </summary>
-        /// <returns></returns>
+        /// <returns>描述</returns>
         public string Chong => LunarUtil.CHONG[ZhiIndex];
 
         /// <summary>
@@ -256,6 +256,7 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return GanZhi;
@@ -291,7 +292,7 @@ namespace Lunar
                 {
                     hour -= 1;
                 }
-                return (hour < 10 ? "0" : "") + hour + ":00";
+                return hour.ToString().PadLeft(2, '0') + ":00";
             }
         }
 
@@ -315,7 +316,7 @@ namespace Lunar
                 {
                     hour += 1;
                 }
-                return (hour < 10 ? "0" : "") + hour + ":59";
+                return hour.ToString().PadLeft(2, '0') + ":59";
             }
         }
 

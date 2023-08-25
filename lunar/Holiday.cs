@@ -26,6 +26,9 @@ namespace Lunar
         /// </summary>
         public string Target { get; set; }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
         public Holiday() { }
 
         /// <summary>
@@ -37,29 +40,16 @@ namespace Lunar
         /// <param name="target">关联的节日</param>
         public Holiday(string day, string name, bool work, string target)
         {
-            if (!day.Contains("-"))
-            {
-                Day = day.Substring(0, 4) + "-" + day.Substring(4, 2) + "-" + day.Substring(6);
-            }
-            else
-            {
-                Day = day;
-            }
+            Day = !day.Contains("-") ? $"{day.Substring(0, 4)}-{day.Substring(4, 2)}-{day.Substring(6)}" : day;
             Name = name;
             Work = work;
-            if (!target.Contains("-"))
-            {
-                Target = target.Substring(0, 4) + "-" + target.Substring(4, 2) + "-" + target.Substring(6);
-            }
-            else
-            {
-                Target = target;
-            }
+            Target = !target.Contains("-") ? $"{target.Substring(0, 4)}-{target.Substring(4, 2)}-{target.Substring(6)}" : target;
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
-            return Day + " " + Name + (Work ? "调休" : "") + " " + Target;
+            return $"{Day} {Name}{(Work ? " 调休" : "")} {Target}";
         }
     }
 }

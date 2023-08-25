@@ -14,6 +14,9 @@ namespace Lunar
     /// </summary>
     public class Foto
     {
+        /// <summary>
+        /// 佛涅磐年
+        /// </summary>
         public const int DEAD_YEAR = -543;
 
         /// <summary>
@@ -21,21 +24,43 @@ namespace Lunar
         /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="lunar">阴历</param>
         public Foto(Lunar lunar)
         {
             Lunar = lunar;
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="lunar">阴历</param>
+        /// <returns>佛历</returns>
         public static Foto FromLunar(Lunar lunar)
         {
             return new Foto(lunar);
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="lunarYear">阴历年</param>
+        /// <param name="lunarMonth">阴历月</param>
+        /// <param name="lunarDay">阴历日</param>
+        /// <param name="hour">小时</param>
+        /// <param name="minute">分钟</param>
+        /// <param name="second">秒钟</param>
+        /// <returns>佛历</returns>
         public static Foto FromYmdHms(int lunarYear, int lunarMonth, int lunarDay, int hour = 0, int minute = 0, int second = 0)
         {
             return FromLunar(Lunar.FromYmdHms(lunarYear + DEAD_YEAR - 1, lunarMonth, lunarDay, hour, minute, second));
         }
 
+        /// <summary>
+        /// 年
+        /// </summary>
         public int Year
         {
             get
@@ -50,15 +75,24 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 月
+        /// </summary>
         public int Month => Lunar.Month;
 
+        /// <summary>
+        /// 日
+        /// </summary>
         public int Day => Lunar.Day;
 
+        /// <summary>
+        /// 中文年
+        /// </summary>
         public string YearInChinese
         {
             get
             {
-                var y = (Year + "").ToCharArray();
+                var y = Year.ToString().ToCharArray();
                 var s = new StringBuilder();
                 for (int i = 0, j = y.Length; i < j; i++)
                 {
@@ -68,10 +102,19 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 中文月
+        /// </summary>
         public string MonthInChinese => Lunar.MonthInChinese;
 
+        /// <summary>
+        /// 中文日
+        /// </summary>
         public string DayInChinese => Lunar.DayInChinese;
 
+        /// <summary>
+        /// 因果犯忌
+        /// </summary>
         public List<FotoFestival> Festivals
         {
             get
@@ -90,6 +133,9 @@ namespace Lunar
             }
         }
         
+        /// <summary>
+        /// 纪念日
+        /// </summary>
         public List<string> OtherFestivals
         {
             get
@@ -97,7 +143,7 @@ namespace Lunar
                 var l = new List<string>();
                 try
                 {
-                    var fs = FotoUtil.OTHER_FESTIVAL[Month + "-" + Day];
+                    var fs = FotoUtil.OTHER_FESTIVAL[$"{Month}-{Day}"];
                     l.AddRange(fs);
                 }
                 catch
@@ -108,6 +154,9 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 月斋
+        /// </summary>
         public bool MonthZhai => Month == 1 || Month == 5 || Month == 9;
 
         /// <summary>
@@ -165,7 +214,7 @@ namespace Lunar
         {
             get
             {
-                var k = Month + "-" + Day;
+                var k = $"{Month}-{Day}";
                 return FotoUtil.DAY_ZHAI_GUAN_YIN.Any(d => k.Equals(d));
             }
         }
@@ -205,6 +254,9 @@ namespace Lunar
         /// </summary>
         public string Shou => LunarUtil.SHOU[Gong];
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString
         {
             get
@@ -221,9 +273,10 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
-            return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;
+            return $"{YearInChinese}年{MonthInChinese}月{DayInChinese}";
         }
     }
 

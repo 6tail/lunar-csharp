@@ -21,24 +21,22 @@ namespace Lunar.EightChar
         /// 长生十二神
         /// </summary>
         public static readonly string[] CHANG_SHENG = { "长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养" };
-        
-        private static readonly Dictionary<string, int> CHANG_SHENG_OFFSET = new Dictionary<string, int>();
 
-        static EightChar()
+        private static readonly Dictionary<string, int> CHANG_SHENG_OFFSET = new Dictionary<string, int>
         {
             //阳
-            CHANG_SHENG_OFFSET.Add("甲", 1);
-            CHANG_SHENG_OFFSET.Add("丙", 10);
-            CHANG_SHENG_OFFSET.Add("戊", 10);
-            CHANG_SHENG_OFFSET.Add("庚", 7);
-            CHANG_SHENG_OFFSET.Add("壬", 4);
+            {"甲", 1},
+            {"丙", 10},
+            {"戊", 10},
+            {"庚", 7},
+            {"壬", 4},
             //阴
-            CHANG_SHENG_OFFSET.Add("乙", 6);
-            CHANG_SHENG_OFFSET.Add("丁", 9);
-            CHANG_SHENG_OFFSET.Add("己", 9);
-            CHANG_SHENG_OFFSET.Add("辛", 0);
-            CHANG_SHENG_OFFSET.Add("癸", 3);
-        }
+            {"乙", 6},
+            {"丁", 9},
+            {"己", 9},
+            {"辛", 0},
+            {"癸", 3}
+        };
 
         private int _sect = 2;
 
@@ -56,19 +54,29 @@ namespace Lunar.EightChar
         /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 从阴历初始化
+        /// </summary>
+        /// <param name="lunar">阴历</param>
         public EightChar(Lunar lunar)
         {
             Lunar = lunar;
         }
 
+        /// <summary>
+        /// 从阴历创建八字
+        /// </summary>
+        /// <param name="lunar">阴历</param>
+        /// <returns>八字</returns>
         public static EightChar FromLunar(Lunar lunar)
         {
             return new EightChar(lunar);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
-            return Year + " " + Month + " " + Day + " " + Time;
+            return $"{Year} {Month} {Day} {Time}";
         }
 
         /// <summary>
@@ -94,7 +102,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 年五行
         /// </summary>
-        public string YearWuXing => LunarUtil.WU_XING_GAN[YearGan] + LunarUtil.WU_XING_ZHI[YearZhi];
+        public string YearWuXing => $"{LunarUtil.WU_XING_GAN[YearGan]}{LunarUtil.WU_XING_ZHI[YearZhi]}";
 
         /// <summary>
         /// 年纳音
@@ -104,20 +112,29 @@ namespace Lunar.EightChar
         /// <summary>
         /// 年天干十神
         /// </summary>
-        public string YearShiShenGan => LunarUtil.SHI_SHEN_GAN[DayGan + YearGan];
+        public string YearShiShenGan => LunarUtil.SHI_SHEN_GAN[$"{DayGan}{YearGan}"];
 
         private List<string> GetShiShenZhi(string zhi)
         {
             var hideGan = LunarUtil.ZHI_HIDE_GAN[zhi];
             var l = new List<string>(hideGan.Count);
-            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[DayGan + zhi + gan]));
+            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[$"{DayGan}{zhi}{gan}"]));
             return l;
         }
 
+        /// <summary>
+        /// 年十神支
+        /// </summary>
         public List<string> YearShiShenZhi => GetShiShenZhi(YearZhi);
 
+        /// <summary>
+        /// 日干序号
+        /// </summary>
         public int DayGanIndex =>  (2 == Sect) ? Lunar.DayGanIndexExact2 : Lunar.DayGanIndexExact;
 
+        /// <summary>
+        /// 日支序号
+        /// </summary>
         public int DayZhiIndex => (2 == Sect) ? Lunar.DayZhiIndexExact2 : Lunar.DayZhiIndexExact;
 
         private string GetDiShi(int zhiIndex)
@@ -134,62 +151,149 @@ namespace Lunar.EightChar
             return CHANG_SHENG[index];
         }
 
+        /// <summary>
+        /// 年地势
+        /// </summary>
         public string YearDiShi => GetDiShi(Lunar.YearZhiIndexExact);
 
+        /// <summary>
+        /// 月柱
+        /// </summary>
         public string Month => Lunar.MonthInGanZhiExact;
 
+        /// <summary>
+        /// 月干
+        /// </summary>
         public string MonthGan => Lunar.MonthGanExact;
 
+        /// <summary>
+        /// 月支
+        /// </summary>
         public string MonthZhi => Lunar.MonthZhiExact;
 
+        /// <summary>
+        /// 月藏干
+        /// </summary>
         public List<string> MonthHideGan => LunarUtil.ZHI_HIDE_GAN[MonthZhi];
 
-        public string MonthWuXing => LunarUtil.WU_XING_GAN[MonthGan] + LunarUtil.WU_XING_ZHI[MonthZhi];
+        /// <summary>
+        /// 月五行
+        /// </summary>
+        public string MonthWuXing => $"{LunarUtil.WU_XING_GAN[MonthGan]}{LunarUtil.WU_XING_ZHI[MonthZhi]}";
 
+        /// <summary>
+        /// 月纳音
+        /// </summary>
         public string MonthNaYin => LunarUtil.NAYIN[Month];
 
-        public string MonthShiShenGan => LunarUtil.SHI_SHEN_GAN[DayGan + MonthGan];
+        /// <summary>
+        /// 月十神干
+        /// </summary>
+        public string MonthShiShenGan => LunarUtil.SHI_SHEN_GAN[$"{DayGan}{MonthGan}"];
 
+        /// <summary>
+        /// 月十神支
+        /// </summary>
         public List<string> MonthShiShenZhi => GetShiShenZhi(MonthZhi);
 
+        /// <summary>
+        /// 月地势
+        /// </summary>
         public string MonthDiShi => GetDiShi(Lunar.MonthZhiIndexExact);
 
+        /// <summary>
+        /// 日柱
+        /// </summary>
         public string Day => (2 == Sect) ? Lunar.DayInGanZhiExact2 : Lunar.DayInGanZhiExact;
 
+        /// <summary>
+        /// 日干
+        /// </summary>
         public string DayGan => (2 == Sect) ? Lunar.DayGanExact2 : Lunar.DayGanExact;
 
+        /// <summary>
+        /// 日支
+        /// </summary>
         public string DayZhi => (2 == Sect) ? Lunar.DayZhiExact2 : Lunar.DayZhiExact;
 
+        /// <summary>
+        /// 日支藏干
+        /// </summary>
         public List<string> DayHideGan => LunarUtil.ZHI_HIDE_GAN[DayZhi];
 
-        public string DayWuXing => LunarUtil.WU_XING_GAN[DayGan] + LunarUtil.WU_XING_ZHI[DayZhi];
+        /// <summary>
+        /// 日五行
+        /// </summary>
+        public string DayWuXing => $"{LunarUtil.WU_XING_GAN[DayGan]}{LunarUtil.WU_XING_ZHI[DayZhi]}";
 
+        /// <summary>
+        /// 日纳音
+        /// </summary>
         public string DayNaYin => LunarUtil.NAYIN[Day];
 
+        /// <summary>
+        /// 日十神干
+        /// </summary>
         public string DayShiShenGan => "日主";
 
+        /// <summary>
+        /// 日十神支
+        /// </summary>
         public List<string> DayShiShenZhi => GetShiShenZhi(DayZhi);
 
+        /// <summary>
+        /// 日地势
+        /// </summary>
         public string DayDiShi => GetDiShi(DayZhiIndex);
 
+        /// <summary>
+        /// 时柱
+        /// </summary>
         public string Time => Lunar.TimeInGanZhi;
 
+        /// <summary>
+        /// 时干
+        /// </summary>
         public string TimeGan => Lunar.TimeGan;
 
+        /// <summary>
+        /// 时支
+        /// </summary>
         public string TimeZhi => Lunar.TimeZhi;
 
+        /// <summary>
+        /// 时支藏干
+        /// </summary>
         public List<string> TimeHideGan => LunarUtil.ZHI_HIDE_GAN[TimeZhi];
 
-        public string TimeWuXing => LunarUtil.WU_XING_GAN[Lunar.TimeGan] + LunarUtil.WU_XING_ZHI[Lunar.TimeZhi];
+        /// <summary>
+        /// 时五行
+        /// </summary>
+        public string TimeWuXing => $"{LunarUtil.WU_XING_GAN[Lunar.TimeGan]}{LunarUtil.WU_XING_ZHI[Lunar.TimeZhi]}";
 
+        /// <summary>
+        /// 时纳音
+        /// </summary>
         public string TimeNaYin => LunarUtil.NAYIN[Time];
 
-        public string TimeShiShenGan => LunarUtil.SHI_SHEN_GAN[DayGan + TimeGan];
+        /// <summary>
+        /// 时十神干
+        /// </summary>
+        public string TimeShiShenGan => LunarUtil.SHI_SHEN_GAN[$"{DayGan}{TimeGan}"];
 
+        /// <summary>
+        /// 时十神支
+        /// </summary>
         public List<string> TimeShiShenZhi => GetShiShenZhi(TimeZhi);
 
+        /// <summary>
+        /// 时地势
+        /// </summary>
         public string TimeDiShi => GetDiShi(Lunar.TimeZhiIndex);
 
+        /// <summary>
+        /// 胎元
+        /// </summary>
         public string TaiYuan
         {
             get
@@ -204,22 +308,31 @@ namespace Lunar.EightChar
                 {
                     zhiIndex -= 12;
                 }
-                return LunarUtil.GAN[ganIndex + 1] + LunarUtil.ZHI[zhiIndex + 1];
+                return $"{LunarUtil.GAN[ganIndex + 1]}{LunarUtil.ZHI[zhiIndex + 1]}";
             }
         }
 
+        /// <summary>
+        /// 胎元纳音
+        /// </summary>
         public string TaiYuanNaYin => LunarUtil.NAYIN[TaiYuan];
 
+        /// <summary>
+        /// 胎息
+        /// </summary>
         public string TaiXi
         {
             get
             {
                 var ganIndex = 2 == Sect ? Lunar.DayGanIndexExact2 : Lunar.DayGanIndexExact;
                 var zhiIndex = 2 == Sect ? Lunar.DayZhiIndexExact2 : Lunar.DayZhiIndexExact;
-                return LunarUtil.HE_GAN_5[ganIndex] + LunarUtil.HE_ZHI_6[zhiIndex];
+                return $"{LunarUtil.HE_GAN_5[ganIndex]}{LunarUtil.HE_ZHI_6[zhiIndex]}";
             }
         }
 
+        /// <summary>
+        /// 胎息纳音
+        /// </summary>
         public string TaiXiNaYin => LunarUtil.NAYIN[TaiXi];
 
         /// <summary>
@@ -261,8 +374,14 @@ namespace Lunar.EightChar
             }
         }
 
+        /// <summary>
+        /// 命宫纳音
+        /// </summary>
         public string MingGongNaYin => LunarUtil.NAYIN[MingGong];
 
+        /// <summary>
+        /// 身宫
+        /// </summary>
         public string ShenGong
         {
             get
@@ -299,6 +418,9 @@ namespace Lunar.EightChar
             }
         }
 
+        /// <summary>
+        /// 身宫纳音
+        /// </summary>
         public string ShenGongNaYin => LunarUtil.NAYIN[ShenGong];
 
         /// <summary>

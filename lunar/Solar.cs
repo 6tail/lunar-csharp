@@ -69,33 +69,33 @@ namespace Lunar
             {
                 if (day > 4 && day < 15)
                 {
-                    throw new ArgumentException("wrong solar year " + year + " month " + month + " day " + day);
+                    throw new ArgumentException($"wrong solar year {year} month {month} day {day}");
                 }
             }
 
             if (month < 1 || month > 12)
             {
-                throw new ArgumentException("wrong month " + month);
+                throw new ArgumentException($"wrong month {month}");
             }
 
             if (day < 1 || day > 31)
             {
-                throw new ArgumentException("wrong day " + day);
+                throw new ArgumentException($"wrong day {day}");
             }
 
             if (hour < 0 || hour > 23)
             {
-                throw new ArgumentException("wrong hour %d" + hour);
+                throw new ArgumentException($"wrong hour {hour}");
             }
 
             if (minute < 0 || minute > 59)
             {
-                throw new ArgumentException("wrong minute %d" + minute);
+                throw new ArgumentException($"wrong minute {minute}");
             }
 
             if (second < 0 || second > 59)
             {
-                throw new ArgumentException("wrong second %d" + second);
+                throw new ArgumentException($"wrong second {second}");
             }
 
             Year = year;
@@ -164,6 +164,11 @@ namespace Lunar
             {
                 minute -= 60;
                 hour++;
+            }
+            if (hour > 23)
+            {
+                hour -= 24;
+                day += 1;
             }
             Year = year;
             Month = month;
@@ -400,6 +405,9 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 非正式节日
+        /// </summary>
         public List<string> OtherFestivals
         {
             get
@@ -449,11 +457,15 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Ymd;
         }
 
+        /// <summary>
+        /// yyyy-MM-dd
+        /// </summary>
         public string Ymd
         {
             get
@@ -467,8 +479,14 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// yyyy-MM-dd HH:mm:ss
+        /// </summary>
         public string YmdHms => Ymd + " " + (Hour < 10 ? "0" : "") + Hour + ":" + (Minute < 10 ? "0" : "") + Minute + ":" + (Second < 10 ? "0" : "") + Second;
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString
         {
             get
@@ -795,6 +813,57 @@ namespace Lunar
             }
             var solar = Next(days);
             return new Solar(solar.Year, solar.Month, solar.Day, hour, solar.Minute, solar.Second);
+        }
+
+        /// <summary>
+        /// 获取薪资比例(感谢 https://gitee.com/smr1987)
+        /// </summary>
+        /// <returns>薪资比例：1/2/3</returns>
+        public int GetSalaryRate()
+        {
+            switch (Month)
+            {
+                // 元旦节
+                case 1 when Day == 1:
+                // 劳动节
+                case 5 when Day == 1:
+                // 国庆
+                case 10 when Day >= 1 && Day <= 3:
+                    return 3;
+            }
+
+            var lunarMonth = Lunar.Month;
+            var lunarDay = Lunar.Day;
+            switch (lunarMonth)
+            {
+                // 春节
+                case 1 when lunarDay >= 1 && lunarDay <= 3:
+                // 端午
+                case 5 when lunarDay == 5:
+                // 中秋
+                case 8 when lunarDay == 15:
+                    return 3;
+            }
+
+            // 清明
+            if ("清明".Equals(Lunar.JieQi)) {
+                return 3;
+            }
+            var holiday = HolidayUtil.GetHoliday(Year, Month, Day);
+            if (null != holiday) {
+                // 法定假日非上班
+                if (!holiday.Work) {
+                    return 2;
+                }
+            } else {
+                // 周末
+                var week = Week;
+                if (week == 6 || week == 0) {
+                    return 2;
+                }
+            }
+            // 工作日
+            return 1;
         }
     }
 }

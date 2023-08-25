@@ -594,5 +594,26 @@ namespace test
             var lunar = Lunar.Lunar.FromYmdHms(1537, 1, 1);
             Assert.Equal("1537-02-10", lunar.Solar.Ymd);
         }
+        
+        [Fact]
+        public void Test68()
+        {
+            var lunar = Solar.FromYmdHms(917, 12, 1).Lunar;
+            Assert.Equal("九一七年闰十月十四", lunar.ToString());
+        }
+        
+        [Fact]
+        public void Test69()
+        {
+            var lunar = Solar.FromYmdHms(917, 12, 31).Lunar;
+            Assert.Equal("九一七年冬月十五", lunar.ToString());
+        }
+        
+        [Fact]
+        public void Test70()
+        {
+            var lunar = Solar.FromYmdHms(918, 1, 1).Lunar;
+            Assert.Equal("九一七年冬月十六", lunar.ToString());
+        }
     }
 }

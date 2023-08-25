@@ -243,11 +243,15 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "." + Month + "." + Index;
         }
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString => Year + "年" + Month + "月第" + Index + "周";
     }
 }

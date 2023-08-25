@@ -74,7 +74,7 @@ namespace Lunar.EightChar
                 }
                 var gan = LunarUtil.GAN[(Index + offset) % 10 + 1];
                 var zhi = LunarUtil.ZHI[(Index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
-                return gan + zhi;
+                return $"{gan}{zhi}";
             }
         }
 

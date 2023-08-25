@@ -14,6 +14,9 @@ namespace Lunar
     /// </summary>
     public class Tao
     {
+        /// <summary>
+        /// 生年
+        /// </summary>
         public const int BIRTH_YEAR = -2697;
 
         /// <summary>
@@ -21,16 +24,35 @@ namespace Lunar
         /// </summary>
         private Lunar Lunar { get; }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="lunar">阴历</param>
         public Tao(Lunar lunar)
         {
             Lunar = lunar;
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="lunar">阴历</param>
+        /// <returns>道历</returns>
         public static Tao FromLunar(Lunar lunar)
         {
             return new Tao(lunar);
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="year">阴历年</param>
+        /// <param name="month">阴历月</param>
+        /// <param name="day">阴历日</param>
+        /// <param name="hour">小时</param>
+        /// <param name="minute">分钟</param>
+        /// <param name="second">秒钟</param>
+        /// <returns>道历</returns>
         public static Tao FromYmdHms(int year, int month, int day, int hour = 0, int minute = 0, int second = 0)
         {
             return FromLunar(Lunar.FromYmdHms(year + BIRTH_YEAR, month, day, hour, minute, second));
@@ -220,8 +242,12 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString => "道歷" + YearInChinese + "年，天運" + Lunar.YearInGanZhi + "年，" + Lunar.MonthInGanZhi + "月，" + Lunar.DayInGanZhi + "日。" + MonthInChinese + "月" + DayInChinese + "日，" + Lunar.TimeZhi + "時。";
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return YearInChinese + "年" + MonthInChinese + "月" + DayInChinese;

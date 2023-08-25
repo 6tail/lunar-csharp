@@ -47,11 +47,6 @@ namespace Lunar.Util
         /// </summary>
         private static string DATA_IN_USE = DATA;
 
-        private static string Padding(int n)
-        {
-            return (n < 10 ? "0" : "") + n;
-        }
-
         private static Holiday BuildHolidayForward(string s)
         {
             var chars = s.Substring(8, 2).ToCharArray();
@@ -158,7 +153,9 @@ namespace Lunar.Util
         /// <returns>节假日</returns>
         public static Holiday GetHoliday(int year, int month, int day)
         {
-            var l = FindHolidaysForward(year + Padding(month) + Padding(day));
+            var m = month.ToString().PadLeft(2, '0');
+            var d = day.ToString().PadLeft(2, '0');
+            var l = FindHolidaysForward($"{year}{m}{d}");
             return l.Count < 1 ? null : l[0];
         }
 
@@ -181,7 +178,8 @@ namespace Lunar.Util
         /// <returns>节假日列表</returns>
         public static List<Holiday> GetHolidays(int year, int month)
         {
-            return FindHolidaysForward(year + Padding(month));
+            var m = month.ToString().PadLeft(2, '0');
+            return FindHolidaysForward($"{year}{m}");
         }
 
         /// <summary>
@@ -191,7 +189,7 @@ namespace Lunar.Util
         /// <returns>节假日列表</returns>
         public static List<Holiday> GetHolidays(int year)
         {
-            return FindHolidaysForward(year + "");
+            return FindHolidaysForward($"{year}");
         }
 
         /// <summary>
@@ -223,7 +221,9 @@ namespace Lunar.Util
         /// <returns>节假日列表</returns>
         public static List<Holiday> GetHolidaysByTarget(int year, int month, int day)
         {
-            return FindHolidaysBackward(year + Padding(month) + Padding(day));
+            var m = month.ToString().PadLeft(2, '0');
+            var d = day.ToString().PadLeft(2, '0');
+            return FindHolidaysBackward($"{year}{m}{d}");
         }
 
         /// <summary>

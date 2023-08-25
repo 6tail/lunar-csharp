@@ -86,13 +86,21 @@ namespace Lunar
         /// 序号
         /// </summary>
         public int Index { get; }
-
-
+        
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="index">序号</param>
         public NineStar(int index)
         {
             Index = index;
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="index">序号</param>
+        /// <returns>九星</returns>
         public static NineStar FromIndex(int index)
         {
             return new NineStar(index);
@@ -173,11 +181,15 @@ namespace Lunar
         /// </summary>
         public string SongInTaiYi => SONG_TAI_YI[Index];
 
+        /// <inheritdoc />
         public override string ToString()
         {
-            return Number + Color + WuXing + NameInBeiDou;
+            return $"{Number}{Color}{WuXing}{NameInBeiDou}";
         }
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString
         {
             get

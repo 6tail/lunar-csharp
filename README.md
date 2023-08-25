@@ -36,3 +36,7 @@ lunar是一款无第三方依赖的公历(阳历)、农历(阴历、老黄历)�
 ## 文档
 
 请移步至 [https://6tail.cn/calendar/api.html](https://6tail.cn/calendar/api.html "https://6tail.cn/calendar/api.html")
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=6tail/lunar-csharp&type=Date)](https://star-history.com/#6tail/lunar-csharp&Date)

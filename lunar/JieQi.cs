@@ -49,16 +49,25 @@ namespace Lunar
         /// </summary>
         public bool Qi { get; set; }
         
+        /// <summary>
+        /// 初始化
+        /// </summary>
         public JieQi()
         {
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="solar">阳历日期</param>
         public JieQi(string name, Solar solar)
         {
             Name = name;
             Solar = solar;
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;

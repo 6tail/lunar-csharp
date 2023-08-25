@@ -31,7 +31,7 @@ namespace Lunar
         /// <summary>
         /// 通过日期初始化
         /// </summary>
-        /// <param name="date"></param>
+        /// <param name="date">日期</param>
         public SolarYear(DateTime date)
         {
             Year = date.Year;
@@ -94,11 +94,15 @@ namespace Lunar
             return new SolarYear(Year + years);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "";
         }
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString => Year + "年";
     }
 }

@@ -17,17 +17,26 @@ namespace Lunar
         /// </summary>
         private string Remark { get; set; }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="remark">备注</param>
         public TaoFestival(string name, string remark = null)
         {
             Name = name;
             Remark = remark ?? "";
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;
         }
 
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
         public string FullString
         {
             get

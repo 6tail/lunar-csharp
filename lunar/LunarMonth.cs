@@ -29,8 +29,14 @@ namespace Lunar
         /// </summary>
         public double FirstJulianDay { get; }
         
+        /// <summary>
+        /// 序号
+        /// </summary>
         public int Index { get; }
         
+        /// <summary>
+        /// 地支序号
+        /// </summary>
         public int ZhiIndex { get; }
 
         /// <summary>
@@ -67,6 +73,9 @@ namespace Lunar
         /// </summary>
         public bool Leap => Month < 0;
 
+        /// <summary>
+        /// 天干序号
+        /// </summary>
         public int GanIndex
         {
             get
@@ -76,38 +85,87 @@ namespace Lunar
             }
         }
 
+        /// <summary>
+        /// 天干
+        /// </summary>
         public string Gan => LunarUtil.GAN[GanIndex + 1];
         
+        /// <summary>
+        /// 地支
+        /// </summary>
         public string Zhi => LunarUtil.ZHI[ZhiIndex + 1];
         
-        public string GanZhi => Gan + Zhi;
+        /// <summary>
+        /// 干支
+        /// </summary>
+        public string GanZhi => $"{Gan}{Zhi}";
         
+        /// <summary>
+        /// 喜神方位
+        /// </summary>
         public string PositionXi => LunarUtil.POSITION_XI[GanIndex + 1];
 
+        /// <summary>
+        /// 喜神方位描述
+        /// </summary>
         public string PositionXiDesc => LunarUtil.POSITION_DESC[PositionXi];
 
+        /// <summary>
+        /// 阳贵神方位
+        /// </summary>
         public string PositionYangGui => LunarUtil.POSITION_YANG_GUI[GanIndex + 1];
 
+        /// <summary>
+        /// 阳贵神方位描述
+        /// </summary>
         public string PositionYangGuiDesc => LunarUtil.POSITION_DESC[PositionYangGui];
 
+        /// <summary>
+        /// 阴贵神方位
+        /// </summary>
         public string PositionYinGui => LunarUtil.POSITION_YIN_GUI[GanIndex + 1];
 
+        /// <summary>
+        /// 阴贵神方位描述
+        /// </summary>
         public string PositionYinGuiDesc => LunarUtil.POSITION_DESC[PositionYinGui];
 
+        /// <summary>
+        /// 福神方位
+        /// </summary>
         public string PositionFu => GetPositionFu();
         
+        /// <summary>
+        /// 福神方位
+        /// </summary>
+        /// <param name="sect">流派</param>
+        /// <returns>福神方位</returns>
         public string GetPositionFu(int sect = 2) {
             return (1 == sect ? LunarUtil.POSITION_FU : LunarUtil.POSITION_FU_2)[GanIndex + 1];
         }
 
+        /// <summary>
+        /// 福神方位描述
+        /// </summary>
         public string PositionFuDesc => GetPositionFuDesc();
         
+        /// <summary>
+        /// 福神方位描述
+        /// </summary>
+        /// <param name="sect">流派</param>
+        /// <returns>方位描述</returns>
         public string GetPositionFuDesc(int sect = 2) {
             return LunarUtil.POSITION_DESC[GetPositionFu(sect)];
         }
 
+        /// <summary>
+        /// 财神方位
+        /// </summary>
         public string PositionCai => LunarUtil.POSITION_CAI[GanIndex + 1];
 
+        /// <summary>
+        /// 财神方位描述
+        /// </summary>
         public string PositionCaiDesc => LunarUtil.POSITION_DESC[PositionCai];
 
         /// <summary>
@@ -169,11 +227,17 @@ namespace Lunar
             }
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Year + "年" + (Leap ? "闰" : "") + LunarUtil.MONTH[Math.Abs(Month)] + "月(" + DayCount + "天)";
         }
 
+        /// <summary>
+        /// 推移
+        /// </summary>
+        /// <param name="n">月数</param>
+        /// <returns>农历月</returns>
         public LunarMonth Next(int n)
         {
             if (0 == n)

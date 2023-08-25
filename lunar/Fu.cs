@@ -17,18 +17,30 @@ namespace Lunar
         /// </summary>
         public int Index { get; set; }
         
+        /// <summary>
+        /// 创建伏
+        /// </summary>
         public Fu()
         {
         }
 
+        /// <summary>
+        /// 创建伏
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="index">当前入伏第几天</param>
         public Fu(string name, int index)
         {
             Name = name;
             Index = index;
         }
 
-        public string FullString => Name + "第" + Index + "天";
+        /// <summary>
+        /// 完整字符串输出
+        /// </summary>
+        public string FullString => $"{Name}第{Index}天";
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Name;

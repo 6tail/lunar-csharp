@@ -30,8 +30,16 @@ namespace Lunar.EightChar
         /// </summary>
         public int Age { get; }
 
+        /// <summary>
+        /// 阴历
+        /// </summary>
         public Lunar Lunar { get; }
 
+        /// <summary>
+        /// 创建流年
+        /// </summary>
+        /// <param name="daYun">大运</param>
+        /// <param name="index">序数</param>
         public LiuNian(DaYun daYun, int index)
         {
             DaYun = daYun;
