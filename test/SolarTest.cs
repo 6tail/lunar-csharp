@@ -179,5 +179,33 @@ namespace test
             var solar = Solar.FromYmdHms(1582, 10, 15);
             Assert.Equal("1582-09-30", solar.Next(-5).Ymd);
         }
+        
+        [Fact]
+        public void Test23()
+        {
+            var solar = Solar.FromYmdHms(2023, 8, 31);
+            Assert.Equal("2023-09-30", solar.NextMonth(1).Ymd);
+        }
+        
+        [Fact]
+        public void Test24()
+        {
+            var solar = Solar.FromYmdHms(2023, 8, 31);
+            Assert.Equal("2023-10-31", solar.NextMonth(2).Ymd);
+        }
+        
+        [Fact]
+        public void Test25()
+        {
+            var solar = Solar.FromYmdHms(2023, 8, 31);
+            Assert.Equal("2024-02-29", solar.NextMonth(6).Ymd);
+        }
+        
+        [Fact]
+        public void Test26()
+        {
+            var solar = Solar.FromYmdHms(2023, 8, 31);
+            Assert.Equal("2025-08-31", solar.NextYear(2).Ymd);
+        }
     }
 }

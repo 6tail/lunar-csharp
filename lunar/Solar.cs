@@ -648,8 +648,14 @@ namespace Lunar
             var y = Year + years;
             var m = Month;
             var d = Day;
-            // 2月处理
-            if (2 == m)
+            if (1582 == y && 10 == m)
+            {
+                if (d > 4 && d < 15)
+                {
+                    d += 10;
+                }
+            }
+            else if (2 == m)
             {
                 if (d > 28)
                 {
@@ -657,13 +663,6 @@ namespace Lunar
                     {
                         d = 28;
                     }
-                }
-            }
-            if (1582 == y && 10 == m)
-            {
-                if (d > 4 && d < 15)
-                {
-                    d += 10;
                 }
             }
             return new Solar(y, m, d, Hour, Minute, Second);
@@ -680,22 +679,19 @@ namespace Lunar
             var y = month.Year;
             var m = month.Month;
             var d = Day;
-            // 2月处理
-            if (2 == m)
-            {
-                if (d > 28)
-                {
-                    if (!SolarUtil.IsLeapYear(y)) 
-                    {
-                        d = 28;
-                    }
-                }
-            }
             if (1582 == y && 10 == m)
             {
                 if (d > 4 && d < 15)
                 {
                     d += 10;
+                }
+            }
+            else
+            {
+                var maxDay = SolarUtil.GetDaysOfMonth(y, m);
+                if (d > maxDay)
+                {
+                    d = maxDay;
                 }
             }
             return new Solar(y, m, d, Hour, Minute, Second);

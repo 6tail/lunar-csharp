@@ -333,7 +333,7 @@ namespace Lunar.Util
             {"6-6", new List<string>(new[] {"天贶节"})},
             {"6-24", new List<string>(new[] {"观莲节"})},
             {"6-25", new List<string>(new[] {"五谷母节"})},
-            {"7-14", new List<string>(new[] {"中元节"})},
+            {"7-15", new List<string>(new[] {"中元节"})},
             {"7-22", new List<string>(new[] {"财神节"})},
             {"7-29", new List<string>(new[] {"地藏节"})},
             {"8-1", new List<string>(new[] {"天灸日"})},
