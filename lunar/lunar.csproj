@@ -6,7 +6,7 @@
         <RootNamespace>Lunar</RootNamespace>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <PackageId>lunar-csharp</PackageId>
-        <PackageVersion>1.5.5</PackageVersion>
+        <PackageVersion>1.5.6</PackageVersion>
         <Title>无依赖的阳历、阴历、道历和佛历工具库</Title>
         <Authors>6tail</Authors>
         <Description>日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。</Description>
@@ -16,11 +16,11 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>日历;公历;阳历;农历;阴历;老黄历;佛历;道历;法定假日</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <AssemblyVersion>1.5.5</AssemblyVersion>
-        <FileVersion>1.5.5</FileVersion>
-        <PackageReleaseNotes>中元节改为农历七月十五；修复Solar的nextMonth超期问题。</PackageReleaseNotes>
-        <PackageIcon>https://github.com/6tail/lunar-csharp/raw/master/lunar.png</PackageIcon>
-        <PackageLicenseUrl>https://github.com/6tail/lunar-csharp/raw/master/LICENSE</PackageLicenseUrl>
+        <AssemblyVersion>1.5.6</AssemblyVersion>
+        <FileVersion>1.5.6</FileVersion>
+        <PackageReleaseNotes>更新2024年法定假日数据；十神优化。</PackageReleaseNotes>
+        <PackageIcon>https://raw.githubusercontent.com/6tail/lunar-csharp/master/lunar.png</PackageIcon>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/6tail/lunar-csharp/master/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

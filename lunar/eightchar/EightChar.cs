@@ -118,7 +118,7 @@ namespace Lunar.EightChar
         {
             var hideGan = LunarUtil.ZHI_HIDE_GAN[zhi];
             var l = new List<string>(hideGan.Count);
-            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[$"{DayGan}{zhi}{gan}"]));
+            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[$"{DayGan}{gan}"]));
             return l;
         }
 
