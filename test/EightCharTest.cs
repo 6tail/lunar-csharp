@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lunar;
 using Lunar.EightChar;
 using Xunit;
+using Xunit.Abstractions;
+
 // ReSharper disable IdentifierTypo
 
 namespace test
@@ -12,7 +15,13 @@ namespace test
     /// </summary>
     public class EightCharTest
     {
-        
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public EightCharTest(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         [Fact]
         public void TestQiYun()
         {
@@ -245,6 +254,7 @@ namespace test
             string[] solarList = { "2021-09-15 20:00:00 星期三 处女座", "1961-09-30 20:00:00 星期六 天秤座" };
             for (int i = 0, j = solarList.Length; i < j; i++)
             {
+                _testOutputHelper.WriteLine(l[i].JulianDay.ToString());
                 Assert.Equal(solarList[i], l[i].FullString);
             }
         }

@@ -293,32 +293,7 @@ namespace Lunar
         /// <summary>
         /// 星期，0代表周日，1代表周一
         /// </summary>
-        public int Week
-        {
-            get
-            {
-                var start = new Solar(1582, 10, 15);
-                var y = Year;
-                var m = Month;
-                var d = Day;
-                var current = new Solar(y, m, d);
-                // 蔡勒公式
-                if (m < 3) {
-                    m += 12;
-                    y--;
-                }
-                var c = y / 100;
-                y = y - c * 100;
-                var x = y + y / 4 + c / 4 - 2 * c;
-                int w;
-                if (current.IsBefore(start)) {
-                    w = (x + 13 * (m + 1) / 5 + d + 2) % 7;
-                } else {
-                    w = (x + 26 * (m + 1) / 10 + d - 1) % 7;
-                }
-                return (w + 7) % 7;
-            }
-        }
+        public int Week => ((int)(JulianDay + 0.5) + 7000001) % 7;
 
         /// <summary>
         /// 星期的中文：日一二三四五六

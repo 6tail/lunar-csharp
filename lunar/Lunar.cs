@@ -2121,14 +2121,7 @@ namespace Lunar
                 start = start.Next(10);
                 days = current.Subtract(start);
                 var liQiuSolar = new Solar(liQiu.Year, liQiu.Month, liQiu.Day);
-                if (!liQiuSolar.IsAfter(start))
-                {
-                    if (days < 10)
-                    {
-                        return new Fu("末伏", days + 1);
-                    }
-                }
-                else
+                if (liQiuSolar.IsAfter(start))
                 {
                     if (days < 10)
                     {
@@ -2136,10 +2129,10 @@ namespace Lunar
                     }
                     start = start.Next(10);
                     days = current.Subtract(start);
-                    if (days < 10)
-                    {
-                        return new Fu("末伏", days + 1);
-                    }
+                }
+                if (days < 10)
+                {
+                    return new Fu("末伏", days + 1);
                 }
                 return null;
             }

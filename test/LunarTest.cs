@@ -485,7 +485,7 @@ namespace test
         {
             var solar = Solar.FromYmdHms(2011, 11, 12);
             var lunar = solar.Lunar;
-            Assert.Equal("厕灶厨 外西南", lunar.DayPositionTai);
+            Assert.Equal("厨灶厕 外西南", lunar.DayPositionTai);
         }
 
         [Fact]
