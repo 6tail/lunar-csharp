@@ -229,7 +229,7 @@ namespace Lunar
             var l = new List<Solar>();
             var years = new List<int>();
             var today = new Solar();
-            var offsetYear = LunarUtil.GetJiaZiIndex(today.Lunar.YearInGanZhiExact) - LunarUtil.GetJiaZiIndex(yearGanZhi);
+            var offsetYear = (today.Year - 4) % 60 - LunarUtil.GetJiaZiIndex(yearGanZhi);
             if (offsetYear < 0)
             {
                 offsetYear += 60;

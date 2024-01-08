@@ -112,13 +112,13 @@ namespace Lunar.EightChar
         /// <summary>
         /// 年天干十神
         /// </summary>
-        public string YearShiShenGan => LunarUtil.SHI_SHEN_GAN[$"{DayGan}{YearGan}"];
+        public string YearShiShenGan => LunarUtil.SHI_SHEN[$"{DayGan}{YearGan}"];
 
         private List<string> GetShiShenZhi(string zhi)
         {
             var hideGan = LunarUtil.ZHI_HIDE_GAN[zhi];
             var l = new List<string>(hideGan.Count);
-            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN_ZHI[$"{DayGan}{gan}"]));
+            l.AddRange(hideGan.Select(gan => LunarUtil.SHI_SHEN[$"{DayGan}{gan}"]));
             return l;
         }
 
@@ -189,7 +189,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 月十神干
         /// </summary>
-        public string MonthShiShenGan => LunarUtil.SHI_SHEN_GAN[$"{DayGan}{MonthGan}"];
+        public string MonthShiShenGan => LunarUtil.SHI_SHEN[$"{DayGan}{MonthGan}"];
 
         /// <summary>
         /// 月十神支
@@ -279,7 +279,7 @@ namespace Lunar.EightChar
         /// <summary>
         /// 时十神干
         /// </summary>
-        public string TimeShiShenGan => LunarUtil.SHI_SHEN_GAN[$"{DayGan}{TimeGan}"];
+        public string TimeShiShenGan => LunarUtil.SHI_SHEN[$"{DayGan}{TimeGan}"];
 
         /// <summary>
         /// 时十神支
