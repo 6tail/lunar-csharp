@@ -296,7 +296,7 @@ namespace test
             var lunar = solar.Lunar;
             var eightChar = lunar.EightChar;
 
-            Assert.Equal("丁丑", eightChar.ShenGong);
+            Assert.Equal("乙丑", eightChar.ShenGong);
         }
 
         [Fact]

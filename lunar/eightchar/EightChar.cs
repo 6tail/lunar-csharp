@@ -346,31 +346,27 @@ namespace Lunar.EightChar
                 var timeZhiIndex = 0;
                 for (int i = 0, j = MONTH_ZHI.Length; i < j; i++)
                 {
-                    var zhi = MONTH_ZHI[i];
-                    if (Lunar.MonthZhiExact.Equals(zhi))
+                    if (MonthZhi.Equals(MONTH_ZHI[i]))
                     {
                         monthZhiIndex = i;
+                        break;
                     }
-                    if (Lunar.TimeZhi.Equals(zhi))
+                }
+                for (int i = 0, j = MONTH_ZHI.Length; i < j; i++)
+                {
+                    if (TimeZhi.Equals(MONTH_ZHI[i]))
                     {
                         timeZhiIndex = i;
+                        break;
                     }
                 }
-                var zhiIndex = 26 - (monthZhiIndex + timeZhiIndex);
-                if (zhiIndex > 12)
-                {
-                    zhiIndex -= 12;
+                var offset = monthZhiIndex + timeZhiIndex;
+                offset = (offset >= 14 ? 26 : 14) - offset;
+                var ganIndex = (Lunar.YearGanIndexExact + 1) * 2 + offset;
+                while (ganIndex > 10) {
+                    ganIndex -= 10;
                 }
-                var jiaZiIndex = LunarUtil.GetJiaZiIndex(Lunar.MonthInGanZhiExact) - (monthZhiIndex - zhiIndex);
-                if (jiaZiIndex >= 60)
-                {
-                    jiaZiIndex -= 60;
-                }
-                if (jiaZiIndex < 0)
-                {
-                    jiaZiIndex += 60;
-                }
-                return LunarUtil.JIA_ZI[jiaZiIndex];
+                return LunarUtil.GAN[ganIndex] + MONTH_ZHI[offset];
             }
         }
 
@@ -390,31 +386,29 @@ namespace Lunar.EightChar
                 var timeZhiIndex = 0;
                 for (int i = 0, j = MONTH_ZHI.Length; i < j; i++)
                 {
-                    var zhi = MONTH_ZHI[i];
-                    if (Lunar.MonthZhiExact.Equals(zhi))
+                    if (MonthZhi.Equals(MONTH_ZHI[i]))
                     {
                         monthZhiIndex = i;
+                        break;
                     }
-                    if (Lunar.TimeZhi.Equals(zhi))
+                }
+                for (int i = 0, j = LunarUtil.ZHI.Length; i < j; i++)
+                {
+                    if (TimeZhi.Equals(LunarUtil.ZHI[i]))
                     {
                         timeZhiIndex = i;
+                        break;
                     }
                 }
-                var zhiIndex = 2 + monthZhiIndex + timeZhiIndex;
-                if (zhiIndex > 12)
-                {
-                    zhiIndex -= 12;
+                var offset = monthZhiIndex + timeZhiIndex;
+                while (offset > 12) {
+                    offset -= 12;
                 }
-                var jiaZiIndex = LunarUtil.GetJiaZiIndex(Lunar.MonthInGanZhiExact) - (monthZhiIndex - zhiIndex);
-                if (jiaZiIndex >= 60)
-                {
-                    jiaZiIndex -= 60;
+                var ganIndex = (Lunar.YearGanIndexExact + 1) * 2 + (offset % 12);
+                while (ganIndex > 10) {
+                    ganIndex -= 10;
                 }
-                if (jiaZiIndex < 0)
-                {
-                    jiaZiIndex += 60;
-                }
-                return LunarUtil.JIA_ZI[jiaZiIndex];
+                return LunarUtil.GAN[ganIndex] + MONTH_ZHI[offset];
             }
         }
 
