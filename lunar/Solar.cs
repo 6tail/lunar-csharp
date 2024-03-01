@@ -223,64 +223,97 @@ namespace Lunar
         /// <param name="sect">流派，2晚子时日柱按当天，1晚子时日柱按明天</param>
         /// <param name="baseYear">起始年</param>
         /// <returns>符合的阳历列表</returns>
-        public static List<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi, int sect = 2, int baseYear = 1900)
+        public static List<Solar> FromBaZi(string yearGanZhi, string monthGanZhi, string dayGanZhi, string timeGanZhi,
+            int sect = 2, int baseYear = 1900)
         {
             sect = (1 == sect) ? 1 : 2;
             var l = new List<Solar>();
-            var years = new List<int>();
-            var today = new Solar();
-            var offsetYear = (today.Year - 4) % 60 - LunarUtil.GetJiaZiIndex(yearGanZhi);
-            if (offsetYear < 0)
+            // 月地支距寅月的偏移值
+            var m = LunarUtil.find(monthGanZhi.Substring(1), LunarUtil.ZHI, -1) - 2;
+            if (m < 0)
             {
-                offsetYear += 60;
-            }
-            var startYear = today.Year - offsetYear - 1;
-            var minYear = baseYear - 2;
-            while (startYear >= minYear)
-            {
-                years.Add(startYear);
-                startYear -= 60;
-            }
-            var hours = new List<int>();
-            var timeZhi = timeGanZhi.Substring(1);
-            for (int i = 1, j = LunarUtil.ZHI.Length; i < j; i++)
-            {
-                if (LunarUtil.ZHI[i].Equals(timeZhi))
-                {
-                    hours.Add((i - 1) * 2);
-                }
+                m += 12;
             }
 
-            if ("子".Equals(timeZhi))
+            // 月天干要一致
+            if (((LunarUtil.find(yearGanZhi.Substring(0, 1), LunarUtil.GAN, -1) + 1) * 2 + m) % 10 !=
+                LunarUtil.find(monthGanZhi.Substring(0, 1), LunarUtil.GAN, -1))
             {
-                hours.Add(23);
+                return l;
             }
 
-            foreach (var hour in hours)
+            // 1年的立春是辛酉，序号57
+            var y = LunarUtil.GetJiaZiIndex(yearGanZhi) - 57;
+            if (y < 0)
             {
-                foreach (var y in years)
+                y += 60;
+            }
+
+            y++;
+            // 节令偏移值
+            m *= 2;
+            // 时辰地支转时刻，子时按零点算
+            var h = LunarUtil.find(timeGanZhi.Substring(1), LunarUtil.ZHI, -1) * 2;
+            int[] hours = { h };
+            if (0 == h && 2 == sect)
+            {
+                hours = new [] { 0, 23 };
+            }
+
+            var startYear = baseYear - 1;
+
+            // 结束年
+            var endYear = DateTime.Now.Year;
+
+            while (y <= endYear)
+            {
+                if (y >= startYear)
                 {
-                    var maxYear = y + 3;
-                    var year = y;
-                    var month = 11;
-                    if (year < baseYear)
+                    // 立春为寅月的开始
+                    var solarTime = Lunar.FromYmdHms(y, 1, 1).JieQiTable[Lunar.JIE_QI_IN_USE[4 + m]];
+                    // 节令推移，年干支和月干支就都匹配上了
+                    if (solarTime.Year >= baseYear)
                     {
-                        year = baseYear;
-                        month = 1;
-                    }
-                    var solar = new Solar(year, month, 1, hour);
-                    while (solar.Year <= maxYear)
-                    {
-                        var lunar = solar.Lunar;
+                        // 日干支和节令干支的偏移值
+                        var lunar = solarTime.Lunar;
                         var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
-                        if (lunar.YearInGanZhiExact.Equals(yearGanZhi) && lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) && lunar.TimeInGanZhi.Equals(timeGanZhi))
+                        var d = LunarUtil.GetJiaZiIndex(dayGanZhi) - LunarUtil.GetJiaZiIndex(dgz);
+                        if (d < 0)
                         {
-                            l.Add(solar);
-                            break;
+                            d += 60;
                         }
-                        solar = solar.Next(1);
+
+                        if (d > 0)
+                        {
+                            // 从节令推移天数
+                            solarTime = solarTime.Next(d);
+                        }
+
+                        foreach (var hour in hours)
+                        {
+                            var mi = 0;
+                            var s = 0;
+                            if (d == 0 && hour == solarTime.Hour)
+                            {
+                                // 如果正好是节令当天，且小时和节令的小时数相等的极端情况，把分钟和秒钟带上
+                                mi = solarTime.Minute;
+                                s = solarTime.Second;
+                            }
+
+                            // 验证一下
+                            var solar = Solar.FromYmdHms(solarTime.Year, solarTime.Month, solarTime.Day, hour, mi, s);
+                            lunar = solar.Lunar;
+                            dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
+                            if (lunar.YearInGanZhiExact.Equals(yearGanZhi) &&
+                                lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) &&
+                                lunar.TimeInGanZhi.Equals(timeGanZhi))
+                            {
+                                l.Add(solar);
+                            }
+                        }
                     }
                 }
+                y += 60;
             }
             return l;
         }

@@ -251,7 +251,7 @@ namespace test
         public void TestEightChar2Solar()
         {
             var l = Solar.FromBaZi("辛丑", "丁酉", "丙寅", "戊戌");
-            string[] solarList = { "2021-09-15 20:00:00 星期三 处女座", "1961-09-30 20:00:00 星期六 天秤座" };
+            string[] solarList = { "1961-09-30 20:00:00 星期六 天秤座", "2021-09-15 20:00:00 星期三 处女座" };
             for (int i = 0, j = solarList.Length; i < j; i++)
             {
                 _testOutputHelper.WriteLine(l[i].JulianDay.ToString());
@@ -351,8 +351,8 @@ namespace test
 
             var expected = new List<string>
             {
-                "1976-09-21 12:00:00",
-                "1916-10-06 12:00:00"
+                "1916-10-06 12:00:00",
+                "1976-09-21 12:00:00"
             };
 
             Assert.Equal(expected, actual);
@@ -380,8 +380,8 @@ namespace test
 
             var expected = new List<string>
             {
-                "1999-07-21 16:00:00",
-                "1939-08-05 16:00:00"
+                "1939-08-05 16:00:00",
+                "1999-07-21 16:00:00"
             };
 
             Assert.Equal(expected, actual);
@@ -395,8 +395,8 @@ namespace test
 
             var expected = new List<string>
             {
-                "1960-12-17 12:00:00",
-                "1901-01-01 12:00:00"
+                "1901-01-01 12:00:00",
+                "1960-12-17 12:00:00"
             };
 
             Assert.Equal(expected, actual);
@@ -410,8 +410,8 @@ namespace test
 
             var expected = new List<string>
             {
-                "2020-07-21 22:00:00",
-                "1960-08-05 22:00:00"
+                "1960-08-05 22:00:00",
+                "2020-07-21 22:00:00"
             };
 
             Assert.Equal(expected, actual);
@@ -425,8 +425,8 @@ namespace test
 
             var expected = new List<string>
             {
-                "2023-02-24 23:00:00",
-                "1843-02-08 23:00:00"
+                "1843-02-08 23:00:00",
+                "2023-02-24 23:00:00"
             };
 
             Assert.Equal(expected, actual);
@@ -440,8 +440,8 @@ namespace test
 
             var expected = new List<string>
             {
-                "1960-01-15 16:00:00",
-                "1900-01-29 16:00:00"
+                "1900-01-29 16:00:00",
+                "1960-01-15 16:00:00"
             };
 
             Assert.Equal(expected, actual);

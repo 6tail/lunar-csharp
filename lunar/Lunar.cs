@@ -1704,7 +1704,7 @@ namespace Lunar
                 var day = wholeDay ? current.Ymd : current.YmdHms;
                 if (forward)
                 {
-                    if (string.Compare(day, today, StringComparison.Ordinal) < 0)
+                    if (string.Compare(day, today, StringComparison.Ordinal) <= 0)
                     {
                         continue;
                     }
