@@ -275,9 +275,7 @@ namespace Lunar
                     if (solarTime.Year >= baseYear)
                     {
                         // 日干支和节令干支的偏移值
-                        var lunar = solarTime.Lunar;
-                        var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
-                        var d = LunarUtil.GetJiaZiIndex(dayGanZhi) - LunarUtil.GetJiaZiIndex(dgz);
+                        var d = LunarUtil.GetJiaZiIndex(dayGanZhi) - LunarUtil.GetJiaZiIndex(solarTime.Lunar.DayInGanZhiExact2);
                         if (d < 0)
                         {
                             d += 60;
@@ -301,9 +299,9 @@ namespace Lunar
                             }
 
                             // 验证一下
-                            var solar = Solar.FromYmdHms(solarTime.Year, solarTime.Month, solarTime.Day, hour, mi, s);
-                            lunar = solar.Lunar;
-                            dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
+                            var solar = FromYmdHms(solarTime.Year, solarTime.Month, solarTime.Day, hour, mi, s);
+                            var lunar = solar.Lunar;
+                            var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                             if (lunar.YearInGanZhiExact.Equals(yearGanZhi) &&
                                 lunar.MonthInGanZhiExact.Equals(monthGanZhi) && dgz.Equals(dayGanZhi) &&
                                 lunar.TimeInGanZhi.Equals(timeGanZhi))
