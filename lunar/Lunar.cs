@@ -168,7 +168,7 @@ namespace Lunar
         public EightChar.EightChar EightChar => _eightChar ?? (_eightChar = new EightChar.EightChar(this));
 
         private Foto _foto;
-        
+
         /// <summary>
         /// 佛历
         /// </summary>
@@ -184,7 +184,7 @@ namespace Lunar
         /// <summary>
         /// 默认使用当前日期初始化
         /// </summary>
-        public Lunar(): this(DateTime.Now)
+        public Lunar() : this(DateTime.Now)
         {
         }
 
@@ -222,7 +222,8 @@ namespace Lunar
             Second = second;
             var noon = Solar.FromJulianDay(m.FirstJulianDay + lunarDay - 1);
             Solar = Solar.FromYmdHms(noon.Year, noon.Month, noon.Day, hour, minute, second);
-            if (noon.Year != lunarYear) {
+            if (noon.Year != lunarYear)
+            {
                 y = LunarYear.FromYear(noon.Year);
             }
             Compute(y);
@@ -234,7 +235,7 @@ namespace Lunar
         /// <param name="solar">阳历</param>
         public Lunar(Solar solar)
         {
-            var ly = LunarYear.FromYear(solar.Year);            
+            var ly = LunarYear.FromYear(solar.Year);
             foreach (var m in ly.Months)
             {
                 var days = solar.Subtract(Solar.FromJulianDay(m.FirstJulianDay));
@@ -252,12 +253,12 @@ namespace Lunar
             Solar = solar;
             Compute(ly);
         }
-        
+
         /// <summary>
         /// 通过阳历日期初始化
         /// </summary>
         /// <param name="date">阳历日期</param>
-        public Lunar(DateTime date): this(Solar.FromDate(date))
+        public Lunar(DateTime date) : this(Solar.FromDate(date))
         {
         }
 
@@ -447,7 +448,7 @@ namespace Lunar
             TimeZhiIndex = LunarUtil.GetTimeZhiIndex(hm);
             TimeGanIndex = (DayGanIndexExact % 5 * 2 + TimeZhiIndex) % 10;
         }
-        
+
         private void ComputeWeek()
         {
             WeekIndex = Solar.Week;
@@ -526,7 +527,7 @@ namespace Lunar
         /// <summary>
         /// 日天干（八字流派2，晚子时日柱算当天），如甲
         /// </summary>
-        public string DayGanExact2 =>  LunarUtil.GAN[DayGanIndexExact2 + 1];
+        public string DayGanExact2 => LunarUtil.GAN[DayGanIndexExact2 + 1];
 
         /// <summary>
         /// 年地支（以正月初一作为新年的开始），如亥
@@ -779,16 +780,11 @@ namespace Lunar
             get
             {
                 var l = new List<string>();
-                try
-                {
-                    l.Add(LunarUtil.FESTIVAL[$"{Month}-{Day}"]);
-                }
-                catch
-                {
-                    // ignored
-                }
+                if (LunarUtil.FESTIVAL.TryGetValue($"{Month}-{Day}", out var festival))
+                    l.Add(festival);
 
-                if (Math.Abs(Month) == 12 && Day >= 29 && Year != Next(1).Year) {
+                if (Math.Abs(Month) == 12 && Day >= 29 && Year != Next(1).Year)
+                {
                     l.Add("除夕");
                 }
                 return l;
@@ -803,14 +799,8 @@ namespace Lunar
             get
             {
                 var l = new List<string>();
-                try
-                {
-                    l.AddRange(LunarUtil.OTHER_FESTIVAL[$"{Month}-{Day}"]);
-                }
-                catch
-                {
-                    // ignored
-                }
+                if (LunarUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
+                    l.AddRange(festivals);
 
                 var solarYmd = Solar.Ymd;
                 var jq = JieQiTable["清明"];
@@ -951,7 +941,7 @@ namespace Lunar
         /// 年太岁方位（流派2新年以立春零点起算）
         /// </summary>
         public string YearPositionTaiSui => GetYearPositionTaiSui();
-        
+
         /// <summary>
         /// 年太岁方位描述（流派2新年以立春零点起算），如东北
         /// </summary>
@@ -1410,9 +1400,12 @@ namespace Lunar
             var indexExact = LunarUtil.GetJiaZiIndex(yearInGanZhi) + 1;
             var index = LunarUtil.GetJiaZiIndex(YearInGanZhi) + 1;
             var yearOffset = indexExact - index;
-            if (yearOffset > 1) {
+            if (yearOffset > 1)
+            {
                 yearOffset -= 60;
-            } else if (yearOffset < -1) {
+            }
+            else if (yearOffset < -1)
+            {
                 yearOffset += 60;
             }
             var yuan = (Year + yearOffset + 2696) / 60 % 3;
@@ -2072,7 +2065,7 @@ namespace Lunar
                 }
 
                 var end = new Solar(start.Year, start.Month, start.Day).Next(81);
-                
+
                 if (current.IsBefore(start) || !current.IsBefore(end))
                 {
                     return null;
@@ -2089,7 +2082,7 @@ namespace Lunar
         public Fu Fu
         {
             get
-            { 
+            {
                 var current = new Solar(Solar.Year, Solar.Month, Solar.Day);
                 var xiaZhi = JieQiTable["夏至"];
                 var liQiu = JieQiTable["立秋"];
@@ -2161,7 +2154,8 @@ namespace Lunar
                     }
                 }
                 var index = Solar.Subtract(jieQi.Solar) / 5;
-                if (index > 2) {
+                if (index > 2)
+                {
                     index = 2;
                 }
                 return LunarUtil.WU_HOU[(offset * 3 + index) % LunarUtil.WU_HOU.Length];
@@ -2195,14 +2189,7 @@ namespace Lunar
             {
                 var gan = LunarUtil.LU[DayGan];
                 string zhi = null;
-                try
-                {
-                    zhi = LunarUtil.LU[DayZhi];
-                }
-                catch
-                {
-                    // ignored
-                }
+                LunarUtil.LU.TryGetValue(DayZhi, out zhi);
 
                 var lu = $"{gan}命互禄";
                 if (null != zhi)
@@ -2225,7 +2212,7 @@ namespace Lunar
         {
             get
             {
-                var l = new List<LunarTime> {new LunarTime(Year, Month, Day, 0, 0, 0)};
+                var l = new List<LunarTime> { new LunarTime(Year, Month, Day, 0, 0, 0) };
                 for (var i = 0; i < 12; i++)
                 {
                     l.Add(new LunarTime(Year, Month, Day, (i + 1) * 2 - 1, 0, 0));

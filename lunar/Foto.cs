@@ -120,19 +120,12 @@ namespace Lunar
             get
             {
                 var l = new List<FotoFestival>();
-                try
-                {
-                    l.AddRange(FotoUtil.FESTIVAL[Math.Abs(Month) + "-" + Day]);
-                }
-                catch
-                {
-                    // ignored
-                }
-
+                if (FotoUtil.FESTIVAL.TryGetValue(Math.Abs(Month) + "-" + Day, out var festivals))
+                    l.AddRange(festivals);
                 return l;
             }
         }
-        
+
         /// <summary>
         /// 纪念日
         /// </summary>
@@ -141,15 +134,8 @@ namespace Lunar
             get
             {
                 var l = new List<string>();
-                try
-                {
-                    var fs = FotoUtil.OTHER_FESTIVAL[$"{Month}-{Day}"];
-                    l.AddRange(fs);
-                }
-                catch
-                {
-                    // ignored
-                }
+                if (FotoUtil.OTHER_FESTIVAL.TryGetValue($"{Month}-{Day}", out var festivals))
+                    l.AddRange(festivals);
                 return l;
             }
         }
@@ -192,10 +178,10 @@ namespace Lunar
                     case 30:
                         return true;
                     case 28:
-                    {
-                        var m = LunarMonth.FromYm(Lunar.Year, Month);
-                        return null != m && 30 != m.DayCount;
-                    }
+                        {
+                            var m = LunarMonth.FromYm(Lunar.Year, Month);
+                            return null != m && 30 != m.DayCount;
+                        }
                     default:
                         return false;
                 }
@@ -205,7 +191,7 @@ namespace Lunar
         /// <summary>
         /// 十斋日
         /// </summary>
-        public bool DayZhaiTen => Day == 1 || Day == 8  || Day == 14  || Day == 15  || Day == 18  || Day == 23  || Day == 24  || Day == 28  || Day == 29  || Day == 30;
+        public bool DayZhaiTen => Day == 1 || Day == 8 || Day == 14 || Day == 15 || Day == 18 || Day == 23 || Day == 24 || Day == 28 || Day == 29 || Day == 30;
 
         /// <summary>
         /// 观音斋日
