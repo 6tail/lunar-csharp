@@ -10,7 +10,7 @@ namespace Lunar.EightChar
     public class LiuYue
     {
         /// <summary>
-        /// 序数，0-9
+        /// 序数，0-11
         /// </summary>
         public int Index { get; }
 

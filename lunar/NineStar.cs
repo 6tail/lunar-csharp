@@ -20,7 +20,7 @@ namespace Lunar
         /// <summary>
         /// 七色
         /// </summary>
-        public static readonly string[] COLOR = { "白", "黒", "碧", "绿", "黄", "白", "赤", "白", "紫" };
+        public static readonly string[] COLOR = { "白", "黑", "碧", "绿", "黄", "白", "赤", "白", "紫" };
 
         /// <summary>
         /// 五行
