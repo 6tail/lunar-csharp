@@ -6,7 +6,6 @@
         <RootNamespace>Lunar</RootNamespace>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <PackageId>lunar-csharp</PackageId>
-        <PackageVersion>1.6.1</PackageVersion>
         <Title>无依赖的阳历、阴历、道历和佛历工具库</Title>
         <Authors>6tail</Authors>
         <Description>日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道日及吉凶等。</Description>
@@ -16,12 +15,13 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>日历;公历;阳历;农历;阴历;老黄历;佛历;道历;法定假日</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <AssemblyVersion>1.6.1</AssemblyVersion>
-        <FileVersion>1.6.1</FileVersion>
-        <PackageReleaseNotes>修复九星错别字；修复每日宜忌错别字；去除每日宜忌的重复项。。</PackageReleaseNotes>
         <PackageIcon>lunar.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageVersion>1.6.2</PackageVersion>
+        <AssemblyVersion>1.6.2</AssemblyVersion>
+        <FileVersion>1.6.2</FileVersion>
+        <PackageReleaseNotes>修改每日宜忌默认流派；更新2018之后的△T参数。</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -1355,14 +1355,34 @@ namespace Lunar
         public string MonthPositionTai => Month < 0 ? "" : LunarUtil.POSITION_TAI_MONTH[Month - 1];
 
         /// <summary>
+        /// 日宜，如果没有，返回["无"]，默认流派1
+        /// </summary>
+        public List<string> DayYi => GetDayYi();
+
+        /// <summary>
         /// 日宜，如果没有，返回["无"]
         /// </summary>
-        public List<string> DayYi => LunarUtil.GetDayYi(MonthInGanZhiExact, DayInGanZhi);
+        /// <param name="sect">流派，1以节交接当天起算月，2以节交接时刻起算月</param>
+        /// <returns>宜</returns>
+        public List<string> GetDayYi(int sect = 1)
+        {
+            return LunarUtil.GetDayYi(2 == sect ? MonthInGanZhiExact : MonthInGanZhi, DayInGanZhi);
+        }
 
+        /// <summary>
+        /// 日忌，如果没有，返回["无"]，默认流派1
+        /// </summary>
+        public List<string> DayJi => GetDayJi();
+        
         /// <summary>
         /// 日忌，如果没有，返回["无"]
         /// </summary>
-        public List<string> DayJi => LunarUtil.GetDayJi(MonthInGanZhiExact, DayInGanZhi);
+        /// <param name="sect">流派，1以节交接当天起算月，2以节交接时刻起算月</param>
+        /// <returns>忌</returns>
+        public List<string> GetDayJi(int sect = 1)
+        {
+            return LunarUtil.GetDayJi(2 == sect ? MonthInGanZhiExact : MonthInGanZhi, DayInGanZhi);
+        }
 
         /// <summary>
         /// 日吉神（宜趋），如果没有，返回["无"]
