@@ -18,10 +18,10 @@
         <PackageIcon>lunar.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageVersion>1.6.2</PackageVersion>
-        <AssemblyVersion>1.6.2</AssemblyVersion>
-        <FileVersion>1.6.2</FileVersion>
-        <PackageReleaseNotes>修改每日宜忌默认流派；更新2018之后的△T参数。</PackageReleaseNotes>
+        <PackageVersion>1.6.3</PackageVersion>
+        <AssemblyVersion>1.6.3</AssemblyVersion>
+        <FileVersion>1.6.3</FileVersion>
+        <PackageReleaseNotes>修复个别日太岁方位的错误；修复八字身宫计算错误的问题。</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
