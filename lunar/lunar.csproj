@@ -18,10 +18,10 @@
         <PackageIcon>lunar.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageVersion>1.6.3</PackageVersion>
-        <AssemblyVersion>1.6.3</AssemblyVersion>
-        <FileVersion>1.6.3</FileVersion>
-        <PackageReleaseNotes>修复个别日太岁方位的错误；修复八字身宫计算错误的问题。</PackageReleaseNotes>
+        <PackageVersion>1.6.4</PackageVersion>
+        <AssemblyVersion>1.6.4</AssemblyVersion>
+        <FileVersion>1.6.4</FileVersion>
+        <PackageReleaseNotes>修复身宫报错的问题。</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -31,7 +31,7 @@
     <ItemGroup>
       <None Update="lunar.png">
         <Pack>True</Pack>
-        <PackagePath />
+        <PackagePath/>
       </None>
       <None Include="README.md">
         <Pack>True</Pack>

@@ -400,12 +400,16 @@ namespace Lunar.EightChar
                         break;
                     }
                 }
-                var offset = (monthZhiIndex + timeZhiIndex - 1) % 12;
+                var offset = monthZhiIndex + timeZhiIndex;
+                if (offset > 12)
+                {
+                    offset -= 12;
+                }
                 var ganIndex = (Lunar.YearGanIndexExact + 1) * 2 + offset;
                 while (ganIndex > 10) {
                     ganIndex -= 10;
                 }
-                return LunarUtil.GAN[ganIndex + 1] + MONTH_ZHI[offset + 1];
+                return LunarUtil.GAN[ganIndex] + MONTH_ZHI[offset];
             }
         }
 
