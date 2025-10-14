@@ -18,10 +18,10 @@
         <PackageIcon>lunar.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageVersion>1.6.4</PackageVersion>
-        <AssemblyVersion>1.6.4</AssemblyVersion>
-        <FileVersion>1.6.4</FileVersion>
-        <PackageReleaseNotes>修复身宫报错的问题。</PackageReleaseNotes>
+        <PackageVersion>1.6.5</PackageVersion>
+        <AssemblyVersion>1.6.5</AssemblyVersion>
+        <FileVersion>1.6.5</FileVersion>
+        <PackageReleaseNotes>修复极端情况下八字转公历时刻出现遗漏的问题；更新△T参数；优化吉神宜驱、凶神宜忌；修复候的错别字。</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

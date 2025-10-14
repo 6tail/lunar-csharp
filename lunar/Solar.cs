@@ -300,6 +300,10 @@ namespace Lunar
 
                             // 验证一下
                             var solar = FromYmdHms(solarTime.Year, solarTime.Month, solarTime.Day, hour, mi, s);
+                            if (d == 30)
+                            {
+                                solar = solar.NextHour(-1);
+                            }
                             var lunar = solar.Lunar;
                             var dgz = (2 == sect) ? lunar.DayInGanZhiExact2 : lunar.DayInGanZhiExact;
                             if (lunar.YearInGanZhiExact.Equals(yearGanZhi) &&
