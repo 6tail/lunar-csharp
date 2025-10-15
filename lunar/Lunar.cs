@@ -1387,12 +1387,12 @@ namespace Lunar
         /// <summary>
         /// 日吉神（宜趋），如果没有，返回["无"]
         /// </summary>
-        public List<string> DayJiShen => LunarUtil.GetDayJiShen(Month, DayInGanZhi);
+        public List<string> DayJiShen => LunarUtil.GetDayJiShen(MonthZhiIndex, DayInGanZhi);
 
         /// <summary>
         /// 日凶煞（宜忌），如果没有，返回["无"]
         /// </summary>
-        public List<string> DayXiongSha => LunarUtil.GetDayXiongSha(Month, DayInGanZhi);
+        public List<string> DayXiongSha => LunarUtil.GetDayXiongSha(MonthZhiIndex, DayInGanZhi);
 
         /// <summary>
         /// 时辰宜，如果没有，返回["无"]
