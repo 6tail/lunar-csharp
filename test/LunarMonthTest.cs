@@ -23,7 +23,7 @@ namespace test
         {
             var month = LunarMonth.FromYm(2023, -2);
             Assert.Equal(3, month.Index);
-            Assert.Equal("丙辰", month.GanZhi);
+            Assert.Equal("乙卯", month.GanZhi);
         }
         
         [Fact]
@@ -31,7 +31,7 @@ namespace test
         {
             var month = LunarMonth.FromYm(2023, 3);
             Assert.Equal(4, month.Index);
-            Assert.Equal("丁巳", month.GanZhi);
+            Assert.Equal("丙辰", month.GanZhi);
         }
         
         [Fact]
@@ -47,7 +47,7 @@ namespace test
         {
             var month = LunarMonth.FromYm(2023, 12);
             Assert.Equal(13, month.Index);
-            Assert.Equal("丙寅", month.GanZhi);
+            Assert.Equal("乙丑", month.GanZhi);
         }
         
         [Fact]

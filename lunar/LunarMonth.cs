@@ -54,7 +54,7 @@ namespace Lunar
             DayCount = dayCount;
             FirstJulianDay = firstJulianDay;
             Index = index;
-            ZhiIndex = (index - 1 + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
+            ZhiIndex = (Math.Abs(lunarMonth) - 1 + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Lunar
             get
             {
                 var offset = (LunarYear.FromYear(Year).GanIndex + 1) % 5 * 2;
-                return (Index - 1 + offset) % 10;
+                return (Math.Abs(Month) - 1 + offset) % 10;
             }
         }
 

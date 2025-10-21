@@ -1095,7 +1095,7 @@ namespace Lunar.Util
             var m = monthZhiIndex - 2;
             if (m < 0)
             {
-                m += 10;
+                m += 12;
             }
     
             var pattern = $";{GetJiaZiIndex(dayGanZhi):X2}(.[^;]*)";
@@ -1133,7 +1133,7 @@ namespace Lunar.Util
             var m = monthZhiIndex - 2;
             if (m < 0)
             {
-                m += 10;
+                m += 12;
             }
     
             var pattern = $";{GetJiaZiIndex(dayGanZhi):X2}(.[^;]*)";
