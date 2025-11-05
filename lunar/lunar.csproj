@@ -18,10 +18,10 @@
         <PackageIcon>lunar.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageVersion>1.6.7</PackageVersion>
-        <AssemblyVersion>1.6.7</AssemblyVersion>
-        <FileVersion>1.6.7</FileVersion>
-        <PackageReleaseNotes>修复吉神宜驱、凶神宜忌的错误；修复农历闰月及后续月份的干支错误。</PackageReleaseNotes>
+        <PackageVersion>1.6.8</PackageVersion>
+        <AssemblyVersion>1.6.8</AssemblyVersion>
+        <FileVersion>1.6.8</FileVersion>
+        <PackageReleaseNotes>新增2026年法定假日。</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
