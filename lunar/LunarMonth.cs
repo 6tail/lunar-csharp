@@ -230,7 +230,7 @@ namespace Lunar
         /// <inheritdoc />
         public override string ToString()
         {
-            return Year + "年" + (Leap ? "闰" : "") + LunarUtil.MONTH[Math.Abs(Month)] + "月(" + DayCount + "天)";
+            return Year + "年" + (Leap ? TextResource.Instance.LeapChar : "") + LunarUtil.MONTH[Math.Abs(Month)] + "月(" + DayCount + "天)";
         }
 
         /// <summary>

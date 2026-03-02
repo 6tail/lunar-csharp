@@ -8,7 +8,11 @@ namespace test
     /// </summary>
     public class LunarTest
     {
-        
+        public LunarTest()
+        {
+            Lunar.Util.TextResource.SwitchToCulture("zh-CN");
+        }
+
         [Fact]
         public void Test1()
         {

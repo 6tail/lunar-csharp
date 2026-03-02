@@ -502,7 +502,7 @@ namespace Lunar
                 if (LeapYear)
                 {
                     s.Append(' ');
-                    s.Append("闰年");
+                    s.Append(TextResource.Instance.LeapYear);
                 }
                 s.Append(' ');
                 s.Append("星期");

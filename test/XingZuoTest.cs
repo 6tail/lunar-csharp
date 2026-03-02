@@ -9,6 +9,11 @@ namespace test
     // ReSharper disable once IdentifierTypo
     public class XingZuoTest
     {
+
+        public XingZuoTest()
+        {
+            Lunar.Util.TextResource.SwitchToCulture("zh-CN");
+        }
         
         [Fact]
         public void Test1()

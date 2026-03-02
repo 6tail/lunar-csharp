@@ -1868,95 +1868,32 @@ namespace Lunar
         {
             get
             {
-                StringBuilder s = new StringBuilder();
-                s.Append(ToString());
-                s.Append(' ');
-                s.Append(YearInGanZhi);
-                s.Append('(');
-                s.Append(YearShengXiao);
-                s.Append(")年 ");
-                s.Append(MonthInGanZhi);
-                s.Append('(');
-                s.Append(MonthShengXiao);
-                s.Append(")月 ");
-                s.Append(DayInGanZhi);
-                s.Append('(');
-                s.Append(DayShengXiao);
-                s.Append(")日 ");
-                s.Append(TimeZhi);
-                s.Append('(');
-                s.Append(TimeShengXiao);
-                s.Append(")时 纳音[");
-                s.Append(YearNaYin);
-                s.Append(' ');
-                s.Append(MonthNaYin);
-                s.Append(' ');
-                s.Append(DayNaYin);
-                s.Append(' ');
-                s.Append(TimeNaYin);
-                s.Append("] 星期");
-                s.Append(WeekInChinese);
+                var s = new StringBuilder();
+                s.Append(string.Format(TextResource.Instance.FullStringTemplate1,
+                    ToString(), YearInGanZhi, YearShengXiao, MonthInGanZhi, MonthShengXiao,
+                    DayInGanZhi, DayShengXiao, TimeZhi, TimeShengXiao,
+                    YearNaYin, MonthNaYin, DayNaYin, TimeNaYin, WeekInChinese));
+
                 foreach (var f in Festivals)
-                {
-                    s.Append(" (");
-                    s.Append(f);
-                    s.Append(')');
-                }
+                    s.Append(string.Format(" ({0})", f));
 
                 foreach (var f in OtherFestivals)
-                {
-                    s.Append(" (");
-                    s.Append(f);
-                    s.Append(')');
-                }
+                    s.Append(string.Format(" ({0})", f));
 
                 var jq = JieQi;
                 if (jq.Length > 0)
-                {
-                    s.Append(" [");
-                    s.Append(jq);
-                    s.Append(']');
-                }
+                    s.Append(string.Format(" [{0}]", jq));
 
-                s.Append(' ');
-                s.Append(Gong);
-                s.Append('方');
-                s.Append(Shou);
-                s.Append(" 星宿[");
-                s.Append(Xiu);
-                s.Append(Zheng);
-                s.Append(Animal);
-                s.Append("](");
-                s.Append(XiuLuck);
-                s.Append(") 彭祖百忌[");
-                s.Append(PengZuGan);
-                s.Append(' ');
-                s.Append(PengZuZhi);
-                s.Append("] 喜神方位[");
-                s.Append(DayPositionXi);
-                s.Append("](");
-                s.Append(DayPositionXiDesc);
-                s.Append(") 阳贵神方位[");
-                s.Append(DayPositionYangGui);
-                s.Append("](");
-                s.Append(DayPositionYangGuiDesc);
-                s.Append(") 阴贵神方位[");
-                s.Append(DayPositionYinGui);
-                s.Append("](");
-                s.Append(DayPositionYinGuiDesc);
-                s.Append(") 福神方位[");
-                s.Append(DayPositionFu);
-                s.Append("](");
-                s.Append(DayPositionFuDesc);
-                s.Append(") 财神方位[");
-                s.Append(DayPositionCai);
-                s.Append("](");
-                s.Append(DayPositionCaiDesc);
-                s.Append(") 冲[");
-                s.Append(DayChongDesc);
-                s.Append("] 煞[");
-                s.Append(DaySha);
-                s.Append(']');
+                s.Append(string.Format(TextResource.Instance.FullStringTemplate2,
+                    Gong, Shou, Xiu, Zheng, Animal, XiuLuck,
+                    PengZuGan, PengZuZhi,
+                    DayPositionXi, DayPositionXiDesc,
+                    DayPositionYangGui, DayPositionYangGuiDesc,
+                    DayPositionYinGui, DayPositionYinGuiDesc,
+                    DayPositionFu, DayPositionFuDesc,
+                    DayPositionCai, DayPositionCaiDesc,
+                    DayChongDesc, DaySha));
+
                 return s.ToString();
             }
         }
