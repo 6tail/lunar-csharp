@@ -1,4 +1,5 @@
 using Lunar;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace test
@@ -157,6 +158,26 @@ namespace test
         {
             var year = new LunarYear(2022);
             Assert.Equal(355, year.DayCount);
+        }
+
+        [Fact]
+        public void TestFromYearCache()
+        {
+            Assert.Same(LunarYear.FromYear(1980), LunarYear.FromYear(1980));
+        }
+
+        [Fact]
+        public void TestFromYearCacheConcurrent()
+        {
+            var years = new[] { 1973, 1980, 1995, 2001 };
+            var lunarYears = new LunarYear[100];
+            Parallel.For(0, lunarYears.Length, i => lunarYears[i] = LunarYear.FromYear(years[i % years.Length]));
+
+            for (var i = 0; i < lunarYears.Length; i++)
+            {
+                Assert.Equal(years[i % years.Length], lunarYears[i].Year);
+                Assert.Same(LunarYear.FromYear(years[i % years.Length]), lunarYears[i]);
+            }
         }
     }
 }

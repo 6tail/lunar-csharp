@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Lunar.Util;
@@ -44,9 +45,7 @@ namespace Lunar
         /// <summary>
         /// 缓存年
         /// </summary>
-        private static LunarYear cacheYear;
-        
-        private static readonly Mutex mutex = new Mutex();
+        private static readonly ConcurrentDictionary<int, Lazy<LunarYear>> cacheYears = new ConcurrentDictionary<int, Lazy<LunarYear>>();
 
         /// <summary>
         /// 年
@@ -103,25 +102,7 @@ namespace Lunar
         /// <returns>农历年</returns>
         public static LunarYear FromYear(int lunarYear)
         {
-            mutex.WaitOne();
-            try
-            {
-                LunarYear y;
-                if (null == cacheYear || cacheYear.Year != lunarYear)
-                {
-                    y = new LunarYear(lunarYear);
-                    cacheYear = y;
-                }
-                else
-                {
-                    y = cacheYear;
-                }
-                return y;
-            }
-            finally
-            {
-                mutex.ReleaseMutex();
-            }
+            return cacheYears.GetOrAdd(lunarYear, year => new Lazy<LunarYear>(() => new LunarYear(year), LazyThreadSafetyMode.ExecutionAndPublication)).Value;
         }
 
         private void Compute()

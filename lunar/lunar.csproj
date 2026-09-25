@@ -18,9 +18,9 @@
         <PackageIcon>lunar.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageVersion>1.6.8</PackageVersion>
-        <AssemblyVersion>1.6.8</AssemblyVersion>
-        <FileVersion>1.6.8</FileVersion>
+        <PackageVersion>1.6.8.1</PackageVersion>
+        <AssemblyVersion>1.6.8.1</AssemblyVersion>
+        <FileVersion>1.6.8.1</FileVersion>
         <PackageReleaseNotes>新增2026年法定假日。</PackageReleaseNotes>
     </PropertyGroup>
 
